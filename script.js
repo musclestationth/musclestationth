@@ -584,11 +584,27 @@ function loadCart() {
 
 // ใส่ LIFF ID ของคุณ
 window.onload = function() {
-  liff.init({ liffId: "2007887429-7ERpgpYL" }).then(() => {
+  liff.init({ liffId: "2007887429-QDWq7qPk" }).then(() => {
     renderNewProductsSlider();
     renderCategories();
     loadCart();   // โหลดข้อมูลเก่าจาก localStorage
     renderCart(); // อัพเดทแสดงผลตะกร้า
+
+    const saved = localStorage.getItem("customerInfo");
+    if (saved) {
+      const customer = JSON.parse(saved);
+      document.getElementById("custAddress").value = customer.address || "";
+
+      if (customer.address) {
+        // ถ้ามีข้อมูลแล้ว → lock field และโชว์ปุ่มแก้ไข
+        document.getElementById("custAddress").disabled = true;
+        document.getElementById("saveBtn").style.display = "none";
+        document.getElementById("editBtn").style.display = "inline-block";
+      }
+    }
+
+
+    
   });
 };
 
@@ -597,13 +613,24 @@ window.onload = function() {
 // -------------------------
 async function checkout() {
   if (!cart.length) return alert("ตะกร้าว่าง");
+  
+  // สร้างข้อความรายละเอียดสินค้า
+ /* let orderText = "📦 รายละเอียดคำสั่งซื้อ\n";
+  let totalPrice = 0;
+  cart.forEach(item => {
+    orderText += `${item.name} x${item.qty} = ${item.price * item.qty}฿\n`;
+    totalPrice += item.price * item.qty;
+  });
+
+  orderText += `\n💰 รวมทั้งหมด: ${totalPrice}฿\n`;*/
+  
 
   const itemContents = cart.map(item => ({
     type: "box",
     layout: "horizontal",
     contents: [
-      { type: "text", text: `${item.name} x${item.qty}`, size: "sm", color: "#555555", flex: 0 },
-      { type: "text", text: `${item.price * item.qty}฿`, size: "sm", color: "#111111", align: "end" }
+      { type: "text", text: `${item.name} x${item.qty}`, size: "md", color: "#000000", flex: 0 },
+      { type: "text", text: `${item.price * item.qty}฿`, size: "md", color: "#000000", align: "end" }
     ]
   }));
 
@@ -611,7 +638,7 @@ async function checkout() {
 
   const flexMsg = {
     type: "flex",
-    altText: "ใบเสร็จการสั่งซื้อ",
+    altText: "รายละเอียดคำสั่งซื้อ",
     contents: {
       type: "bubble",
       body: {
@@ -635,8 +662,8 @@ async function checkout() {
             layout: "horizontal",
             margin: "lg",
             contents: [
-              { type: "text", text: "รวมทั้งหมด", size: "sm", color: "#555555" },
-              { type: "text", text: `${totalPrice}฿`, size: "sm", color: "#111111", align: "end", weight: "bold" }
+              { type: "text", text: "รวมทั้งหมด", size: "lg",weight: "bold", color: "#000000" },
+              { type: "text", text: `${totalPrice}฿`, size: "lg", color: "#000000", align: "end", weight: "bold" }
             ]
           }
         ]
@@ -656,17 +683,42 @@ async function checkout() {
               label: "ชำระเงิน",
               uri: "https://liff.line.me/2007887429-Arr5x53g" // ใส่ URL หน้า QR Code จริงของคุณ
             }
+          },
+          {
+            type: "text",
+            text: "**กรุณารอแอดมินเช็คสต็อกสินค้าและconfirm ก่อนกดชำระเงินนะคะ\n**Please wait for checking stocks and confirm this order before payment.",
+            size: "md",
+            color: "#FF0000",
+            wrap: true,
+            margin: "sm"
           }
         ]
       }
-
-
     }
   };
 
+  // --- สร้างข้อความรายละเอียดคำสั่งซื้อ ---
+  let orderText = "📦 รายละเอียดคำสั่งซื้อ\n";
+  cart.forEach(item => {
+    orderText += `${item.name} x${item.qty} = ${item.price * item.qty}฿\n`;
+  });
+  orderText += `\n**รวมทั้งหมด = ${totalPrice}฿`;
+
+  // --- สร้างข้อความข้อมูลลูกค้า ---
+  let customerText = "⚠️ ยังไม่ได้กรอกข้อมูลลูกค้า";
+  const saved = localStorage.getItem("customerInfo");
+  if (saved) {
+    const info = JSON.parse(saved);
+    customerText = `👤 ชื่อ-ที่อยู่จัดส่ง:\n${info.address || "-"}`;
+  }
+  
   try {
-    await liff.sendMessages([flexMsg]);
-    alert("ส่งคำสั่งซื้อแล้ว!");
+    await liff.sendMessages([             // Flex Message
+      { type: "text", text: orderText },   // รายละเอียดคำสั่งซื้อ
+      { type: "text", text: customerText },
+      flexMsg// ข้อมูลลูกค้า
+    ]);
+    alert("ส่งคำสั่งซื้อแล้ว!");   
     cart.length = 0;
     saveCart();
     renderCart();
@@ -677,4 +729,34 @@ async function checkout() {
     console.error('sendMessages error:', err);
     alert("ส่งข้อความไม่สำเร็จ");
   }
+}
+
+function saveCustomerInfo() {
+  const address = document.getElementById("custAddress").value.trim();
+
+ /* if (!address) {
+    alert("กรุณากรอกข้อมูล ชื่อ-ที่อยู่-เบอร์โทร ก่อนบันทึก ❗");
+    return;
+  }*/
+
+  const customer = { address };
+  localStorage.setItem("customerInfo", JSON.stringify(customer));
+
+  // ทำให้ field ใช้ไม่ได้ (disable)
+  document.getElementById("custAddress").disabled = true;
+
+  // ซ่อนปุ่มบันทึก แสดงปุ่มแก้ไข
+  document.getElementById("saveBtn").style.display = "none";
+  document.getElementById("editBtn").style.display = "inline-block";
+
+ // alert("บันทึกข้อมูลเรียบร้อยแล้ว ✅");
+}
+
+function editCustomerInfo() {
+  // เปิดให้แก้ไขได้
+  document.getElementById("custAddress").disabled = false;
+
+  // ซ่อนปุ่มแก้ไข แสดงปุ่มบันทึก
+  document.getElementById("editBtn").style.display = "none";
+  document.getElementById("saveBtn").style.display = "inline-block";
 }
