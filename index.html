@@ -12,7 +12,7 @@
     <button onclick="showTab(1)" class="tab-btn active">🛍 สินค้า</button>
     <button onclick="showTab(2)" class="tab-btn">🛒 ตะกร้า</button>
   </div>
-  
+
   <!-- Tab 1: สินค้า -->
   <div id="tab1" class="tab-content">
     <!-- สินค้าเข้าใหม่ -->
@@ -26,7 +26,7 @@
     <div id="categoryList" class="category-grid"></div>
     <div id="subCategoryList" class="subcategory-list"></div>
     <div id="productList" class="product-grid"></div>
-    
+
     <!-- Cart Bar -->
     <div id="cartBar" class="cart-bar">
       <div class="cart-left">
@@ -46,7 +46,26 @@
       <p id="totalPrice2">0 บาท</p>
       <button onclick="checkout()" class="checkout-btn">สั่งซื้อเลย</button>
     </div>
+
+    <!-- ที่อยู่ลูกค้า -->
+    <div class="customer-info">
+      <h3>ชื่อ-ที่อยู่จัดส่ง</h3>
+      <p style="font-size:14px;color:#666;">
+        (กรอกเพียงครั้งเดียว ระบบจะบันทึกไว้สำหรับการสั่งซื้อครั้งต่อๆไป)
+      </p>
+
+  
+      <textarea id="custAddress" placeholder="ชื่อ-ที่อยู่-เบอร์โทร" 
+                style="width:100%; max-width:100%; min-height:120px; resize: vertical; box-sizing:border-box; font-size:18px;"></textarea>
+
+      <div style="margin-top:10px;">
+        <button onclick="saveCustomerInfo()" id="saveBtn" class="checkout-btn">บันทึกที่อยู่</button>
+        <button onclick="editCustomerInfo()" id="editBtn" class="checkout-btn" style="display:none;background:#f39c12;">แก้ไขข้อมูล</button>
+      </div>
+    </div>
   </div>
+
+
 
 
   <script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
