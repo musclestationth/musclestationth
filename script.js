@@ -79,119 +79,119 @@ function saveCart() {
 const products = {
   "Oral AAS": {
     "Anadrol": [
-      { name: "Anadrol Gainzlab 50mg100t", price: 1000, image: "images/anadrol/anadrol-gainz.png" },
-      { name: "Anadrol Bodytech 50mg100t", price: 1200, image: "images/anadrol/anadrol-body.png" },
-      { name: "Anadrol Meditech 50mg100t", price: 1200, image: "images/anadrol/anadrol-medi.png" },
-      { name: "Anadrol Platinum 50mg100t", price: 1700, image: "images/anadrol/anadrol-plat.png" },
-      { name: "Anadrol BPMedical 50mg100t", price: 1760, image: "images/anadrol/anadrol-bp.png" },
-      { name: "Anadrol Beligas 50mg100t", price: 9999, image: "images/anadrol/anadrol-beligas.png" },
-      { name: "Anadrol SA 25mg100t", price: 950, image: "images/anadrol/anadrol-sa.png" },
-      { name: "Anadrol Alpha 50mg50t", price: 1600, image: "images/anadrol/anadrol-alpha.png" }
+      { name: "Anadrol Gainzlab 50mg100t", price: 1000, image: "images/anadrol-gainz.png" },
+      { name: "Anadrol Bodytech 50mg100t", price: 1200, image: "images/anadrol-body.png" },
+      { name: "Anadrol Meditech 50mg100t", price: 1200, image: "images/anadrol-medi.png" },
+      { name: "Anadrol Platinum 50mg100t", price: 1700, image: "images/anadrol-plat.png" },
+      { name: "Anadrol BPMedical 50mg100t", price: 1760, image: "images/anadrol-bp.png" },
+      { name: "Anadrol Beligas 50mg100t", price: 9999, image: "images/anadrol-beligas.png" },
+      { name: "Anadrol SA 25mg100t", price: 950, image: "images/anadrol-sa.png" },
+      { name: "Anadrol Alpha 50mg50t", price: 1600, image: "images/anadrol-alpha.png" }
     ],
     "Anavar": [
-      { name: "Anavar Gainzlab 10mg50t", price: 860, image: "images/anavar/anavar-gainz.png" },
-      { name: "Anavar EuroMed 10mg50t", price: 950, image: "images/anavar/anavar-euro.png" },
-      { name: "Anavar Beligas 10mg50t", price: 1090, image: "images/anavar/anavar1050-beligas.png" },
-      { name: "Anavar Alpha 10mg50t", price: 1600, image: "images/anavar/anavar-alpha.png" },
-      { name: "Anavar Bodytech 10mg100t", price: 1350, image: "images/anavar/anavar-body.png" },
-      { name: "Anavar Meditech 10mg100t", price: 1350, image: "images/anavar/anavar10-medi.png" },
-      { name: "Anavar SAAnabolic 10mg100t", price: 1600, image: "images/anavar/anavar-sa.png" },
-      { name: "Anavar Platinum 10mg100t", price: 1800, image: "images/anavar/anavar-plat.png" },
-      { name: "Anavar Beligas 10mg100t", price: 1890, image: "images/anavar/anavar10100-beligas.png" },
-      { name: "Anavar BPMedical 15mg50t", price: 1540, image: "images/anavar/anavar-bp.png" },
-      { name: "Anavar Synctech 15mg50t", price: 1900, image: "images/anavar/anavar-sync.png" },
-      { name: "Anavar Meditech 50mg50t", price: 3000, image: "images/anavar/anavar50-medi.png" },
-      { name: "Anavar Beligas 50mg50t", price: 3000, image: "images/anavar/anavar5050-beligas.png" },
-      { name: "Anavar Beligas 50mg100t", price: 3790, image: "images/anavar/anavar50100-beligas.png" }
+      { name: "Anavar Gainzlab 10mg50t", price: 860, image: "images/anavar-gainz.png" },
+      { name: "Anavar EuroMed 10mg50t", price: 950, image: "images/anavar-euro.png" },
+      { name: "Anavar Beligas 10mg50t", price: 1090, image: "images/anavar1050-beligas.png" },
+      { name: "Anavar Alpha 10mg50t", price: 1600, image: "images/anavar-alpha.png" },
+      { name: "Anavar Bodytech 10mg100t", price: 1350, image: "images/anavar-body.png" },
+      { name: "Anavar Meditech 10mg100t", price: 1350, image: "images/anavar10-medi.png" },
+      { name: "Anavar SAAnabolic 10mg100t", price: 1600, image: "images/anavar-sa.png" },
+      { name: "Anavar Platinum 10mg100t", price: 1800, image: "images/anavar-plat.png" },
+      { name: "Anavar Beligas 10mg100t", price: 1890, image: "images/anavar10100-beligas.png" },
+      { name: "Anavar BPMedical 15mg50t", price: 1540, image: "images/anavar-bp.png" },
+      { name: "Anavar Synctech 15mg50t", price: 1900, image: "images/anavar-sync.png" },
+      { name: "Anavar Meditech 50mg50t", price: 3000, image: "images/anavar50-medi.png" },
+      { name: "Anavar Beligas 50mg50t", price: 3000, image: "images/anavar5050-beligas.png" },
+      { name: "Anavar Beligas 50mg100t", price: 3790, image: "images/anavar50100-beligas.png" }
     ],
     "Clen": [
-      { name: "Clen Alpha 40mcg50t\n&nbsp;\n&nbsp;", price: 600, image: "images/clen/clen-alpha.png" },
-      { name: "Clen Beligas 40mcg50t\n&nbsp;\n&nbsp;", price: 850, image: "images/clen/clen50-beligas.png" },
-      { name: "Clen Gainzlab 40mcg100t", price: 580, image: "images/clen/clen-gainz.png" },
-      { name: "Clen Synctech 40mcg100t", price: 750, image: "images/clen/clen-sync.png" },
-      { name: "Clen Bodytech 40mcg100t", price: 780, image: "images/clen/clen-body.png" },
-      { name: "Clen Meditech 40mcg100t", price: 780, image: "images/clen/clen-medi.png" },
-      { name: "Clen EuroMed 40mcg100t", price: 800, image: "images/clen/clen-euro.png" },
-      { name: "Clen BPMedical 40mcg100t", price: 900, image: "images/clen/clen-bp.png" },
-      { name: "Clen Platinum 40mcg100t", price: 1000, image: "images/clen/clen-plat.png" },
-      { name: "Clen Beligas 40mcg100t\n&nbsp;", price: 1690, image: "images/clen/clen100-beligas.png" }
+      { name: "Clen Alpha 40mcg50t\n&nbsp;\n&nbsp;", price: 600, image: "images/clen-alpha.png" },
+      { name: "Clen Beligas 40mcg50t\n&nbsp;\n&nbsp;", price: 850, image: "images/clen50-beligas.png" },
+      { name: "Clen Gainzlab 40mcg100t", price: 580, image: "images/clen-gainz.png" },
+      { name: "Clen Synctech 40mcg100t", price: 750, image: "images/clen-sync.png" },
+      { name: "Clen Bodytech 40mcg100t", price: 780, image: "images/clen-body.png" },
+      { name: "Clen Meditech 40mcg100t", price: 780, image: "images/clen-medi.png" },
+      { name: "Clen EuroMed 40mcg100t", price: 800, image: "images/clen-euro.png" },
+      { name: "Clen BPMedical 40mcg100t", price: 900, image: "images/clen-bp.png" },
+      { name: "Clen Platinum 40mcg100t", price: 1000, image: "images/clen-plat.png" },
+      { name: "Clen Beligas 40mcg100t\n&nbsp;", price: 1690, image: "images/clen100-beligas.png" }
     ],
     "Primo": [
-      { name: "Primotab Meditech 25mg50t", price: 1350, image: "images/primotab/primotab-medi.png" },
-      { name: "Primotab Bodytech 25mg50t", price: 1350, image: "images/primotab/primotab-body.png" },
-      { name: "Primotab BPMedical 25mg50t", price: 2200, image: "images/primotab/primotab-bp.png" },
-      { name: "Primotab Beligas 25mg50t", price: 2890, image: "images/primotab/primotab-beligas.png" }
+      { name: "Primotab Meditech 25mg50t", price: 1350, image: "images/primotab-medi.png" },
+      { name: "Primotab Bodytech 25mg50t", price: 1350, image: "images/primotab-body.png" },
+      { name: "Primotab BPMedical 25mg50t", price: 2200, image: "images/primotab-bp.png" },
+      { name: "Primotab Beligas 25mg50t", price: 2890, image: "images/primotab-beligas.png" }
     ],
     "Dbol": [
-      { name: "Dbol Gainzlab 10mg100t", price: 540, image: "images/dbol/dbol-gainz.png" },
-      { name: "Dbol Bodytech 10mg100t", price: 740, image: "images/dbol/dbol-body.png" },
-      { name: "Dbol BPMedical 10mg100t", price: 870, image: "images/dbol/dbol-bp.png" },
-      { name: "Dbol Platinum 10mg100t", price: 1000, image: "images/dbol/dbol-plat.png" },
+      { name: "Dbol Gainzlab 10mg100t", price: 540, image: "images/dbol-gainz.png" },
+      { name: "Dbol Bodytech 10mg100t", price: 740, image: "images/dbol-body.png" },
+      { name: "Dbol BPMedical 10mg100t", price: 870, image: "images/dbol-bp.png" },
+      { name: "Dbol Platinum 10mg100t", price: 1000, image: "images/dbol-plat.png" },
       { name: "Dbol Beligas 10mg100t", price: 9999, image: "" },
-      { name: "Dbol Beligas 20mg50t", price: 1190, image: "images/dbol/dbol20-beligas.png" },
-      { name: "Dbol Beligas 50mg50t", price: 2200, image: "images/dbol/dbol50-beligas.png" }
+      { name: "Dbol Beligas 20mg50t", price: 1190, image: "images/dbol20-beligas.png" },
+      { name: "Dbol Beligas 50mg50t", price: 2200, image: "images/dbol50-beligas.png" }
     ],
     "Tbol": [
-      { name: "Tbol Bodytech 10mg50t", price: 1000, image: "images/tbol/tbol-body.png" },
-      { name: "Tbol Meditech 10mg50t", price: 1000, image: "images/tbol/tbol-medi.png" },
-      { name: "Tbol Platinum 10mg100t", price: 1400, image: "images/tbol/tbol-plat.png" },
-      { name: "Tbol BPMedical 20mg100t", price: 1870, image: "images/tbol/tbol-bp.png" },
-      { name: "Tbol Beligas 10mg100t", price: 9999, image: "images/tbol/tbol-beligas.png" }
+      { name: "Tbol Bodytech 10mg50t", price: 1000, image: "images/tbol-body.png" },
+      { name: "Tbol Meditech 10mg50t", price: 1000, image: "images/tbol-medi.png" },
+      { name: "Tbol Platinum 10mg100t", price: 1400, image: "images/tbol-plat.png" },
+      { name: "Tbol BPMedical 20mg100t", price: 1870, image: "images/tbol-bp.png" },
+      { name: "Tbol Beligas 10mg100t", price: 9999, image: "images/tbol-beligas.png" }
     ],
     "T3": [
-      { name: "T3 Gainzlab 25mcg100t", price: 580, image: "images/t3/t3-gainz.png" },
-      { name: "T3 Bodytech 25mcg100t", price: 780, image: "images/t3/t3-body.png" },
-      { name: "T3 Meditech 25mcg100t", price: 780, image: "images/t3/t3-medi.png" },
-      { name: "T3 Synctech 25mcg100t", price: 800, image: "images/t3/t3-sync.png" },
-      { name: "T3 BPMedical 25mcg100t", price: 1100, image: "images/t3/t3-bp.png" },
-      { name: "T3 Beligas 50mcg50t", price: 1090, image: "images/t3/t350-beligas.png" },
-      { name: "T3 Platinum 50mcg100t", price: 1200, image: "images/t3/t3-plat.png" },
-       { name: "T3 SAAnabolic 25mcg200t", price: 1100, image: "images/t3/t3-sa.png" },
-      { name: "T3 Beligas 50mcg100t", price: 1290, image: "images/t3/t3100-beligas.png" }
+      { name: "T3 Gainzlab 25mcg100t", price: 580, image: "images/t3-gainz.png" },
+      { name: "T3 Bodytech 25mcg100t", price: 780, image: "images/t3-body.png" },
+      { name: "T3 Meditech 25mcg100t", price: 780, image: "images/t3-medi.png" },
+      { name: "T3 Synctech 25mcg100t", price: 800, image: "images/t3-sync.png" },
+      { name: "T3 BPMedical 25mcg100t", price: 1100, image: "images/t3-bp.png" },
+      { name: "T3 Beligas 50mcg50t", price: 1090, image: "images/t350-beligas.png" },
+      { name: "T3 Platinum 50mcg100t", price: 1200, image: "images/t3-plat.png" },
+       { name: "T3 SAAnabolic 25mcg200t", price: 1100, image: "images/t3-sa.png" },
+      { name: "T3 Beligas 50mcg100t", price: 1290, image: "images/t3100-beligas.png" }
     ],
     "Test เม็ด": [
       { name: "Test เม็ด Beligas 40mg50t", price: 3090, image: "images/testเม็ด-beligas.png" }
     ],
     "Stano": [
-      { name: "Stanotab Gainzlab 10mg100t", price: 700, image: "images/stanotab/stanotab-gainz.png" },
-      { name: "Stanotab Beligas 10mg50t", price: 790, image: "images/stanotab/stanotab-beligas.png" },
-      { name: "Stanotab Alpha 10mg50t", price: 1000, image: "images/stanotab/stanotab-alpha.png" },
-      { name: "Stanotab EuroMed 10mg100t", price: 850, image: "images/stanotab/stanotab-euro.png" },
-      { name: "Stanotab Synctech 10mg100t", price: 850, image: "images/stanotab/stanotab-sync.png" },
-      { name: "Stanotab Meditech 10mg100t", price: 900, image: "images/stanotab/stanotab-medi.png" },
-      { name: "Stanotab Bodytech 10mg100t", price: 900, image: "images/stanotab/stanotab-body.png" },
+      { name: "Stanotab Gainzlab 10mg100t", price: 700, image: "images/stanotab-gainz.png" },
+      { name: "Stanotab Beligas 10mg50t", price: 790, image: "images/stanotab-beligas.png" },
+      { name: "Stanotab Alpha 10mg50t", price: 1000, image: "images/stanotab-alpha.png" },
+      { name: "Stanotab EuroMed 10mg100t", price: 850, image: "images/stanotab-euro.png" },
+      { name: "Stanotab Synctech 10mg100t", price: 850, image: "images/stanotab-sync.png" },
+      { name: "Stanotab Meditech 10mg100t", price: 900, image: "images/stanotab-medi.png" },
+      { name: "Stanotab Bodytech 10mg100t", price: 900, image: "images/stanotab-body.png" },
 
-      { name: "Stanotab SAAnabolic 10mg100t", price: 1000, image: "images/stanotab/stanotab-sa.png" },
-      { name: "Stanotab Platinum 10mg100t", price: 1200, image: "images/stanotab/stanotab-plat.png" },
-      { name: "Stanotab BPMedical 10mg100t", price: 1210, image: "images/stanotab/stanotab-bp.png" },
-      { name: "Stanotab Beligas 10mg100t", price: 1290, image: "images/stanotab/stanotab10100-beligas.png" },
-      { name: "Stanotab Beligas 20mg50t", price: 790, image: "images/stanotab/stanotab2050-beligas.png" },
-      { name: "Stanotab Beligas 50mg50t", price: 2090, image: "images/stanotab/stanotab5050-beligas.png" }
+      { name: "Stanotab SAAnabolic 10mg100t", price: 1000, image: "images/stanotab-sa.png" },
+      { name: "Stanotab Platinum 10mg100t", price: 1200, image: "images/stanotab-plat.png" },
+      { name: "Stanotab BPMedical 10mg100t", price: 1210, image: "images/stanotab-bp.png" },
+      { name: "Stanotab Beligas 10mg100t", price: 1290, image: "images/stanotab10100-beligas.png" },
+      { name: "Stanotab Beligas 20mg50t", price: 790, image: "images/stanotab2050-beligas.png" },
+      { name: "Stanotab Beligas 50mg50t", price: 2090, image: "images/stanotab5050-beligas.png" }
     ],
     "Proviron": [
-      { name: "Proviron Beligas 20mg50t", price: 1490, image: "images/prov/prov50-beligas.png" },
-      { name: "Proviron Beligas 20mg100t", price: 1890, image: "images/prov/prov100-beligas.png" },
-      { name: "Proviron Meditech 25mg50t", price: 1150, image: "images/prov/prov-medi.png" },
-      { name: "Proviron BPMedical 25mg50t", price: 1320, image: "images/prov/prov-bp.png" },
-      { name: "Proviron SAAnabolic 25mg100t", price: 1800, image: "images/prov/prov-sa.png" },
-      { name: "Proviron Platinum 25mg100t", price: 1950, image: "images/prov/prov-plat.png" },
-      { name: "Proviron Alpha 25mg100t", price: 2200, image: "images/prov/prov-alpha.png" }
+      { name: "Proviron Beligas 20mg50t", price: 1490, image: "images/prov50-beligas.png" },
+      { name: "Proviron Beligas 20mg100t", price: 1890, image: "images/prov100-beligas.png" },
+      { name: "Proviron Meditech 25mg50t", price: 1150, image: "images/prov-medi.png" },
+      { name: "Proviron BPMedical 25mg50t", price: 1320, image: "images/prov-bp.png" },
+      { name: "Proviron SAAnabolic 25mg100t", price: 1800, image: "images/prov-sa.png" },
+      { name: "Proviron Platinum 25mg100t", price: 1950, image: "images/prov-plat.png" },
+      { name: "Proviron Alpha 25mg100t", price: 2200, image: "images/prov-alpha.png" }
     ],
     "Halotestin": [
-      { name: "Halotestin Beligas 10mg50t", price: 2300, image: "images/halo/halo50-beligas.png" },
-      { name: "Halotestin Beligas 10mg100t", price: 3500, image: "images/halo/halo100-beligas.png" },
-      { name: "Halotestin BPMedical 10mg", price: 9999, image: "images/halo/halo-bp.png" }
+      { name: "Halotestin Beligas 10mg50t", price: 2300, image: "images/halo50-beligas.png" },
+      { name: "Halotestin Beligas 10mg100t", price: 3500, image: "images/halo100-beligas.png" },
+      { name: "Halotestin BPMedical 10mg", price: 9999, image: "images/halo-bp.png" }
     ],
     "Superdrol": [
-      { name: "Superdrol Beligas 10mg50t", price: 1190, image: "images/superdrol/super-beligas.png" },
-      { name: "Superdrol Bodytech 10mg50t", price: 1190, image: "images/superdrol/super-body.png" },
-      { name: "Superdrol Meditech 10mg50t", price: 1200, image: "images/superdrol/super-medi.png" },
-      { name: "Superdrol BPMedical 10mg50t", price: 1760, image: "images/superdrol/super-bp.png" }
+      { name: "Superdrol Beligas 10mg50t", price: 1190, image: "images/super-beligas.png" },
+      { name: "Superdrol Bodytech 10mg50t", price: 1190, image: "images/super-body.png" },
+      { name: "Superdrol Meditech 10mg50t", price: 1200, image: "images/super-medi.png" },
+      { name: "Superdrol BPMedical 10mg50t", price: 1760, image: "images/super-bp.png" }
     ],
     "Oral etc.": [
-      { name: "Synctech mix1 15+10mg50t", price: 1550, image: "images/oraletc/mix1-sync.png" },
-      { name: "Synctech mix2 20+10mg50t", price: 1700, image: "images/oraletc/mix2-sync.png" },
-      { name: "SA Telomed 50t", price: 890, image: "images/oraletc/telomed-sa.png" }
+      { name: "Synctech mix1 15+10mg50t", price: 1550, image: "images/mix1-sync.png" },
+      { name: "Synctech mix2 20+10mg50t", price: 1700, image: "images/mix2-sync.png" },
+      { name: "SA Telomed 50t", price: 890, image: "images/telomed-sa.png" }
     ]
   },
   "Injection AAS": {
