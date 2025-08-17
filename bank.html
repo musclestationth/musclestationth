@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>เลือกบัญชีโอนเงิน</title>
+  <style>
+    body { font-family: sans-serif; padding: 20px; }
+    .bank { display: flex; align-items: center; gap: 10px; margin: 15px 0; padding: 10px; border: 1px solid #ccc; border-radius: 8px; }
+    .bank img { width: 40px; height: 40px; }
+    .bank-info { display: flex; flex-direction: column; }
+    button { margin-top: 5px; padding: 8px 16px; border: none; border-radius: 6px; background: #1DB446; color: #fff; cursor: pointer; font-size: 14px; }
+
+    .qr-container { display: flex; gap: 20px; justify-content: center; flex-wrap: wrap; margin-top: 20px; }
+    .qr-box { display: flex; flex-direction: column; align-items: center; text-align: center; }
+    .qr-box img { width: 180px; height: 180px; margin-bottom: 5px; border: 1px solid #ccc; border-radius: 8px; }
+
+    .close-btn { width: 100%; margin-top: 30px; background: #FF3B30; font-size: 16px; }
+  </style>
+  <!-- โหลด SDK ของ LIFF -->
+  <script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
+</head>
+<body>
+  <h2>เลือกบัญชีเพื่อโอนเงิน</h2>
+
+  <!-- QR Code -->
+  <div class="qr-container">
+
+
+<div class="qr-box">
+  <img src="images/QR1.jpg" alt="QR1">
+  <button onclick="openQR('images/QR1.jpg')">Save a QR Code</button>
+</div>
+
+
+
+<div class="qr-box">
+  <img src="images/QR2.jpg" alt="QR2">
+  <button onclick="openQR('images/QR2.jpg')">Save a QR Code</button>
+</div>
+
+
+
+  </div>
+
+  <!-- ปุ่มปิดหน้าต่าง -->
+  <button class="close-btn" onclick="closeWindow()">ปิดหน้าต่าง</button>
+
+  <script>
+    // เริ่มใช้งาน LIFF
+   /* async function main() {
+      try {
+        await liff.init({ liffId: "2007887429-Arr5x53g" });
+        console.log("LIFF init success");
+      } catch (err) {
+        console.error("LIFF init failed:", err);
+      }
+    }
+    main();*/
+
+
+
+
+window.onload = function() {
+  liff.init({ liffId: "2007887429-Arr5x53g" }).then(() => {
+
+  });
+};
+
+
+    function copyText(text) {
+      navigator.clipboard.writeText(text).then(() => {
+        alert("คัดลอกแล้ว: " + text);
+      });
+    }
+
+
+
+    function closeWindow() {
+      if (window.liff && liff.isInClient()) {
+        liff.closeWindow();
+      } else {
+        alert("ปิดหน้าต่างได้เฉพาะใน LIFF app");
+      }
+    }
+
+  function openQR(url) {
+    window.open(url, "_blank");
+  }
+
+
+  </script>
+</body>
+</html>
