@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>MuscleStationTH</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header>รายการสินค้า</header>
+  <div class="tabs">
+    <button onclick="showTab(1)" class="tab-btn active">🛍 สินค้า</button>
+    <button onclick="showTab(2)" class="tab-btn">🛒 ตะกร้า</button>
+  </div>
+  
+  <!-- Tab 1: สินค้า -->
+  <div id="tab1" class="tab-content">
+    <!-- สินค้าเข้าใหม่ -->
+    <h2>✨ สินค้าเข้าใหม่</h2>
+    <div class="slider-container">
+      <div class="slider-wrapper" id="newProductsSlider"></div>
+    </div>
+    <div class="slider-dots" id="sliderDots"></div>
+
+    <!-- สินค้า -->
+    <div id="categoryList" class="category-grid"></div>
+    <div id="subCategoryList" class="subcategory-list"></div>
+    <div id="productList" class="product-grid"></div>
+    
+    <!-- Cart Bar -->
+    <div id="cartBar" class="cart-bar">
+      <div class="cart-left">
+        <span id="totalItems1">รวม 0 ชิ้น</span>
+        <span id="totalPrice1">0 บาท</span>
+      </div>
+      <button id="goToCartBtn" class="cart-icon-btn" onclick="showTab(2)">🛒</button>
+    </div>
+
+  </div>
+
+  <!-- Tab 2: ตะกร้าสินค้า -->
+  <div id="tab2" class="tab-content" style="display:none;">
+    <div id="cartList"></div>
+    <div class="cart-summary">
+      <p id="totalItems2">รวม 0 ชิ้น</p>
+      <p id="totalPrice2">0 บาท</p>
+      <button onclick="checkout()" class="checkout-btn">สั่งซื้อเลย</button>
+    </div>
+  </div>
+
+
+  <script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
