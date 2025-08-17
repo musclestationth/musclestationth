@@ -584,7 +584,7 @@ function loadCart() {
 
 // ใส่ LIFF ID ของคุณ
 window.onload = function() {
-  liff.init({ liffId: "2007887429-QDWq7qPk" }).then(() => {
+  liff.init({ liffId: "2007887429-7ERpgpYL" }).then(() => {
     renderNewProductsSlider();
     renderCategories();
     loadCart();   // โหลดข้อมูลเก่าจาก localStorage
