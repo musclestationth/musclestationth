@@ -1,7 +1,7 @@
 // -------------------------
 // โหลดตะกร้าจาก localStorage
 // -------------------------
-let storedCart = JSON.parse(localStorage.getItem("cart")); 
+let storedCart = JSON.parse(localStorage.getItem("cart"));
 let cart = Array.isArray(storedCart) ? storedCart : [];
 console.log("cart =", cart);
 
@@ -614,23 +614,12 @@ window.onload = function() {
 async function checkout() {
   if (!cart.length) return alert("ตะกร้าว่าง");
   
-  // สร้างข้อความรายละเอียดสินค้า
- /* let orderText = "📦 รายละเอียดคำสั่งซื้อ\n";
-  let totalPrice = 0;
-  cart.forEach(item => {
-    orderText += `${item.name} x${item.qty} = ${item.price * item.qty}฿\n`;
-    totalPrice += item.price * item.qty;
-  });
-
-  orderText += `\n💰 รวมทั้งหมด: ${totalPrice}฿\n`;*/
-  
-
   const itemContents = cart.map(item => ({
     type: "box",
     layout: "horizontal",
     contents: [
-      { type: "text", text: `${item.name} x${item.qty}`, size: "md", color: "#000000", flex: 0 },
-      { type: "text", text: `${item.price * item.qty}฿`, size: "md", color: "#000000", align: "end" }
+      { type: "text", text: `${item.name} x${item.qty}`, size: "sm", color: "#000000", flex: 0 },
+      { type: "text", text: `${item.price * item.qty}฿`, size: "sm", color: "#000000", align: "end" }
     ]
   }));
 
@@ -713,22 +702,45 @@ async function checkout() {
   }
   
   try {
-    await liff.sendMessages([             // Flex Message
-      { type: "text", text: orderText },   // รายละเอียดคำสั่งซื้อ
-      { type: "text", text: customerText },
-      flexMsg// ข้อมูลลูกค้า
-    ]);
+    
+    // --- ยิงข้อมูลไป Google Apps Script ---
+fetch("https://script.google.com/macros/s/AKfycbxqnzojoqKN_GC_XqdhCTIb2YP8OswdUNBP69P-zf55u-gybpeouyTvcqchndRMG9cb0A/exec", {
+      method: "POST",
+      body: JSON.stringify({ action: "checkout",
+                            orderText: orderText,
+                            customerText: customerText                           })
+    })
+    .then(res => res.json())
+    .then(data => console.log(data));
+
+
+
+
+  
+    // ส่ง Flex + Text ให้ลูกค้า
+  /*  await liff.sendMessages([
+      { type: "text", text: orderText },
+      { type: "text", text: customerText }
+    ]);*/
+    await liff.sendMessages([flexMsg]);
+    
     alert("ส่งคำสั่งซื้อแล้ว!");   
+
     cart.length = 0;
     saveCart();
     renderCart();
     showTab(2);
     liff.closeWindow();
+
   } catch (err) {
     //console.error(err);
     console.error('sendMessages error:', err);
     alert("ส่งข้อความไม่สำเร็จ");
   }
+
+
+
+
 }
 
 function saveCustomerInfo() {
