@@ -12,7 +12,6 @@ function saveCart() {
   console.log("Saving cart:", cart);
   localStorage.setItem("cart", JSON.stringify(cart));
 }
-
   // สินค้าเข้าใหม่ (กำหนดเอง)
   const newProducts = [
     { name: "Retatrutide BPMedical 10mg", price: 4500, image: "images/reta-bp.png" },
