@@ -1,6 +1,6 @@
 html {
   height: 100%;
-  width: 100%; 
+  width: 100%;
 }
 
 header {
@@ -39,7 +39,7 @@ body {
 }
 
 .category-grid {
-  background: #eee;
+  background: #DCDCDC;
   display: grid;
   align-items: center;
   justify-content: center;
@@ -66,7 +66,7 @@ body {
   border: 1px solid #eee;
 }
 .category-item.active {
-  background-color: #f44336; /* แดง */
+  background-color: #2196F3; /* แดง */
   color: white;
 }
 
@@ -93,7 +93,7 @@ body {
   border: 1px solid #eee;
 }
 .subcategory-item.active {
-  background-color: #f44336; /* แดง */
+  background-color: #2196F3; /* แดง */
   color: white;
 }
 
@@ -116,14 +116,28 @@ body {
   width: 100%;
   height: auto;
 }
-.product-item .info {
+.product-item .info h3 {
   padding: 4px 5px; 
   text-align: center;
+
+  font-size: 16px;
+  height: 60px;   /* ความสูงบังคับ (ปรับตามต้องการ) */
+  line-height: 1.3;
+  margin: 4px 0;
+  overflow: hidden;   /* ถ้าข้อความเกินก็ซ่อน */
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 4;   /* แสดงสูงสุด 2 บรรทัด */
+  -webkit-box-orient: vertical;
 }
 
 .product-item .info p {
   margin: 4px 0;        /* ลดระยะห่างบน-ล่างของชื่อสินค้า */
-  line-height: 1.2;     /* ลดช่องไฟในบรรทัด */
+  line-height: 1;     /* ลดช่องไฟในบรรทัด */
+  font-size: 22px;        /* 🔥 ขนาดใหญ่ขึ้น */
+      /* ตัวหนา */
+  color: #000000;         /* น้ำเงินเข้ม */
+  text-align: center;     /* จัดกลาง */
 }
 
 .add-btn {
@@ -219,9 +233,9 @@ body {
 }
 
 .slider-dots span {
-  height: 14px;           
-  width: 14px;            
-  margin: 0 6px;          
+  height: 20px; /* เพิ่มขนาดสูง */          
+  width: 20px;             /* เพิ่มขนาดกว้าง */
+  margin: 0 10px;          /* เพิ่มระยะห่างซ้ายขวา */
   display: inline-block;
   background-color: #bbb;
   border-radius: 50%;
@@ -230,7 +244,7 @@ body {
 
 
 .slider-dots .active {
-  background-color: #ff6600; /* สี dot ที่เลือก */
+  background-color: #2196F3; /* สี dot ที่เลือก */
 }
 
 /* ---------- Cart Items ---------- */
@@ -345,4 +359,7 @@ textarea, input {
 
 .search-bar-container button:hover {
   background: #eee;
+}
+#tab3 {
+  display: none;
 }
