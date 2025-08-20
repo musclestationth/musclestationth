@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="th"> 
+<html lang="th">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -7,10 +7,13 @@
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <header>รายการสินค้า</header>
+ <!-- <header>รายการสินค้า</header> -->
   <div class="tabs">
-    <button onclick="showTab(1)" class="tab-btn active">🛍 สินค้า</button>
-    <button onclick="showTab(2)" class="tab-btn">🛒 ตะกร้า</button>
+
+    <!-- ปุ่ม tab -->
+    <button onclick="showTab(1)" class="tab-btn" data-tab="1">🛍 สินค้า</button>
+    <button onclick="showTab(3)" class="tab-btn" data-tab="3">สินค้าเข้าใหม่ โปรโมชั่น</button>
+    <button onclick="showTab(2)" class="tab-btn" data-tab="2">🛒 ตะกร้า</button>
   </div>
 
   <!-- Tab 1: สินค้า -->
@@ -25,14 +28,7 @@
     <!-- ผลการค้นหา -->
     <div id="searchResults" class="product-grid" style="display:none;"></div>
 
-    <!-- สินค้าเข้าใหม่ -->
-    <div id="newProductsSection">
-      <h2>✨ สินค้าเข้าใหม่</h2>
-      <div class="slider-container">
-        <div class="slider-wrapper" id="newProductsSlider"></div>
-      </div>
-      <div class="slider-dots" id="sliderDots"></div>
-    </div>
+
 
 
     <!-- สินค้า -->
@@ -51,6 +47,22 @@
     </div>
 
   </div>
+
+  <!-- Tab 3: Update -->
+  <div id="tab3" class="tab-content">
+    <!-- สินค้าเข้าใหม่ -->
+    <div id="newProductsSection">
+      <h2>✨สินค้าเข้าใหม่</h2>
+      <div class="slider-container">
+        <div class="slider-wrapper" id="newProductsSlider"></div>
+      </div>
+      <div class="slider-dots" id="sliderDots"></div>
+    </div>
+
+
+    
+    </div>
+
 
   <!-- Tab 2: ตะกร้าสินค้า -->
   <div id="tab2" class="tab-content" style="display:none;">
