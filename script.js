@@ -4,7 +4,8 @@
 let storedCart = JSON.parse(localStorage.getItem("cart"));
 let cart = Array.isArray(storedCart) ? storedCart : [];
 console.log("cart =", cart);
-
+let activeCategory = null;    // เก็บหมวดหลักที่เลือก
+let activeSubCategory = null; // เก็บหมวดย่อยที่เลือก
 // -------------------------
 // บันทึกตะกร้า
 // -------------------------
@@ -12,69 +13,73 @@ function saveCart() {
   console.log("Saving cart:", cart);
   localStorage.setItem("cart", JSON.stringify(cart));
 }
-  // สินค้าเข้าใหม่ (กำหนดเอง)
-  const newProducts = [
-    { name: "Retatrutide BPMedical 10mg", price: 4500, image: "images/reta-bp.png" },
-    { name: "Retatrutide Wellness 10mg", price: 3500, image: "images/reta-wellness.png" },
-    { name: "Levitra SAAnabolic 30mg60t", price: 1440, image: "images/levitra-sa.png" },
-    { name: "Retatrutide SAAnabolic 10mg", price: 4500, image: "images/reta-sa.png" },
-    { name: "3xRetatrutide SAAnabolic 10mg", price: 12000, image: "images/reta-sa.png" },
-    { name: "AC-262 SAAnabolic 10mg60t", price: 2430, image: "images/ac262-sa.png" },
-    { name: "AC-262 BPMedical", price: 0, image: "images/ac262-bp.png" },
-    { name: "S-23 SAAnabolic 10mg100t", price: 1900, image: "images/s23-sa.png" },
-    { name: "YK-11 SAAnabolic 5mg60t", price: 2200, image: "images/yk11-sa.png" },
-    { name: "T3 SAAnabolic 25mcg200t", price: 1100, image: "images/t3-sa.png" },
-    { name: "Telomed SAAnabolic 40mg50t", price: 890, image: "images/telomed-sa.png" },
-    { name: "L-Carnitine Beligas 30ml", price: 2200, image: "images/l-car-beligas.png" },
-    { name: "L-Carnitine+CLA Beligas 30ml", price: 2400, image: "images/l-car+cla-beligas.png" }
-    
-  ];
 
-  let currentSlide = 0;
-  const itemsPerPage = 3;
+// สินค้าเข้าใหม่ (กำหนดเอง)
+const newProducts = [
+  { name: "Retatrutide BPMedical 10mg", price: 4500, image: "images/reta-bp.png" },
+  { name: "Retatrutide Wellness 10mg", price: 3500, image: "images/reta-wellness.png" },
+  { name: "Levitra SAAnabolic 30mg60t", price: 1440, image: "images/levitra-sa.png" },
+  { name: "Retatrutide SAAnabolic 10mg", price: 4500, image: "images/reta-sa.png" },
+  { name: "3xRetatrutide SAAnabolic 10mg", price: 12000, image: "images/reta-sa.png" },
+  { name: "AC-262 SAAnabolic 10mg60t", price: 2430, image: "images/ac262-sa.png" },
+  { name: "AC-262 BPMedical", price: 0, image: "images/ac262-bp.png" },
+  { name: "S-23 SAAnabolic 10mg100t", price: 1900, image: "images/s23-sa.png" },
+  { name: "YK-11 SAAnabolic 5mg60t", price: 2200, image: "images/yk11-sa.png" },
+  { name: "T3 SAAnabolic 25mcg200t", price: 1100, image: "images/t3-sa.png" },
+  { name: "Telomed SAAnabolic 40mg50t", price: 890, image: "images/telomed-sa.png" },
+  { name: "L-Carnitine Beligas 30ml", price: 2200, image: "images/l-car-beligas.png" },
+  { name: "L-Carnitine+CLA Beligas 30ml", price: 2400, image: "images/l-car+cla-beligas.png" }
 
-  function renderNewProductsSlider() {
-    const container = document.getElementById("newProductsSlider");
-    container.innerHTML = "";
+];
 
-    const start = currentSlide * itemsPerPage;
-    const end = start + itemsPerPage;
-    const pageItems = newProducts.slice(start, end);
 
-    pageItems.forEach(prod => {
-      const div = document.createElement("div");
-      div.className = "product-item";
-      div.innerHTML = `
+let currentSlide = 0;
+const itemsPerPage = 3;
+
+function renderNewProductsSlider() {
+  const container = document.getElementById("newProductsSlider");
+  container.innerHTML = "";
+
+  const start = currentSlide * itemsPerPage;
+  const end = start + itemsPerPage;
+  const pageItems = newProducts.slice(start, end);
+
+  pageItems.forEach(prod => {
+    const div = document.createElement("div");
+    div.className = "product-item"; // ใช้ class เดียวกับสินค้าปกติ
+    div.innerHTML = `
         <img src="${prod.image}" alt="${prod.name}">
         <div class="info">
-          <p>${prod.name}</p>
+          <h3>${prod.name}</h3>
           <p>${prod.price}฿</p>
           <button class="add-btn" onclick='addToCart("${prod.name}", ${prod.price})'>
             Add to Cart
           </button>
         </div>
       `;
-      container.appendChild(div);
+    container.appendChild(div);
+  });
+
+  renderDots();
+}
+
+
+
+function renderDots() {
+  const dotsContainer = document.getElementById("sliderDots");
+  dotsContainer.innerHTML = "";
+  const totalPages = Math.ceil(newProducts.length / itemsPerPage);
+
+  for (let i = 0; i < totalPages; i++) {
+    const dot = document.createElement("span");
+    dot.className = i === currentSlide ? "active" : "";
+    dot.addEventListener("click", () => {
+      currentSlide = i;
+      renderNewProductsSlider();
     });
-
-    renderDots();
+    dotsContainer.appendChild(dot);
   }
-
-  function renderDots() {
-    const dotsContainer = document.getElementById("sliderDots");
-    dotsContainer.innerHTML = "";
-    const totalPages = Math.ceil(newProducts.length / itemsPerPage);
-
-    for (let i = 0; i < totalPages; i++) {
-      const dot = document.createElement("span");
-      dot.className = i === currentSlide ? "active" : "";
-      dot.addEventListener("click", () => {
-        currentSlide = i;
-        renderNewProductsSlider();
-      });
-      dotsContainer.appendChild(dot);
-    }
-  }
+}
 
 let allProducts = [];
 
@@ -95,7 +100,7 @@ const products = {
     "Anavar": [
       { name: "Anavar Gainzlab 10mg50t", price: 860, image: "images/anavar-gainz.png" },
       { name: "Anavar EuroMed 10mg50t", price: 950, image: "images/anavar-euro.png" },
-     // { name: "Anavar Beligas 10mg50t", price: 1090, image: "images/anavar1050-beligas.png" },
+      // { name: "Anavar Beligas 10mg50t", price: 1090, image: "images/anavar1050-beligas.png" },
       { name: "Anavar AlphaPharma 10mg50t", price: 1600, image: "images/anavar-alpha.png" },
       { name: "Anavar Bodytech 10mg100t", price: 1350, image: "images/anavar-body.png" },
       { name: "Anavar Meditech 10mg100t", price: 1350, image: "images/anavar10-medi.png" },
@@ -105,7 +110,7 @@ const products = {
       { name: "Anavar BPMedical 15mg50t", price: 1540, image: "images/anavar-bp.png" },
       { name: "Anavar Synctech 15mg50t", price: 1900, image: "images/anavar-sync.png" },
       { name: "Anavar Meditech 50mg50t", price: 3000, image: "images/anavar50-medi.png" },
-     // { name: "Anavar Beligas 50mg50t", price: 3000, image: "images/anavar5050-beligas.png" },
+      // { name: "Anavar Beligas 50mg50t", price: 3000, image: "images/anavar5050-beligas.png" },
       { name: "Anavar Beligas 50mg100t", price: 3790, image: "images/anavar50100-beligas.png" }
     ],
     "Clen": [
@@ -132,7 +137,7 @@ const products = {
       { name: "Dbol BPMedical 10mg100t", price: 870, image: "images/dbol-bp.png" },
       { name: "Dbol Platinum 10mg100t", price: 1000, image: "images/dbol-plat.png" },
       { name: "Dbol Beligas 10mg100t", price: 0, image: "images/dbol10100-beligas.png" },
-   //   { name: "Dbol Beligas 20mg50t", price: 1190, image: "images/dbol20-beligas.png" },
+      //   { name: "Dbol Beligas 20mg50t", price: 1190, image: "images/dbol20-beligas.png" },
       { name: "Dbol Beligas 50mg50t", price: 2200, image: "images/dbol50-beligas.png" }
     ],
     "Tbol": [
@@ -140,7 +145,7 @@ const products = {
       { name: "Tbol Meditech 10mg50t", price: 1000, image: "images/tbol-medi.png" },
       { name: "Tbol Platinum 10mg100t", price: 1400, image: "images/tbol-plat.png" },
       { name: "Tbol BPMedical 20mg100t", price: 1870, image: "images/tbol-bp.png" },
-    //  { name: "Tbol Beligas 10mg100t", price: 0, image: "images/tbol-beligas.png" }
+      //  { name: "Tbol Beligas 10mg100t", price: 0, image: "images/tbol-beligas.png" }
     ],
     "T3": [
       { name: "T3 Gainzlab 25mcg100t", price: 580, image: "images/t3-gain.png" },
@@ -150,7 +155,7 @@ const products = {
       { name: "T3 BPMedical 25mcg100t", price: 1100, image: "images/t3-bp.png" },
       { name: "T3 Beligas 50mcg50t", price: 1090, image: "images/t350-beligas.png" },
       { name: "T3 Platinum 50mcg100t", price: 1200, image: "images/t3-plat.png" },
-       { name: "T3 SAAnabolic 25mcg200t", price: 1100, image: "images/t3-sa.png" },
+      { name: "T3 SAAnabolic 25mcg200t", price: 1100, image: "images/t3-sa.png" },
       { name: "T3 Beligas 50mcg100t", price: 1290, image: "images/t3100-beligas.png" }
     ],
     "Test เม็ด": [
@@ -171,7 +176,7 @@ const products = {
       { name: "Stanotab Beligas 50mg50t", price: 2090, image: "images/stanotab5050-beligas.png" }
     ],
     "Proviron": [
-     // { name: "Proviron Beligas 20mg50t", price: 1490, image: "images/prov50-beligas.png" },
+      // { name: "Proviron Beligas 20mg50t", price: 1490, image: "images/prov50-beligas.png" },
       { name: "Proviron Beligas 20mg100t", price: 1890, image: "images/prov100-beligas.png" },
       { name: "Proviron Meditech 25mg50t", price: 1150, image: "images/prov-medi.png" },
       { name: "Proviron BPMedical 25mg50t", price: 1320, image: "images/prov-bp.png" },
@@ -180,7 +185,7 @@ const products = {
       { name: "Proviron AlphaPharma 25mg100t", price: 2200, image: "images/prov-alpha.png" }
     ],
     "Halotestin": [
-     // { name: "Halotestin Beligas 10mg50t", price: 2300, image: "images/halo50-beligas.png" },
+      // { name: "Halotestin Beligas 10mg50t", price: 2300, image: "images/halo50-beligas.png" },
       { name: "Halotestin Beligas 10mg100t", price: 3500, image: "images/halo100-beligas.png" },
       { name: "Halotestin BPMedical 10mg", price: 0, image: "images/halo-bp.png" }
     ],
@@ -358,9 +363,9 @@ const products = {
       { name: "Bac Water SAAnabolic 10ml", price: 500, image: "images/bac-sa.png" },
       { name: "Bac Water BPMedical 10ml", price: 450, image: "images/bac-bp.png" },
       { name: "Bac Water Synctech 12ml", price: 200, image: "images/bac-sync.png" },
-      
+
       { name: "Tren-Test-Mast Long Beligas 300mg", price: 2450, image: "images/tren-test-mast-beligas.png" },
-    //  { name: "Test-Tren Short Beligas 150mg", price: 1700, image: "images/" },
+      //  { name: "Test-Tren Short Beligas 150mg", price: 1700, image: "images/" },
       { name: "MENT Beligas 50mg", price: 1990, image: "images/ment-beligas.png" },
       { name: "MTR Beligas 5mg", price: 1290, image: "images/mtr-beligas.png" }
     ]
@@ -388,7 +393,7 @@ const products = {
       { name: "MK-2866 SAAnabolic 10mg100t", price: 1200, image: "images/2866-sa.png" },
       { name: "MK-2866 Beligas 15mg50t", price: 0, image: "images/2866-beligas.png" },
       { name: "MK-2866+ SAAnabolic 10mg60t", price: 1250, image: "images/2866+-sa.png" }
-      
+
     ],
     "YK11": [
       { name: "YK-11 BPMedical 10mg30t", price: 1815, image: "images/yk11-bp.png" },
@@ -439,10 +444,10 @@ const products = {
       { name: "IGF-1 INCRELEX 400mg", price: 8900, image: "images/igf1-increlex.png" }
     ],
     "HCG": [
-    //  { name: "HCG Beligas 5000iu", price: 1100, image: "images/hcg-beligas.png" },
-     // { name: "HCG BPMedical 5000iu", price: 1265, image: "images/hcg-bp.png" },
+      //  { name: "HCG Beligas 5000iu", price: 1100, image: "images/hcg-beligas.png" },
+      // { name: "HCG BPMedical 5000iu", price: 1265, image: "images/hcg-bp.png" },
       { name: "HCG AlphaPharma 5000iu", price: 2100, image: "images/hcg-alpha.png" },
-     // { name: "HCG SAAnabolic 15000iu", price: 1800, image: "images/hcg-sa.png" }
+      // { name: "HCG SAAnabolic 15000iu", price: 1800, image: "images/hcg-sa.png" }
     ],
     "TB500/BPC157": [
       { name: "TB-500 Meditech 10mgx3", price: 2200, image: "images/tb500-medi.png" },
@@ -451,7 +456,7 @@ const products = {
       { name: "BPC-157 Beligas 5mg", price: 1100, image: "images/BPC157-beligas.png" },
       { name: "BPC-157 BPMedical", price: 0, image: "images/bpc157-bp.png" },
       { name: "TB500+BPC157 SAAnabolic 5+5mg", price: 1550, image: "images/tb500-sa.png" }
-      
+
     ],
     "Peptide etc.": [
       { name: "PT-141 Beligas 10mg", price: 1490, image: "images/pt141-beligas.png" },
@@ -507,9 +512,9 @@ const products = {
     ],
     "HCG": [
       //{ name: "HCG Beligas 5000iu", price: 1100, image: "images/hcg-beligas.png" },
-     // { name: "HCG BPMedical 5000iu", price: 1265, image: "images/hcg-bp.png" },
+      // { name: "HCG BPMedical 5000iu", price: 1265, image: "images/hcg-bp.png" },
       { name: "HCG AlphaPharma 5000iu", price: 2100, image: "images/hcg-alpha.png" },
-   //   { name: "HCG SAAnabolic 15000iu", price: 1800, image: "images/hcg-sa.png" }
+      //   { name: "HCG SAAnabolic 15000iu", price: 1800, image: "images/hcg-sa.png" }
     ]
   },
   "Fat Burn & Weight-loss": {
@@ -567,7 +572,7 @@ const products = {
       { name: "Tirzep Wellness 10mg", price: 0, image: "images/tirzep-wellness.png" },
     ],
     "Retatrutide": [
-     // { name: "Retatrutide APLab 5mg", price: 1800, image: "images/" },
+      // { name: "Retatrutide APLab 5mg", price: 1800, image: "images/" },
       { name: "Retatrutide Wellness 10mg", price: 3500, image: "images/reta-wellness.png" },
       { name: "RetatrutidePen APLab 10mg", price: 6900, image: "images/reta-ap.png" },
       { name: "RetatrutidePen SAAnabolic 10mg", price: 5500, image: "images/retapen-sa.png" },
@@ -620,10 +625,20 @@ const products = {
 };
 
 function showTab(tab) {
+  // ซ่อนทุก tab-content
   document.querySelectorAll('.tab-content').forEach(el => el.style.display = 'none');
   document.getElementById(`tab${tab}`).style.display = 'block';
+
+  // ลบ active ทุกปุ่ม
   document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
-  document.querySelectorAll('.tab-btn')[tab - 1].classList.add('active');
+
+  // ใส่ active ให้ปุ่มที่ตรงกับ data-tab
+  const activeBtn = document.querySelector(`.tab-btn[data-tab="${tab}"]`);
+  if (activeBtn) activeBtn.classList.add('active');
+
+  // Render เฉพาะ tab
+  if (tab === 1) renderCategories();
+  if (tab === 3) renderNewProductsSlider();
 }
 
 // -------------------------
@@ -637,17 +652,23 @@ function renderCategories() {
     div.className = "category-item";
     div.textContent = cat;
 
-// กดแล้วเปลี่ยนสีปุ่มนี้
-div.addEventListener('click', () => {
-  // ลบ active จากปุ่มอื่น
-  document.querySelectorAll(".category-item").forEach(btn => btn.classList.remove("active"));
-  // ใส่ active ให้ปุ่มนี้
-  div.classList.add("active");
-  renderSubCategories(cat);
-});
+    // ถ้าเป็น active category ให้ใส่ class
+    if (cat === activeCategory) div.classList.add("active");
+    
 
-  categoryList.appendChild(div);
-});
+    // กดแล้วเปลี่ยนสีปุ่มนี้
+    div.addEventListener('click', () => {
+      // ลบ active จากปุ่มอื่น
+      document.querySelectorAll(".category-item").forEach(btn => btn.classList.remove("active"));
+      // ใส่ active ให้ปุ่มนี้
+      div.classList.add("active");
+      activeCategory = cat;    // จำค่าไว้
+      activeSubCategory = null; // reset subcategory เวลาเปลี่ยน main category
+      renderSubCategories(cat);
+    });
+
+    categoryList.appendChild(div);
+  });
 }
 
 
@@ -663,18 +684,26 @@ function renderSubCategories(category) {
     div.className = "subcategory-item";
     div.textContent = sub;
 
-        // กดแล้วเปลี่ยนสีปุ่มนี้
-        div.addEventListener('click', () => {
-          // ลบ active จากปุ่มอื่น
-          document.querySelectorAll(".subcategory-item").forEach(btn => btn.classList.remove("active"));
-          // ใส่ active ให้ปุ่มนี้
-          div.classList.add("active");
-          renderProducts(category, sub);
-        });
+    // ถ้าเป็น active subcategory ให้ใส่ class
+    if (sub === activeSubCategory) div.classList.add("active");
+    
+    // กดแล้วเปลี่ยนสีปุ่มนี้
+    div.addEventListener('click', () => {
+      // ลบ active จากปุ่มอื่น
+      document.querySelectorAll(".subcategory-item").forEach(btn => btn.classList.remove("active"));
+      // ใส่ active ให้ปุ่มนี้
+      div.classList.add("active");
+      activeSubCategory = sub; // จำค่าไว้
+      renderProducts(category, sub);
+    });
 
-        subList.appendChild(div);
-      });
-    }
+    subList.appendChild(div);
+  });
+  // ถ้ามี active subcategory เดิม ให้ render products
+  if (activeSubCategory) {
+    renderProducts(category, activeSubCategory);
+  }
+}
 // -------------------------
 // แสดงสินค้า
 // -------------------------
@@ -802,11 +831,13 @@ function loadCart() {
 // ใส่ LIFF ID ของคุณ
 window.onload = function() {
   liff.init({ liffId: "2007887429-7ERpgpYL" }).then(() => {
-    renderNewProductsSlider();
-    renderCategories();
-    loadCart();   // โหลดข้อมูลเก่าจาก localStorage
-    renderCart(); // อัพเดทแสดงผลตะกร้า
+   
     generateAllProducts(); // ✅ สร้าง flat list สำหรับ search
+    renderCategories(); // สำหรับ Tab 1
+    loadCart();    // สำหรับ Tab 2
+    renderCart(); // อัพเดทแสดงผลตะกร้า
+    showTab(1);               // เริ่มเปิด Tab 1
+      
 
     const saved = localStorage.getItem("customerInfo");
     if (saved) {
@@ -861,7 +892,7 @@ async function checkout() {
           },
 
 
-          { type: "text", text: "MuscleStationTH", weight: "bold", size: "xl", align: "center", color: "#0000FF"},
+          { type: "text", text: "MuscleStationTH", weight: "bold", size: "xl", align: "center", color: "#0000FF" },
           { type: "text", text: "สรุปคำสั่งซื้อ", weight: "bold", size: "lg" },
           { type: "box", layout: "vertical", margin: "lg", spacing: "sm", contents: itemContents },
           {
@@ -869,7 +900,7 @@ async function checkout() {
             layout: "horizontal",
             margin: "lg",
             contents: [
-              { type: "text", text: "รวมทั้งหมด", size: "lg",weight: "bold", color: "#000000" },
+              { type: "text", text: "รวมทั้งหมด", size: "lg", weight: "bold", color: "#000000" },
               { type: "text", text: `${totalPrice}฿`, size: "lg", color: "#000000", align: "end", weight: "bold" }
             ]
           }
@@ -922,27 +953,29 @@ async function checkout() {
   try {
 
     // --- ยิงข้อมูลไป Google Apps Script ---
-fetch("https://script.google.com/macros/s/AKfycbxqnzojoqKN_GC_XqdhCTIb2YP8OswdUNBP69P-zf55u-gybpeouyTvcqchndRMG9cb0A/exec", {
+    fetch("https://script.google.com/macros/s/AKfycbxqnzojoqKN_GC_XqdhCTIb2YP8OswdUNBP69P-zf55u-gybpeouyTvcqchndRMG9cb0A/exec", {
       method: "POST",
-      body: JSON.stringify({ action: "checkout",
-                            orderText: orderText,
-                            customerText: customerText                           })
+      body: JSON.stringify({
+        action: "checkout",
+        orderText: orderText,
+        customerText: customerText
+      })
     })
-    .then(res => res.json())
-    .then(data => console.log(data));
+      .then(res => res.json())
+      .then(data => console.log(data));
 
 
 
 
 
     // ส่ง Flex + Text ให้ลูกค้า
-  /*  await liff.sendMessages([
-      { type: "text", text: orderText },
-      { type: "text", text: customerText }
-    ]);*/
+    /*  await liff.sendMessages([
+        { type: "text", text: orderText },
+        { type: "text", text: customerText }
+      ]);*/
     await liff.sendMessages([flexMsg]);
 
-    alert("ส่งคำสั่งซื้อแล้ว!");   
+    alert("ส่งคำสั่งซื้อแล้ว!");
 
     cart.length = 0;
     saveCart();
@@ -964,10 +997,10 @@ fetch("https://script.google.com/macros/s/AKfycbxqnzojoqKN_GC_XqdhCTIb2YP8OswdUN
 function saveCustomerInfo() {
   const address = document.getElementById("custAddress").value.trim();
 
- /* if (!address) {
-    alert("กรุณากรอกข้อมูล ชื่อ-ที่อยู่-เบอร์โทร ก่อนบันทึก ❗");
-    return;
-  }*/
+  /* if (!address) {
+     alert("กรุณากรอกข้อมูล ชื่อ-ที่อยู่-เบอร์โทร ก่อนบันทึก ❗");
+     return;
+   }*/
 
   const customer = { address };
   localStorage.setItem("customerInfo", JSON.stringify(customer));
@@ -979,7 +1012,7 @@ function saveCustomerInfo() {
   document.getElementById("saveBtn").style.display = "none";
   document.getElementById("editBtn").style.display = "inline-block";
 
- // alert("บันทึกข้อมูลเรียบร้อยแล้ว ✅");
+  // alert("บันทึกข้อมูลเรียบร้อยแล้ว ✅");
 }
 
 function editCustomerInfo() {
@@ -1020,12 +1053,12 @@ function filterProducts() {
   let subCategoryList = document.getElementById("subCategoryList");
   let productList = document.getElementById("productList");
   let newProductsSection = document.getElementById("newProductsSection");
-  
+
   searchResults.innerHTML = "";
 
   if (input === "") {
     searchResults.style.display = "none";
-    newProductsSection.style.display = "block"; // แสดงสินค้าเข้าใหม่
+  //  newProductsSection.style.display = "block"; // แสดงสินค้าเข้าใหม่
     categoryList.style.display = "grid";
     subCategoryList.style.display = "grid";
     productList.style.display = "grid";
@@ -1042,7 +1075,7 @@ function filterProducts() {
     return;
   }
   // ถ้า input มีค่า → ซ่อน section สินค้าเข้าใหม่
-  newProductsSection.style.display = "none";
+//  newProductsSection.style.display = "none";
 
   // ค้นหาใน allProducts
   const found = allProducts.filter(p => p.name.toLowerCase().includes(input));
