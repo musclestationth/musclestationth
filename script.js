@@ -1,5 +1,5 @@
 // -------------------------
-// โหลดตะกร้าจาก localStorage 
+// โหลดตะกร้าจาก localStorage
 // -------------------------
 let storedCart = JSON.parse(localStorage.getItem("cart"));
 let cart = Array.isArray(storedCart) ? storedCart : [];
@@ -77,7 +77,7 @@ function saveCart() {
     }
   }
 
-
+let allProducts = [];
 
 
 // ข้อมูลสินค้า + รูป
@@ -507,10 +507,10 @@ const products = {
       { name: "Proviron AlphaPharma 25mg100t", price: 2200, image: "images/prov-alpha.png" }
     ],
     "HCG": [
-    //  { name: "HCG Beligas 5000iu", price: 1100, image: "images/hcg-beligas.png" },
-    //  { name: "HCG BPMedical 5000iu", price: 1265, image: "images/hcg-bp.png" },
+      //{ name: "HCG Beligas 5000iu", price: 1100, image: "images/hcg-beligas.png" },
+     // { name: "HCG BPMedical 5000iu", price: 1265, image: "images/hcg-bp.png" },
       { name: "HCG AlphaPharma 5000iu", price: 2100, image: "images/hcg-alpha.png" },
-    //  { name: "HCG SAAnabolic 15000iu", price: 1800, image: "images/hcg-sa.png" }
+   //   { name: "HCG SAAnabolic 15000iu", price: 1800, image: "images/hcg-sa.png" }
     ]
   },
   "Fat Burn & Weight-loss": {
@@ -686,10 +686,14 @@ function renderProducts(category, sub) {
   products[category][sub].forEach(prod => {
     const div = document.createElement("div");
     div.className = "product-item";
+    // 👇 เพิ่ม attribute สำหรับหมวดหลักและหมวดย่อย
+    div.setAttribute("data-category", category);
+    div.setAttribute("data-subcategory", sub);
+
     div.innerHTML = `
       <img src="${prod.image}" alt="${prod.name}">
       <div class="info">
-        <p>${prod.name}</p>
+        <h3>${prod.name}</h3>
         <p>${prod.price}฿</p>
         <button class="add-btn" onclick='addToCart("${prod.name}", ${prod.price})'>
           Add to Cart
@@ -699,6 +703,7 @@ function renderProducts(category, sub) {
     productList.appendChild(div);
   });
 }
+
 
 // -------------------------
 // เพิ่มสินค้า
@@ -802,6 +807,7 @@ window.onload = function() {
     renderCategories();
     loadCart();   // โหลดข้อมูลเก่าจาก localStorage
     renderCart(); // อัพเดทแสดงผลตะกร้า
+    generateAllProducts(); // ✅ สร้าง flat list สำหรับ search
 
     const saved = localStorage.getItem("customerInfo");
     if (saved) {
@@ -985,3 +991,105 @@ function editCustomerInfo() {
   document.getElementById("editBtn").style.display = "none";
   document.getElementById("saveBtn").style.display = "inline-block";
 }
+
+
+// -------------------------
+// สร้าง allProducts (flat list) จาก object products
+// -------------------------
+function generateAllProducts() {
+  allProducts = [];
+  Object.keys(products).forEach(cat => {
+    Object.keys(products[cat]).forEach(sub => {
+      products[cat][sub].forEach(p => {
+        allProducts.push({
+          name: p.name,
+          price: p.price,
+          img: p.image,
+          category: cat,
+          subCategory: sub
+        });
+      });
+    });
+  });
+}
+
+// --- ฟังก์ชันค้นหา ---
+function filterProducts() {
+  let input = document.getElementById("searchInput").value.toLowerCase();
+  let searchResults = document.getElementById("searchResults");
+  let categoryList = document.getElementById("categoryList");
+  let subCategoryList = document.getElementById("subCategoryList");
+  let productList = document.getElementById("productList");
+  let newProductsSection = document.getElementById("newProductsSection");
+  
+  searchResults.innerHTML = "";
+
+  if (input === "") {
+    searchResults.style.display = "none";
+    newProductsSection.style.display = "block"; // แสดงสินค้าเข้าใหม่
+    categoryList.style.display = "grid";
+    subCategoryList.style.display = "grid";
+    productList.style.display = "grid";
+
+    // --- เพิ่มตรงนี้ ---
+    const activeCategory = document.querySelector(".category-item.active");
+    if (activeCategory) {
+      renderSubCategories(activeCategory.textContent);
+    } else {
+      subCategoryList.innerHTML = ""; // ถ้าไม่มี active ให้ว่าง
+      productList.innerHTML = "";
+    }
+
+    return;
+  }
+  // ถ้า input มีค่า → ซ่อน section สินค้าเข้าใหม่
+  newProductsSection.style.display = "none";
+
+  // ค้นหาใน allProducts
+  const found = allProducts.filter(p => p.name.toLowerCase().includes(input));
+
+  if (found.length > 0) {
+    found.forEach(p => {
+      const div = document.createElement("div");
+      div.className = "product-item";  // ใช้ style ปกติ
+      div.setAttribute("data-category", p.category);
+      div.setAttribute("data-subcategory", p.subCategory);
+
+      // innerHTML เหมือน renderProducts()
+      div.innerHTML = `
+        <img src="${p.img}" alt="${p.name}">
+        <div class="info">
+          <h3>${p.name}</h3>
+          <p>${p.price}฿</p>
+          <button class="add-btn" onclick='addToCart("${p.name}", ${p.price})'>
+            Add to Cart
+          </button>
+        </div>
+      `;
+
+      searchResults.appendChild(div);
+    });
+
+    // แสดงผล search และซ่อนหมวด/สินค้าปกติ
+    searchResults.style.display = "grid";
+    searchResults.style.gridTemplateColumns = "repeat(3, 1fr)";
+    searchResults.style.gap = "5px";
+
+    categoryList.style.display = "none";
+    subCategoryList.style.display = "none";
+    productList.style.display = "none";
+  } else {
+    searchResults.innerHTML = "<p>❌ ไม่พบสินค้า</p>";
+    searchResults.style.display = "block";
+    categoryList.style.display = "none";
+    subCategoryList.style.display = "none";
+    productList.style.display = "none";
+  }
+}
+
+function clearSearch() {
+  const input = document.getElementById("searchInput");
+  input.value = "";        // ล้างข้อความ
+  filterProducts();        // เรียกฟังก์ชัน filterProducts() เพื่อกลับไปแสดงสินค้าปกติ
+}
+
