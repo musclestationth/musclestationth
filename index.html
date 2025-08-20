@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="th">
 <head>
-  <meta charset="UTF-8" /> 
+  <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>MuscleStationTH</title>
   <link rel="stylesheet" href="style.css" />
@@ -15,17 +15,31 @@
 
   <!-- Tab 1: สินค้า -->
   <div id="tab1" class="tab-content">
-    <!-- สินค้าเข้าใหม่ -->
-    <h2>✨ สินค้าเข้าใหม่</h2>
-    <div class="slider-container">
-      <div class="slider-wrapper" id="newProductsSlider"></div>
+
+    <!-- 🔍 ช่องค้นหา -->
+    <div class="search-bar-container">
+      <input type="text" id="searchInput" placeholder="🔍 ค้นหาสินค้า..." onkeyup="filterProducts()">
+      <button id="clearSearchBtn" onclick="clearSearch()">Clear</button>
     </div>
-    <div class="slider-dots" id="sliderDots"></div>
+
+    <!-- ผลการค้นหา -->
+    <div id="searchResults" class="product-grid" style="display:none;"></div>
+
+    <!-- สินค้าเข้าใหม่ -->
+    <div id="newProductsSection">
+      <h2>✨ สินค้าเข้าใหม่</h2>
+      <div class="slider-container">
+        <div class="slider-wrapper" id="newProductsSlider"></div>
+      </div>
+      <div class="slider-dots" id="sliderDots"></div>
+    </div>
+
 
     <!-- สินค้า -->
     <div id="categoryList" class="category-grid"></div>
     <div id="subCategoryList" class="subcategory-list"></div>
     <div id="productList" class="product-grid"></div>
+
 
     <!-- Cart Bar -->
     <div id="cartBar" class="cart-bar">
