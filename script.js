@@ -112,7 +112,7 @@ const products = {
     "Clen": [
       { name: "Clen AlphaPharma 40mcg50t\n&nbsp;\n&nbsp;", price: 600, image: "images/clen-alpha.png" },
       //{ name: "Clen Beligas 40mcg50t\n&nbsp;\n&nbsp;", price: 850, image: "images/clen50-beligas.png" },
-      { name: "Clen Gainzlab 40mcg100t", price: 580, image: "images/clen-gainz.png" },
+      { name: "Clen Gainzlab 40mcg100t", price: 580, image: "images/clen-gain.png" },
       { name: "Clen Synctech 40mcg100t", price: 750, image: "images/clen-sync.png" },
       { name: "Clen Bodytech 40mcg100t", price: 780, image: "images/clen-body.png" },
       { name: "Clen Meditech 40mcg100t", price: 780, image: "images/clen-medi.png" },
@@ -132,7 +132,7 @@ const products = {
       { name: "Dbol Bodytech 10mg100t", price: 740, image: "images/dbol-body.png" },
       { name: "Dbol BPMedical 10mg100t", price: 870, image: "images/dbol-bp.png" },
       { name: "Dbol Platinum 10mg100t", price: 1000, image: "images/dbol-plat.png" },
-      { name: "Dbol Beligas 10mg100t", price: 0, image: "" },
+      { name: "Dbol Beligas 10mg100t", price: 0, image: "images/dbol10100-beligas.png" },
    //   { name: "Dbol Beligas 20mg50t", price: 1190, image: "images/dbol20-beligas.png" },
       { name: "Dbol Beligas 50mg50t", price: 2200, image: "images/dbol50-beligas.png" }
     ],
@@ -144,7 +144,7 @@ const products = {
     //  { name: "Tbol Beligas 10mg100t", price: 0, image: "images/tbol-beligas.png" }
     ],
     "T3": [
-      { name: "T3 Gainzlab 25mcg100t", price: 580, image: "images/t3-gainz.png" },
+      { name: "T3 Gainzlab 25mcg100t", price: 580, image: "images/t3-gain.png" },
       { name: "T3 Bodytech 25mcg100t", price: 780, image: "images/t3-body.png" },
       { name: "T3 Meditech 25mcg100t", price: 780, image: "images/t3-medi.png" },
       { name: "T3 Synctech 25mcg100t", price: 800, image: "images/t3-sync.png" },
@@ -337,7 +337,7 @@ const products = {
       { name: "EQ Beligas 500mg", price: 0, image: "images/eq2-beligas.png" }
     ],
     "Deca": [
-      { name: "Deca EuroMed 100mg(3Amp)", price: 650, image: "" },
+      { name: "Deca EuroMed 100mg(3Amp)", price: 650, image: "images/decaamp-euro.png" },
       { name: "Deca AlphaPharma 200mg", price: 1700, image: "images/deca-alpha.png" },
       { name: "Deca Meditech 250mg", price: 1200, image: "images/deca-medi.png" },
       { name: "Deca Bodytech 250mg", price: 1200, image: "images/deca-body.png" },
@@ -449,7 +449,7 @@ const products = {
       { name: "TB-500 Meditech 10mgx3", price: 2200, image: "images/tb500-medi.png" },
       { name: "TB-500 Beligas 5mg", price: 1790, image: "images/tb500-beligas.png" },
       { name: "BPC-157 Meditech 5mgx3", price: 2200, image: "images/bpc157-medi.png" },
-      { name: "BPC-157 Beligas 5mg", price: 1100, image: "images/bpc157-beligas.png" },
+      { name: "BPC-157 Beligas 5mg", price: 1100, image: "images/BPC157-beligas.png" },
       { name: "BPC-157 BPMedical", price: 0, image: "images/bpc157-bp.png" },
       { name: "TB500+BPC157 SAAnabolic 5+5mg", price: 1550, image: "images/tb500-sa.png" }
       
@@ -485,8 +485,8 @@ const products = {
       { name: "Nolvadex BPMedical 20mg30t", price: 1045, image: "images/nolv-bp.png" },
       { name: "Nolvadex Meditech 20mg50t", price: 1200, image: "images/nolv-medi.png" },
       { name: "Nolvadex Beligas 20mg50t", price: 1190, image: "images/nolv-beligas.png" },
-      { name: "Nolvadex AlphaPharma 20mg30t", price: 1100, image: "images/nolv-alpha.png" },
-      { name: "Nolvadex SAAnabolic 20mg60t", price: 0, image: "" },
+      { name: "Nolvadex AlphaPharma 20mg30t", price: 1100, image: "images/nol-alpha.png" },
+      { name: "Nolvadex SAAnabolic 20mg60t", price: 0, image: "images/nolv-sa.png" },
       { name: "Levitra SAAnabolic 30mg60t", price: 1440, image: "images/levitra-sa.png" }
     ],
     "Femara": [
@@ -507,17 +507,17 @@ const products = {
       { name: "Proviron AlphaPharma 25mg100t", price: 2200, image: "images/prov-alpha.png" }
     ],
     "HCG": [
-      { name: "HCG Beligas 5000iu", price: 1100, image: "images/hcg-beligas.png" },
-      { name: "HCG BPMedical 5000iu", price: 1265, image: "images/hcg-bp.png" },
+    //  { name: "HCG Beligas 5000iu", price: 1100, image: "images/hcg-beligas.png" },
+    //  { name: "HCG BPMedical 5000iu", price: 1265, image: "images/hcg-bp.png" },
       { name: "HCG AlphaPharma 5000iu", price: 2100, image: "images/hcg-alpha.png" },
-      { name: "HCG SAAnabolic 15000iu", price: 1800, image: "images/hcg-sa.png" }
+    //  { name: "HCG SAAnabolic 15000iu", price: 1800, image: "images/hcg-sa.png" }
     ]
   },
   "Fat Burn & Weight-loss": {
     "Clen": [
       { name: "Clen AlphaPharma 40mcg50t\n&nbsp;\n&nbsp;", price: 600, image: "images/clen-alpha.png" },
       //{ name: "Clen Beligas 40mcg50t\n&nbsp;\n&nbsp;", price: 850, image: "images/clen50-beligas.png" },
-      { name: "Clen Gainzlab 40mcg100t", price: 580, image: "images/clen-gainz.png" },
+      { name: "Clen Gainzlab 40mcg100t", price: 580, image: "images/clen-gain.png" },
       { name: "Clen Synctech 40mcg100t", price: 750, image: "images/clen-sync.png" },
       { name: "Clen Bodytech 40mcg100t", price: 780, image: "images/clen-body.png" },
       { name: "Clen Meditech 40mcg100t", price: 780, image: "images/clen-medi.png" },
@@ -527,7 +527,7 @@ const products = {
       { name: "Clen Beligas 40mcg100t\n&nbsp;", price: 1690, image: "images/clen100-beligas.png" }
     ],
     "T3": [
-      { name: "T3 Gainzlab 25mcg100t", price: 580, image: "images/t3-gainz.png" },
+      { name: "T3 Gainzlab 25mcg100t", price: 580, image: "images/t3-gain.png" },
       { name: "T3 Bodytech 25mcg100t", price: 780, image: "images/t3-body.png" },
       { name: "T3 Meditech 25mcg100t", price: 780, image: "images/t3-medi.png" },
       { name: "T3 Synctech 25mcg100t", price: 800, image: "images/t3-sync.png" },
@@ -579,7 +579,7 @@ const products = {
     "Injection Weight-loss etc": [
       { name: "Helio Clen Yohimbine Beligas 40mcg&5.5mg", price: 1450, image: "images/helio-beligas.png" },
       { name: "Saxenda Liraglutide 3.0mg", price: 3900, image: "images/saxenda.png" },
-      { name: "Cut Fast SAAnabolic 155mg", price: 1750, image: "images/cut-sa" }
+      { name: "Cut Fast SAAnabolic 155mg", price: 1750, image: "images/cut-sa.png" }
     ]
   },
   "Supplements": {
