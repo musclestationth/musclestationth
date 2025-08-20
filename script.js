@@ -88,7 +88,7 @@ const products = {
       { name: "Anadrol Meditech 50mg100t", price: 1200, image: "images/anadrol-medi.png" },
       { name: "Anadrol Platinum 50mg100t", price: 1700, image: "images/anadrol-plat.png" },
       { name: "Anadrol BPMedical 50mg100t", price: 1760, image: "images/anadrol-bp.png" },
-      { name: "Anadrol Beligas 50mg100t", price: 0, image: "images/anadrol-beligas.png" },
+      { name: "Anadrol Beligas 50mg100t", price: 0, image: "images/anadrol50100-beligas.png" },
       { name: "Anadrol SA 25mg100t", price: 950, image: "images/anadrol-sa.png" },
       { name: "Anadrol AlphaPharma 50mg50t", price: 1600, image: "images/anadrol-alpha.png" }
     ],
