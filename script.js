@@ -13,6 +13,10 @@ function saveCart() {
   console.log("Saving cart:", cart);
   localStorage.setItem("cart", JSON.stringify(cart));
 }
+let currentSlide = 0;
+let currentNewSlide = 0;
+let currentPromoSlide = 0;
+const itemsPerPage = 3; // ✅ ให้โชว์ 3 สินค้าต่อหน้า
 
 // สินค้าเข้าใหม่ (กำหนดเอง)
 const newProducts = [
@@ -32,50 +36,51 @@ const newProducts = [
 
 ];
 
-
-let currentSlide = 0;
-const itemsPerPage = 3;
-
-function renderNewProductsSlider() {
-  const container = document.getElementById("newProductsSlider");
+// --- ข้อมูลสินค้าโปรโมชั่น ---
+const promoProducts = [
+  { name: "(3pc) SARMs Promotion", price: 2400, image: "images/sarmpro.png" },
+  { name: "(3pc) MK677 Promotion", price: 3000, image: "images/677pro.png" }
+];
+// ฟังก์ชัน render slider แบบแยก container
+function renderProductsSlider(productsArray, containerId, dotsId, currentSlide) {
+  const container = document.getElementById(containerId);
   container.innerHTML = "";
 
   const start = currentSlide * itemsPerPage;
   const end = start + itemsPerPage;
-  const pageItems = newProducts.slice(start, end);
+  const pageItems = productsArray.slice(start, end);
 
   pageItems.forEach(prod => {
     const div = document.createElement("div");
-    div.className = "product-item"; // ใช้ class เดียวกับสินค้าปกติ
+    div.className = "product-item";
     div.innerHTML = `
-        <img src="${prod.image}" alt="${prod.name}">
-        <div class="info">
-          <h3>${prod.name}</h3>
-          <p>${prod.price}฿</p>
-          <button class="add-btn" onclick='addToCart("${prod.name}", ${prod.price})'>
-            Add to Cart
-          </button>
-        </div>
-      `;
+      <img src="${prod.image}" alt="${prod.name}">
+      <div class="info">
+        <h3>${prod.name}</h3>
+        <p>${prod.price}฿</p>
+        <button class="add-btn" onclick='addToCart("${prod.name}", ${prod.price})'>
+          Add to Cart
+        </button>
+      </div>
+    `;
     container.appendChild(div);
   });
 
-  renderDots();
-}
-
-
-
-function renderDots() {
-  const dotsContainer = document.getElementById("sliderDots");
+  // render dots
+  const dotsContainer = document.getElementById(dotsId);
   dotsContainer.innerHTML = "";
-  const totalPages = Math.ceil(newProducts.length / itemsPerPage);
-
+  const totalPages = Math.ceil(productsArray.length / itemsPerPage);
   for (let i = 0; i < totalPages; i++) {
     const dot = document.createElement("span");
     dot.className = i === currentSlide ? "active" : "";
     dot.addEventListener("click", () => {
-      currentSlide = i;
-      renderNewProductsSlider();
+      if (containerId === "newProductsSlider") {
+        currentNewSlide = i;
+        renderProductsSlider(newProducts, "newProductsSlider", "newSliderDots", currentNewSlide);
+      } else if (containerId === "promoProductsSlider") {
+        currentPromoSlide = i;
+        renderProductsSlider(promoProducts, "promoProductsSlider", "promoSliderDots", currentPromoSlide);
+      }
     });
     dotsContainer.appendChild(dot);
   }
@@ -248,6 +253,10 @@ const products = {
       { name: "Sustanon Platinum 250mg", price: 1400, image: "images/sus-plat.png" },
       { name: "Sustanon Beligas 500mg", price: 2250, image: "images/sus500-beligas.png" }
     ],
+    "Test Suspension": [
+      { name: "Test Suspension Meditech 100mg", price: 900, image: "images/testsus-medi.png" },
+      { name: "Test Suspension Beligas 100mg", price: 1290, image: "images/testsus-beligas.png" }
+    ],
     "TrenA": [
       { name: "TrenA Beligas 100mg", price: 1300, image: "images/trena-beligas.png" },
       { name: "TrenA Synctech 100mg", price: 1400, image: "images/trena-sync.png" },
@@ -357,38 +366,37 @@ const products = {
     ],
     "Injection etc.": [
       { name: "TDT RAPID Platinum 300mg", price: 2600, image: "images/tdt-plat.png" },
-      { name: "Test Suspension Meditech 100mg", price: 900, image: "images/testsus-medi.png" },
-      { name: "Test Suspension Beligas 100mg", price: 1290, image: "images/testsus-beligas.png" },
       { name: "Kisseptin-10 SAAnabolic 5mg", price: 1850, image: "images/kiss-sa.png" },
-      { name: "Bac Water SAAnabolic 10ml", price: 500, image: "images/bac-sa.png" },
-      { name: "Bac Water BPMedical 10ml", price: 450, image: "images/bac-bp.png" },
-      { name: "Bac Water Synctech 12ml", price: 200, image: "images/bac-sync.png" },
-
       { name: "Tren-Test-Mast Long Beligas 300mg", price: 2450, image: "images/tren-test-mast-beligas.png" },
       //  { name: "Test-Tren Short Beligas 150mg", price: 1700, image: "images/" },
       { name: "MENT Beligas 50mg", price: 1990, image: "images/ment-beligas.png" },
       { name: "MTR Beligas 5mg", price: 1290, image: "images/mtr-beligas.png" }
+    ],
+    "Bacteriostatic water": [
+      { name: "Bac Water SAAnabolic 10ml", price: 500, image: "images/bac-sa.png" },
+      { name: "Bac Water BPMedical 10ml", price: 450, image: "images/bac-bp.png" },
+      { name: "Bac Water Synctech 12ml", price: 200, image: "images/bac-sync.png" }
     ]
   },
   "SARMs": {
     "MK677": [
       { name: "MK-677 SAAnabolic 10mg60t", price: 1450, image: "images/677-sa.png" },
-      { name: "MK-677 Meditech 25mg50t", price: 1500, image: "images/677-medi.png" },
+      { name: "MK-677 Meditech/Bodytech 25mg50t", price: 1500, image: "images/677-medi.png" },
       { name: "MK-677 BPMedical 10mg90t", price: 2750, image: "images/677-bp.png" }
     ],
     "RAD140": [
-      { name: "Rad-140 Meditech 10mg50t", price: 1200, image: "images/rad-medi.png" },
+      { name: "Rad-140 Meditech/Bodytech 10mg50t", price: 1200, image: "images/rad-medi.png" },
       { name: "Rad-140 SAAnabolic 10mg60t", price: 1650, image: "images/rad-sa.png" },
       { name: "Rad-140 BPMedical 10mg60t", price: 2420, image: "images/rad-bp.png" }
     ],
     "GW501516": [
-      { name: "GW-501516 Meditech 20mg50t", price: 1200, image: "images/gw-medi.png" },
+      { name: "GW-501516 Meditech/Bodytech 20mg50t", price: 1200, image: "images/gw-medi.png" },
       { name: "GW-501516 SAAnabolic 10mg60t", price: 1050, image: "images/gw-sa.png" },
       { name: "GW-501516 BPMedical 10mg90t", price: 2420, image: "images/gw-bp.png" },
       { name: "GW-501516 Beligas 10mg50t", price: 1290, image: "images/gw50-beligas.png" }
     ],
     "MK2866": [
-      { name: "MK-2866 Meditech 20mg50t", price: 1200, image: "images/2866-medi.png" },
+      { name: "MK-2866 Meditech/Bodytech 20mg50t", price: 1200, image: "images/2866-medi.png" },
       { name: "MK-2866 BPMedical 10mg90t", price: 2090, image: "images/2866-bp.png" },
       { name: "MK-2866 SAAnabolic 10mg100t", price: 1200, image: "images/2866-sa.png" },
       { name: "MK-2866 Beligas 15mg50t", price: 0, image: "images/2866-beligas.png" },
@@ -406,7 +414,7 @@ const products = {
       { name: "LGD-4033 Beligas 10mg90t", price: 2190, image: "images/lgd-beligas.png" }
     ],
     "S4": [
-      { name: "S-4 Meditech 20mg50t", price: 1200, image: "images/s4-medi.png" },
+      { name: "S-4 Meditech/Bodytech 20mg50t", price: 1200, image: "images/s4-medi.png" },
       { name: "S-4 BPMedical 25mg60t", price: 2090, image: "images/s4-bp.png" }
     ],
     "AC262": [
@@ -542,7 +550,7 @@ const products = {
       { name: "T3 Beligas 50mcg100t", price: 1290, image: "images/t3100-beligas.png" }
     ],
     "GW501516": [
-      { name: "GW-501516 Meditech 20mg50t", price: 1200, image: "images/gw-medi.png" },
+      { name: "GW-501516 Meditech/Bodytech 20mg50t", price: 1200, image: "images/gw-medi.png" },
       { name: "GW-501516 SAAnabolic 10mg60t", price: 1050, image: "images/gw-sa.png" },
       { name: "GW-501516 BPMedical 10mg90t", price: 2420, image: "images/gw-bp.png" },
       { name: "GW-501516 Beligas 10mg50t", price: 1290, image: "images/gw50-beligas.png" }
@@ -638,8 +646,21 @@ function showTab(tab) {
 
   // Render เฉพาะ tab
   if (tab === 1) renderCategories();
-  if (tab === 3) renderNewProductsSlider();
+  if (tab === 3){
+    renderNewProducts();
+    renderPromoProducts();
+  }
 }
+// เรียกแยกกัน
+function renderNewProducts() {
+  renderProductsSlider(newProducts, "newProductsSlider", "newSliderDots", currentNewSlide);
+}
+
+function renderPromoProducts() {
+  renderProductsSlider(promoProducts, "promoProductsSlider", "promoSliderDots", currentPromoSlide);
+}
+
+
 
 // -------------------------
 // แสดงหมวดหมู่
@@ -784,18 +805,24 @@ function renderCart() {
     }
   });
 
-  // อัปเดตรวมจำนวนและราคาที่ส่วนแสดงผลในตะกร้า
+  // อัปเดตรวมจำนวนและราคาที่ส่วนแสดงผลในตะกร้า tab2
   const totalItemsEl = document.getElementById("totalItems2");
   const totalPriceEl = document.getElementById("totalPrice2");
   if (totalItemsEl) totalItemsEl.textContent = `รวม ${totalQty} ชิ้น`;
   if (totalPriceEl) totalPriceEl.textContent = `${totalPrice} บาท`;
 
-  // อัปเดตแถบตะกร้าด้านล่าง
+   // Cart Bar Tab 1
   const cartItemsCountEl = document.getElementById('totalItems1');
   const cartTotalPriceEl = document.getElementById('totalPrice1');
   if (cartItemsCountEl) cartItemsCountEl.textContent = 'รวม ' + totalQty + ' ชิ้น';
   if (cartTotalPriceEl) cartTotalPriceEl.textContent = totalPrice.toLocaleString() + ' บาท';
-}
+
+  // Cart Bar Tab 3
+    const cartItemsCount3El = document.getElementById('totalItems3');
+    const cartTotalPrice3El = document.getElementById('totalPrice3');
+    if (cartItemsCount3El) cartItemsCount3El.textContent = `รวม ${totalQty} ชิ้น`;
+    if (cartTotalPrice3El) cartTotalPrice3El.textContent = totalPrice.toLocaleString() + ' บาท';
+  }
 
 
 
@@ -837,7 +864,7 @@ window.onload = function() {
     loadCart();    // สำหรับ Tab 2
     renderCart(); // อัพเดทแสดงผลตะกร้า
     showTab(1);               // เริ่มเปิด Tab 1
-      
+
 
     const saved = localStorage.getItem("customerInfo");
     if (saved) {
