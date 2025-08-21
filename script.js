@@ -1,6 +1,6 @@
 // -------------------------
 // โหลดตะกร้าจาก localStorage
-// ------------------------- 
+// -------------------------
 let storedCart = JSON.parse(localStorage.getItem("cart"));
 let cart = Array.isArray(storedCart) ? storedCart : [];
 console.log("cart =", cart);
@@ -890,37 +890,6 @@ window.onload = function() {
 async function checkout() {
   if (!cart.length) return alert("ตะกร้าว่าง");
 
-  const totalPrice = cart.reduce((sum, i) => sum + i.price * i.qty, 0);
-
-  // --- Step 1: สร้างข้อความ orderText + customerText ---
-  let orderText = "📦 รายละเอียดคำสั่งซื้อ\n";
-  cart.forEach(item => {
-    orderText += `${item.name} x${item.qty} = ${item.price * item.qty}฿\n`;
-  });
-  orderText += `\n**รวมทั้งหมด = ${totalPrice}฿`;
-
-  let customerText = "⚠️ ยังไม่ได้กรอกข้อมูลลูกค้า";
-  const saved = localStorage.getItem("customerInfo");
-  if (saved) {
-    const info = JSON.parse(saved);
-    customerText = `👤 ชื่อ-ที่อยู่จัดส่ง:\n${info.address || "-"}`;
-  }
-
-  // --- Step 2: ส่ง cart ไป GAS เพื่อสร้าง orderId ---
-  let orderId;
-  try {
-    const res = await fetch("https://script.google.com/macros/s/AKfycbxqnzojoqKN_GC_XqdhCTIb2YP8OswdUNBP69P-zf55u-gybpeouyTvcqchndRMG9cb0A/exec", {
-      method: "POST",
-      body: JSON.stringify({ action: "checkout", cart }),
-    });
-    const data = await res.json();
-    orderId = data.orderId;
-  } catch (err) {
-    console.error(err);
-    return alert("เกิดข้อผิดพลาดในการสร้าง orderId");
-  }
-
-  // --- Step 3: สร้าง Flex message ---
   const itemContents = cart.map(item => ({
     type: "box",
     layout: "horizontal",
@@ -929,6 +898,8 @@ async function checkout() {
       { type: "text", text: `${item.price * item.qty}฿`, size: "sm", color: "#000000", align: "end" }
     ]
   }));
+
+  const totalPrice = cart.reduce((sum, i) => sum + i.price * i.qty, 0);
 
   const flexMsg = {
     type: "flex",
@@ -939,7 +910,15 @@ async function checkout() {
         type: "box",
         layout: "vertical",
         contents: [
-          { type: "image", url: "https://lh3.googleusercontent.com/d/1thkyE_A9Jd8LGii5Z9rIGtcn75Tv39q7", size: "sm", align: "center", margin: "none" },
+          {
+            type: "image",
+            url: "https://lh3.googleusercontent.com/d/1thkyE_A9Jd8LGii5Z9rIGtcn75Tv39q7", // ใส่ URL รูปโลโก้จริงของคุณ
+            size: "sm",           // ขนาดเล็ก (xs, sm, md, lg, xl, full)
+            align: "center",
+            margin: "none"
+          },
+
+
           { type: "text", text: "MuscleStationTH", weight: "bold", size: "xl", align: "center", color: "#0000FF" },
           { type: "text", text: "สรุปคำสั่งซื้อ", weight: "bold", size: "lg" },
           { type: "box", layout: "vertical", margin: "lg", spacing: "sm", contents: itemContents },
@@ -953,41 +932,104 @@ async function checkout() {
             ]
           }
         ]
+
       },
       footer: {
         type: "box",
         layout: "vertical",
         spacing: "sm",
         contents: [
-          { type: "button", style: "primary", color: "#1DB446", action: { type: "uri", label: "ชำระเงิน", uri: "https://liff.line.me/..." } },
-          { type: "button", style: "secondary", color: "#FF5722", action: { type: "uri", label: "สำหรับแอดมิน", uri: "https://liff.line.me/2007887429-p3nd4dvE?page=summary&orderId=${orderId}" } },
-          { type: "text", text: "**กรุณารอแอดมินเช็คสต็อกสินค้าและconfirm ก่อนกดชำระเงินนะคะ", size: "md", color: "#FF0000", wrap: true, margin: "sm" }
+          {
+            type: "button",
+            style: "primary",
+            color: "#1DB446",  // สีเขียว typical payment color
+            action: {
+              type: "uri",
+              label: "ชำระเงิน",
+              uri: "https://liff.line.me/2007887429-Arr5x53g" // ใส่ URL หน้า QR Code จริงของคุณ
+            }
+          },
+          {
+            type: "button",
+            style: "secondary",
+            color: "#FF5722",
+            action: {
+              type: "uri",
+              label: "สำหรับแอดมิน",
+              // 🔹 ไม่ต้องส่ง cart ยาว ๆ ใน URL แล้ว
+              uri: "https://liff.line.me/2007887429-p3nd4dvE?page=summary"
+            }
+          },
+          {
+            type: "text",
+            text: "**กรุณารอแอดมินเช็คสต็อกสินค้าและconfirm ก่อนกดชำระเงินนะคะ\n**Please wait for checking stocks and confirm this order before payment.",
+            size: "md",
+            color: "#FF0000",
+            wrap: true,
+            margin: "sm"
+          }
         ]
       }
     }
   };
 
-  // --- Step 4: ส่งข้อความแจ้งเตือน + Flex message ---
-  try {
-    // ส่งข้อความ orderText + customerText
-    await liff.sendMessages([
-      { type: "text", text: orderText },
-      { type: "text", text: customerText }
-    ]);
+  // --- สร้างข้อความรายละเอียดคำสั่งซื้อ ---
+  let orderText = "📦 รายละเอียดคำสั่งซื้อ\n";
+  cart.forEach(item => {
+    orderText += `${item.name} x${item.qty} = ${item.price * item.qty}฿\n`;
+  });
+  orderText += `\n**รวมทั้งหมด = ${totalPrice}฿`;
 
-    // ส่ง Flex message
+  // --- สร้างข้อความข้อมูลลูกค้า ---
+  let customerText = "⚠️ ยังไม่ได้กรอกข้อมูลลูกค้า";
+  const saved = localStorage.getItem("customerInfo");
+  if (saved) {
+    const info = JSON.parse(saved);
+    customerText = `👤 ชื่อ-ที่อยู่จัดส่ง:\n${info.address || "-"}`;
+  }
+
+  try {
+
+    // --- ยิงข้อมูลไป Google Apps Script ---
+    fetch("https://script.google.com/macros/s/AKfycbxqnzojoqKN_GC_XqdhCTIb2YP8OswdUNBP69P-zf55u-gybpeouyTvcqchndRMG9cb0A/exec", {
+      method: "POST",
+      body: JSON.stringify({
+        action: "checkout",
+        orderText: orderText,
+        customerText: customerText
+      })
+    })
+      .then(res => res.json())
+      .then(data => console.log(data));
+
+
+
+
+
+    // ส่ง Flex + Text ให้ลูกค้า
+    /*  await liff.sendMessages([
+        { type: "text", text: orderText },
+        { type: "text", text: customerText }
+      ]);*/
     await liff.sendMessages([flexMsg]);
 
     alert("ส่งคำสั่งซื้อแล้ว!");
+
     cart.length = 0;
     saveCart();
     renderCart();
     showTab(2);
     liff.closeWindow();
+
   } catch (err) {
+    //console.error(err);
     console.error('sendMessages error:', err);
     alert("ส่งข้อความไม่สำเร็จ");
   }
+
+
+
+
 }
 
 function saveCustomerInfo() {
@@ -1120,3 +1162,4 @@ function clearSearch() {
   input.value = "";        // ล้างข้อความ
   filterProducts();        // เรียกฟังก์ชัน filterProducts() เพื่อกลับไปแสดงสินค้าปกติ
 }
+
