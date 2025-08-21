@@ -1,145 +1,56 @@
-<!DOCTYPE html>
-<html lang="th">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Admin Summary</title>
-<style>
-  body { font-family: Arial, sans-serif; padding: 20px; }
-  table { width: 100%; border-collapse: collapse; margin-bottom: 20px; }
-  th, td { border: 1px solid #ccc; padding: 8px; text-align: center; }
-  input { width: 60px; }
-  #total { font-weight: bold; font-size: 18px; }
-  button { padding: 8px 16px; font-size: 16px; cursor: pointer; margin-top: 10px; }
-</style>
-</head>
-<body>
-
-<h2>สรุปสินค้า (Admin)</h2>
-<table id="cartTable">
-  <thead>
-    <tr>
-      <th>สินค้า</th>
-      <th>ราคา</th>
-      <th>จำนวน</th>
-      <th>ส่วนลด</th>
-      <th>รวม</th>
-    </tr>
-  </thead>
-  <tbody></tbody>
-</table>
-
-<p id="total">รวมทั้งหมด: 0 ฿</p>
-<button id="sendBackBtn">ส่ง Flex กลับไป Line Chat</button>
-
 <script>
-// --- อ่าน cart จาก URL ---
-function getCartFromURL() {
-  const params = new URLSearchParams(window.location.search);
-  const cartJSON = params.get("cart");
-  return cartJSON ? JSON.parse(cartJSON) : [];
-}
+window.onload = function() {
+  liff.init({ liffId: "2007887429-p3nd4dvE" }).then(() => {
+    
+    // --- เริ่มต้นการ render ตารางสินค้า ---
+    renderTable();
 
-let cart = getCartFromURL();
-
-function renderTable() {
-  const tbody = document.querySelector("#cartTable tbody");
-  tbody.innerHTML = "";
-
-  let total = 0;
-  cart.forEach((item, index) => {
-    const row = document.createElement("tr");
-
-    const itemTotal = (item.price - (item.discount || 0)) * item.qty;
-    total += itemTotal;
-
-    row.innerHTML = `
-      <td>${item.name}</td>
-      <td><input type="number" value="${item.price}" data-index="${index}" class="priceInput"></td>
-      <td><input type="number" value="${item.qty}" min="1" data-index="${index}" class="qtyInput"></td>
-      <td><input type="number" value="${item.discount || 0}" min="0" data-index="${index}" class="discountInput"></td>
-      <td class="itemTotal">${itemTotal} ฿</td>
-    `;
-    tbody.appendChild(row);
-  });
-
-  document.getElementById("total").textContent = `รวมทั้งหมด: ${total.toLocaleString()} ฿`;
-}
-
-function updateCartValues() {
-  document.querySelectorAll(".priceInput").forEach(input => {
-    const index = input.dataset.index;
-    cart[index].price = parseFloat(input.value) || 0;
-  });
-
-  document.querySelectorAll(".qtyInput").forEach(input => {
-    const index = input.dataset.index;
-    cart[index].qty = parseInt(input.value) || 1;
-  });
-
-  document.querySelectorAll(".discountInput").forEach(input => {
-    const index = input.dataset.index;
-    cart[index].discount = parseFloat(input.value) || 0;
-  });
-
-  renderTable();
-}
-
-// --- event listener สำหรับ input ---
-document.addEventListener("input", updateCartValues);
-
-// --- ส่ง Flex กลับไป Line Chat ---
-document.getElementById("sendBackBtn").addEventListener("click", async () => {
-  // สร้าง flexMsg ใหม่
-  const itemContents = cart.map(item => ({
-    type: "box",
-    layout: "horizontal",
-    contents: [
-      { type: "text", text: `${item.name} x${item.qty}`, size: "sm", color: "#000000", flex: 0 },
-      { type: "text", text: `${(item.price - (item.discount || 0)) * item.qty}฿`, size: "sm", color: "#000000", align: "end" }
-    ]
-  }));
-
-  const totalPrice = cart.reduce((sum, i) => sum + (i.price - (i.discount || 0)) * i.qty, 0);
-
-  const flexMsg = {
-    type: "flex",
-    altText: "รายละเอียดคำสั่งซื้อ (Admin Updated)",
-    contents: {
-      type: "bubble",
-      body: {
+    // --- ปุ่มส่ง Flex กลับไป Line Chat ---
+    document.getElementById("sendBackBtn").addEventListener("click", async () => {
+      const itemContents = cart.map(item => ({
         type: "box",
-        layout: "vertical",
+        layout: "horizontal",
         contents: [
-          { type: "text", text: "สรุปคำสั่งซื้อ (Admin)", weight: "bold", size: "xl", align: "center" },
-          { type: "box", layout: "vertical", margin: "lg", spacing: "sm", contents: itemContents },
-          {
+          { type: "text", text: `${item.name} x${item.qty}`, size: "sm", color: "#000000", flex: 0 },
+          { type: "text", text: `${(item.price - (item.discount || 0)) * item.qty}฿`, size: "sm", color: "#000000", align: "end" }
+        ]
+      }));
+
+      const totalPrice = cart.reduce((sum, i) => sum + (i.price - (i.discount || 0)) * i.qty, 0);
+
+      const flexMsg = {
+        type: "flex",
+        altText: "รายละเอียดคำสั่งซื้อ (Admin Updated)",
+        contents: {
+          type: "bubble",
+          body: {
             type: "box",
-            layout: "horizontal",
-            margin: "lg",
+            layout: "vertical",
             contents: [
-              { type: "text", text: "รวมทั้งหมด", size: "lg", weight: "bold", color: "#000000" },
-              { type: "text", text: `${totalPrice}฿`, size: "lg", color: "#000000", align: "end", weight: "bold" }
+              { type: "text", text: "สรุปคำสั่งซื้อ (Admin)", weight: "bold", size: "xl", align: "center" },
+              { type: "box", layout: "vertical", margin: "lg", spacing: "sm", contents: itemContents },
+              {
+                type: "box",
+                layout: "horizontal",
+                margin: "lg",
+                contents: [
+                  { type: "text", text: "รวมทั้งหมด", size: "lg", weight: "bold", color: "#000000" },
+                  { type: "text", text: `${totalPrice}฿`, size: "lg", color: "#000000", align: "end", weight: "bold" }
+                ]
+              }
             ]
           }
-        ]
+        }
+      };
+
+      try {
+        await liff.sendMessages([flexMsg]);
+        alert("ส่งคำสั่งซื้ออัปเดตแล้ว!");
+      } catch (err) {
+        console.error(err);
+        alert("ส่ง Flex ไม่สำเร็จ");
       }
-    }
-  };
-
-  // ส่งกลับไป Line Chat ผ่าน LIFF
-  try {
-    await liff.sendMessages([flexMsg]);
-    alert("ส่งคำสั่งซื้ออัปเดตแล้ว!");
-  } catch (err) {
-    console.error(err);
-    alert("ส่ง Flex ไม่สำเร็จ");
-  }
-});
-
-// --- เริ่มต้น ---
-renderTable();
+    });
+  });
+};
 </script>
-
-</body>
-</html>
