@@ -890,18 +890,9 @@ window.onload = function() {
 async function checkout() {
   if (!cart.length) return alert("ตะกร้าว่าง");
 
-  const itemContents = cart.map(item => ({
-    type: "box",
-    layout: "horizontal",
-    contents: [
-      { type: "text", text: `${item.name} x${item.qty}`, size: "sm", color: "#000000", flex: 0 },
-      { type: "text", text: `${item.price * item.qty}฿`, size: "sm", color: "#000000", align: "end" }
-    ]
-  }));
-
   const totalPrice = cart.reduce((sum, i) => sum + i.price * i.qty, 0);
 
-  // --- ส่ง cart ไป GAS เพื่อสร้าง orderId ---
+  // --- Step 1: ส่ง cart ไป GAS เพื่อสร้าง orderId ---
   let orderId;
   try {
     const res = await fetch("https://script.google.com/macros/s/AKfycbxqnzojoqKN_GC_XqdhCTIb2YP8OswdUNBP69P-zf55u-gybpeouyTvcqchndRMG9cb0A/exec", {
@@ -915,6 +906,17 @@ async function checkout() {
     return alert("เกิดข้อผิดพลาดในการสร้าง orderId");
   }
 
+  // --- Step 2: สร้าง item contents สำหรับ Flex ---
+  const itemContents = cart.map(item => ({
+    type: "box",
+    layout: "horizontal",
+    contents: [
+      { type: "text", text: `${item.name} x${item.qty}`, size: "sm", color: "#000000", flex: 0 },
+      { type: "text", text: `${item.price * item.qty}฿`, size: "sm", color: "#000000", align: "end" }
+    ]
+  }));
+
+  // --- Step 3: สร้าง Flex message ---
   const flexMsg = {
     type: "flex",
     altText: "รายละเอียดคำสั่งซื้อ",
@@ -963,7 +965,7 @@ async function checkout() {
             action: {
               type: "uri",
               label: "สำหรับแอดมิน",
-              uri: https://liff.line.me/2007887429-p3nd4dvE?page=summary&orderId=${orderId}
+              uri: "https://liff.line.me/2007887429-p3nd4dvE?page=summary&orderId=${orderId}"
             }
           },
           {
@@ -979,14 +981,40 @@ async function checkout() {
     }
   };
 
+  // --- Step 4: สร้างข้อความ orderText + customerText ---
+  let orderText = "📦 รายละเอียดคำสั่งซื้อ\n";
+  cart.forEach(item => {
+    orderText += `${item.name} x${item.qty} = ${item.price * item.qty}฿\n`;
+  });
+  orderText += `\n**รวมทั้งหมด = ${totalPrice}฿`;
+
+  let customerText = "⚠️ ยังไม่ได้กรอกข้อมูลลูกค้า";
+  const saved = localStorage.getItem("customerInfo");
+  if (saved) {
+    const info = JSON.parse(saved);
+    customerText = `👤 ชื่อ-ที่อยู่จัดส่ง:\n${info.address || "-"}`;
+  }
+
+  // --- Step 5: ส่งข้อความไป GAS + LINE ---
   try {
+    fetch("https://script.google.com/macros/s/AKfycbxqnzojoqKN_GC_XqdhCTIb2YP8OswdUNBP69P-zf55u-gybpeouyTvcqchndRMG9cb0A/exec", {
+      method: "POST",
+      body: JSON.stringify({
+        action: "checkout",
+        orderText,
+        customerText
+      })
+    }).then(res => res.json()).then(data => console.log(data));
+
     await liff.sendMessages([flexMsg]);
+
     alert("ส่งคำสั่งซื้อแล้ว!");
     cart.length = 0;
     saveCart();
     renderCart();
     showTab(2);
     liff.closeWindow();
+
   } catch (err) {
     console.error('sendMessages error:', err);
     alert("ส่งข้อความไม่สำเร็จ");
