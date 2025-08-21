@@ -901,6 +901,12 @@ async function checkout() {
 
   const totalPrice = cart.reduce((sum, i) => sum + i.price * i.qty, 0);
 
+  const cartParam = encodeURIComponent(JSON.stringify(cart));
+  const adminUrl = `https://script.google.com/macros/s/AKfycbyKeeX9dLcqpGIyxWX4aDFPbUEkpm-tF2-bT3E1N3sRpoQwuYU8m5z2hEG2FyErpkW2tA/exec?page=summary&cart=${cartParam}`;
+
+
+
+
   const flexMsg = {
     type: "flex",
     altText: "รายละเอียดคำสั่งซื้อ",
@@ -947,6 +953,17 @@ async function checkout() {
               type: "uri",
               label: "ชำระเงิน",
               uri: "https://liff.line.me/2007887429-Arr5x53g" // ใส่ URL หน้า QR Code จริงของคุณ
+            }
+          },
+          {
+            type: "button",
+            style: "secondary",
+            color: "#FF5722",
+            action: {
+              type: "uri",
+              label: "สำหรับแอดมิน",
+              // ส่งข้อมูล cart ไปหน้า web app ผ่าน query string หรือ POST
+              uri: adminUrl  // <-- ใส่ URL Web App ที่นี่
             }
           },
           {
@@ -1015,9 +1032,6 @@ async function checkout() {
     console.error('sendMessages error:', err);
     alert("ส่งข้อความไม่สำเร็จ");
   }
-
-
-
 
 }
 
