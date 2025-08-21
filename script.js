@@ -954,10 +954,10 @@ async function checkout() {
             style: "secondary",
             color: "#FF5722",
             action: {
-              type: "liff",
+              type: "uri",
               label: "สำหรับแอดมิน",
               // ส่งข้อมูล cart ไปหน้า web app ผ่าน query string หรือ POST
-              liffUrl: `https://liff.line.me/2007887429-p3nd4dvE?page=summary&cart=${encodeURIComponent(JSON.stringify(cart))}`
+              uri: `https://liff.line.me/2007887429-p3nd4dvE?page=summary&cart=${encodeURIComponent(JSON.stringify(cart))}`
             }
           },
           {
