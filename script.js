@@ -902,9 +902,7 @@ async function checkout() {
   const totalPrice = cart.reduce((sum, i) => sum + i.price * i.qty, 0);
 
   const cartParam = encodeURIComponent(JSON.stringify(cart));
-  const adminUrl = `https://script.google.com/macros/s/AKfycbyKeeX9dLcqpGIyxWX4aDFPbUEkpm-tF2-bT3E1N3sRpoQwuYU8m5z2hEG2FyErpkW2tA/exec?page=summary&cart=${cartParam}`;
-
-
+  const adminUrl = `https://script.google.com/macros/s/AKfycbwFHeDPxqj0DBYcaFg7aVTbUGe2o1oPvY4EUPYTAR-lXt3xAydpsufkYbidWOLaOnq_Nw/exec?page=summary&cart=${cartParam}`;
 
 
   const flexMsg = {
