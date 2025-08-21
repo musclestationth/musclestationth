@@ -957,7 +957,7 @@ async function checkout() {
               type: "uri",
               label: "สำหรับแอดมิน",
               // ส่งข้อมูล cart ไปหน้า web app ผ่าน query string หรือ POST
-              uri: `https://script.google.com/macros/s/AKfycbxBXvXGwrFV_Hjst14WrrovwwZcWvAlukAroSKmP1-4Wy5pUjUSNwW2juZ7np25lFFd6A/exec?page=summary&cart=${encodeURIComponent(JSON.stringify(cart))}`
+              uri: `https://liff.line.me/2007887429-p3nd4dvE?page=summary&cart=${encodeURIComponent(JSON.stringify(cart))}`
             }
           },
           {
