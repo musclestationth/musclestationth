@@ -30,8 +30,16 @@
   <p>รวมทั้งหมด: <span id="totalPrice">0</span> บาท</p>
   <button id="sendBackBtn">ส่ง Flex กลับ LINE</button>
 
+  <script src="https://static.line-scdn.net/liff/edge/2.22/sdk.js"></script>
   <script>
-    // รับข้อมูล cart ผ่าน URL parameter
+    // --- LIFF init ---
+    window.onload = function() {
+      liff.init({ liffId: "2007887429-p3nd4dvE" }).then(() => {
+        console.log("LIFF initialized");
+      });
+    };
+
+    // รับข้อมูล cart ผ่าน URL
     const urlParams = new URLSearchParams(window.location.search);
     const cartData = JSON.parse(decodeURIComponent(urlParams.get('cart') || '[]'));
 
@@ -59,7 +67,6 @@
       totalPriceEl.textContent = total;
     }
 
-    // อัปเดตส่วนลดแบบ real-time
     cartTableBody.addEventListener('input', (e) => {
       if(e.target.classList.contains('discountInput')){
         const idx = e.target.dataset.index;
@@ -108,14 +115,6 @@
         alert("ส่ง Flex ไม่สำเร็จ");
       }
     });
-
-    // LIFF init
-    window.onload = function() {
-      liff.init({ liffId: "2007887429-p3nd4dvE" }).then(() => {
-        console.log("LIFF initialized");
-      });
-    };
   </script>
-  <script src="https://static.line-scdn.net/liff/edge/2.22/sdk.js"></script>
 </body>
 </html>
