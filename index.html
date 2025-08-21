@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="th"> 
+<html lang="th">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -49,19 +49,36 @@
   </div>
 
   <!-- Tab 3: Update -->
-  <div id="tab3" class="tab-content">
+  <div id="tab3" class="tab-content" style="display:none">
     <!-- สินค้าเข้าใหม่ -->
     <div id="newProductsSection">
-      <h2>✨สินค้าเข้าใหม่</h2>
+      <h2>✨ สินค้าเข้าใหม่</h2>
       <div class="slider-container">
         <div class="slider-wrapper" id="newProductsSlider"></div>
       </div>
-      <div class="slider-dots" id="sliderDots"></div>
+      <div class="slider-dots" id="newSliderDots"></div>
     </div>
 
+    <!-- สินค้าโปรโมชั่น -->
+    <div id="promoProductsSection" style="margin-top: 30px;">
+      <h2>🔥 สินค้าโปรโมชั่น</h2>
+      <div class="slider-container">
+        <div class="slider-wrapper" id="promoProductsSlider"></div>
+      </div>
+      <div class="slider-dots" id="promoSliderDots"></div>
+    </div>
+    <!-- Tab 3 Cart Bar -->
+    <div id="cartBar3" class="cart-bar">
+      <div class="cart-left">
+        <span id="totalItems3">รวม 0 ชิ้น</span>
+        <span id="totalPrice3">0 บาท</span>
+      </div>
+      <button id="goToCartBtn3" class="cart-icon-btn" onclick="showTab(2)">🛒</button>
+    </div>
 
     
-    </div>
+  </div>
+
 
 
   <!-- Tab 2: ตะกร้าสินค้า -->
