@@ -30,36 +30,60 @@
           </div>
 
           <script>
-            const DEBUG_ALERT = false; // เปิด true ถ้าต้องการดูแจ้งเตือนดีบักบนมือถือ
-            const dbg = (m) => { if (DEBUG_ALERT) alert(m); };
-
             // ใช้ GAS "ใหม่" ที่เก็บออเดอร์
             const GAS_STORE_URL = "https://script.google.com/macros/s/AKfycbyayDr5PzcycTz08NQ0tEivQyKK57kQ7qQxL9ZDrAtcz3JkjNbLEBPkAOcUErtA6DOewg/exec";
 
-            async function loadByOrderId(orderId) {
-              dbg("loadByOrderId: " + orderId);
-              // เรียกแบบ POST + text/plain เพื่อหลบ preflight/CORS
-              const resp = await fetch(GAS_STORE_URL, {
-                method: "POST",
-                headers: { "Content-Type": "text/plain;charset=utf-8" },
-                body: JSON.stringify({ action: "getOrder", id: orderId })
-              });
+            // ✅ ดึงพารามิเตอร์จาก search, liff.state, และ hash
+            function readParams() {
+              const out = { id: null, d: null };
 
-              let json = null;
-              try {
-                json = await resp.json();
-              } catch (e) {
-                document.getElementById('status').textContent = "อ่านข้อมูลไม่สำเร็จ (parse JSON)";
-                return;
+              // 1) จาก location.search ตรงๆ
+              const qs1 = new URLSearchParams(location.search);
+              out.id = qs1.get('id');
+              out.d  = qs1.get('d');
+
+              // 2) จาก liff.state (LIFF จะใส่ query เดิมไว้ในนี้)
+              const stateRaw = qs1.get('liff.state');
+              if ((!out.id || !out.d) && stateRaw) {
+                const state = decodeURIComponent(stateRaw); // เช่น "/?id=ORD-xxx" หรือ "/path#/?id=..."
+                // ดึงจากส่วนที่เป็น ?query
+                const qIndex = state.indexOf('?');
+                if (qIndex >= 0) {
+                  const qs2 = new URLSearchParams(state.slice(qIndex));
+                  out.id = out.id || qs2.get('id');
+                  out.d  = out.d  || qs2.get('d');
+                }
+                // เผื่อบางเคสถูกเก็บหลัง # (hash)
+                if ((!out.id || !out.d) && state.includes('#')) {
+                  const afterHash = state.split('#')[1]; // เช่น "?id=..."
+                  const qs3 = new URLSearchParams(afterHash.startsWith('?') ? afterHash : '?' + afterHash);
+                  out.id = out.id || qs3.get('id');
+                  out.d  = out.d  || qs3.get('d');
+                }
               }
 
+              // 3) จาก location.hash ของหน้า endpoint เอง
+              if ((!out.id || !out.d) && location.hash) {
+                const qs4 = new URLSearchParams(location.hash.replace(/^#/, '?'));
+                out.id = out.id || qs4.get('id');
+                out.d  = out.d  || qs4.get('d');
+              }
+
+              return out;
+            }
+
+            async function loadByOrderId(orderId) {
+              const resp = await fetch(GAS_STORE_URL, {
+                method: "POST",
+                headers: { "Content-Type": "text/plain;charset=utf-8" }, // เลี่ยง preflight
+                body: JSON.stringify({ action: "getOrder", id: orderId })
+              });
+              const json = await resp.json().catch(() => null);
               if (!json || json.status !== "ok") {
                 document.getElementById('status').textContent = "โหลดออเดอร์ไม่สำเร็จ: " + (json?.message || "");
                 return;
               }
-
-              const payload = json.order;
-              render(payload);
+              render(json.order);
             }
 
             function render(payload) {
@@ -67,69 +91,44 @@
               document.getElementById('total').textContent = (payload.totalPrice ?? 0).toLocaleString();
               document.getElementById('orderText').textContent = payload.orderText || "";
               document.getElementById('customerText').textContent = payload.customerText || "";
-
               document.getElementById('status').style.display = 'none';
               document.getElementById('wrap').style.display = 'block';
-
-              document.getElementById('copyAll').onclick = async () => {
-                const text = `Order ID: ${payload.orderId}\nยอดรวม: ${(payload.totalPrice ?? 0).toLocaleString()} บาท\n\n${payload.orderText}\n\n${payload.customerText}`;
-                try { await navigator.clipboard.writeText(text); alert("คัดลอกแล้ว ✅"); }
-                catch {
-                  const ta = document.createElement('textarea');
-                  ta.value = text; document.body.appendChild(ta);
-                  ta.select(); document.execCommand('copy'); ta.remove();
-                  alert("คัดลอกแล้ว ✅");
-                }
-              };
-
-              document.getElementById('closeWindow').onclick = () => {
-                if (window.liff && liff.isInClient && liff.isInClient()) liff.closeWindow();
-                else window.close();
-              };
             }
 
             (async function main() {
-              try {
-                const qs = new URLSearchParams(location.search);
-                const id = qs.get('id');
-                const d  = qs.get('d'); // fallback: base64 payload
+              const { id, d } = readParams();
 
-                if (id) {
-                  await loadByOrderId(id);
+              if (id) {
+                await loadByOrderId(id);
+                return;
+              }
+              if (d) {
+                // fallback base64
+                try {
+                  const payload = JSON.parse(decodeURIComponent(escape(atob(d))));
+                  render({
+                    orderId: "(no-id)",
+                    orderText: payload.orderText || "",
+                    customerText: payload.customerText || "",
+                    totalPrice: payload.totalPrice || 0,
+                    items: payload.items || []
+                  });
+                  return;
+                } catch {
+                  document.getElementById('status').textContent = "อ่านข้อมูล fallback ไม่สำเร็จ";
                   return;
                 }
-
-                if (d) {
-                  // fallback: payload ฝังมากับลิงก์
-                  try {
-                    const payload = JSON.parse(decodeURIComponent(escape(atob(d))));
-                    render({
-                      orderId: "(no-id)",
-                      orderText: payload.orderText || "",
-                      customerText: payload.customerText || "",
-                      totalPrice: payload.totalPrice || 0,
-                      items: payload.items || []
-                    });
-                    return;
-                  } catch (e) {
-                    document.getElementById('status').textContent = "อ่านข้อมูล fallback ไม่สำเร็จ";
-                    return;
-                  }
-                }
-
-                document.getElementById('status').textContent = "ไม่พบ Order ID";
-              } catch (e) {
-                document.getElementById('status').textContent = "เกิดข้อผิดพลาดในการโหลด";
               }
+              document.getElementById('status').textContent = "ไม่พบ Order ID";
             })();
           </script>
 
-          <!-- โหลด LIFF แค่เพื่อปุ่ม 'ปิดหน้าต่าง' (ไม่บังคับ) -->
+
           <script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
           <script>
-            // ไม่จำเป็นต้อง init ถ้าไม่ต้องปิดหน้าต่างผ่าน LIFF
-            // ถ้าอยากให้ liff.closeWindow ทำงานใน WebView: เปิดคอมเมนต์บรรทัดล่าง แล้วใส่ LIFF ID ของ summary
-            // liff.init({ liffId: "2007887429-p3nd4dvE" });
+            // init เงียบ ๆ ถ้า error ก็ไม่รบกวนผู้ใช้
+            liff.init({ liffId: "2007887429-p3nd4dvE" }).catch(()=>{});
           </script>
+
         </body>
         </html>
