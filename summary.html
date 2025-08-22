@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>สรุปออเดอร์ (สำหรับแอดมิน)</title>
+  <style>
+    body { font-family: system-ui, sans-serif; padding: 16px; }
+    h1 { font-size: 20px; margin-bottom: 12px; }
+    pre { background: #f7f7f7; padding: 12px; border-radius: 8px; white-space: pre-wrap; }
+    .row { margin-bottom: 12px; }
+    .btn { padding: 10px 14px; border: none; border-radius: 8px; cursor: pointer; }
+    .btn-primary { background: #1DB446; color: white; }
+    .btn-secondary { background: #e0e0e0; }
+  </style>
+</head>
+<body>
+  <h1>สรุปออเดอร์ (สำหรับแอดมิน)</h1>
+  <div id="status" class="row">กำลังโหลด...</div>
+
+  <div id="wrap" style="display:none;">
+    <div class="row">
+      <strong>ยอดรวม:</strong> <span id="total"></span> บาท
+    </div>
+
+    <div class="row">
+      <strong>Order</strong>
+      <pre id="orderText"></pre>
+    </div>
+
+    <div class="row">
+      <strong>Customer</strong>
+      <pre id="customerText"></pre>
+    </div>
+
+    <div class="row">
+      <button class="btn btn-primary" id="copyAll">คัดลอกทั้งหมด</button>
+      <button class="btn btn-secondary" id="closeWindow">ปิดหน้าต่าง</button>
+    </div>
+  </div>
+
+  <script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
+  <script>
+    const LIFF_ID = "2007887429-p3nd4dvE"; // ✅ LIFF สำหรับหน้า summary
+
+    async function main() {
+      try {
+        await liff.init({ liffId: LIFF_ID });
+
+        const statusEl = document.getElementById('status');
+        const wrapEl = document.getElementById('wrap');
+
+        const raw = localStorage.getItem('ADMIN_LATEST_ORDER');
+        if (!raw) {
+          statusEl.textContent = "ไม่พบข้อมูลออเดอร์ในเครื่อง";
+          return;
+        }
+
+        const payload = JSON.parse(raw);
+        document.getElementById('total').textContent =
+          (payload.totalPrice ?? 0).toLocaleString();
+        document.getElementById('orderText').textContent = payload.orderText || "";
+        document.getElementById('customerText').textContent = payload.customerText || "";
+
+        statusEl.style.display = 'none';
+        wrapEl.style.display = 'block';
+
+        document.getElementById('copyAll').addEventListener('click', async () => {
+          const text = `ยอดรวม: ${(payload.totalPrice ?? 0).toLocaleString()} บาท\n\n${payload.orderText}\n\n${payload.customerText}`;
+          try { await navigator.clipboard.writeText(text); alert("คัดลอกแล้ว ✅"); }
+          catch {
+            const ta = document.createElement('textarea');
+            ta.value = text; document.body.appendChild(ta);
+            ta.select(); document.execCommand('copy'); ta.remove();
+            alert("คัดลอกแล้ว ✅");
+          }
+        });
+
+        document.getElementById('closeWindow').addEventListener('click', () => {
+          if (liff.isInClient()) liff.closeWindow(); else window.close();
+        });
+
+      } catch (e) {
+        console.error(e);
+        document.getElementById('status').textContent = "เกิดข้อผิดพลาดในการโหลด LIFF";
+      }
+    }
+    main();
+  </script>
+
+</body>
+</html>
