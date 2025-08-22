@@ -1,134 +1,383 @@
-        <!DOCTYPE html>
-        <html lang="th">
-        <head>
-          <meta charset="UTF-8" />
-          <title>สรุปออเดอร์ (สำหรับแอดมิน)</title>
-          <meta name="viewport" content="width=device-width, initial-scale=1" />
-          <style>
-            body { font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif; padding: 16px; }
-            h1 { font-size: 20px; margin-bottom: 12px; }
-            pre { background: #f7f7f7; padding: 12px; border-radius: 8px; white-space: pre-wrap; }
-            .row { margin-bottom: 12px; }
-            .btn { padding: 10px 14px; border: none; border-radius: 8px; cursor: pointer; }
-            .btn-primary { background: #1DB446; color: white; }
-            .btn-secondary { background: #e0e0e0; }
-          </style>
-        </head>
-        <body>
-          <h1>สรุปออเดอร์ (สำหรับแอดมิน)</h1>
-          <div id="status" class="row">กำลังโหลด...</div>
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <title>สรุปออเดอร์ (สำหรับแอดมิน)</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    :root { --pad: 16px; }
+    body { font-family: system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif; padding: var(--pad); background:#fafafa; color:#222; }
+    h1 { font-size: 20px; margin: 0 0 12px; }
+    .row { margin-bottom: 12px; }
+    .card { background:#fff; border-radius:12px; padding:16px; box-shadow:0 2px 10px rgba(0,0,0,.06); margin-bottom:12px; }
+    pre { background:#f6f8fa; padding:12px; border-radius:8px; white-space:pre-wrap; }
+    table { width:100%; border-collapse: collapse; }
+    thead th { text-align:left; font-weight:600; font-size:13px; color:#555; border-bottom:1px solid #eee; padding:8px; }
+    tbody td { padding:8px; border-bottom:1px dashed #eee; vertical-align:top; }
+    tfoot td { padding:8px; }
+    .num { text-align:right; font-variant-numeric: tabular-nums; }
+    input[type="number"] { width: 80px; padding:6px 8px; border:1px solid #ddd; border-radius:8px; }
+    .controls { display:flex; gap:8px; align-items:center; flex-wrap:wrap; }
+    .btn { padding:10px 14px; border:none; border-radius:10px; cursor:pointer; font-weight:600; }
+    .btn-primary { background:#1DB446; color:#fff; }
+    .btn-secondary { background:#e9ecef; }
+    .muted { color:#666; font-size: 12px; }
+    .totals { display:grid; grid-template-columns: 1fr auto; gap:8px; }
+    .totals div { padding:6px 0; }
+    .totals .label { color:#555; }
+    .totals .value { text-align:right; font-weight:700; }
+    .saving { color:#0a7c2f; font-weight:700; }
+    .warn { color:#b00020; }
+    .hidden { display:none; }
+  </style>
+</head>
+<body>
+  <h1>สรุปออเดอร์ (สำหรับแอดมิน)</h1>
 
-          <div id="wrap" style="display:none;">
-            <div class="row"><strong>Order ID:</strong> <span id="oid"></span></div>
-            <div class="row"><strong>ยอดรวม:</strong> <span id="total"></span> บาท</div>
-            <div class="row"><strong>Order</strong><pre id="orderText"></pre></div>
-            <div class="row"><strong>Customer</strong><pre id="customerText"></pre></div>
-            <div class="row">
-              <button class="btn btn-primary" id="copyAll">คัดลอกทั้งหมด</button>
-              <button class="btn btn-secondary" id="closeWindow">ปิดหน้าต่าง</button>
-            </div>
-          </div>
+  <div id="status" class="row card">กำลังโหลด...</div>
 
-          <script>
-            // ใช้ GAS "ใหม่" ที่เก็บออเดอร์
-            const GAS_STORE_URL = "https://script.google.com/macros/s/AKfycbyayDr5PzcycTz08NQ0tEivQyKK57kQ7qQxL9ZDrAtcz3JkjNbLEBPkAOcUErtA6DOewg/exec";
+  <div id="wrap" class="hidden">
+    <div class="card">
+      <div class="row"><strong>Order ID:</strong> <span id="oid">-</span></div>
+      <div class="row totals">
+        <div class="label">ยอดรวมเดิม</div><div class="value" id="sumOriginal">-</div>
+        <div class="label">ยอดรวมหลังส่วนลด</div><div class="value" id="sumDiscounted">-</div>
+        <div class="label">ส่วนต่างที่ประหยัด</div><div class="value saving" id="sumSaving">-</div>
+      </div>
+    </div>
 
-            // ✅ ดึงพารามิเตอร์จาก search, liff.state, และ hash
-            function readParams() {
-              const out = { id: null, d: null };
+    <div class="card">
+      <div class="row"><strong>ส่วนลดแบบรายสินค้า (%)</strong></div>
+      <div class="row controls">
+        <input id="bulkDiscount" type="number" min="0" max="100" step="0.1" placeholder="ส่วนลดทั้งบิล (%)" />
+        <button class="btn btn-secondary" id="applyBulk">ใส่ให้ทุกชิ้น</button>
+        <button class="btn btn-secondary" id="resetDiscounts">รีเซ็ตส่วนลด</button>
+        <span class="muted">ใส่ 0–100 และปรับได้ทีละแถว</span>
+      </div>
 
-              // 1) จาก location.search ตรงๆ
-              const qs1 = new URLSearchParams(location.search);
-              out.id = qs1.get('id');
-              out.d  = qs1.get('d');
+      <div class="row" style="overflow-x:auto;">
+        <table>
+          <thead>
+            <tr>
+              <th style="width:40%;">สินค้า</th>
+              <th class="num">ราคา/ชิ้น</th>
+              <th class="num">จำนวน</th>
+              <th class="num" style="min-width:120px;">ส่วนลด %</th>
+              <th class="num">ยอดก่อนลด</th>
+              <th class="num">ยอดหลังลด</th>
+            </tr>
+          </thead>
+          <tbody id="itemsBody"></tbody>
+          <tfoot>
+            <tr>
+              <td colspan="6" class="muted">ราคาคิดเป็นบาท (THB) ปัดเศษใกล้เคียง</td>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+    </div>
 
-              // 2) จาก liff.state (LIFF จะใส่ query เดิมไว้ในนี้)
-              const stateRaw = qs1.get('liff.state');
-              if ((!out.id || !out.d) && stateRaw) {
-                const state = decodeURIComponent(stateRaw); // เช่น "/?id=ORD-xxx" หรือ "/path#/?id=..."
-                // ดึงจากส่วนที่เป็น ?query
-                const qIndex = state.indexOf('?');
-                if (qIndex >= 0) {
-                  const qs2 = new URLSearchParams(state.slice(qIndex));
-                  out.id = out.id || qs2.get('id');
-                  out.d  = out.d  || qs2.get('d');
-                }
-                // เผื่อบางเคสถูกเก็บหลัง # (hash)
-                if ((!out.id || !out.d) && state.includes('#')) {
-                  const afterHash = state.split('#')[1]; // เช่น "?id=..."
-                  const qs3 = new URLSearchParams(afterHash.startsWith('?') ? afterHash : '?' + afterHash);
-                  out.id = out.id || qs3.get('id');
-                  out.d  = out.d  || qs3.get('d');
-                }
-              }
+    <div class="card">
+      <div class="row"><strong>Order</strong></div>
+      <pre id="orderText"></pre>
+      <div class="row"><strong>Customer</strong></div>
+      <pre id="customerText"></pre>
+      <div class="row controls">
+        <button class="btn btn-primary" id="copyNew">คัดลอกสรุปราคาใหม่</button>
+        <button class="btn btn-secondary" id="copyAll">คัดลอกทั้งหมด (เดิม+ใหม่)</button>
+        <button class="btn btn-secondary" id="closeWindow">ปิดหน้าต่าง</button>
+      </div>
+    </div>
+  </div>
 
-              // 3) จาก location.hash ของหน้า endpoint เอง
-              if ((!out.id || !out.d) && location.hash) {
-                const qs4 = new URLSearchParams(location.hash.replace(/^#/, '?'));
-                out.id = out.id || qs4.get('id');
-                out.d  = out.d  || qs4.get('d');
-              }
+  <script>
+    // === CONFIG ===
+    const GAS_STORE_URL = "https://script.google.com/macros/s/AKfycbyayDr5PzcycTz08NQ0tEivQyKK57kQ7qQxL9ZDrAtcz3JkjNbLEBPkAOcUErtA6DOewg/exec";
+    const DEBUG_ALERT = false;
+    const dbg = (m) => { if (DEBUG_ALERT) alert(m); };
 
-              return out;
-            }
+    // ===== Utilities =====
+    const fmt = (n) => Number(n||0).toLocaleString('th-TH');
+    const clamp = (v,min,max) => Math.max(min, Math.min(max, v));
 
-            async function loadByOrderId(orderId) {
-              const resp = await fetch(GAS_STORE_URL, {
-                method: "POST",
-                headers: { "Content-Type": "text/plain;charset=utf-8" }, // เลี่ยง preflight
-                body: JSON.stringify({ action: "getOrder", id: orderId })
-              });
-              const json = await resp.json().catch(() => null);
-              if (!json || json.status !== "ok") {
-                document.getElementById('status').textContent = "โหลดออเดอร์ไม่สำเร็จ: " + (json?.message || "");
-                return;
-              }
-              render(json.order);
-            }
+    // อ่านพารามิเตอร์จาก search, liff.state, hash
+    function readParams() {
+      const out = { id: null, d: null };
+      const qs1 = new URLSearchParams(location.search);
+      out.id = qs1.get('id'); out.d = qs1.get('d');
 
-            function render(payload) {
-              document.getElementById('oid').textContent = payload.orderId || "-";
-              document.getElementById('total').textContent = (payload.totalPrice ?? 0).toLocaleString();
-              document.getElementById('orderText').textContent = payload.orderText || "";
-              document.getElementById('customerText').textContent = payload.customerText || "";
-              document.getElementById('status').style.display = 'none';
-              document.getElementById('wrap').style.display = 'block';
-            }
+      const stateRaw = qs1.get('liff.state');
+      if ((!out.id || !out.d) && stateRaw) {
+        const state = decodeURIComponent(stateRaw);
+        const qIdx = state.indexOf('?');
+        if (qIdx >= 0) {
+          const qs2 = new URLSearchParams(state.slice(qIdx));
+          out.id = out.id || qs2.get('id');
+          out.d  = out.d  || qs2.get('d');
+        }
+        if ((!out.id || !out.d) && state.includes('#')) {
+          const afterHash = state.split('#')[1];
+          const qs3 = new URLSearchParams(afterHash.startsWith('?') ? afterHash : '?' + afterHash);
+          out.id = out.id || qs3.get('id');
+          out.d  = out.d  || qs3.get('d');
+        }
+      }
+      if ((!out.id || !out.d) && location.hash) {
+        const qs4 = new URLSearchParams(location.hash.replace(/^#/, '?'));
+        out.id = out.id || qs4.get('id');
+        out.d  = out.d  || qs4.get('d');
+      }
+      return out;
+    }
 
-            (async function main() {
-              const { id, d } = readParams();
+    // ===== Data / State =====
+    let state = {
+      orderId: null,
+      orderText: "",
+      customerText: "",
+      items: [],           // [{name, price, qty, discountPct}]
+      sumOriginal: 0,
+      sumDiscounted: 0
+    };
 
-              if (id) {
-                await loadByOrderId(id);
-                return;
-              }
-              if (d) {
-                // fallback base64
-                try {
-                  const payload = JSON.parse(decodeURIComponent(escape(atob(d))));
-                  render({
-                    orderId: "(no-id)",
-                    orderText: payload.orderText || "",
-                    customerText: payload.customerText || "",
-                    totalPrice: payload.totalPrice || 0,
-                    items: payload.items || []
-                  });
-                  return;
-                } catch {
-                  document.getElementById('status').textContent = "อ่านข้อมูล fallback ไม่สำเร็จ";
-                  return;
-                }
-              }
-              document.getElementById('status').textContent = "ไม่พบ Order ID";
-            })();
-          </script>
+    // ===== Load from GAS =====
+    async function loadByOrderId(orderId) {
+      const resp = await fetch(GAS_STORE_URL, {
+        method: "POST",
+        headers: { "Content-Type": "text/plain;charset=utf-8" }, // เลี่ยง preflight
+        body: JSON.stringify({ action: "getOrder", id: orderId })
+      });
+      const json = await resp.json().catch(() => null);
+      if (!json || json.status !== "ok") {
+        document.getElementById('status').innerHTML = 'โหลดออเดอร์ไม่สำเร็จ <span class="warn">' + (json?.message || '') + '</span>';
+        return;
+      }
+      const o = json.order || {};
+      // เตรียม items (แน่ใจว่ามี discountPct)
+      const items = Array.isArray(o.items) ? o.items.map(it => ({
+        name: String(it.name || ''),
+        price: Number(it.price || 0),
+        qty: Number(it.qty || 0),
+        discountPct: 0
+      })) : [];
 
+      state.orderId = o.orderId || "";
+      state.orderText = o.orderText || "";
+      state.customerText = o.customerText || "";
+      state.items = items;
+      renderAll();
+    }
 
-          <script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
-          <script>
-            // init เงียบ ๆ ถ้า error ก็ไม่รบกวนผู้ใช้
-            liff.init({ liffId: "2007887429-p3nd4dvE" }).catch(()=>{});
-          </script>
+    // ===== Render =====
+    function renderAll() {
+      // ถ้าไม่มี items ลองพาร์สจาก orderText (fallback เบื้องต้น)
+      if (!state.items.length && state.orderText) {
+        state.items = parseFromOrderText(state.orderText);
+      }
 
-        </body>
-        </html>
+      // คำนวณยอดเดิม
+      state.sumOriginal = state.items.reduce((s, it) => s + (it.price * it.qty), 0);
+      // ครั้งแรกยอดหลังลด = ยอดเดิม
+      state.sumDiscounted = state.sumOriginal;
+
+      // Header + totals
+      document.getElementById('oid').textContent = state.orderId || "-";
+      document.getElementById('sumOriginal').textContent = fmt(state.sumOriginal) + " บาท";
+      document.getElementById('sumDiscounted').textContent = fmt(state.sumDiscounted) + " บาท";
+      document.getElementById('sumSaving').textContent = "0 บาท";
+
+      // Text blocks
+      document.getElementById('orderText').textContent = state.orderText || "";
+      document.getElementById('customerText').textContent = state.customerText || "";
+
+      // Table rows
+      const tbody = document.getElementById('itemsBody');
+      tbody.innerHTML = "";
+      state.items.forEach((it, idx) => {
+        const tr = document.createElement('tr');
+
+        const tdName = document.createElement('td');
+        tdName.textContent = it.name;
+
+        const tdPrice = document.createElement('td');
+        tdPrice.className = "num";
+        tdPrice.textContent = fmt(it.price);
+
+        const tdQty = document.createElement('td');
+        tdQty.className = "num";
+        tdQty.textContent = fmt(it.qty);
+
+        const tdDisc = document.createElement('td');
+        tdDisc.className = "num";
+        const inp = document.createElement('input');
+        inp.type = "number";
+        inp.min = "0"; inp.max = "100"; inp.step = "0.1";
+        inp.value = it.discountPct || 0;
+        inp.addEventListener('input', () => {
+          it.discountPct = clamp(Number(inp.value || 0), 0, 100);
+          inp.value = it.discountPct;
+          recompute();
+        });
+        tdDisc.appendChild(inp);
+
+        const tdBefore = document.createElement('td');
+        tdBefore.className = "num";
+        tdBefore.textContent = fmt(it.price * it.qty);
+
+        const tdAfter = document.createElement('td');
+        tdAfter.className = "num";
+        tdAfter.dataset.role = "after";
+        tdAfter.dataset.index = String(idx);
+
+        tr.appendChild(tdName);
+        tr.appendChild(tdPrice);
+        tr.appendChild(tdQty);
+        tr.appendChild(tdDisc);
+        tr.appendChild(tdBefore);
+        tr.appendChild(tdAfter);
+        tbody.appendChild(tr);
+      });
+
+      // Controls
+      document.getElementById('applyBulk').onclick = () => {
+        const v = clamp(Number(document.getElementById('bulkDiscount').value || 0), 0, 100);
+        state.items.forEach((it, idx) => {
+          it.discountPct = v;
+        });
+        // sync inputs
+        document.querySelectorAll('#itemsBody input[type="number"]').forEach(inp => inp.value = String(v));
+        recompute();
+      };
+
+      document.getElementById('resetDiscounts').onclick = () => {
+        state.items.forEach(it => it.discountPct = 0);
+        document.getElementById('bulkDiscount').value = "";
+        document.querySelectorAll('#itemsBody input[type="number"]').forEach(inp => inp.value = "0");
+        recompute();
+      };
+
+      document.getElementById('copyNew').onclick = copyNewSummary;
+      document.getElementById('copyAll').onclick = copyAllSummary;
+
+      // close button
+      document.getElementById('closeWindow').onclick = () => {
+        if (window.liff && liff.isInClient && liff.isInClient()) liff.closeWindow();
+        else window.close();
+      };
+
+      // done
+      document.getElementById('status').classList.add('hidden');
+      document.getElementById('wrap').classList.remove('hidden');
+
+      // first compute
+      recompute();
+    }
+
+    function recompute() {
+      let sum = 0;
+      state.items.forEach((it, idx) => {
+        const discountedUnit = Math.round(it.price * (1 - (it.discountPct || 0)/100));
+        const after = discountedUnit * it.qty;
+        sum += after;
+        // update row
+        const cell = document.querySelector(`td[data-role="after"][data-index="${idx}"]`);
+        if (cell) cell.textContent = fmt(after);
+      });
+      state.sumDiscounted = sum;
+
+      document.getElementById('sumDiscounted').textContent = fmt(sum) + " บาท";
+      const saving = Math.max(0, state.sumOriginal - sum);
+      document.getElementById('sumSaving').textContent = fmt(saving) + " บาท";
+    }
+
+    function copyNewSummary() {
+      const lines = [];
+      lines.push(`สรุปออเดอร์ (หลังส่วนลด)`);
+      lines.push(`Order ID: ${state.orderId || "-"}`);
+      state.items.forEach(it => {
+        const disc = clamp(Number(it.discountPct||0), 0, 100);
+        const unit = Math.round(it.price * (1 - disc/100));
+        const total = unit * it.qty;
+        lines.push(`• ${it.name} x${it.qty} @ ${fmt(unit)}฿ (${disc}%↓) = ${fmt(total)}฿`);
+      });
+      lines.push(`รวมทั้งหมดหลังลด: ${fmt(state.sumDiscounted)}฿`);
+      const text = lines.join('\n');
+      copyText(text);
+    }
+
+    function copyAllSummary() {
+      const text =
+        `Order ID: ${state.orderId || "-"}\n` +
+        `ยอดรวมเดิม: ${fmt(state.sumOriginal)}฿\n` +
+        `ยอดรวมหลังลด: ${fmt(state.sumDiscounted)}฿ (ประหยัด ${fmt(Math.max(0,state.sumOriginal-state.sumDiscounted))}฿)\n\n` +
+        `${state.orderText}\n\n${state.customerText}`;
+      copyText(text);
+    }
+
+    async function copyText(text) {
+      try { await navigator.clipboard.writeText(text); alert("คัดลอกแล้ว ✅"); }
+      catch {
+        const ta = document.createElement('textarea');
+        ta.value = text; document.body.appendChild(ta);
+        ta.select(); document.execCommand('copy'); ta.remove();
+        alert("คัดลอกแล้ว ✅");
+      }
+    }
+
+    // พาร์ส fallback จาก orderText รูปแบบ: "ชื่อ xจำนวน = ยอด฿"
+    function parseFromOrderText(txt) {
+      const items = [];
+      (txt || "").split(/\r?\n/).forEach(line => {
+        const m = line.match(/^(.+?)\s+x(\d+)\s*=\s*([\d,\.]+)฿/);
+        if (m) {
+          const name = m[1].trim();
+          const qty  = Number(m[2]);
+          const total= Number(String(m[3]).replace(/[^\d]/g,''));
+          const price= qty ? Math.round(total / qty) : 0;
+          items.push({ name, price, qty, discountPct: 0 });
+        }
+      });
+      return items;
+    }
+
+    // ===== Main =====
+    (async function main(){
+      try {
+        const { id, d } = readParams();
+        if (id) {
+          await loadByOrderId(id);
+          return;
+        }
+        if (d) {
+          try {
+            const payload = JSON.parse(decodeURIComponent(escape(atob(d))));
+            state.orderId = "(no-id)";
+            state.orderText = payload.orderText || "";
+            state.customerText = payload.customerText || "";
+            state.items = Array.isArray(payload.items) ? payload.items.map(it => ({
+              name: String(it.name||''),
+              price: Number(it.price||0),
+              qty: Number(it.qty||0),
+              discountPct: 0
+            })) : parseFromOrderText(state.orderText);
+            renderAll();
+            return;
+          } catch {
+            document.getElementById('status').innerHTML = 'อ่านข้อมูล fallback ไม่สำเร็จ';
+            return;
+          }
+        }
+        document.getElementById('status').innerHTML = 'ไม่พบ Order ID';
+      } catch (e) {
+        document.getElementById('status').innerHTML = 'เกิดข้อผิดพลาดในการโหลด';
+      }
+    })();
+  </script>
+
+  <!-- LIFF: คงไว้เพื่อให้ปุ่มปิดหน้าต่างใช้งานได้ใน WebView -->
+  <script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
+  <script>
+    liff.init({ liffId: "2007887429-p3nd4dvE" }).catch(()=>{});
+  </script>
+</body>
+</html>
