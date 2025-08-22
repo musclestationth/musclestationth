@@ -952,12 +952,11 @@ async function checkout() {
           {
             type: "button",
             style: "secondary",
-            color: "#FF5722",
+            color: "#888888",  // เลือกสีที่เหมาะสม
             action: {
               type: "uri",
               label: "สำหรับแอดมิน",
-              // 🔹 ไม่ต้องส่ง cart ยาว ๆ ใน URL แล้ว
-              uri: "https://liff.line.me/2007887429-p3nd4dvE?page=summary"
+              uri: "https://liff.line.me/2007887429-p3nd4dvE" // ใส่ LIFF ID ของ summary.html
             }
           },
           {
@@ -1002,7 +1001,22 @@ async function checkout() {
       .then(res => res.json())
       .then(data => console.log(data));
 
-
+    // -------- ส่งข้อมูลไป GAS อีกชุดเพื่อเปิด summary.html ----------
+    fetch("https://script.google.com/macros/s/AKfycbyayDr5PzcycTz08NQ0tEivQyKK57kQ7qQxL9ZDrAtcz3JkjNbLEBPkAOcUErtA6DOewg/exec", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        action: "createSummary",
+        cart: cart,               // [{name, qty, price}, ...]
+        customerText: customerText
+      })
+    })
+    .then(res => res.json())
+    .then(data => {
+        // เปิด summary.html ด้วย LIFF
+        liff.openWindow({ url: data.summaryUrl, external: false });
+      });
+      
 
 
 
