@@ -119,7 +119,7 @@ const products = {
       { name: "Anavar Beligas 50mg100t", price: 3790, image: "images/anavar50100-beligas.png" }
     ],
     "Clen": [
-      { name: "Clen AlphaPharma 40mcg50t\n&nbsp;\n&nbsp;", price: 600, image: "images/clen-alpha.png" },
+      { name: "Clen AlphaPharma 40mcg50t", price: 600, image: "images/clen-alpha.png" },
       //{ name: "Clen Beligas 40mcg50t\n&nbsp;\n&nbsp;", price: 850, image: "images/clen50-beligas.png" },
       { name: "Clen Gainzlab 40mcg100t", price: 580, image: "images/clen-gain.png" },
       { name: "Clen Synctech 40mcg100t", price: 750, image: "images/clen-sync.png" },
@@ -128,7 +128,7 @@ const products = {
       { name: "Clen EuroMed 40mcg100t", price: 800, image: "images/clen-euro.png" },
       { name: "Clen BPMedical 40mcg100t", price: 900, image: "images/clen-bp.png" },
       { name: "Clen Platinum 40mcg100t", price: 1000, image: "images/clen-plat.png" },
-      { name: "Clen Beligas 40mcg100t\n&nbsp;", price: 1690, image: "images/clen100-beligas.png" }
+      { name: "Clen Beligas 40mcg100t", price: 1690, image: "images/clen100-beligas.png" }
     ],
     "Primo": [
       { name: "Primotab Meditech 25mg50t", price: 1350, image: "images/primotab-medi.png" },
@@ -887,31 +887,24 @@ window.onload = function() {
 // -------------------------
 // ปุ่มสั่งซื้อ
 // -------------------------
-const SUMMARY_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyayDr5PzcycTz08NQ0tEivQyKK57kQ7qQxL9ZDrAtcz3JkjNbLEBPkAOcUErtA6DOewg/exec";
-
 async function checkout() {
-  if (!cart.length) return alert("ตะกร้าว่าง");
+  if (!cart.length) { console.warn("Checkout aborted: empty cart"); return; }
 
-  const itemContents = cart.map(item => ({
-    type: "box",
-    layout: "horizontal",
-    contents: [
-      { type: "text", text: `${item.name} x${item.qty}`, size: "sm", color: "#000000", flex: 0 },
-      { type: "text", text: `${item.price * item.qty}฿`, size: "sm", color: "#000000", align: "end" }
-    ]
-  }));
+  // === CONFIG ===
+  const GAS_STORE_URL  = "https://script.google.com/macros/s/AKfycbyayDr5PzcycTz08NQ0tEivQyKK57kQ7qQxL9ZDrAtcz3JkjNbLEBPkAOcUErtA6DOewg/exec"; // ใหม่: เก็บออเดอร์ + คืน orderId
+  const GAS_NOTIFY_URL = "https://script.google.com/macros/s/AKfycbxqnzojoqKN_GC_XqdhCTIb2YP8OswdUNBP69P-zf55u-gybpeouyTvcqchndRMG9cb0A/exec"; // เดิม: แจ้ง LINE
+  const LIFF_SUMMARY_ID = "2007887429-p3nd4dvE";
+  const LIFF_PAYMENT_URL = "https://liff.line.me/2007887429-Arr5x53g";
+  const dbg = (...a) => console.log("[checkout]", ...a);
 
-  const totalPrice = cart.reduce((sum, i) => sum + i.price * i.qty, 0);
-
-
-  // --- สร้างข้อความรายละเอียดคำสั่งซื้อ ---
+  // --- รวมยอด / ข้อความ ---
+  const totalPrice = cart.reduce((s, i) => s + i.price * i.qty, 0);
   let orderText = "📦 รายละเอียดคำสั่งซื้อ\n";
-  cart.forEach(item => {
-    orderText += `${item.name} x${item.qty} = ${item.price * item.qty}฿\n`;
+  cart.forEach(i => {
+    orderText += `${i.name} x${i.qty} = ${(i.price * i.qty).toLocaleString('th-TH')}฿\n`;
   });
-  orderText += `\n**รวมทั้งหมด = ${totalPrice}฿`;
+  orderText += `\nรวมทั้งหมด = ${totalPrice.toLocaleString('th-TH')}฿`;
 
-  // --- สร้างข้อความข้อมูลลูกค้า ---
   let customerText = "⚠️ ยังไม่ได้กรอกข้อมูลลูกค้า";
   const saved = localStorage.getItem("customerInfo");
   if (saved) {
@@ -919,115 +912,173 @@ async function checkout() {
     customerText = `👤 ชื่อ-ที่อยู่จัดส่ง:\n${info.address || "-"}`;
   }
 
+  // --- เตรียมรายการแบบสั้นสำหรับ Flex ---
+  const MAX_FLEX_LINES = 10;
+  const shown = cart.slice(0, MAX_FLEX_LINES);
+  const hiddenCount = cart.length - shown.length;
+
+  const itemContents = shown.map(i => ({
+    type: "box",
+    layout: "horizontal",
+    contents: [
+      { type: "text", text: `${i.name} x${i.qty}`, size: "sm", wrap: true, flex: 5, maxLines: 6 },
+      { type: "text", text: `${(i.price * i.qty).toLocaleString('th-TH')}฿`, size: "sm", align: "end", flex: 0 }
+    ]
+  }));
+  if (hiddenCount > 0) {
+    itemContents.push({ type: "text", text: `...และอีก ${hiddenCount} รายการ`, size: "sm", wrap: true });
+  }
+
+  const altText = `สรุปคำสั่งซื้อ ${cart.length} รายการ = ${totalPrice.toLocaleString('th-TH')}฿`;
+  const itemsForServer = cart.map(i => ({ name: i.name, price: i.price, qty: i.qty }));
+
+  let orderId = null;
+
+  // ========== STEP 1: เก็บออเดอร์ไป GAS ใหม่ ==========
+  dbg("STEP 1/4: บันทึกออเดอร์ไป GAS ใหม่...");
   try {
-
-    // --- ยิงข้อมูลไป Google Apps Script ---
-    fetch("https://script.google.com/macros/s/AKfycbxqnzojoqKN_GC_XqdhCTIb2YP8OswdUNBP69P-zf55u-gybpeouyTvcqchndRMG9cb0A/exec", {
+    let resp = await fetch(GAS_STORE_URL, {
       method: "POST",
-      body: JSON.stringify({
-        action: "checkout",
-        orderText: orderText,
-        customerText: customerText
-      })
-    })
-      .then(res => res.json())
-      .then(data => console.log(data));
-
-    // -------- ส่งข้อมูลไป GAS อีกชุดเพื่อเปิด summary.html ----------
-    // --- ขอ URL สำหรับ summary.html ---
-    const summaryRes = await fetch(SUMMARY_SCRIPT_URL, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        action: "createSummary",
-        cart: cart,
-        customerText: customerText
-      })
+      headers: { "Content-Type": "text/plain;charset=utf-8" },
+      body: JSON.stringify({ action:"checkout", orderText, customerText, totalPrice, items: itemsForServer })
     });
-    const summaryData = await summaryRes.json();
-    const summaryUrl = summaryData.summaryUrl || `${SUMMARY_SCRIPT_URL}?page=summary&id=${summaryData.id}`;
 
-    const flexMsg = {
-      type: "flex",
-      altText: "รายละเอียดคำสั่งซื้อ",
-      contents: {
-        type: "bubble",
-        body: {
-          type: "box",
-          layout: "vertical",
-          contents: [
-            {
-              type: "image",
-              url: "https://lh3.googleusercontent.com/d/1thkyE_A9Jd8LGii5Z9rIGtcn75Tv39q7",
-              size: "sm",
-              align: "center",
-              margin: "none"
-            },
-            { type: "text", text: "MuscleStationTH", weight: "bold", size: "xl", align: "center", color: "#0000FF" },
-            { type: "text", text: "สรุปคำสั่งซื้อ", weight: "bold", size: "lg" },
-            { type: "box", layout: "vertical", margin: "lg", spacing: "sm", contents: itemContents },
-            {
-              type: "box",
-              layout: "horizontal",
-              margin: "lg",
-              contents: [
-                { type: "text", text: "รวมทั้งหมด", size: "lg", weight: "bold", color: "#000000" },
-                { type: "text", text: `${totalPrice}฿`, size: "lg", color: "#000000", align: "end", weight: "bold" }
-              ]
-            }
-          ]
-        },
-        footer: {
-          type: "box",
-          layout: "vertical",
-          spacing: "sm",
-          contents: [
-            {
-              type: "button",
-              style: "primary",
-              color: "#1DB446",
-              action: {
-                type: "uri",
-                label: "ชำระเงิน",
-                uri: "https://liff.line.me/2007887429-Arr5x53g"
-              }
-            },
-            {
-              type: "button",
-              style: "secondary",
-              color: "#FF5722",
-              action: {
-                type: "uri",
-                label: "สำหรับแอดมิน",
-                uri: summaryUrl
-              }
-            },
-            {
-              type: "text",
-              text: "**กรุณารอแอดมินเช็คสต็อกสินค้าและconfirm ก่อนกดชำระเงินนะคะ\n**Please wait for checking stocks and confirm this order before payment.",
-              size: "md",
-              color: "#FF0000",
-              wrap: true,
-              margin: "sm"
-            }
-          ]
-        }
+    let data;
+    try { data = await resp.json(); }
+    catch {
+      dbg("STEP 1: fallback no-header...");
+      resp = await fetch(GAS_STORE_URL, { method: "POST", body: JSON.stringify({ action:"checkout", orderText, customerText, totalPrice, items: itemsForServer }) });
+      data = await resp.json().catch(() => null);
+    }
+
+    if (!data || !data.orderId) {
+      console.error("STEP 1 ERROR: no orderId from GAS store", data);
+      return;
+    }
+    orderId = data.orderId;
+    dbg("STEP 1 OK:", orderId);
+  } catch (e) {
+    console.error("STEP 1 ERROR: load failed", e);
+    return;
+  }
+
+  // ========== STEP 2: แจ้งเตือนเข้าไลน์ ==========
+  dbg("STEP 2/4: แจ้งเตือน GAS เดิม...");
+  try {
+    await fetch(GAS_NOTIFY_URL, { method: "POST", body: JSON.stringify({ action: "checkout", orderText, customerText }) });
+    dbg("STEP 2 OK");
+  } catch (e) {
+    console.warn("STEP 2 WARN: notify failed (skippable)", e);
+  }
+
+  // ========== STEP 3: เตรียมลิงก์แอดมิน ==========
+  const adminUrl = `https://liff.line.me/${LIFF_SUMMARY_ID}?id=${encodeURIComponent(orderId)}`;
+  dbg("STEP 3 OK: adminUrl ready");
+
+  // ========== STEP 4: ส่งข้อความ ==========
+  const flexMsg = {
+    type: "flex",
+    altText,
+    contents: {
+      type: "bubble",
+      body: {
+        type: "box",
+        layout: "vertical",
+        contents: [
+          { type: "image", url: "https://lh3.googleusercontent.com/d/1thkyE_A9Jd8LGii5Z9rIGtcn75Tv39q7", size: "sm", align: "center", margin: "none" },
+          { type: "text", text: "MuscleStationTH", weight: "bold", size: "xl", align: "center", color: "#0000FF" },
+          { type: "text", text: "สรุปคำสั่งซื้อ", weight: "bold", size: "lg" },
+          { type: "box", layout: "vertical", margin: "lg", spacing: "sm", contents: itemContents },
+          {
+            type: "box",
+            layout: "horizontal",
+            margin: "lg",
+            contents: [
+              { type: "text", text: "รวมทั้งหมด", size: "lg", weight: "bold", color: "#000000" },
+              { type: "text", text: `${totalPrice.toLocaleString('th-TH')}฿`, size: "lg", color: "#000000", align: "end", weight: "bold" }
+            ]
+          }
+        ]
+      },
+      footer: {
+        type: "box",
+        layout: "vertical",
+        spacing: "sm",
+        contents: [
+          { type: "button", style: "primary", color: "#1DB446", action: { type: "uri", label: "ชำระเงิน", uri: LIFF_PAYMENT_URL } },
+          {
+            type: "text",
+            text: "สำหรับแอดมิน",
+            size: "sm",
+            color: "#1E88E5",
+            decoration: "underline",
+            align: "end",
+            action: { type: "uri", uri: adminUrl },
+            wrap: false
+          },
+          {
+            type: "text",
+            text: "**กรุณารอแอดมินเช็คสต็อกสินค้าและconfirm ก่อนกดชำระเงินนะคะ\n**Please wait for checking stocks and confirm this order before payment.",
+            size: "md",
+            weight: "bold",
+            color: "#FF0000",
+            wrap: true,
+            margin: "sm"
+          }
+        ]
       }
-    };
+    }
+  };
 
-    await liff.sendMessages([flexMsg]);
+  const textMsg = {
+    type: "text",
+    text:
+      `MuscleStationTH\n` +
+      `สรุปคำสั่งซื้อ (${cart.length} รายการ)\n` +
+      shown.map(i => `• ${i.name} x${i.qty} = ${(i.price*i.qty).toLocaleString()}฿`).join("\n") +
+      (hiddenCount > 0 ? `\n...และอีก ${hiddenCount} รายการ` : "") +
+      `\nรวมทั้งหมด: ${totalPrice.toLocaleString()}฿` +
+      `\n\nสำหรับแอดมิน: ${adminUrl}` +
+      `\nชำระเงิน: ${LIFF_PAYMENT_URL}`
+  };
 
-    alert("ส่งคำสั่งซื้อแล้ว!");
+  try {
+    const ctx = liff.getContext && liff.getContext();
+    if (ctx) dbg(`CTX: type=${ctx.type || "-"} | groupId=${ctx.groupId || "-"} | roomId=${ctx.roomId || "-"}`);
+  } catch {}
 
+  dbg("STEP 4/4: ส่งข้อความเข้าแชท...");
+  try {
+    if (liff.isInClient && liff.isInClient()) {
+      try {
+        await liff.sendMessages([flexMsg]);
+      } catch (e1) {
+        console.warn("send Flex failed, fallback to text:", e1?.message || e1);
+        await liff.sendMessages([textMsg]);
+      }
+    } else if (liff.isApiAvailable && liff.isApiAvailable('shareTargetPicker')) {
+      try {
+        await liff.shareTargetPicker([flexMsg]);
+      } catch {
+        await liff.shareTargetPicker([textMsg]);
+      }
+    } else {
+      console.warn("Not in LINE client; redirect to adminUrl for continuity");
+      location.href = adminUrl;
+      return;
+    }
+
+    // สำเร็จ: เคลียร์ตะกร้า + ปิด/กลับ
     cart.length = 0;
     saveCart();
     renderCart();
     showTab(2);
-    liff.closeWindow();
+    if (liff.isInClient && liff.isInClient()) liff.closeWindow();
 
   } catch (err) {
-    console.error('sendMessages error:', err);
-    alert("ส่งข้อความไม่สำเร็จ");
+    console.error("ส่งข้อความไม่สำเร็จ:", err?.message || err);
+    // เปิด summary ต่อให้ทำงานต่อได้
+    location.href = adminUrl;
   }
 }
 
@@ -1161,4 +1212,3 @@ function clearSearch() {
   input.value = "";        // ล้างข้อความ
   filterProducts();        // เรียกฟังก์ชัน filterProducts() เพื่อกลับไปแสดงสินค้าปกติ
 }
-
