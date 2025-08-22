@@ -2,77 +2,123 @@
 <html lang="th">
 <head>
   <meta charset="UTF-8" />
-  <title>สรุปออเดอร์ (สำหรับแอดมิน)</title>
+  <title>MuscleStationTH</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <style>
+    
     :root { --pad: 16px; --radius: 12px; }
     body { font-family: system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif; padding: var(--pad); background:#fafafa; color:#222; }
     h1 { font-size: 20px; margin: 0 0 12px; }
     h2 { font-size: 16px; margin: 0; }
     .row { margin-bottom: 12px; }
     .card { background:#fff; border-radius:var(--radius); padding:16px; box-shadow:0 2px 10px rgba(0,0,0,.06); margin-bottom:12px; }
+
     .totals { display:grid; grid-template-columns: 1fr auto; gap:8px; }
     .totals .label { color:#555; }
     .totals .value { text-align:right; font-weight:700; }
     .saving { color:#0a7c2f; font-weight:700; }
-    .muted { color:#666; font-size:12px; }
+
     .hidden { display:none; }
-    .inline-controls { display:flex; align-items:center; gap:10px; flex-wrap:wrap; }
-    .inline-controls h2 { margin-right:auto; }
+
+    .inline-controls { display:flex; align-items:center; gap:12px; flex-wrap:wrap; }
+    .inline-controls h2 { margin: 0 6px 0 0; }
+
     .btn { padding:10px 14px; border:none; border-radius:10px; cursor:pointer; font-weight:600; }
     .btn-primary { background:#1DB446; color:#fff; }
     .btn-secondary { background:#e9ecef; }
-    .btn-lg { width:100%; padding:14px; font-size:18px; }
     .btn-18 { font-size:18px; }
-    table { width:100%; border-collapse: collapse; }
-    thead th { text-align:left; font-weight:600; font-size:13px; color:#555; border-bottom:1px solid #eee; padding:8px; }
-    tbody td { padding:8px; border-bottom:1px dashed #eee; vertical-align:middle; }
+    .btn-lg { width:100%; padding:14px; font-size:18px; }
+
+    table { width:100%; border-collapse: collapse; font-size: 13px; }
+    thead th { text-align:left; font-weight:600; font-size:12px; color:#555; border-bottom:1px solid #eee; padding:6px; }
+    tbody td { font-size:13px; padding:6px; border-bottom:1px dashed #eee; vertical-align:middle; }
     .num { text-align:right; font-variant-numeric: tabular-nums; }
+
     .inp-wrap { display:flex; align-items:center; justify-content:flex-end; gap:6px; }
     input[type="number"] {
-      width: 78px;              /* แคบลง */
       padding:4px 6px;
       border:1px solid #ddd;
       border-radius:8px;
-      font-size:20px;           /* ตัวเลขใหญ่ 20px */
+      font-size:20px;           /* ตัวเลขในช่องใหญ่ตามสเปค */
       text-align:right;
     }
-    .inputs-row { display:flex; gap:8px; align-items:center; flex-wrap:wrap; }
+    /* แคบช่องส่วนลด */
+    #bulkDiscount { width: 40px; }
+    #itemsBody td:nth-child(4) input { width: 40px; }  /* ส่วนลด (%) */
+    #itemsBody td:nth-child(5) input { width: 40px; }  /* ส่วนลด (฿) */
+    #newSummaryText {  font-size: 18px; }
+    #newSummaryCard { font-size: 22px;}
+    #customerText { font-size: 18px;}
+    #sumOriginal {font-size: 18px; font-weight: bold; }
+    #sumDiscounted {font-size: 22px;font-weight: bold;  }
+
     .title-row { display:flex; align-items:center; justify-content:space-between; gap:8px; }
     pre { background:#f6f8fa; padding:12px; border-radius:8px; white-space:pre-wrap; }
-    .right { text-align:right; }
-    .actions-inline { display:flex; gap:8px; justify-content:flex-end; flex-wrap:wrap; }
-    .copy-inline { margin-left: auto; }
+    .actions-inline{
+      display: flex;
+      flex-direction: column;   /* เรียงเป็นแนวตั้ง: ปิดหน้าต่างอยู่บน, ส่งกลับอยู่ล่าง */
+      gap: 10px;
+      align-items: stretch;     /* ให้แถวล่างยืดเต็มความกว้างได้ */
+    }
+
+    /* ปุ่ม "ปิดหน้าต่าง" ให้ชิดขวา (แถวบน) */
+    #closeWindow{
+      align-self: center;     /* ชิดขวาของกล่อง */
+      background: #dc3545; /* แดงโทน Bootstrap */
+      color: #fff;
+      border: none;
+    }
+
+    /* ปุ่ม "ส่งกลับ" ให้กว้างเต็มจอ (แถวล่าง) */
+    #sendBack{
+      display: block;
+      width: 100%;
+    }
+
+    /* --- Admin PIN Gate --- */
+    .gate { position: fixed; inset: 0; background: rgba(0,0,0,.5);
+      display:flex; align-items:center; justify-content:center; z-index: 9999; }
+    .gate.hidden { display:none; }
+    .gate-card { background:#fff; border-radius:12px; padding:20px; width:92%; max-width:360px;
+      box-shadow:0 10px 30px rgba(0,0,0,.2); text-align:center; }
+    .gate-card input { width: 140px; text-align:center; font-size:22px; letter-spacing:4px;
+      padding:8px 10px; border:1px solid #ddd; border-radius:8px; }
+    .error { color:#dc3545; margin-top:8px; font-size:13px; }
+
+    
   </style>
 </head>
 <body>
   <h1>สรุปออเดอร์ (สำหรับแอดมิน)</h1>
+  <!-- PIN Gate -->
+  <div id="adminGate" class="gate">
+    <div class="gate-card">
+      <h2>สำหรับแอดมิน</h2>
+      <p style="margin:6px 0 12px;">กรอกรหัส 4 หลัก</p>
+      <input id="adminPin" type="password" inputmode="numeric" pattern="\d*" maxlength="4" placeholder="____" />
+      <button id="adminEnter" class="btn btn-primary" style="margin-top:10px;">เข้าสู่หน้า</button>
+      <div id="pinError" class="error hidden">รหัสไม่ถูกต้อง</div>
+    </div>
+  </div>
 
   <div id="status" class="row card">กำลังโหลด...</div>
 
   <div id="wrap" class="hidden">
-    <div class="card">
-      <div class="row"><strong>Order ID:</strong> <span id="oid">-</span></div>
-      <div class="row totals">
-        <div class="label">ยอดรวมเดิม</div><div class="value" id="sumOriginal">-</div>
-        <div class="label">ยอดรวมหลังส่วนลด</div><div class="value" id="sumDiscounted">-</div>
-        <div class="label">ส่วนต่างที่ประหยัด</div><div class="value saving" id="sumSaving">-</div>
-      </div>
-    </div>
+
 
     <div class="card">
       <!-- หัวข้อ + ควบคุมส่วนลดในบรรทัดเดียว -->
       <div class="inline-controls row">
         <h2>ส่วนลด</h2>
         <div class="inp-wrap">
-          <input id="bulkDiscount" type="number" min="0" max="100" step="0.1" placeholder="%" />
+          <input id="bulkDiscount" type="number" min="0" max="100" step="0.1" />
           <span>%</span>
         </div>
         <button class="btn btn-secondary btn-18" id="applyBulk">Apply All</button>
         <button class="btn btn-secondary btn-18" id="resetDiscounts">Reset</button>
       </div>
 
-      <div class="row"><strong>รายละเอียดคำสั่งซื้อ</strong></div>
+     
 
       <div class="row" style="overflow-x:auto;">
         <table>
@@ -90,29 +136,60 @@
         </table>
       </div>
 
-      <div class="row">
-        <button class="btn btn-primary btn-lg" id="copyNew">คัดลอกสรุปราคาใหม่</button>
+      <div class="row totals">
+        <div class="label" style="font-size:18px; font-weight: bold; color: #000000;" >ยอดรวมเดิม</div><div class="value" id="sumOriginal">-</div>
+        <div class="label" style="font-size:22px; font-weight: bold; color:#0a7c2f">ยอดรวมใหม่</div><div class="value saving" id="sumDiscounted">-</div>
       </div>
+
+
+      
     </div>
+    
+    
+
+  
+
+
+
+    
 
     <div class="card">
-      <div class="title-row">
-        <strong>ชื่อ-ที่อยู่จัดส่ง</strong>
+      <!-- สรุปราคาใหม่ (อยู่ใน card เดียวกับที่อยู่) -->
+      <div id="newSummaryCard" class="hidden" padding-top:12px; margin-top:4px;">
+        <div class="title-row">
+          <strong>สรุปราคาใหม่</strong>
+          <button class="btn btn-secondary btn-18" id="copyNewInline">คัดลอก</button>
+        </div>
+        <pre id="newSummaryText" style="margin-top:8px;"></pre>
+      </div>
+
+      <div class="actions-inline">
+        <button class="btn btn-primary btn-18" id="sendBack">ส่งกลับ</button>
+      </div>
+
+      <div class="title-row" style="margin-top:12px;">
+        <strong style="font-size:22px;">ชื่อ-ที่อยู่จัดส่ง</strong>
         <button class="btn btn-secondary btn-18" id="copyAddress">คัดลอก</button>
       </div>
       <pre id="customerText" style="margin-top:8px;"></pre>
 
       <div class="actions-inline">
+      
         <button class="btn btn-secondary btn-18" id="closeWindow">ปิดหน้าต่าง</button>
-        <button class="btn btn-primary btn-18" id="sendBack">ส่งกลับ</button>
+        
       </div>
     </div>
+
   </div>
 
   <script>
+    // ===== ADMIN PIN (4 หลัก) =====
+    const ADMIN_PIN = "0888"; // <<< เปลี่ยนเป็นรหัสที่ต้องการ
+    const ADMIN_OK_KEY = "ADMIN_OK_SUMMARY"; // sessionStorage key
+
     // === CONFIG ===
     const GAS_STORE_URL = "https://script.google.com/macros/s/AKfycbyayDr5PzcycTz08NQ0tEivQyKK57kQ7qQxL9ZDrAtcz3JkjNbLEBPkAOcUErtA6DOewg/exec";
-    const LIFF_ID = "2007887429-p3nd4dvE"; // แก้ให้ตรง LIFF ของ summary
+    const LIFF_ID = "2007887429-p3nd4dvE"; // LIFF ของ summary
 
     // ===== Utilities =====
     const fmt = (n) => Number(n||0).toLocaleString('th-TH');
@@ -151,7 +228,7 @@
     let state = {
       orderId: null,
       customerText: "",
-      items: [],           // [{name, price, qty, discountPct, discountAbs, lastEdited}]
+      items: [],           // [{name, price, qty, discountPct, discountAbs}]
       sumOriginal: 0,
       sumDiscounted: 0
     };
@@ -172,10 +249,9 @@
       const items = Array.isArray(o.items) ? o.items.map(it => ({
         name: String(it.name || ''),
         price: Number(it.price || 0),
-        qty: Number(it.qty || 0),
-        discountPct: 0,
-        discountAbs: 0,
-        lastEdited: null
+        qty:   Number(it.qty   || 0),
+        discountPct: null,   // เริ่มว่าง
+        discountAbs: null    // เริ่มว่าง
       })) : [];
 
       state.orderId = o.orderId || "";
@@ -190,10 +266,8 @@
       state.sumOriginal = state.items.reduce((s, it) => s + (it.price * it.qty), 0);
       state.sumDiscounted = state.sumOriginal;
 
-      document.getElementById('oid').textContent = state.orderId || "-";
       document.getElementById('sumOriginal').textContent = fmt(state.sumOriginal) + " บาท";
       document.getElementById('sumDiscounted').textContent = fmt(state.sumDiscounted) + " บาท";
-      document.getElementById('sumSaving').textContent = "0 บาท";
 
       document.getElementById('customerText').textContent = state.customerText || "";
 
@@ -222,13 +296,12 @@
         tdDiscPct.className = "num";
         const inpPct = document.createElement('input');
         inpPct.type = "number"; inpPct.min = "0"; inpPct.max = "100"; inpPct.step = "0.1";
-        inpPct.value = it.discountPct || 0;
+        inpPct.value = (it.discountPct == null) ? "" : it.discountPct;   // ว่างถ้ายังไม่เคยกรอก
         inpPct.addEventListener('input', () => {
-          it.discountPct = clamp(Number(inpPct.value || 0), 0, 100);
-          it.lastEdited = 'pct';
-          // sync abs
-          it.discountAbs = Math.round(original * it.discountPct / 100);
-          inpAbs.value = it.discountAbs;
+          const raw = inpPct.value;
+          if (raw === "" || raw === null) it.discountPct = null;
+          else it.discountPct = clamp(Number(raw), 0, 100);
+          // ไม่แตะต้อง discountAbs
           recompute();
         });
         tdDiscPct.appendChild(inpPct);
@@ -238,13 +311,13 @@
         tdDiscAbs.className = "num";
         const inpAbs = document.createElement('input');
         inpAbs.type = "number"; inpAbs.min = "0"; inpAbs.step = "1";
-        inpAbs.value = it.discountAbs || 0;
+        inpAbs.value = (it.discountAbs == null) ? "" : it.discountAbs;   // ว่างถ้ายังไม่เคยกรอก
         inpAbs.addEventListener('input', () => {
-          it.discountAbs = clamp(Math.round(Number(inpAbs.value || 0)), 0, original);
-          it.lastEdited = 'abs';
-          // sync pct (1 ตำแหน่งทศนิยม)
-          it.discountPct = original ? Math.round((it.discountAbs / original) * 1000) / 10 : 0;
-          inpPct.value = it.discountPct;
+          const raw = inpAbs.value;
+          const originalRow = it.price * it.qty;
+          if (raw === "" || raw === null) it.discountAbs = null;
+          else it.discountAbs = clamp(Math.round(Number(raw)), 0, originalRow);
+          // ไม่แตะต้อง discountPct
           recompute();
         });
         tdDiscAbs.appendChild(inpAbs);
@@ -267,31 +340,27 @@
       // ปุ่มควบคุมส่วนลดรวม
       document.getElementById('applyBulk').onclick = () => {
         const v = clamp(Number(document.getElementById('bulkDiscount').value || 0), 0, 100);
-        state.items.forEach((it, idx) => {
-          const original = it.price * it.qty;
-          it.discountPct = v;
-          it.discountAbs = Math.round(original * v / 100);
-          it.lastEdited = 'pct';
+        state.items.forEach((it) => {
+          it.discountPct = v;          // set เฉพาะ %
+          // ไม่แตะต้อง it.discountAbs
         });
-        // sync inputs
+        // sync เฉพาะ input ช่อง %
         const rows = document.querySelectorAll('#itemsBody tr');
         rows.forEach((row, i) => {
-          const inputs = row.querySelectorAll('input[type="number"]');
-          // assume order: pct then abs
-          inputs[0].value = state.items[i].discountPct;
-          inputs[1].value = state.items[i].discountAbs;
+          const inputs = row.querySelectorAll('input[type="number"]'); // [pct, abs]
+          if (inputs[0]) inputs[0].value = (state.items[i].discountPct ?? "");
         });
         recompute();
       };
 
       document.getElementById('resetDiscounts').onclick = () => {
-        state.items.forEach(it => { it.discountPct = 0; it.discountAbs = 0; it.lastEdited = null; });
+        state.items.forEach(it => { it.discountPct = null; it.discountAbs = null; });
         document.getElementById('bulkDiscount').value = "";
-        document.querySelectorAll('#itemsBody input[type="number"]').forEach(inp => inp.value = "0");
+        // รีเซ็ตทุก input ให้ "ว่าง"
+        document.querySelectorAll('#itemsBody input[type="number"]').forEach(inp => inp.value = "");
         recompute();
       };
 
-      document.getElementById('copyNew').onclick = copyNewSummary;
       document.getElementById('copyAddress').onclick = () => copyText(state.customerText || "");
 
       document.getElementById('closeWindow').onclick = () => {
@@ -305,49 +374,70 @@
       document.getElementById('wrap').classList.remove('hidden');
 
       recompute();
+
+      // แสดง "สรุปราคาใหม่" อัตโนมัติหลังโหลด/เรนเดอร์
+      const card = document.getElementById('newSummaryCard');
+      const pre  = document.getElementById('newSummaryText');
+      if (card && pre) {
+        pre.textContent = buildNewSummaryText();
+        card.classList.remove('hidden');
+      }
     }
 
     function recompute() {
       let sum = 0;
       state.items.forEach((it, idx) => {
         const original = it.price * it.qty;
-        // กำหนด source ของส่วนลดตามช่องที่แก้ล่าสุด
-        let discAbs = 0;
-        if (it.lastEdited === 'abs') {
-          discAbs = clamp(Math.round(it.discountAbs || 0), 0, original);
-          it.discountPct = original ? Math.round((discAbs / original) * 1000) / 10 : 0;
-        } else { // 'pct' หรือ null -> ใช้ pct เป็นหลัก
-          it.discountPct = clamp(Number(it.discountPct || 0), 0, 100);
-          discAbs = Math.round(original * it.discountPct / 100);
-          it.discountAbs = discAbs;
-        }
-        const after = Math.max(0, original - discAbs);
+
+        // ใช้ "บาท" ก่อน ถ้าไม่มีค่อยใช้ "%"
+        const pct = clamp(Number(it.discountPct ?? 0), 0, 100);
+        let   abs = clamp(Math.round(Number(it.discountAbs ?? 0)), 0, original);
+        if (abs === 0 && pct > 0) abs = Math.round(original * pct / 100);
+
+        const after = Math.max(0, original - abs);
         sum += after;
 
         const cell = document.querySelector(`td[data-role="after"][data-index="${idx}"]`);
         if (cell) cell.textContent = fmt(after);
       });
-      state.sumDiscounted = sum;
 
+      state.sumDiscounted = sum;
       document.getElementById('sumDiscounted').textContent = fmt(sum) + " บาท";
-      const saving = Math.max(0, state.sumOriginal - sum);
-      document.getElementById('sumSaving').textContent = fmt(saving) + " บาท";
+
+      // ถ้าการ์ดสรุปกำลังแสดง ให้รีเฟรชข้อความตามส่วนลดล่าสุด
+      const newCard = document.getElementById('newSummaryCard');
+      if (newCard && !newCard.classList.contains('hidden')) {
+        document.getElementById('newSummaryText').textContent = buildNewSummaryText();
+      }
     }
 
-    function copyNewSummary() {
+    // สร้างข้อความสรุปราคาใหม่ (ไม่ใส่ Order ID)
+    function buildNewSummaryText() {
       const lines = [];
-      lines.push(`สรุปออเดอร์ (หลังส่วนลด)`);
-      lines.push(`Order ID: ${state.orderId || "-"}`);
+    
+
       state.items.forEach(it => {
         const original = it.price * it.qty;
-        const after = Math.max(0, original - (it.discountAbs || 0));
-        const pct = clamp(Number(it.discountPct || 0), 0, 100);
-        const abs = it.discountAbs || 0;
-        lines.push(`• ${it.name} x${it.qty} = ${fmt(original)}฿ | -${fmt(abs)}฿ (${pct}%↓) = ${fmt(after)}฿`);
+        const pct = clamp(Number(it.discountPct ?? 0), 0, 100);
+        let   abs = clamp(Math.round(Number(it.discountAbs ?? 0)), 0, original);
+        if (abs === 0 && pct > 0) abs = Math.round(original * pct / 100);
+
+        const after = Math.max(0, original - abs);
+        const label = abs > 0 ? `-${fmt(abs)}฿` : (pct > 0 ? `-${pct}%` : `-0฿`);
+        lines.push(`• ${it.name} x${it.qty} = ${fmt(original)}฿ | ${label} = ${fmt(after)}฿`);
       });
-      lines.push(`รวมทั้งหมดหลังลด: ${fmt(state.sumDiscounted)}฿`);
-      copyText(lines.join('\n'));
+      lines.push("");
+      lines.push(`รวมทั้งหมด: ${fmt(state.sumDiscounted)}฿`);
+      return lines.join('\n');
     }
+
+    // ปุ่มคัดลอกบนการ์ด "สรุปราคาใหม่"
+    document.addEventListener('click', (e) => {
+      if (e.target && e.target.id === 'copyNewInline') {
+        const text = document.getElementById('newSummaryText').textContent || buildNewSummaryText();
+        copyText(text);
+      }
+    });
 
     async function copyText(text) {
       try { await navigator.clipboard.writeText(text); alert("คัดลอกแล้ว ✅"); }
@@ -360,48 +450,96 @@
     }
 
     // ส่ง Flex กลับห้องแชท
+    // ส่ง Flex กลับห้องแชท (รูปแบบเดียวกับ checkout template แต่เป็น "หลังส่วนลด")
     async function sendBackToChat() {
-      const lines = state.items.map(it => {
+      // เตรียมรายการใน Flex (บังคับให้ชื่อสินค้าขึ้นบรรทัดใหม่ได้)
+      const itemContents = state.items.map(it => {
         const original = it.price * it.qty;
-        const after = Math.max(0, original - (it.discountAbs || 0));
+        const pct = clamp(Number(it.discountPct ?? 0), 0, 100);
+        let abs  = clamp(Math.round(Number(it.discountAbs ?? 0)), 0, original);
+
+        // ใช้เปอร์เซ็นต์ถ้าไม่ได้ใส่ส่วนลดเป็นบาท
+        const usePct = (abs === 0 && pct > 0);
+        const discount = usePct ? Math.round(original * pct / 100) : abs;
+        const after = Math.max(0, original - discount);
+
+        // รูปแบบข้อความขวา ตามเงื่อนไขที่ขอ
+        const rightText = usePct
+          ? `${fmt(original)}฿-${pct}%=${fmt(after)}฿`
+          : `${fmt(original)}฿-${fmt(discount)}฿=${fmt(after)}฿`;
+
         return {
           type: "box",
           layout: "horizontal",
           contents: [
-            { type: "text", text: `${it.name} x${it.qty}`, size: "sm", wrap: true, flex: 2 },
-            { type: "text", text: `${fmt(after)}฿`, size: "sm", align: "end", flex: 1 }
+            // ซ้าย: ชื่อสินค้าให้ตัดบรรทัดได้
+            { type: "text", text: `${it.name} x${it.qty}`, size: "sm", color: "#0000FF", wrap: true, flex: 5, maxLines: 6 },
+            // ขวา: สูตรราคา ชิดขวา
+            { type: "text", text: rightText, size: "sm", color: "#0000FF", align: "end", wrap: false, flex: 0 }
           ]
         };
       });
 
-      // จำกัดจำนวนแสดงใน Flex (กันยาวเกิน)
-      const MAX = 10;
-      const shown = lines.slice(0, MAX);
-      if (lines.length > MAX) {
-        shown.push({ type:"text", text:`...และอีก ${lines.length-MAX} รายการ`, size:"sm", color:"#888888" });
-      }
+      // รวมหลังส่วนลดทั้งหมด
+      const totalPrice = state.sumDiscounted || state.items.reduce((s, it) => {
+        const original = it.price * it.qty;
+        const pct = clamp(Number(it.discountPct ?? 0), 0, 100);
+        let abs  = clamp(Math.round(Number(it.discountAbs ?? 0)), 0, original);
+        const discount = (abs === 0 && pct > 0) ? Math.round(original * pct / 100) : abs;
+        return s + Math.max(0, original - discount);
+      }, 0);
 
-      const flex = {
+      const paymentUrl = "https://liff.line.me/2007887429-Arr5x53g";
+
+      const flexMsg = {
         type: "flex",
-        altText: `สรุปราคาใหม่: ${fmt(state.sumDiscounted)}฿`,
+        altText: "รายละเอียดคำสั่งซื้อ",
         contents: {
           type: "bubble",
           body: {
             type: "box",
             layout: "vertical",
             contents: [
-              { type: "text", text: "สรุปราคาใหม่", weight: "bold", size: "lg" },
-              { type: "text", text: `Order ID: ${state.orderId || "-"}`, size: "sm", color: "#666666", margin: "sm" },
-              { type: "box", layout: "vertical", margin: "md", spacing: "sm", contents: shown },
-              { type: "separator", margin: "md" },
+              {
+                type: "image",
+                url: "https://lh3.googleusercontent.com/d/1thkyE_A9Jd8LGii5Z9rIGtcn75Tv39q7",
+                size: "sm",
+                align: "center",
+                margin: "none"
+              },
+              { type: "text", text: "MuscleStationTH", weight: "bold", size: "xl", align: "center", color: "#0000FF" },
+              { type: "text", text: "แอด:สรุปคำสั่งซื้อ", weight: "bold", size: "lg", color: "#0000FF" },
+              { type: "box", layout: "vertical", margin: "lg", spacing: "sm", contents: itemContents },
               {
                 type: "box",
                 layout: "horizontal",
-                margin: "md",
+                margin: "lg",
                 contents: [
-                  { type: "text", text: "รวมทั้งหมด", weight: "bold" },
-                  { type: "text", text: `${fmt(state.sumDiscounted)}฿`, align: "end", weight: "bold" }
+                  { type: "text", text: "รวมทั้งหมด", size: "lg", weight: "bold", color: "#0000FF" },
+                  { type: "text", text: `${fmt(totalPrice)}฿`, size: "lg", color: "#0000FF", align: "end", weight: "bold" }
                 ]
+              }
+            ]
+          },
+          footer: {
+            type: "box",
+            layout: "vertical",
+            spacing: "sm",
+            contents: [
+              {
+                type: "button",
+                style: "primary",
+                color: "#1DB446",
+                action: { type: "uri", label: "ชำระเงิน", uri: paymentUrl }
+              },
+              {
+                type: "text",
+                text: "**สินค้าพร้อมส่งทุกตัว! ลูกค้าชำระเงินแล้วแจ้งแอดมินได้เลยค่ะ\n**In stock, Ready to ship! After payment, please notify the admin.",
+                size: "md",
+                weight: "bold",
+                color: "#009400",
+                wrap: true,
+                margin: "sm"
               }
             ]
           }
@@ -409,11 +547,12 @@
       };
 
       try {
-        if (liff.isInClient()) {
-          await liff.sendMessages([flex]);
+        if (liff.isInClient && liff.isInClient()) {
+          await liff.sendMessages([flexMsg]);
           alert("ส่งกลับเข้าห้องแชทแล้ว ✅");
+          if (liff.isInClient()) liff.closeWindow();
         } else if (liff.isApiAvailable && liff.isApiAvailable('shareTargetPicker')) {
-          await liff.shareTargetPicker([flex]);
+          await liff.shareTargetPicker([flexMsg]);
           alert("แชร์ไปยังแชทแล้ว ✅");
         } else {
           alert("โปรดเปิดหน้านี้จากใน LINE เพื่อส่งข้อความกลับห้องแชท");
@@ -423,37 +562,79 @@
       }
     }
 
-    // ===== Main =====
-    (async function main(){
-      try {
-        const { id, d } = readParams();
-        if (id) {
-          await loadByOrderId(id);
-        } else if (d) {
-          // fallback base64
-          try {
-            const payload = JSON.parse(decodeURIComponent(escape(atob(d))));
-            state.orderId = "(no-id)";
-            state.customerText = payload.customerText || "";
-            state.items = Array.isArray(payload.items) ? payload.items.map(it => ({
-              name: String(it.name||''),
-              price: Number(it.price||0),
-              qty: Number(it.qty||0),
-              discountPct: 0,
-              discountAbs: 0,
-              lastEdited: null
-            })) : [];
-            renderAll();
-          } catch {
-            document.getElementById('status').innerHTML = 'อ่านข้อมูล fallback ไม่สำเร็จ';
-          }
+
+
+
+    
+
+    function showPinGate() {
+      const gate = document.getElementById('adminGate');
+      const inp  = document.getElementById('adminPin');
+      const btn  = document.getElementById('adminEnter');
+      const err  = document.getElementById('pinError');
+
+      gate.classList.remove('hidden');
+      setTimeout(()=> inp.focus(), 50);
+
+      function tryUnlock() {
+        const pin = String(inp.value || "").trim();
+        if (pin === ADMIN_PIN) {
+          sessionStorage.setItem(ADMIN_OK_KEY, "1");
+          err.classList.add('hidden');
+          gate.classList.add('hidden');
+          startApp();            // ← เริ่มทำงานของหน้า
         } else {
-          document.getElementById('status').innerHTML = 'ไม่พบ Order ID';
+          err.classList.remove('hidden');
+          inp.select();
         }
-      } catch (e) {
-        document.getElementById('status').innerHTML = 'เกิดข้อผิดพลาดในการโหลด';
+      }
+
+      btn.onclick = tryUnlock;
+      inp.onkeydown = (e) => { if (e.key === 'Enter') tryUnlock(); };
+    }
+
+    async function startApp(){
+      (async function main(){
+        try {
+          const { id, d } = readParams();
+          if (id) {
+            await loadByOrderId(id);
+          } else if (d) {
+            // fallback base64
+            try {
+              const payload = JSON.parse(decodeURIComponent(escape(atob(d))));
+              state.orderId = "(no-id)";
+              state.customerText = payload.customerText || "";
+              state.items = Array.isArray(payload.items) ? payload.items.map(it => ({
+                name: String(it.name||''),
+                price: Number(it.price||0),
+                qty:   Number(it.qty||0),
+                discountPct: null,
+                discountAbs: null
+              })) : [];
+              renderAll();
+            } catch {
+              document.getElementById('status').innerHTML = 'อ่านข้อมูล fallback ไม่สำเร็จ';
+            }
+          } else {
+            document.getElementById('status').innerHTML = 'ไม่พบ Order ID';
+          }
+        } catch (e) {
+          document.getElementById('status').innerHTML = 'เกิดข้อผิดพลาดในการโหลด';
+        }
+      })();
+    }
+    // Boot: ถ้าเคยปลดล็อกแล้วในแท็บนี้ ให้เข้าหน้าได้เลย ไม่งั้นถาม PIN
+    (function boot(){
+      if (sessionStorage.getItem(ADMIN_OK_KEY) === "1") {
+        startApp();
+      } else {
+        showPinGate();
       }
     })();
+
+
+    
   </script>
 
   <!-- LIFF SDK (สำหรับปิดหน้าต่าง/ส่งข้อความกลับแชท) -->
