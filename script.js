@@ -932,50 +932,39 @@ async function checkout() {
   const altText = `สรุปคำสั่งซื้อ ${cart.length} รายการ = ${totalPrice.toLocaleString('th-TH')}฿`;
   const itemsForServer = cart.map(i => ({ name: i.name, price: i.price, qty: i.qty }));
 
+  // ===== ยิงขนาน: เก็บออเดอร์ + แจ้งเตือน =====
+  const payloadStore  = JSON.stringify({ action:"checkout", orderText, customerText, totalPrice, items: itemsForServer });
+  const payloadNotify = JSON.stringify({ action:"checkout", orderText, customerText });
+
+  // หลีกเลี่ยง preflight: ไม่ใส่ Content-Type
+  const storePromise  = fetch(GAS_STORE_URL,  { method: "POST", body: payloadStore  });
+  // แจ้งเตือนไม่จำเป็นต้องรอให้เสร็จ จึงไม่ await ก่อนส่ง Flex
+  const notifyPromise = fetch(GAS_NOTIFY_URL, { method: "POST", body: payloadNotify }).catch(e => console.warn("notify failed", e));
+
+  // ต้องรอเฉพาะ store เพื่อต้องใช้ orderId
   let orderId = null;
-
-  // ========== STEP 1: เก็บออเดอร์ไป GAS ใหม่ ==========
-  dbg("STEP 1/4: บันทึกออเดอร์ไป GAS ใหม่...");
   try {
-    let resp = await fetch(GAS_STORE_URL, {
-      method: "POST",
-      headers: { "Content-Type": "text/plain;charset=utf-8" },
-      body: JSON.stringify({ action:"checkout", orderText, customerText, totalPrice, items: itemsForServer })
-    });
-
-    let data;
+    const resp = await storePromise;
+    let data = null;
     try { data = await resp.json(); }
     catch {
-      dbg("STEP 1: fallback no-header...");
-      resp = await fetch(GAS_STORE_URL, { method: "POST", body: JSON.stringify({ action:"checkout", orderText, customerText, totalPrice, items: itemsForServer }) });
-      data = await resp.json().catch(() => null);
+      const t = await resp.text();
+      try { data = JSON.parse(t); } catch {}
     }
-
     if (!data || !data.orderId) {
-      console.error("STEP 1 ERROR: no orderId from GAS store", data);
+      console.error("Store GAS returned no orderId:", data);
       return;
     }
     orderId = data.orderId;
-    dbg("STEP 1 OK:", orderId);
   } catch (e) {
-    console.error("STEP 1 ERROR: load failed", e);
+    console.error("Store GAS load failed:", e);
     return;
   }
 
-  // ========== STEP 2: แจ้งเตือนเข้าไลน์ ==========
-  dbg("STEP 2/4: แจ้งเตือน GAS เดิม...");
-  try {
-    await fetch(GAS_NOTIFY_URL, { method: "POST", body: JSON.stringify({ action: "checkout", orderText, customerText }) });
-    dbg("STEP 2 OK");
-  } catch (e) {
-    console.warn("STEP 2 WARN: notify failed (skippable)", e);
-  }
-
-  // ========== STEP 3: เตรียมลิงก์แอดมิน ==========
+  // เตรียมลิงก์สำหรับแอดมิน
   const adminUrl = `https://liff.line.me/${LIFF_SUMMARY_ID}?id=${encodeURIComponent(orderId)}`;
-  dbg("STEP 3 OK: adminUrl ready");
 
-  // ========== STEP 4: ส่งข้อความ ==========
+  // ===== ส่งข้อความ (หลังได้ orderId แล้ว) =====
   const flexMsg = {
     type: "flex",
     altText,
@@ -1018,7 +1007,7 @@ async function checkout() {
           },
           {
             type: "text",
-            text: "**กรุณารอแอดมินเช็คสต็อกสินค้าและconfirm ก่อนกดชำระเงินนะคะ\n**Please wait for checking stocks and confirm this order before payment.",
+            text: "กรุณารอแอดมินเช็คสต็อกสินค้าและ confirm ก่อนกดชำระเงินนะคะ\nPlease wait for checking stocks and confirm this order before payment.",
             size: "md",
             weight: "bold",
             color: "#FF0000",
@@ -1035,20 +1024,15 @@ async function checkout() {
     text:
       `MuscleStationTH\n` +
       `สรุปคำสั่งซื้อ (${cart.length} รายการ)\n` +
-      shown.map(i => `• ${i.name} x${i.qty} = ${(i.price*i.qty).toLocaleString()}฿`).join("\n") +
+      shown.map(i => `• ${i.name} x${i.qty} = ${(i.price*i.qty).toLocaleString('th-TH')}฿`).join("\n") +
       (hiddenCount > 0 ? `\n...และอีก ${hiddenCount} รายการ` : "") +
-      `\nรวมทั้งหมด: ${totalPrice.toLocaleString()}฿` +
+      `\nรวมทั้งหมด: ${totalPrice.toLocaleString('th-TH')}฿` +
       `\n\nสำหรับแอดมิน: ${adminUrl}` +
       `\nชำระเงิน: ${LIFF_PAYMENT_URL}`
   };
 
   try {
-    const ctx = liff.getContext && liff.getContext();
-    if (ctx) dbg(`CTX: type=${ctx.type || "-"} | groupId=${ctx.groupId || "-"} | roomId=${ctx.roomId || "-"}`);
-  } catch {}
-
-  dbg("STEP 4/4: ส่งข้อความเข้าแชท...");
-  try {
+    // (ไม่ต้องรอ notifyPromise ที่ยิงไปแล้ว)
     if (liff.isInClient && liff.isInClient()) {
       try {
         await liff.sendMessages([flexMsg]);
@@ -1081,6 +1065,7 @@ async function checkout() {
     location.href = adminUrl;
   }
 }
+
 
 function saveCustomerInfo() {
   const address = document.getElementById("custAddress").value.trim();
