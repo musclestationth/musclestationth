@@ -1,77 +1,135 @@
-<!DOCTYPE html>
-<html lang="th">
-<head>
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>สรุปออเดอร์ (สำหรับแอดมิน)</title>
-  <style>
-    body { font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif; padding: 16px; }
-    h1 { font-size: 20px; margin-bottom: 12px; }
-    pre { background: #f7f7f7; padding: 12px; border-radius: 8px; white-space: pre-wrap; }
-    .row { margin-bottom: 12px; }
-    .btn { padding: 10px 14px; border: none; border-radius: 8px; cursor: pointer; }
-    .btn-primary { background: #1DB446; color: white; }
-    .btn-secondary { background: #e0e0e0; }
-  </style>
-</head>
-<body>
-  <h1>สรุปออเดอร์ (สำหรับแอดมิน)</h1>
-  <div id="status" class="row">กำลังโหลด...</div>
+        <!DOCTYPE html>
+        <html lang="th">
+        <head>
+          <meta charset="UTF-8" />
+          <title>สรุปออเดอร์ (สำหรับแอดมิน)</title>
+          <meta name="viewport" content="width=device-width, initial-scale=1" />
+          <style>
+            body { font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif; padding: 16px; }
+            h1 { font-size: 20px; margin-bottom: 12px; }
+            pre { background: #f7f7f7; padding: 12px; border-radius: 8px; white-space: pre-wrap; }
+            .row { margin-bottom: 12px; }
+            .btn { padding: 10px 14px; border: none; border-radius: 8px; cursor: pointer; }
+            .btn-primary { background: #1DB446; color: white; }
+            .btn-secondary { background: #e0e0e0; }
+          </style>
+        </head>
+        <body>
+          <h1>สรุปออเดอร์ (สำหรับแอดมิน)</h1>
+          <div id="status" class="row">กำลังโหลด...</div>
 
-  <div id="wrap" style="display:none;">
-    <div class="row">
-      <strong>Order ID:</strong> <span id="oid"></span>
-    </div>
-    <div class="row">
-      <strong>ยอดรวม:</strong> <span id="total"></span> บาท
-    </div>
+          <div id="wrap" style="display:none;">
+            <div class="row"><strong>Order ID:</strong> <span id="oid"></span></div>
+            <div class="row"><strong>ยอดรวม:</strong> <span id="total"></span> บาท</div>
+            <div class="row"><strong>Order</strong><pre id="orderText"></pre></div>
+            <div class="row"><strong>Customer</strong><pre id="customerText"></pre></div>
+            <div class="row">
+              <button class="btn btn-primary" id="copyAll">คัดลอกทั้งหมด</button>
+              <button class="btn btn-secondary" id="closeWindow">ปิดหน้าต่าง</button>
+            </div>
+          </div>
 
-    <div class="row">
-      <strong>Order</strong>
-      <pre id="orderText"></pre>
-    </div>
+          <script>
+            const DEBUG_ALERT = false; // เปิด true ถ้าต้องการดูแจ้งเตือนดีบักบนมือถือ
+            const dbg = (m) => { if (DEBUG_ALERT) alert(m); };
 
-    <div class="row">
-      <strong>Customer</strong>
-      <pre id="customerText"></pre>
-    </div>
+            // ใช้ GAS "ใหม่" ที่เก็บออเดอร์
+            const GAS_STORE_URL = "https://script.google.com/macros/s/AKfycbyayDr5PzcycTz08NQ0tEivQyKK57kQ7qQxL9ZDrAtcz3JkjNbLEBPkAOcUErtA6DOewg/exec";
 
-    <div class="row">
-      <button class="btn btn-primary" id="copyAll">คัดลอกทั้งหมด</button>
-      <button class="btn btn-secondary" id="closeWindow">ปิดหน้าต่าง</button>
-    </div>
-  </div>
+            async function loadByOrderId(orderId) {
+              dbg("loadByOrderId: " + orderId);
+              // เรียกแบบ POST + text/plain เพื่อหลบ preflight/CORS
+              const resp = await fetch(GAS_STORE_URL, {
+                method: "POST",
+                headers: { "Content-Type": "text/plain;charset=utf-8" },
+                body: JSON.stringify({ action: "getOrder", id: orderId })
+              });
 
-  <script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
-  <script>
-    const LIFF_ID = "2007887429-p3nd4dvE"; // ใช้ LIFF ของ summary.html
-    const GAS_URL = "https://script.google.com/macros/s/AKfycbyayDr5PzcycTz08NQ0tEivQyKK57kQ7qQxL9ZDrAtcz3JkjNbLEBPkAOcUErtA6DOewg/exec"; // <<< เปลี่ยนเป็นของคุณ
+              let json = null;
+              try {
+                json = await resp.json();
+              } catch (e) {
+                document.getElementById('status').textContent = "อ่านข้อมูลไม่สำเร็จ (parse JSON)";
+                return;
+              }
 
-    async function main() {
-      try {
-        await liff.init({ liffId: LIFF_ID });
+              if (!json || json.status !== "ok") {
+                document.getElementById('status').textContent = "โหลดออเดอร์ไม่สำเร็จ: " + (json?.message || "");
+                return;
+              }
 
-        const qs = new URLSearchParams(location.search);
-        const id = qs.get('id');
-        if (!id) {
-          document.getElementById('status').textContent = "ไม่พบ Order ID";
-          return;
-        }
+              const payload = json.order;
+              render(payload);
+            }
 
-        const url = `${GAS_URL}?action=getOrder&id=${encodeURIComponent(id)}`;
-        const resp = await fetch(url);
-        if (!resp.ok) {
-          document.getElementById('status').textContent = "โหลดออเดอร์ไม่สำเร็จ";
-          return;
-        }
-        const json = await resp.json();
-        if (json.status !== "ok") {
-          document.getElementById('status').textContent = "โหลดออเดอร์ไม่สำเร็จ: " + (json.message || "");
-          return;
-        }
+            function render(payload) {
+              document.getElementById('oid').textContent = payload.orderId || "-";
+              document.getElementById('total').textContent = (payload.totalPrice ?? 0).toLocaleString();
+              document.getElementById('orderText').textContent = payload.orderText || "";
+              document.getElementById('customerText').textContent = payload.customerText || "";
 
-        const payload = json.order;
-        document.getElementById('oid').textContent = payload.orderId || id;
-        document.getElementById('total').textContent = (payload.totalPrice ?? 0).toLocaleString();
-        document.getElementById('orderText').textContent = payload.orderText || "";
+              document.getElementById('status').style.display = 'none';
+              document.getElementById('wrap').style.display = 'block';
 
+              document.getElementById('copyAll').onclick = async () => {
+                const text = `Order ID: ${payload.orderId}\nยอดรวม: ${(payload.totalPrice ?? 0).toLocaleString()} บาท\n\n${payload.orderText}\n\n${payload.customerText}`;
+                try { await navigator.clipboard.writeText(text); alert("คัดลอกแล้ว ✅"); }
+                catch {
+                  const ta = document.createElement('textarea');
+                  ta.value = text; document.body.appendChild(ta);
+                  ta.select(); document.execCommand('copy'); ta.remove();
+                  alert("คัดลอกแล้ว ✅");
+                }
+              };
+
+              document.getElementById('closeWindow').onclick = () => {
+                if (window.liff && liff.isInClient && liff.isInClient()) liff.closeWindow();
+                else window.close();
+              };
+            }
+
+            (async function main() {
+              try {
+                const qs = new URLSearchParams(location.search);
+                const id = qs.get('id');
+                const d  = qs.get('d'); // fallback: base64 payload
+
+                if (id) {
+                  await loadByOrderId(id);
+                  return;
+                }
+
+                if (d) {
+                  // fallback: payload ฝังมากับลิงก์
+                  try {
+                    const payload = JSON.parse(decodeURIComponent(escape(atob(d))));
+                    render({
+                      orderId: "(no-id)",
+                      orderText: payload.orderText || "",
+                      customerText: payload.customerText || "",
+                      totalPrice: payload.totalPrice || 0,
+                      items: payload.items || []
+                    });
+                    return;
+                  } catch (e) {
+                    document.getElementById('status').textContent = "อ่านข้อมูล fallback ไม่สำเร็จ";
+                    return;
+                  }
+                }
+
+                document.getElementById('status').textContent = "ไม่พบ Order ID";
+              } catch (e) {
+                document.getElementById('status').textContent = "เกิดข้อผิดพลาดในการโหลด";
+              }
+            })();
+          </script>
+
+          <!-- โหลด LIFF แค่เพื่อปุ่ม 'ปิดหน้าต่าง' (ไม่บังคับ) -->
+          <script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
+          <script>
+            // ไม่จำเป็นต้อง init ถ้าไม่ต้องปิดหน้าต่างผ่าน LIFF
+            // ถ้าอยากให้ liff.closeWindow ทำงานใน WebView: เปิดคอมเมนต์บรรทัดล่าง แล้วใส่ LIFF ID ของ summary
+            // liff.init({ liffId: "2007887429-p3nd4dvE" });
+          </script>
+        </body>
+        </html>
