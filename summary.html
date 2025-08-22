@@ -5,30 +5,44 @@
   <title>สรุปออเดอร์ (สำหรับแอดมิน)</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <style>
-    :root { --pad: 16px; }
+    :root { --pad: 16px; --radius: 12px; }
     body { font-family: system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif; padding: var(--pad); background:#fafafa; color:#222; }
     h1 { font-size: 20px; margin: 0 0 12px; }
+    h2 { font-size: 16px; margin: 0; }
     .row { margin-bottom: 12px; }
-    .card { background:#fff; border-radius:12px; padding:16px; box-shadow:0 2px 10px rgba(0,0,0,.06); margin-bottom:12px; }
-    pre { background:#f6f8fa; padding:12px; border-radius:8px; white-space:pre-wrap; }
-    table { width:100%; border-collapse: collapse; }
-    thead th { text-align:left; font-weight:600; font-size:13px; color:#555; border-bottom:1px solid #eee; padding:8px; }
-    tbody td { padding:8px; border-bottom:1px dashed #eee; vertical-align:top; }
-    tfoot td { padding:8px; }
-    .num { text-align:right; font-variant-numeric: tabular-nums; }
-    input[type="number"] { width: 80px; padding:6px 8px; border:1px solid #ddd; border-radius:8px; }
-    .controls { display:flex; gap:8px; align-items:center; flex-wrap:wrap; }
-    .btn { padding:10px 14px; border:none; border-radius:10px; cursor:pointer; font-weight:600; }
-    .btn-primary { background:#1DB446; color:#fff; }
-    .btn-secondary { background:#e9ecef; }
-    .muted { color:#666; font-size: 12px; }
+    .card { background:#fff; border-radius:var(--radius); padding:16px; box-shadow:0 2px 10px rgba(0,0,0,.06); margin-bottom:12px; }
     .totals { display:grid; grid-template-columns: 1fr auto; gap:8px; }
-    .totals div { padding:6px 0; }
     .totals .label { color:#555; }
     .totals .value { text-align:right; font-weight:700; }
     .saving { color:#0a7c2f; font-weight:700; }
-    .warn { color:#b00020; }
+    .muted { color:#666; font-size:12px; }
     .hidden { display:none; }
+    .inline-controls { display:flex; align-items:center; gap:10px; flex-wrap:wrap; }
+    .inline-controls h2 { margin-right:auto; }
+    .btn { padding:10px 14px; border:none; border-radius:10px; cursor:pointer; font-weight:600; }
+    .btn-primary { background:#1DB446; color:#fff; }
+    .btn-secondary { background:#e9ecef; }
+    .btn-lg { width:100%; padding:14px; font-size:18px; }
+    .btn-18 { font-size:18px; }
+    table { width:100%; border-collapse: collapse; }
+    thead th { text-align:left; font-weight:600; font-size:13px; color:#555; border-bottom:1px solid #eee; padding:8px; }
+    tbody td { padding:8px; border-bottom:1px dashed #eee; vertical-align:middle; }
+    .num { text-align:right; font-variant-numeric: tabular-nums; }
+    .inp-wrap { display:flex; align-items:center; justify-content:flex-end; gap:6px; }
+    input[type="number"] {
+      width: 78px;              /* แคบลง */
+      padding:4px 6px;
+      border:1px solid #ddd;
+      border-radius:8px;
+      font-size:20px;           /* ตัวเลขใหญ่ 20px */
+      text-align:right;
+    }
+    .inputs-row { display:flex; gap:8px; align-items:center; flex-wrap:wrap; }
+    .title-row { display:flex; align-items:center; justify-content:space-between; gap:8px; }
+    pre { background:#f6f8fa; padding:12px; border-radius:8px; white-space:pre-wrap; }
+    .right { text-align:right; }
+    .actions-inline { display:flex; gap:8px; justify-content:flex-end; flex-wrap:wrap; }
+    .copy-inline { margin-left: auto; }
   </style>
 </head>
 <body>
@@ -47,45 +61,50 @@
     </div>
 
     <div class="card">
-      <div class="row"><strong>ส่วนลดแบบรายสินค้า (%)</strong></div>
-      <div class="row controls">
-        <input id="bulkDiscount" type="number" min="0" max="100" step="0.1" placeholder="ส่วนลดทั้งบิล (%)" />
-        <button class="btn btn-secondary" id="applyBulk">ใส่ให้ทุกชิ้น</button>
-        <button class="btn btn-secondary" id="resetDiscounts">รีเซ็ตส่วนลด</button>
-        <span class="muted">ใส่ 0–100 และปรับได้ทีละแถว</span>
+      <!-- หัวข้อ + ควบคุมส่วนลดในบรรทัดเดียว -->
+      <div class="inline-controls row">
+        <h2>ส่วนลด</h2>
+        <div class="inp-wrap">
+          <input id="bulkDiscount" type="number" min="0" max="100" step="0.1" placeholder="%" />
+          <span>%</span>
+        </div>
+        <button class="btn btn-secondary btn-18" id="applyBulk">Apply All</button>
+        <button class="btn btn-secondary btn-18" id="resetDiscounts">Reset</button>
       </div>
+
+      <div class="row"><strong>รายละเอียดคำสั่งซื้อ</strong></div>
 
       <div class="row" style="overflow-x:auto;">
         <table>
           <thead>
             <tr>
-              <th style="width:40%;">สินค้า</th>
-              <th class="num">ราคา/ชิ้น</th>
+              <th>ชื่อสินค้า</th>
               <th class="num">จำนวน</th>
-              <th class="num" style="min-width:120px;">ส่วนลด %</th>
-              <th class="num">ยอดก่อนลด</th>
-              <th class="num">ยอดหลังลด</th>
+              <th class="num">ยอดรวม</th>
+              <th class="num">ส่วนลด (%)</th>
+              <th class="num">ส่วนลด (฿)</th>
+              <th class="num">ยอดใหม่</th>
             </tr>
           </thead>
           <tbody id="itemsBody"></tbody>
-          <tfoot>
-            <tr>
-              <td colspan="6" class="muted">ราคาคิดเป็นบาท (THB) ปัดเศษใกล้เคียง</td>
-            </tr>
-          </tfoot>
         </table>
+      </div>
+
+      <div class="row">
+        <button class="btn btn-primary btn-lg" id="copyNew">คัดลอกสรุปราคาใหม่</button>
       </div>
     </div>
 
     <div class="card">
-      <div class="row"><strong>Order</strong></div>
-      <pre id="orderText"></pre>
-      <div class="row"><strong>Customer</strong></div>
-      <pre id="customerText"></pre>
-      <div class="row controls">
-        <button class="btn btn-primary" id="copyNew">คัดลอกสรุปราคาใหม่</button>
-        <button class="btn btn-secondary" id="copyAll">คัดลอกทั้งหมด (เดิม+ใหม่)</button>
-        <button class="btn btn-secondary" id="closeWindow">ปิดหน้าต่าง</button>
+      <div class="title-row">
+        <strong>ชื่อ-ที่อยู่จัดส่ง</strong>
+        <button class="btn btn-secondary btn-18" id="copyAddress">คัดลอก</button>
+      </div>
+      <pre id="customerText" style="margin-top:8px;"></pre>
+
+      <div class="actions-inline">
+        <button class="btn btn-secondary btn-18" id="closeWindow">ปิดหน้าต่าง</button>
+        <button class="btn btn-primary btn-18" id="sendBack">ส่งกลับ</button>
       </div>
     </div>
   </div>
@@ -93,14 +112,12 @@
   <script>
     // === CONFIG ===
     const GAS_STORE_URL = "https://script.google.com/macros/s/AKfycbyayDr5PzcycTz08NQ0tEivQyKK57kQ7qQxL9ZDrAtcz3JkjNbLEBPkAOcUErtA6DOewg/exec";
-    const DEBUG_ALERT = false;
-    const dbg = (m) => { if (DEBUG_ALERT) alert(m); };
+    const LIFF_ID = "2007887429-p3nd4dvE"; // แก้ให้ตรง LIFF ของ summary
 
     // ===== Utilities =====
     const fmt = (n) => Number(n||0).toLocaleString('th-TH');
     const clamp = (v,min,max) => Math.max(min, Math.min(max, v));
 
-    // อ่านพารามิเตอร์จาก search, liff.state, hash
     function readParams() {
       const out = { id: null, d: null };
       const qs1 = new URLSearchParams(location.search);
@@ -133,9 +150,8 @@
     // ===== Data / State =====
     let state = {
       orderId: null,
-      orderText: "",
       customerText: "",
-      items: [],           // [{name, price, qty, discountPct}]
+      items: [],           // [{name, price, qty, discountPct, discountAbs, lastEdited}]
       sumOriginal: 0,
       sumDiscounted: 0
     };
@@ -144,25 +160,25 @@
     async function loadByOrderId(orderId) {
       const resp = await fetch(GAS_STORE_URL, {
         method: "POST",
-        headers: { "Content-Type": "text/plain;charset=utf-8" }, // เลี่ยง preflight
+        headers: { "Content-Type": "text/plain;charset=utf-8" },
         body: JSON.stringify({ action: "getOrder", id: orderId })
       });
       const json = await resp.json().catch(() => null);
       if (!json || json.status !== "ok") {
-        document.getElementById('status').innerHTML = 'โหลดออเดอร์ไม่สำเร็จ <span class="warn">' + (json?.message || '') + '</span>';
+        document.getElementById('status').innerHTML = 'โหลดออเดอร์ไม่สำเร็จ';
         return;
       }
       const o = json.order || {};
-      // เตรียม items (แน่ใจว่ามี discountPct)
       const items = Array.isArray(o.items) ? o.items.map(it => ({
         name: String(it.name || ''),
         price: Number(it.price || 0),
         qty: Number(it.qty || 0),
-        discountPct: 0
+        discountPct: 0,
+        discountAbs: 0,
+        lastEdited: null
       })) : [];
 
       state.orderId = o.orderId || "";
-      state.orderText = o.orderText || "";
       state.customerText = o.customerText || "";
       state.items = items;
       renderAll();
@@ -170,116 +186,144 @@
 
     // ===== Render =====
     function renderAll() {
-      // ถ้าไม่มี items ลองพาร์สจาก orderText (fallback เบื้องต้น)
-      if (!state.items.length && state.orderText) {
-        state.items = parseFromOrderText(state.orderText);
-      }
-
-      // คำนวณยอดเดิม
+      // ยอดรวมเดิม
       state.sumOriginal = state.items.reduce((s, it) => s + (it.price * it.qty), 0);
-      // ครั้งแรกยอดหลังลด = ยอดเดิม
       state.sumDiscounted = state.sumOriginal;
 
-      // Header + totals
       document.getElementById('oid').textContent = state.orderId || "-";
       document.getElementById('sumOriginal').textContent = fmt(state.sumOriginal) + " บาท";
       document.getElementById('sumDiscounted').textContent = fmt(state.sumDiscounted) + " บาท";
       document.getElementById('sumSaving').textContent = "0 บาท";
 
-      // Text blocks
-      document.getElementById('orderText').textContent = state.orderText || "";
       document.getElementById('customerText').textContent = state.customerText || "";
 
-      // Table rows
       const tbody = document.getElementById('itemsBody');
       tbody.innerHTML = "";
       state.items.forEach((it, idx) => {
         const tr = document.createElement('tr');
 
+        // ชื่อสินค้า
         const tdName = document.createElement('td');
         tdName.textContent = it.name;
 
-        const tdPrice = document.createElement('td');
-        tdPrice.className = "num";
-        tdPrice.textContent = fmt(it.price);
-
+        // จำนวน
         const tdQty = document.createElement('td');
         tdQty.className = "num";
         tdQty.textContent = fmt(it.qty);
 
-        const tdDisc = document.createElement('td');
-        tdDisc.className = "num";
-        const inp = document.createElement('input');
-        inp.type = "number";
-        inp.min = "0"; inp.max = "100"; inp.step = "0.1";
-        inp.value = it.discountPct || 0;
-        inp.addEventListener('input', () => {
-          it.discountPct = clamp(Number(inp.value || 0), 0, 100);
-          inp.value = it.discountPct;
+        // ยอดรวมเดิม (price * qty)
+        const tdSum = document.createElement('td');
+        tdSum.className = "num";
+        const original = it.price * it.qty;
+        tdSum.textContent = fmt(original);
+
+        // ส่วนลด (%)
+        const tdDiscPct = document.createElement('td');
+        tdDiscPct.className = "num";
+        const inpPct = document.createElement('input');
+        inpPct.type = "number"; inpPct.min = "0"; inpPct.max = "100"; inpPct.step = "0.1";
+        inpPct.value = it.discountPct || 0;
+        inpPct.addEventListener('input', () => {
+          it.discountPct = clamp(Number(inpPct.value || 0), 0, 100);
+          it.lastEdited = 'pct';
+          // sync abs
+          it.discountAbs = Math.round(original * it.discountPct / 100);
+          inpAbs.value = it.discountAbs;
           recompute();
         });
-        tdDisc.appendChild(inp);
+        tdDiscPct.appendChild(inpPct);
 
-        const tdBefore = document.createElement('td');
-        tdBefore.className = "num";
-        tdBefore.textContent = fmt(it.price * it.qty);
+        // ส่วนลด (฿)
+        const tdDiscAbs = document.createElement('td');
+        tdDiscAbs.className = "num";
+        const inpAbs = document.createElement('input');
+        inpAbs.type = "number"; inpAbs.min = "0"; inpAbs.step = "1";
+        inpAbs.value = it.discountAbs || 0;
+        inpAbs.addEventListener('input', () => {
+          it.discountAbs = clamp(Math.round(Number(inpAbs.value || 0)), 0, original);
+          it.lastEdited = 'abs';
+          // sync pct (1 ตำแหน่งทศนิยม)
+          it.discountPct = original ? Math.round((it.discountAbs / original) * 1000) / 10 : 0;
+          inpPct.value = it.discountPct;
+          recompute();
+        });
+        tdDiscAbs.appendChild(inpAbs);
 
-        const tdAfter = document.createElement('td');
-        tdAfter.className = "num";
-        tdAfter.dataset.role = "after";
-        tdAfter.dataset.index = String(idx);
+        // ยอดใหม่ (คำนวณภายหลัง)
+        const tdNew = document.createElement('td');
+        tdNew.className = "num";
+        tdNew.dataset.role = "after";
+        tdNew.dataset.index = String(idx);
 
         tr.appendChild(tdName);
-        tr.appendChild(tdPrice);
         tr.appendChild(tdQty);
-        tr.appendChild(tdDisc);
-        tr.appendChild(tdBefore);
-        tr.appendChild(tdAfter);
+        tr.appendChild(tdSum);
+        tr.appendChild(tdDiscPct);
+        tr.appendChild(tdDiscAbs);
+        tr.appendChild(tdNew);
         tbody.appendChild(tr);
       });
 
-      // Controls
+      // ปุ่มควบคุมส่วนลดรวม
       document.getElementById('applyBulk').onclick = () => {
         const v = clamp(Number(document.getElementById('bulkDiscount').value || 0), 0, 100);
         state.items.forEach((it, idx) => {
+          const original = it.price * it.qty;
           it.discountPct = v;
+          it.discountAbs = Math.round(original * v / 100);
+          it.lastEdited = 'pct';
         });
         // sync inputs
-        document.querySelectorAll('#itemsBody input[type="number"]').forEach(inp => inp.value = String(v));
+        const rows = document.querySelectorAll('#itemsBody tr');
+        rows.forEach((row, i) => {
+          const inputs = row.querySelectorAll('input[type="number"]');
+          // assume order: pct then abs
+          inputs[0].value = state.items[i].discountPct;
+          inputs[1].value = state.items[i].discountAbs;
+        });
         recompute();
       };
 
       document.getElementById('resetDiscounts').onclick = () => {
-        state.items.forEach(it => it.discountPct = 0);
+        state.items.forEach(it => { it.discountPct = 0; it.discountAbs = 0; it.lastEdited = null; });
         document.getElementById('bulkDiscount').value = "";
         document.querySelectorAll('#itemsBody input[type="number"]').forEach(inp => inp.value = "0");
         recompute();
       };
 
       document.getElementById('copyNew').onclick = copyNewSummary;
-      document.getElementById('copyAll').onclick = copyAllSummary;
+      document.getElementById('copyAddress').onclick = () => copyText(state.customerText || "");
 
-      // close button
       document.getElementById('closeWindow').onclick = () => {
         if (window.liff && liff.isInClient && liff.isInClient()) liff.closeWindow();
         else window.close();
       };
 
-      // done
+      document.getElementById('sendBack').onclick = sendBackToChat;
+
       document.getElementById('status').classList.add('hidden');
       document.getElementById('wrap').classList.remove('hidden');
 
-      // first compute
       recompute();
     }
 
     function recompute() {
       let sum = 0;
       state.items.forEach((it, idx) => {
-        const discountedUnit = Math.round(it.price * (1 - (it.discountPct || 0)/100));
-        const after = discountedUnit * it.qty;
+        const original = it.price * it.qty;
+        // กำหนด source ของส่วนลดตามช่องที่แก้ล่าสุด
+        let discAbs = 0;
+        if (it.lastEdited === 'abs') {
+          discAbs = clamp(Math.round(it.discountAbs || 0), 0, original);
+          it.discountPct = original ? Math.round((discAbs / original) * 1000) / 10 : 0;
+        } else { // 'pct' หรือ null -> ใช้ pct เป็นหลัก
+          it.discountPct = clamp(Number(it.discountPct || 0), 0, 100);
+          discAbs = Math.round(original * it.discountPct / 100);
+          it.discountAbs = discAbs;
+        }
+        const after = Math.max(0, original - discAbs);
         sum += after;
-        // update row
+
         const cell = document.querySelector(`td[data-role="after"][data-index="${idx}"]`);
         if (cell) cell.textContent = fmt(after);
       });
@@ -295,23 +339,14 @@
       lines.push(`สรุปออเดอร์ (หลังส่วนลด)`);
       lines.push(`Order ID: ${state.orderId || "-"}`);
       state.items.forEach(it => {
-        const disc = clamp(Number(it.discountPct||0), 0, 100);
-        const unit = Math.round(it.price * (1 - disc/100));
-        const total = unit * it.qty;
-        lines.push(`• ${it.name} x${it.qty} @ ${fmt(unit)}฿ (${disc}%↓) = ${fmt(total)}฿`);
+        const original = it.price * it.qty;
+        const after = Math.max(0, original - (it.discountAbs || 0));
+        const pct = clamp(Number(it.discountPct || 0), 0, 100);
+        const abs = it.discountAbs || 0;
+        lines.push(`• ${it.name} x${it.qty} = ${fmt(original)}฿ | -${fmt(abs)}฿ (${pct}%↓) = ${fmt(after)}฿`);
       });
       lines.push(`รวมทั้งหมดหลังลด: ${fmt(state.sumDiscounted)}฿`);
-      const text = lines.join('\n');
-      copyText(text);
-    }
-
-    function copyAllSummary() {
-      const text =
-        `Order ID: ${state.orderId || "-"}\n` +
-        `ยอดรวมเดิม: ${fmt(state.sumOriginal)}฿\n` +
-        `ยอดรวมหลังลด: ${fmt(state.sumDiscounted)}฿ (ประหยัด ${fmt(Math.max(0,state.sumOriginal-state.sumDiscounted))}฿)\n\n` +
-        `${state.orderText}\n\n${state.customerText}`;
-      copyText(text);
+      copyText(lines.join('\n'));
     }
 
     async function copyText(text) {
@@ -324,20 +359,68 @@
       }
     }
 
-    // พาร์ส fallback จาก orderText รูปแบบ: "ชื่อ xจำนวน = ยอด฿"
-    function parseFromOrderText(txt) {
-      const items = [];
-      (txt || "").split(/\r?\n/).forEach(line => {
-        const m = line.match(/^(.+?)\s+x(\d+)\s*=\s*([\d,\.]+)฿/);
-        if (m) {
-          const name = m[1].trim();
-          const qty  = Number(m[2]);
-          const total= Number(String(m[3]).replace(/[^\d]/g,''));
-          const price= qty ? Math.round(total / qty) : 0;
-          items.push({ name, price, qty, discountPct: 0 });
-        }
+    // ส่ง Flex กลับห้องแชท
+    async function sendBackToChat() {
+      const lines = state.items.map(it => {
+        const original = it.price * it.qty;
+        const after = Math.max(0, original - (it.discountAbs || 0));
+        return {
+          type: "box",
+          layout: "horizontal",
+          contents: [
+            { type: "text", text: `${it.name} x${it.qty}`, size: "sm", wrap: true, flex: 2 },
+            { type: "text", text: `${fmt(after)}฿`, size: "sm", align: "end", flex: 1 }
+          ]
+        };
       });
-      return items;
+
+      // จำกัดจำนวนแสดงใน Flex (กันยาวเกิน)
+      const MAX = 10;
+      const shown = lines.slice(0, MAX);
+      if (lines.length > MAX) {
+        shown.push({ type:"text", text:`...และอีก ${lines.length-MAX} รายการ`, size:"sm", color:"#888888" });
+      }
+
+      const flex = {
+        type: "flex",
+        altText: `สรุปราคาใหม่: ${fmt(state.sumDiscounted)}฿`,
+        contents: {
+          type: "bubble",
+          body: {
+            type: "box",
+            layout: "vertical",
+            contents: [
+              { type: "text", text: "สรุปราคาใหม่", weight: "bold", size: "lg" },
+              { type: "text", text: `Order ID: ${state.orderId || "-"}`, size: "sm", color: "#666666", margin: "sm" },
+              { type: "box", layout: "vertical", margin: "md", spacing: "sm", contents: shown },
+              { type: "separator", margin: "md" },
+              {
+                type: "box",
+                layout: "horizontal",
+                margin: "md",
+                contents: [
+                  { type: "text", text: "รวมทั้งหมด", weight: "bold" },
+                  { type: "text", text: `${fmt(state.sumDiscounted)}฿`, align: "end", weight: "bold" }
+                ]
+              }
+            ]
+          }
+        }
+      };
+
+      try {
+        if (liff.isInClient()) {
+          await liff.sendMessages([flex]);
+          alert("ส่งกลับเข้าห้องแชทแล้ว ✅");
+        } else if (liff.isApiAvailable && liff.isApiAvailable('shareTargetPicker')) {
+          await liff.shareTargetPicker([flex]);
+          alert("แชร์ไปยังแชทแล้ว ✅");
+        } else {
+          alert("โปรดเปิดหน้านี้จากใน LINE เพื่อส่งข้อความกลับห้องแชท");
+        }
+      } catch (e) {
+        alert("ส่งกลับไม่สำเร็จ: " + (e?.message || e));
+      }
     }
 
     // ===== Main =====
@@ -346,38 +429,37 @@
         const { id, d } = readParams();
         if (id) {
           await loadByOrderId(id);
-          return;
-        }
-        if (d) {
+        } else if (d) {
+          // fallback base64
           try {
             const payload = JSON.parse(decodeURIComponent(escape(atob(d))));
             state.orderId = "(no-id)";
-            state.orderText = payload.orderText || "";
             state.customerText = payload.customerText || "";
             state.items = Array.isArray(payload.items) ? payload.items.map(it => ({
               name: String(it.name||''),
               price: Number(it.price||0),
               qty: Number(it.qty||0),
-              discountPct: 0
-            })) : parseFromOrderText(state.orderText);
+              discountPct: 0,
+              discountAbs: 0,
+              lastEdited: null
+            })) : [];
             renderAll();
-            return;
           } catch {
             document.getElementById('status').innerHTML = 'อ่านข้อมูล fallback ไม่สำเร็จ';
-            return;
           }
+        } else {
+          document.getElementById('status').innerHTML = 'ไม่พบ Order ID';
         }
-        document.getElementById('status').innerHTML = 'ไม่พบ Order ID';
       } catch (e) {
         document.getElementById('status').innerHTML = 'เกิดข้อผิดพลาดในการโหลด';
       }
     })();
   </script>
 
-  <!-- LIFF: คงไว้เพื่อให้ปุ่มปิดหน้าต่างใช้งานได้ใน WebView -->
+  <!-- LIFF SDK (สำหรับปิดหน้าต่าง/ส่งข้อความกลับแชท) -->
   <script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
   <script>
-    liff.init({ liffId: "2007887429-p3nd4dvE" }).catch(()=>{});
+    liff.init({ liffId: LIFF_ID }).catch(()=>{});
   </script>
 </body>
 </html>
