@@ -887,6 +887,8 @@ window.onload = function() {
 // -------------------------
 // ปุ่มสั่งซื้อ
 // -------------------------
+const SUMMARY_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyayDr5PzcycTz08NQ0tEivQyKK57kQ7qQxL9ZDrAtcz3JkjNbLEBPkAOcUErtA6DOewg/exec";
+
 async function checkout() {
   if (!cart.length) return alert("ตะกร้าว่าง");
 
@@ -901,76 +903,6 @@ async function checkout() {
 
   const totalPrice = cart.reduce((sum, i) => sum + i.price * i.qty, 0);
 
-  const flexMsg = {
-    type: "flex",
-    altText: "รายละเอียดคำสั่งซื้อ",
-    contents: {
-      type: "bubble",
-      body: {
-        type: "box",
-        layout: "vertical",
-        contents: [
-          {
-            type: "image",
-            url: "https://lh3.googleusercontent.com/d/1thkyE_A9Jd8LGii5Z9rIGtcn75Tv39q7", // ใส่ URL รูปโลโก้จริงของคุณ
-            size: "sm",           // ขนาดเล็ก (xs, sm, md, lg, xl, full)
-            align: "center",
-            margin: "none"
-          },
-
-
-          { type: "text", text: "MuscleStationTH", weight: "bold", size: "xl", align: "center", color: "#0000FF" },
-          { type: "text", text: "สรุปคำสั่งซื้อ", weight: "bold", size: "lg" },
-          { type: "box", layout: "vertical", margin: "lg", spacing: "sm", contents: itemContents },
-          {
-            type: "box",
-            layout: "horizontal",
-            margin: "lg",
-            contents: [
-              { type: "text", text: "รวมทั้งหมด", size: "lg", weight: "bold", color: "#000000" },
-              { type: "text", text: `${totalPrice}฿`, size: "lg", color: "#000000", align: "end", weight: "bold" }
-            ]
-          }
-        ]
-
-      },
-      footer: {
-        type: "box",
-        layout: "vertical",
-        spacing: "sm",
-        contents: [
-          {
-            type: "button",
-            style: "primary",
-            color: "#1DB446",  // สีเขียว typical payment color
-            action: {
-              type: "uri",
-              label: "ชำระเงิน",
-              uri: "https://liff.line.me/2007887429-Arr5x53g" // ใส่ URL หน้า QR Code จริงของคุณ
-            }
-          },
-          {
-            type: "button",
-            style: "secondary",
-            color: "#888888",  // เลือกสีที่เหมาะสม
-            action: {
-              type: "uri",
-              label: "สำหรับแอดมิน",
-              uri: "https://liff.line.me/2007887429-p3nd4dvE" // ใส่ LIFF ID ของ summary.html
-            }
-          },
-          {
-            type: "text",
-            text: "**กรุณารอแอดมินเช็คสต็อกสินค้าและconfirm ก่อนกดชำระเงินนะคะ\n**Please wait for checking stocks and confirm this order before payment.",
-            size: "md",
-            color: "#FF0000",
-            wrap: true,
-            margin: "sm"
-          }
-        ]
-      }
-    }
-  };
 
   // --- สร้างข้อความรายละเอียดคำสั่งซื้อ ---
   let orderText = "📦 รายละเอียดคำสั่งซื้อ\n";
@@ -1002,29 +934,87 @@ async function checkout() {
       .then(data => console.log(data));
 
     // -------- ส่งข้อมูลไป GAS อีกชุดเพื่อเปิด summary.html ----------
-    fetch("https://script.google.com/macros/s/AKfycbyayDr5PzcycTz08NQ0tEivQyKK57kQ7qQxL9ZDrAtcz3JkjNbLEBPkAOcUErtA6DOewg/exec", {
+    // --- ขอ URL สำหรับ summary.html ---
+    const summaryRes = await fetch(SUMMARY_SCRIPT_URL, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         action: "createSummary",
-        cart: cart,               // [{name, qty, price}, ...]
+        cart: cart,
         customerText: customerText
       })
-    })
-    .then(res => res.json())
-    .then(data => {
-        // เปิด summary.html ด้วย LIFF
-        liff.openWindow({ url: data.summaryUrl, external: false });
-      });
-      
+    });
+    const summaryData = await summaryRes.json();
+    const summaryUrl = summaryData.summaryUrl || `${SUMMARY_SCRIPT_URL}?page=summary&id=${summaryData.id}`;
 
+    const flexMsg = {
+      type: "flex",
+      altText: "รายละเอียดคำสั่งซื้อ",
+      contents: {
+        type: "bubble",
+        body: {
+          type: "box",
+          layout: "vertical",
+          contents: [
+            {
+              type: "image",
+              url: "https://lh3.googleusercontent.com/d/1thkyE_A9Jd8LGii5Z9rIGtcn75Tv39q7",
+              size: "sm",
+              align: "center",
+              margin: "none"
+            },
+            { type: "text", text: "MuscleStationTH", weight: "bold", size: "xl", align: "center", color: "#0000FF" },
+            { type: "text", text: "สรุปคำสั่งซื้อ", weight: "bold", size: "lg" },
+            { type: "box", layout: "vertical", margin: "lg", spacing: "sm", contents: itemContents },
+            {
+              type: "box",
+              layout: "horizontal",
+              margin: "lg",
+              contents: [
+                { type: "text", text: "รวมทั้งหมด", size: "lg", weight: "bold", color: "#000000" },
+                { type: "text", text: `${totalPrice}฿`, size: "lg", color: "#000000", align: "end", weight: "bold" }
+              ]
+            }
+          ]
+        },
+        footer: {
+          type: "box",
+          layout: "vertical",
+          spacing: "sm",
+          contents: [
+            {
+              type: "button",
+              style: "primary",
+              color: "#1DB446",
+              action: {
+                type: "uri",
+                label: "ชำระเงิน",
+                uri: "https://liff.line.me/2007887429-Arr5x53g"
+              }
+            },
+            {
+              type: "button",
+              style: "secondary",
+              color: "#FF5722",
+              action: {
+                type: "uri",
+                label: "สำหรับแอดมิน",
+                uri: summaryUrl
+              }
+            },
+            {
+              type: "text",
+              text: "**กรุณารอแอดมินเช็คสต็อกสินค้าและconfirm ก่อนกดชำระเงินนะคะ\n**Please wait for checking stocks and confirm this order before payment.",
+              size: "md",
+              color: "#FF0000",
+              wrap: true,
+              margin: "sm"
+            }
+          ]
+        }
+      }
+    };
 
-
-    // ส่ง Flex + Text ให้ลูกค้า
-    /*  await liff.sendMessages([
-        { type: "text", text: orderText },
-        { type: "text", text: customerText }
-      ]);*/
     await liff.sendMessages([flexMsg]);
 
     alert("ส่งคำสั่งซื้อแล้ว!");
@@ -1036,14 +1026,9 @@ async function checkout() {
     liff.closeWindow();
 
   } catch (err) {
-    //console.error(err);
     console.error('sendMessages error:', err);
     alert("ส่งข้อความไม่สำเร็จ");
   }
-
-
-
-
 }
 
 function saveCustomerInfo() {
