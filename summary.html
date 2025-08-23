@@ -523,7 +523,7 @@
 
       fireAndForgetToGAS(GAS_STORE_URL, bodyStr); // ไม่ await
 
-      fastExit(); // ปิด/ย้อนหน้าโดยทันที
+    
     }
 
     // ใช้ sendBeacon ก่อน; ถ้าไม่ได้ค่อย fetch keepalive (ทั้งคู่ไม่ await)
@@ -544,15 +544,7 @@
       } catch (_) {}
     }
 
-    // ปิดหน้าต่างให้ไว (รองรับทั้งใน/นอก LIFF)
-    function fastExit() {
-      try { if (window.liff && liff.isInClient && liff.isInClient()) { liff.closeWindow(); return; } } catch(_) {}
-      window.close();
-      setTimeout(() => {
-        try { history.length > 1 ? history.back() : location.replace('about:blank'); }
-        catch { location.replace('about:blank'); }
-      }, 80);
-    }
+
 
 
 
