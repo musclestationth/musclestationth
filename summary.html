@@ -61,13 +61,7 @@
       align-items: stretch;     /* ให้แถวล่างยืดเต็มความกว้างได้ */
     }
 
-    /* ปุ่ม "ปิดหน้าต่าง" ให้ชิดขวา (แถวบน) */
-    #closeWindow{
-      align-self: center;     /* ชิดขวาของกล่อง */
-      background: #dc3545; /* แดงโทน Bootstrap */
-      color: #fff;
-      border: none;
-    }
+
 
     /* ปุ่ม "ส่งกลับ" ให้กว้างเต็มจอ (แถวล่าง) */
     #sendBack{
@@ -165,7 +159,6 @@
 
       <div class="actions-inline">
         <button class="btn btn-primary btn-18" id="sendBack">ส่งกลับ</button>
-      
       </div>
 
       <div class="title-row" style="margin-top:12px;">
@@ -174,7 +167,6 @@
       </div>
       <pre id="customerText" style="margin-top:8px;"></pre>
 
-   
     </div>
 
   </div>
@@ -533,7 +525,8 @@
         });
         const js = await res.json().catch(()=>null);
         if (js?.status === "ok") {
-          exitPage();
+          alert("ส่งกลับเข้าแชทแล้ว ✅");
+          return;
         }
         alert("ส่งกลับไม่สำเร็จ (GAS): " + (js?.error || "unknown"));
       } catch (e) {
@@ -541,25 +534,7 @@
       }
     }
 
-    // ปิด/ออกจากหน้านี้แบบครอบจักรวาล
-    function exitPage() {
-      // 1) ถ้าอยู่ใน LINE ให้ปิดด้วย LIFF
-      if (window.liff && liff.isInClient && liff.isInClient()) {
-        try { liff.closeWindow(); return; } catch (_) {}
-      }
-      // 2) ถ้ามี history ให้ย้อนกลับ
-      if (window.history.length > 1) {
-        history.back();
-        setTimeout(() => { location.replace('about:blank'); }, 500);
-        return;
-      }
-      // 3) ปิดแท็บ/รีไดเรกต์เป็น about:blank (กันกรณีเบราว์เซอร์บล็อก)
-      window.close();
-      setTimeout(() => {
-        try { window.open('','_self'); } catch (_) {}
-        location.replace('about:blank');
-      }, 150);
-    }
+
 
     
 
