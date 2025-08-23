@@ -533,7 +533,6 @@
         });
         const js = await res.json().catch(()=>null);
         if (js?.status === "ok") {
-          alert("ส่งกลับเข้าแชทแล้ว ✅");
           return;
           exitPage();
         }
