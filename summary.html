@@ -451,37 +451,30 @@
 
     // ส่ง Flex กลับห้องแชท
     // ส่ง Flex กลับห้องแชท (รูปแบบเดียวกับ checkout template แต่เป็น "หลังส่วนลด")
+
     async function sendBackToChat() {
-      // เตรียมรายการใน Flex (บังคับให้ชื่อสินค้าขึ้นบรรทัดใหม่ได้)
+      // สร้างรายการ itemContents และ totalPrice ตามโค้ดเดิมของคุณ...
       const itemContents = state.items.map(it => {
         const original = it.price * it.qty;
         const pct = clamp(Number(it.discountPct ?? 0), 0, 100);
         let abs  = clamp(Math.round(Number(it.discountAbs ?? 0)), 0, original);
-
-        // ใช้เปอร์เซ็นต์ถ้าไม่ได้ใส่ส่วนลดเป็นบาท
         const usePct = (abs === 0 && pct > 0);
         const discount = usePct ? Math.round(original * pct / 100) : abs;
         const after = Math.max(0, original - discount);
-
-        // รูปแบบข้อความขวา ตามเงื่อนไขที่ขอ
         const rightText = usePct
           ? `${fmt(original)}฿-${pct}%=${fmt(after)}฿`
           : `${fmt(original)}฿-${fmt(discount)}฿=${fmt(after)}฿`;
 
         return {
-          type: "box",
-          layout: "horizontal",
+          type: "box", layout: "horizontal",
           contents: [
-            // ซ้าย: ชื่อสินค้าให้ตัดบรรทัดได้
             { type: "text", text: `${it.name} x${it.qty}`, size: "sm", color: "#0000FF", wrap: true, flex: 5, maxLines: 6 },
-            // ขวา: สูตรราคา ชิดขวา
             { type: "text", text: rightText, size: "sm", color: "#0000FF", align: "end", wrap: false, flex: 0 }
           ]
         };
       });
 
-      // รวมหลังส่วนลดทั้งหมด
-      const totalPrice = state.sumDiscounted || state.items.reduce((s, it) => {
+      const totalPrice = state.items.reduce((s, it) => {
         const original = it.price * it.qty;
         const pct = clamp(Number(it.discountPct ?? 0), 0, 100);
         let abs  = clamp(Math.round(Number(it.discountAbs ?? 0)), 0, original);
@@ -491,6 +484,7 @@
 
       const paymentUrl = "https://liff.line.me/2007887429-Arr5x53g";
 
+      // ⬇️ Flex เดิมของคุณ (เหมือนตอน checkout) แต่เป็น “หลังส่วนลด”
       const flexMsg = {
         type: "flex",
         altText: "รายละเอียดคำสั่งซื้อ",
@@ -500,20 +494,12 @@
             type: "box",
             layout: "vertical",
             contents: [
-              {
-                type: "image",
-                url: "https://lh3.googleusercontent.com/d/1thkyE_A9Jd8LGii5Z9rIGtcn75Tv39q7",
-                size: "sm",
-                align: "center",
-                margin: "none"
-              },
+              { type: "image", url: "https://lh3.googleusercontent.com/d/1thkyE_A9Jd8LGii5Z9rIGtcn75Tv39q7", size: "sm", align: "center", margin: "none" },
               { type: "text", text: "MuscleStationTH", weight: "bold", size: "xl", align: "center", color: "#0000FF" },
               { type: "text", text: "แอด:สรุปคำสั่งซื้อ", weight: "bold", size: "lg", color: "#0000FF" },
               { type: "box", layout: "vertical", margin: "lg", spacing: "sm", contents: itemContents },
               {
-                type: "box",
-                layout: "horizontal",
-                margin: "lg",
+                type: "box", layout: "horizontal", margin: "lg",
                 contents: [
                   { type: "text", text: "รวมทั้งหมด", size: "lg", weight: "bold", color: "#0000FF" },
                   { type: "text", text: `${fmt(totalPrice)}฿`, size: "lg", color: "#0000FF", align: "end", weight: "bold" }
@@ -527,41 +513,40 @@
             spacing: "sm",
             contents: [
               {
-                type: "button",
-                style: "primary",
-                color: "#1DB446",
+                type: "button", style: "primary", color: "#1DB446",
                 action: { type: "uri", label: "ชำระเงิน", uri: paymentUrl }
               },
               {
                 type: "text",
                 text: "**สินค้าพร้อมส่งทุกตัว! ลูกค้าชำระเงินแล้วแจ้งแอดมินได้เลยค่ะ\n**In stock, Ready to ship! After payment, please notify the admin.",
-                size: "md",
-                weight: "bold",
-                color: "#009400",
-                wrap: true,
-                margin: "sm"
+                size: "md", weight: "bold", color: "#009400", wrap: true, margin: "sm"
               }
             ]
           }
         }
       };
 
+      // ⬇️ เรียก GAS ให้ “push” ข้อความไปยังห้องที่ order นี้มาจาก
       try {
-        if (liff.isInClient && liff.isInClient()) {
-          await liff.sendMessages([flexMsg]);
-          alert("ส่งกลับเข้าห้องแชทแล้ว ✅");
-          if (liff.isInClient()) liff.closeWindow();
-        } else if (liff.isApiAvailable && liff.isApiAvailable('shareTargetPicker')) {
-          await liff.shareTargetPicker([flexMsg]);
-          alert("แชร์ไปยังแชทแล้ว ✅");
-        } else {
-          alert("โปรดเปิดหน้านี้จากใน LINE เพื่อส่งข้อความกลับห้องแชท");
+        const res = await fetch(GAS_STORE_URL, {
+          method: "POST",
+          headers: { "Content-Type": "text/plain;charset=utf-8" },
+          body: JSON.stringify({
+            action: "pushSummary",     // << คีย์เวิร์ดใหม่
+            orderId: state.orderId,    // << ต้องมีตั้งแต่โหลดหน้า
+            message: flexMsg           // << ส่ง bubble ทั้งก้อนให้ GAS
+          })
+        });
+        const js = await res.json().catch(()=>null);
+        if (js?.status === "ok") {
+          alert("ส่งกลับเข้าแชทแล้ว ✅");
+          return;
         }
+        alert("ส่งกลับไม่สำเร็จ (GAS): " + (js?.error || "unknown"));
       } catch (e) {
         alert("ส่งกลับไม่สำเร็จ: " + (e?.message || e));
       }
     }
-
 
 
 
