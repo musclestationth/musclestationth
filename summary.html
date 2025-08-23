@@ -438,7 +438,7 @@
     // ส่ง Flex กลับห้องแชท
     // ส่ง Flex กลับห้องแชท (รูปแบบเดียวกับ checkout template แต่เป็น "หลังส่วนลด")
     async function sendBackToChat() {
-      // === เตรียมรายการ/ยอดรวม (คง logic เดิม) ===
+      // === สร้างรายการ / ยอดรวม (เหมือนเดิม) ===
       const itemContents = state.items.map(it => {
         const original = it.price * it.qty;
         const pct = clamp(Number(it.discountPct ?? 0), 0, 100);
@@ -510,24 +510,57 @@
         }
       };
 
-      // ปิดการกดซ้ำ ให้ feedback เร็ว
+      // ---- คุมปุ่ม ----
       const btn = document.getElementById('sendBack');
-      if (btn) { btn.disabled = true; btn.textContent = "กำลังส่ง..."; }
+      if (btn) {
+        btn.dataset.prev = btn.textContent || "ส่งกลับ";
+        btn.textContent = "กำลังส่ง...";
+        btn.disabled = true;
+      }
 
-      // ===== ยิงไป GAS แบบไม่รอคำตอบ แล้วปิดหน้านี้เลย =====
-      const bodyStr = JSON.stringify({
-        action: "pushSummary",
-        orderId: state.orderId,
-        message: flexMsg
-      });
+      // ---- ยิงไป GAS และรอผล พร้อม timeout ----
+      const controller = new AbortController();
+      const timeoutMs = 10000; // 10s
+      const tid = setTimeout(() => controller.abort(), timeoutMs);
 
-      fireAndForgetToGAS(GAS_STORE_URL, bodyStr); // ไม่ await
-      // ถ้าอยากคืนปุ่มกลับภายหลัง (ไม่ปิดหน้า)
-      setTimeout(() => {
-        if (btn) { btn.disabled = false; btn.textContent = "ส่งกลับ"; }
-      }, 1200);
-    
+      try {
+        const res = await fetch(GAS_STORE_URL, {
+          method: "POST",
+          headers: { "Content-Type": "text/plain;charset=utf-8" },
+          body: JSON.stringify({
+            action: "pushSummary",
+            orderId: state.orderId,
+            message: flexMsg
+          }),
+          signal: controller.signal
+        });
+        clearTimeout(tid);
+
+        const js = await res.json().catch(() => null);
+        if (res.ok && js?.status === "ok") {
+          // ✅ สำเร็จ: ล็อกปุ่มไว้เลย
+          if (btn) {
+            btn.textContent = "ส่งแล้ว";
+            btn.disabled = true;
+          }
+        } else {
+          // ❌ ล้มเหลว: ปลดล็อกให้กดใหม่ได้
+          if (btn) {
+            btn.textContent = btn.dataset.prev || "ส่งกลับ";
+            btn.disabled = false;
+          }
+          alert("ส่งกลับไม่สำเร็จ (GAS): " + (js?.error || js?.message || res.status));
+        }
+      } catch (e) {
+        clearTimeout(tid);
+        if (btn) {
+          btn.textContent = btn.dataset.prev || "ส่งกลับ";
+          btn.disabled = false;
+        }
+        alert("ส่งกลับไม่สำเร็จ: " + (e?.message || e));
+      }
     }
+
 
     // ใช้ sendBeacon ก่อน; ถ้าไม่ได้ค่อย fetch keepalive (ทั้งคู่ไม่ await)
     function fireAndForgetToGAS(url, bodyStr) {
