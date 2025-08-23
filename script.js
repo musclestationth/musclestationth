@@ -891,11 +891,15 @@ async function checkout() {
   if (!cart.length) { console.warn("Checkout aborted: empty cart"); return; }
 
   // === CONFIG ===
-  const GAS_STORE_URL  = "https://script.google.com/macros/s/AKfycbyayDr5PzcycTz08NQ0tEivQyKK57kQ7qQxL9ZDrAtcz3JkjNbLEBPkAOcUErtA6DOewg/exec"; // ใหม่: เก็บออเดอร์ + คืน orderId
-  const GAS_NOTIFY_URL = "https://script.google.com/macros/s/AKfycbxqnzojoqKN_GC_XqdhCTIb2YP8OswdUNBP69P-zf55u-gybpeouyTvcqchndRMG9cb0A/exec"; // เดิม: แจ้ง LINE
+  const GAS_STORE_URL   = "https://script.google.com/macros/s/AKfycbyayDr5PzcycTz08NQ0tEivQyKK57kQ7qQxL9ZDrAtcz3JkjNbLEBPkAOcUErtA6DOewg/exec"; // เก็บออเดอร์ + push target
+  const GAS_NOTIFY_URL  = "https://script.google.com/macros/s/AKfycbxqnzojoqKN_GC_XqdhCTIb2YP8OswdUNBP69P-zf55u-gybpeouyTvcqchndRMG9cb0A/exec"; // แจ้งเตือนไลน์ (ของเดิม)
   const LIFF_SUMMARY_ID = "2007887429-p3nd4dvE";
-  const LIFF_PAYMENT_URL = "https://liff.line.me/2007887429-Arr5x53g";
-  const dbg = (...a) => console.log("[checkout]", ...a);
+  const LIFF_PAYMENT_URL= "https://liff.line.me/2007887429-Arr5x53g";
+
+  const log = (...a)=>console.log("[checkout]",...a);
+
+  // === สร้าง orderId ฝั่ง client ทันที (เพื่อไม่ต้องรอ GAS) ===
+  const orderId = `ORD-${Date.now()}-${Math.random().toString(36).slice(2,8)}`;
 
   // --- รวมยอด / ข้อความ ---
   const totalPrice = cart.reduce((s, i) => s + i.price * i.qty, 0);
@@ -905,6 +909,7 @@ async function checkout() {
   });
   orderText += `\nรวมทั้งหมด = ${totalPrice.toLocaleString('th-TH')}฿`;
 
+  // ข้อมูลลูกค้า
   let customerText = "⚠️ ยังไม่ได้กรอกข้อมูลลูกค้า";
   const saved = localStorage.getItem("customerInfo");
   if (saved) {
@@ -912,11 +917,10 @@ async function checkout() {
     customerText = `👤 ชื่อ-ที่อยู่จัดส่ง:\n${info.address || "-"}`;
   }
 
-  // --- เตรียมรายการแบบสั้นสำหรับ Flex ---
+  // เตรียมรายการสำหรับ Flex (ชื่อสินค้าตัดบรรทัดได้)
   const MAX_FLEX_LINES = 10;
   const shown = cart.slice(0, MAX_FLEX_LINES);
   const hiddenCount = cart.length - shown.length;
-
   const itemContents = shown.map(i => ({
     type: "box",
     layout: "horizontal",
@@ -928,43 +932,38 @@ async function checkout() {
   if (hiddenCount > 0) {
     itemContents.push({ type: "text", text: `...และอีก ${hiddenCount} รายการ`, size: "sm", wrap: true });
   }
-
   const altText = `สรุปคำสั่งซื้อ ${cart.length} รายการ = ${totalPrice.toLocaleString('th-TH')}฿`;
-  const itemsForServer = cart.map(i => ({ name: i.name, price: i.price, qty: i.qty }));
 
-  // ===== ยิงขนาน: เก็บออเดอร์ + แจ้งเตือน =====
-  const payloadStore  = JSON.stringify({ action:"checkout", orderText, customerText, totalPrice, items: itemsForServer });
-  const payloadNotify = JSON.stringify({ action:"checkout", orderText, customerText });
-
-  // หลีกเลี่ยง preflight: ไม่ใส่ Content-Type
-  const storePromise  = fetch(GAS_STORE_URL,  { method: "POST", body: payloadStore  });
-  // แจ้งเตือนไม่จำเป็นต้องรอให้เสร็จ จึงไม่ await ก่อนส่ง Flex
-  const notifyPromise = fetch(GAS_NOTIFY_URL, { method: "POST", body: payloadNotify }).catch(e => console.warn("notify failed", e));
-
-  // ต้องรอเฉพาะ store เพื่อต้องใช้ orderId
-  let orderId = null;
+  // === targetType/targetId (ใช้สำหรับ GAS push ย้อนห้องเดิม) ===
+  let targetType = "none";
+  let targetId = "";
   try {
-    const resp = await storePromise;
-    let data = null;
-    try { data = await resp.json(); }
-    catch {
-      const t = await resp.text();
-      try { data = JSON.parse(t); } catch {}
+    const ctx = liff.getContext ? liff.getContext() : null;
+    if (ctx?.type === "group")      { targetType = "group"; targetId = ctx.groupId || ""; }
+    else if (ctx?.type === "room")  { targetType = "room";  targetId = ctx.roomId  || ""; }
+    else if (ctx?.type === "utou")  {
+      // ต้องอ่าน userId เพิ่ม
+      try {
+        const prof = await liff.getProfile();
+        targetType = "user"; targetId = prof?.userId || "";
+      } catch (e) {
+        console.warn("getProfile failed:", e);
+      }
     }
-    if (!data || !data.orderId) {
-      console.error("Store GAS returned no orderId:", data);
-      return;
-    }
-    orderId = data.orderId;
   } catch (e) {
-    console.error("Store GAS load failed:", e);
-    return;
+    console.warn("liff.getContext failed:", e);
   }
 
-  // เตรียมลิงก์สำหรับแอดมิน
-  const adminUrl = `https://liff.line.me/${LIFF_SUMMARY_ID}?id=${encodeURIComponent(orderId)}`;
+  // === Base64 fallback สำหรับ summary (เผื่อ GAS ยังเขียนไม่เสร็จ) ===
+  const itemsForServer = cart.map(i => ({ name: i.name, price: i.price, qty: i.qty }));
+  const fallback = {
+    customerText,
+    items: itemsForServer
+  };
+  const fallbackB64 = btoa(unescape(encodeURIComponent(JSON.stringify(fallback))));
+  const adminUrl = `https://liff.line.me/${LIFF_SUMMARY_ID}?id=${encodeURIComponent(orderId)}&d=${encodeURIComponent(fallbackB64)}`;
 
-  // ===== ส่งข้อความ (หลังได้ orderId แล้ว) =====
+  // === ส่ง Flex "ทันที" (ไม่รอ GAS) ===
   const flexMsg = {
     type: "flex",
     altText,
@@ -1019,6 +1018,7 @@ async function checkout() {
     }
   };
 
+  // Fallback ข้อความล้วน (กรณี Flex fail)
   const textMsg = {
     type: "text",
     text:
@@ -1031,8 +1031,33 @@ async function checkout() {
       `\nชำระเงิน: ${LIFF_PAYMENT_URL}`
   };
 
+  // ===== ยิงไป GAS “แบบไม่รอ” (หลังส่งข้อความ) =====
+  const payloadStore = JSON.stringify({
+    action: "checkout",
+    orderId,        // << ให้ GAS ใช้ id นี้ (ต้องแก้ GAS รองรับ)
+    orderText,
+    customerText,
+    totalPrice,
+    items: itemsForServer,
+    targetType,
+    targetId
+  });
+  const payloadNotify = JSON.stringify({ action: "checkout", orderText, customerText });
+
+  // ฟังก์ชันยิงแบบไม่บล็อก (พยายามใช้ sendBeacon ถ้าได้)
+  const fireAndForget = (url, body) => {
+    try {
+      if (navigator.sendBeacon) {
+        const ok = navigator.sendBeacon(url, new Blob([body], { type: "text/plain;charset=utf-8" }));
+        if (ok) return Promise.resolve(true);
+      }
+    } catch (e) { /* ignore */ }
+    // fallback fetch non-blocking
+    return fetch(url, { method: "POST", body, keepalive: true }).catch(err => console.warn("ff fail", url, err));
+  };
+
+  // === ส่งข้อความก่อน ===
   try {
-    // (ไม่ต้องรอ notifyPromise ที่ยิงไปแล้ว)
     if (liff.isInClient && liff.isInClient()) {
       try {
         await liff.sendMessages([flexMsg]);
@@ -1047,24 +1072,32 @@ async function checkout() {
         await liff.shareTargetPicker([textMsg]);
       }
     } else {
-      console.warn("Not in LINE client; redirect to adminUrl for continuity");
+      // เปิดนอก LINE → เด้งไป summary เพื่อทำงานต่อ
       location.href = adminUrl;
       return;
     }
-
-    // สำเร็จ: เคลียร์ตะกร้า + ปิด/กลับ
-    cart.length = 0;
-    saveCart();
-    renderCart();
-    showTab(2);
-    if (liff.isInClient && liff.isInClient()) liff.closeWindow();
-
   } catch (err) {
     console.error("ส่งข้อความไม่สำเร็จ:", err?.message || err);
     // เปิด summary ต่อให้ทำงานต่อได้
     location.href = adminUrl;
+    return;
+  }
+
+  // === แล้วค่อยยิงไป GAS แบบไม่รอให้เสร็จ ===
+  fireAndForget(GAS_STORE_URL,  payloadStore);
+  fireAndForget(GAS_NOTIFY_URL, payloadNotify);
+
+  // === เคลียร์ตะกร้า + ปิด ===
+  cart.length = 0;
+  saveCart();
+  renderCart();
+  showTab(2);
+  if (liff.isInClient && liff.isInClient()) {
+    // หน่วงนิดเดียวให้ beacon มีเวลาออก
+    setTimeout(() => liff.closeWindow(), 250);
   }
 }
+
 
 
 function saveCustomerInfo() {
