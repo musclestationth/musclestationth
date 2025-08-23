@@ -533,7 +533,6 @@
         });
         const js = await res.json().catch(()=>null);
         if (js?.status === "ok") {
-          return;
           exitPage();
         }
         alert("ส่งกลับไม่สำเร็จ (GAS): " + (js?.error || "unknown"));
