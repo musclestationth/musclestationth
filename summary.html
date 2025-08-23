@@ -437,16 +437,15 @@
 
     // ส่ง Flex กลับห้องแชท
     // ส่ง Flex กลับห้องแชท (รูปแบบเดียวกับ checkout template แต่เป็น "หลังส่วนลด")
-
     async function sendBackToChat() {
-      // สร้างรายการ itemContents และ totalPrice ตามโค้ดเดิมของคุณ...
+      // === เตรียมรายการ/ยอดรวม (คง logic เดิม) ===
       const itemContents = state.items.map(it => {
         const original = it.price * it.qty;
         const pct = clamp(Number(it.discountPct ?? 0), 0, 100);
         let abs  = clamp(Math.round(Number(it.discountAbs ?? 0)), 0, original);
-        const usePct = (abs === 0 && pct > 0);
+        const usePct   = (abs === 0 && pct > 0);
         const discount = usePct ? Math.round(original * pct / 100) : abs;
-        const after = Math.max(0, original - discount);
+        const after    = Math.max(0, original - discount);
         const rightText = usePct
           ? `${fmt(original)}฿-${pct}%=${fmt(after)}฿`
           : `${fmt(original)}฿-${fmt(discount)}฿=${fmt(after)}฿`;
@@ -455,7 +454,7 @@
           type: "box", layout: "horizontal",
           contents: [
             { type: "text", text: `${it.name} x${it.qty}`, size: "sm", color: "#0000FF", wrap: true, flex: 5, maxLines: 6 },
-            { type: "text", text: rightText, size: "sm", color: "#0000FF", align: "end", wrap: false, flex: 0 }
+            { type: "text", text: rightText,            size: "sm", color: "#0000FF", align: "end", wrap: false, flex: 0 }
           ]
         };
       });
@@ -470,7 +469,6 @@
 
       const paymentUrl = "https://liff.line.me/2007887429-Arr5x53g";
 
-      // ⬇️ Flex เดิมของคุณ (เหมือนตอน checkout) แต่เป็น “หลังส่วนลด”
       const flexMsg = {
         type: "flex",
         altText: "รายละเอียดคำสั่งซื้อ",
@@ -512,27 +510,50 @@
         }
       };
 
-      // ⬇️ เรียก GAS ให้ “push” ข้อความไปยังห้องที่ order นี้มาจาก
-      try {
-        const res = await fetch(GAS_STORE_URL, {
-          method: "POST",
-          headers: { "Content-Type": "text/plain;charset=utf-8" },
-          body: JSON.stringify({
-            action: "pushSummary",     // << คีย์เวิร์ดใหม่
-            orderId: state.orderId,    // << ต้องมีตั้งแต่โหลดหน้า
-            message: flexMsg           // << ส่ง bubble ทั้งก้อนให้ GAS
-          })
-        });
-        const js = await res.json().catch(()=>null);
-        if (js?.status === "ok") {
-          alert("ส่งกลับเข้าแชทแล้ว ✅");
-          return;
-        }
-        alert("ส่งกลับไม่สำเร็จ (GAS): " + (js?.error || "unknown"));
-      } catch (e) {
-        alert("ส่งกลับไม่สำเร็จ: " + (e?.message || e));
-      }
+      // ปิดการกดซ้ำ ให้ feedback เร็ว
+      const btn = document.getElementById('sendBack');
+      if (btn) { btn.disabled = true; btn.textContent = "กำลังส่ง..."; }
+
+      // ===== ยิงไป GAS แบบไม่รอคำตอบ แล้วปิดหน้านี้เลย =====
+      const bodyStr = JSON.stringify({
+        action: "pushSummary",
+        orderId: state.orderId,
+        message: flexMsg
+      });
+
+      fireAndForgetToGAS(GAS_STORE_URL, bodyStr); // ไม่ await
+
+      fastExit(); // ปิด/ย้อนหน้าโดยทันที
     }
+
+    // ใช้ sendBeacon ก่อน; ถ้าไม่ได้ค่อย fetch keepalive (ทั้งคู่ไม่ await)
+    function fireAndForgetToGAS(url, bodyStr) {
+      try {
+        if (navigator.sendBeacon) {
+          const ok = navigator.sendBeacon(url, new Blob([bodyStr], { type: "text/plain;charset=utf-8" }));
+          if (ok) return;
+        }
+      } catch (_) {}
+      try {
+        fetch(url, {
+          method: "POST",
+          body: bodyStr,
+          keepalive: true,
+          headers: { "Content-Type": "text/plain;charset=utf-8" }
+        });
+      } catch (_) {}
+    }
+
+    // ปิดหน้าต่างให้ไว (รองรับทั้งใน/นอก LIFF)
+    function fastExit() {
+      try { if (window.liff && liff.isInClient && liff.isInClient()) { liff.closeWindow(); return; } } catch(_) {}
+      window.close();
+      setTimeout(() => {
+        try { history.length > 1 ? history.back() : location.replace('about:blank'); }
+        catch { location.replace('about:blank'); }
+      }, 80);
+    }
+
 
 
 
