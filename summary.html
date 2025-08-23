@@ -522,7 +522,10 @@
       });
 
       fireAndForgetToGAS(GAS_STORE_URL, bodyStr); // ไม่ await
-
+      // ถ้าอยากคืนปุ่มกลับภายหลัง (ไม่ปิดหน้า)
+      setTimeout(() => {
+        if (btn) { btn.disabled = false; btn.textContent = "ส่งกลับ"; }
+      }, 1200);
     
     }
 
