@@ -1007,7 +1007,7 @@ async function checkout() {
           },
           {
             type: "text",
-            text: "กรุณารอแอดมินเช็คสต็อกสินค้าและ confirm ก่อนกดชำระเงินนะคะ\nPlease wait for checking stocks and confirm this order before payment.",
+            text: "**กรุณารอแอดมินเช็คสต็อกสินค้าและ confirm ก่อนกดชำระเงินนะคะ\n**Please wait for checking stocks and confirm this order before payment.",
             size: "md",
             weight: "bold",
             color: "#FF0000",
