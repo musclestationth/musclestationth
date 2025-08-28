@@ -1056,32 +1056,39 @@ async function checkout() {
     return fetch(url, { method: "POST", body, keepalive: true }).catch(err => console.warn("ff fail", url, err));
   };
 
-  // === ส่งข้อความก่อน ===
-  try {
-    if (liff.isInClient && liff.isInClient()) {
-      try {
-        await liff.sendMessages([flexMsg]);
-      } catch (e1) {
-        console.warn("send Flex failed, fallback to text:", e1?.message || e1);
-        await liff.sendMessages([textMsg]);
-      }
-    } else if (liff.isApiAvailable && liff.isApiAvailable('shareTargetPicker')) {
-      try {
-        await liff.shareTargetPicker([flexMsg]);
-      } catch {
-        await liff.shareTargetPicker([textMsg]);
-      }
-    } else {
-      // เปิดนอก LINE → เด้งไป summary เพื่อทำงานต่อ
-      location.href = adminUrl;
-      return;
+// === ส่งข้อความก่อน (Flex + ข้อความสรุป + ข้อมูลลูกค้า) ===
+try {
+  const orderMsg = { type: "text", text: orderText };
+  const customerMsg = { type: "text", text: customerText };
+
+  if (liff.isInClient && liff.isInClient()) {
+    try {
+      // ส่ง 3 ข้อความในครั้งเดียว: Flex, รายการสั่งซื้อ, ข้อมูลลูกค้า
+      await liff.sendMessages([flexMsg, orderMsg, customerMsg]);
+    } catch (e1) {
+      console.warn("send Flex+texts failed, fallback to text only:", e1?.message || e1);
+      // ถ้า Flex ล้มเหลว → fallback เป็นข้อความล้วน
+      await liff.sendMessages([textMsg, orderMsg, customerMsg]);
     }
-  } catch (err) {
-    console.error("ส่งข้อความไม่สำเร็จ:", err?.message || err);
-    // เปิด summary ต่อให้ทำงานต่อได้
+  } else if (liff.isApiAvailable && liff.isApiAvailable('shareTargetPicker')) {
+    // นอก LINE แต่มี shareTargetPicker → ส่งผ่าน picker
+    try {
+      await liff.shareTargetPicker([flexMsg, orderMsg, customerMsg]);
+    } catch {
+      await liff.shareTargetPicker([textMsg, orderMsg, customerMsg]);
+    }
+  } else {
+    // เปิดนอก LINE และไม่มี shareTargetPicker → เปิดหน้า summary ต่อแทน
     location.href = adminUrl;
     return;
   }
+} catch (err) {
+  console.error("ส่งข้อความไม่สำเร็จ:", err?.message || err);
+  // เปิด summary ต่อให้ทำงานต่อได้
+  location.href = adminUrl;
+  return;
+}
+
 
   // === แล้วค่อยยิงไป GAS แบบไม่รอให้เสร็จ ===
   fireAndForget(GAS_STORE_URL,  payloadStore);
