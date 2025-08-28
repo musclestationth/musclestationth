@@ -973,7 +973,15 @@ async function checkout() {
         type: "box",
         layout: "vertical",
         contents: [
-
+                    {
+            type: "text",
+            text: "**กรุณารอแอดมินเช็คสต็อกสินค้าและ confirm ก่อนกดชำระเงินนะคะ\n**Please wait for checking stocks and confirm this order before payment.",
+            size: "md",
+            weight: "bold",
+            color: "#FF0000",
+            wrap: true,
+            margin: "sm"
+          }
         ]
       },
       footer: {
@@ -991,15 +999,6 @@ async function checkout() {
             align: "end",
             action: { type: "uri", uri: adminUrl },
             wrap: false
-          },
-          {
-            type: "text",
-            text: "**กรุณารอแอดมินเช็คสต็อกสินค้าและ confirm ก่อนกดชำระเงินนะคะ\n**Please wait for checking stocks and confirm this order before payment.",
-            size: "md",
-            weight: "bold",
-            color: "#FF0000",
-            wrap: true,
-            margin: "sm"
           }
         ]
       }
