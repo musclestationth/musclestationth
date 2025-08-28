@@ -973,10 +973,6 @@ async function checkout() {
         type: "box",
         layout: "vertical",
         contents: [
-          { type: "image", url: "https://lh3.googleusercontent.com/d/1thkyE_A9Jd8LGii5Z9rIGtcn75Tv39q7", size: "sm", align: "center", margin: "none" },
-          { type: "text", text: "MuscleStationTH", weight: "bold", size: "xl", align: "center", color: "#0000FF" },
-          { type: "text", text: "สรุปคำสั่งซื้อ", weight: "bold", size: "lg" },
-          { type: "box", layout: "vertical", margin: "lg", spacing: "sm", contents: itemContents },
           {
             type: "box",
             layout: "horizontal",
