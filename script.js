@@ -1,6 +1,6 @@
 // -------------------------
 // โหลดตะกร้าจาก localStorage
-// ------------------------- 
+// -------------------------
 let storedCart = JSON.parse(localStorage.getItem("cart"));
 let cart = Array.isArray(storedCart) ? storedCart : [];
 console.log("cart =", cart);
@@ -973,6 +973,8 @@ async function checkout() {
         type: "box",
         layout: "vertical",
         contents: [
+          { type: "image", url: "https://lh3.googleusercontent.com/d/1thkyE_A9Jd8LGii5Z9rIGtcn75Tv39q7", size: "sm", align: "center", margin: "none" },
+          { type: "text", text: "MuscleStationTH", weight: "bold", size: "xl", align: "center", color: "#0000FF" },
           { type: "text", text: "สรุปคำสั่งซื้อ", weight: "bold", size: "lg" },
           { type: "box", layout: "vertical", margin: "lg", spacing: "sm", contents: itemContents },
           {
@@ -1056,20 +1058,18 @@ async function checkout() {
 
   // === ส่งข้อความก่อน ===
   try {
-  const orderMsg = { type: "text", text: orderText };
-  const customerMsg = { type: "text", text: customerText };
     if (liff.isInClient && liff.isInClient()) {
       try {
-        await liff.sendMessages([orderMsg, customerMsg, flexMsg]);
+        await liff.sendMessages([flexMsg]);
       } catch (e1) {
         console.warn("send Flex failed, fallback to text:", e1?.message || e1);
-        await liff.sendMessages([orderMsg, customerMsg, textMsg]);
+        await liff.sendMessages([textMsg]);
       }
     } else if (liff.isApiAvailable && liff.isApiAvailable('shareTargetPicker')) {
       try {
-        await liff.shareTargetPicker([orderMsg, customerMsg, flexMsg]);
+        await liff.shareTargetPicker([flexMsg]);
       } catch {
-        await liff.shareTargetPicker([orderMsg, customerMsg, textMsg]);
+        await liff.shareTargetPicker([textMsg]);
       }
     } else {
       // เปิดนอก LINE → เด้งไป summary เพื่อทำงานต่อ
