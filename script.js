@@ -973,14 +973,16 @@ async function checkout() {
         type: "box",
         layout: "vertical",
         contents: [
-                    {
-            type: "text",
-            text: "**กรุณารอแอดมินเช็คสต็อกสินค้าและ confirm ก่อนกดชำระเงินนะคะ\n**Please wait for checking stocks and confirm this order before payment.",
-            size: "md",
-            weight: "bold",
-            color: "#FF0000",
-            wrap: true,
-            margin: "sm"
+          { type: "text", text: "สรุปคำสั่งซื้อ", weight: "bold", size: "lg" }
+          { type: "box", layout: "vertical", margin: "lg", spacing: "sm", contents: itemContents },
+          {
+            type: "box",
+            layout: "horizontal",
+            margin: "lg",
+            contents: [
+              { type: "text", text: "รวมทั้งหมด", size: "lg", weight: "bold", color: "#000000" },
+              { type: "text", text: `${totalPrice.toLocaleString('th-TH')}฿`, size: "lg", color: "#000000", align: "end", weight: "bold" }
+            ]
           }
         ]
       },
@@ -999,6 +1001,15 @@ async function checkout() {
             align: "end",
             action: { type: "uri", uri: adminUrl },
             wrap: false
+          },
+          {
+            type: "text",
+            text: "**กรุณารอแอดมินเช็คสต็อกสินค้าและ confirm ก่อนกดชำระเงินนะคะ\n**Please wait for checking stocks and confirm this order before payment.",
+            size: "md",
+            weight: "bold",
+            color: "#FF0000",
+            wrap: true,
+            margin: "sm"
           }
         ]
       }
@@ -1043,39 +1054,35 @@ async function checkout() {
     return fetch(url, { method: "POST", body, keepalive: true }).catch(err => console.warn("ff fail", url, err));
   };
 
-// === ส่งข้อความก่อน (Flex + ข้อความสรุป + ข้อมูลลูกค้า) ===
-try {
-  const orderMsg = { type: "text", text: orderText };
-  const customerMsg = { type: "text", text: customerText };
-
-  if (liff.isInClient && liff.isInClient()) {
-    try {
-      // ส่ง 3 ข้อความในครั้งเดียว: Flex, รายการสั่งซื้อ, ข้อมูลลูกค้า
-      await liff.sendMessages([orderMsg, customerMsg, flexMsg]);
-    } catch (e1) {
-      console.warn("send Flex+texts failed, fallback to text only:", e1?.message || e1);
-      // ถ้า Flex ล้มเหลว → fallback เป็นข้อความล้วน
-      await liff.sendMessages([orderMsg, customerMsg, textMsg]);
+  // === ส่งข้อความก่อน ===
+  try {
+      const orderMsg = { type: "text", text: orderText };
+      const customerMsg = { type: "text", text: customerText };
+    
+    if (liff.isInClient && liff.isInClient()) {
+      try {
+        await liff.sendMessages([flexMsg, orderMsg, customerMsg]);
+      } catch (e1) {
+        console.warn("send Flex failed, fallback to text:", e1?.message || e1);
+        await liff.sendMessages([textMsg, orderMsg, customerMsg]);
+      }
+    } else if (liff.isApiAvailable && liff.isApiAvailable('shareTargetPicker')) {
+      try {
+        await liff.shareTargetPicker([flexMsg, orderMsg, customerMsg]);
+      } catch {
+        await liff.shareTargetPicker([textMsg, orderMsg, customerMsg]);
+      }
+    } else {
+      // เปิดนอก LINE → เด้งไป summary เพื่อทำงานต่อ
+      location.href = adminUrl;
+      return;
     }
-  } else if (liff.isApiAvailable && liff.isApiAvailable('shareTargetPicker')) {
-    // นอก LINE แต่มี shareTargetPicker → ส่งผ่าน picker
-    try {
-      await liff.shareTargetPicker([orderMsg, customerMsg, flexMsg]);
-    } catch {
-      await liff.shareTargetPicker([orderMsg, customerMsg, textMsg]);
-    }
-  } else {
-    // เปิดนอก LINE และไม่มี shareTargetPicker → เปิดหน้า summary ต่อแทน
+  } catch (err) {
+    console.error("ส่งข้อความไม่สำเร็จ:", err?.message || err);
+    // เปิด summary ต่อให้ทำงานต่อได้
     location.href = adminUrl;
     return;
   }
-} catch (err) {
-  console.error("ส่งข้อความไม่สำเร็จ:", err?.message || err);
-  // เปิด summary ต่อให้ทำงานต่อได้
-  location.href = adminUrl;
-  return;
-}
-
 
   // === แล้วค่อยยิงไป GAS แบบไม่รอให้เสร็จ ===
   fireAndForget(GAS_STORE_URL,  payloadStore);
