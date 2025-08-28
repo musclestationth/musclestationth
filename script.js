@@ -973,15 +973,7 @@ async function checkout() {
         type: "box",
         layout: "vertical",
         contents: [
-          {
-            type: "box",
-            layout: "horizontal",
-            margin: "lg",
-            contents: [
-              { type: "text", text: "รวมทั้งหมด", size: "lg", weight: "bold", color: "#000000" },
-              { type: "text", text: `${totalPrice.toLocaleString('th-TH')}฿`, size: "lg", color: "#000000", align: "end", weight: "bold" }
-            ]
-          }
+
         ]
       },
       footer: {
@@ -1060,18 +1052,18 @@ try {
   if (liff.isInClient && liff.isInClient()) {
     try {
       // ส่ง 3 ข้อความในครั้งเดียว: Flex, รายการสั่งซื้อ, ข้อมูลลูกค้า
-      await liff.sendMessages([flexMsg, orderMsg, customerMsg]);
+      await liff.sendMessages([orderMsg, customerMsg, flexMsg]);
     } catch (e1) {
       console.warn("send Flex+texts failed, fallback to text only:", e1?.message || e1);
       // ถ้า Flex ล้มเหลว → fallback เป็นข้อความล้วน
-      await liff.sendMessages([textMsg, orderMsg, customerMsg]);
+      await liff.sendMessages([orderMsg, customerMsg, textMsg]);
     }
   } else if (liff.isApiAvailable && liff.isApiAvailable('shareTargetPicker')) {
     // นอก LINE แต่มี shareTargetPicker → ส่งผ่าน picker
     try {
-      await liff.shareTargetPicker([flexMsg, orderMsg, customerMsg]);
+      await liff.shareTargetPicker([orderMsg, customerMsg, flexMsg]);
     } catch {
-      await liff.shareTargetPicker([textMsg, orderMsg, customerMsg]);
+      await liff.shareTargetPicker([orderMsg, customerMsg, textMsg]);
     }
   } else {
     // เปิดนอก LINE และไม่มี shareTargetPicker → เปิดหน้า summary ต่อแทน
