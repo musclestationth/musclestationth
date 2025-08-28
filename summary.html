@@ -159,7 +159,7 @@
       <div id="newSummaryCard" class="hidden" padding-top:12px; margin-top:4px;">
         <div class="title-row">
           <strong>สรุปราคาใหม่</strong>
-          
+    
         </div>
         <pre id="newSummaryText" style="margin-top:8px;"></pre>
       </div>
@@ -167,6 +167,8 @@
       <div class="actions-inline">
         <button class="btn btn-primary btn-18" id="sendBack">ส่งกลับ</button>
       </div>
+
+
     </div>
 
   </div>
@@ -450,7 +452,13 @@
           ? `${fmt(original)}฿-${pct}%=${fmt(after)}฿`
           : `${fmt(original)}฿-${fmt(discount)}฿=${fmt(after)}฿`;
 
-        return `• ${it.name} x${it.qty} = ${rightText}`;
+        return {
+          type: "box", layout: "horizontal",
+          contents: [
+            { type: "text", text: `${it.name} x${it.qty}`, size: "sm", color: "#0000FF", wrap: true, flex: 5, maxLines: 6 },
+            { type: "text", text: rightText,            size: "sm", color: "#0000FF", align: "end", wrap: false, flex: 0 }
+          ]
+        };
       });
 
       const totalPrice = state.items.reduce((s, it) => {
@@ -461,17 +469,48 @@
         return s + Math.max(0, original - discount);
       }, 0);
 
-        // === สร้าง "ข้อความธรรมดา" แทน Flex ===
-  const textMsg = {
-    type: "text",
-    text:
-      `แอด:สรุปคำสั่งซื้อ\n` +
-      lines.join("\n") +
-      `\n\nรวมทั้งหมด: ${fmt(totalPrice)}฿` +
-      `\n\nสินค้าพร้อมส่งทุกตัว! ลูกค้าชำระเงินแล้วแจ้งแอดมินได้เลยค่ะ` +
-      `\nIn stock, Ready to ship! After payment, please notify the admin.`
-  };
+      const paymentUrl = "https://liff.line.me/2007887429-Arr5x53g";
 
+      const flexMsg = {
+        type: "flex",
+        altText: "รายละเอียดคำสั่งซื้อ",
+        contents: {
+          type: "bubble",
+          body: {
+            type: "box",
+            layout: "vertical",
+            contents: [
+              { type: "image", url: "https://lh3.googleusercontent.com/d/1thkyE_A9Jd8LGii5Z9rIGtcn75Tv39q7", size: "sm", align: "center", margin: "none" },
+              { type: "text", text: "MuscleStationTH", weight: "bold", size: "xl", align: "center", color: "#0000FF" },
+              { type: "text", text: "แอด:สรุปคำสั่งซื้อ", weight: "bold", size: "lg", color: "#0000FF" },
+              { type: "box", layout: "vertical", margin: "lg", spacing: "sm", contents: itemContents },
+              {
+                type: "box", layout: "horizontal", margin: "lg",
+                contents: [
+                  { type: "text", text: "รวมทั้งหมด", size: "lg", weight: "bold", color: "#0000FF" },
+                  { type: "text", text: `${fmt(totalPrice)}฿`, size: "lg", color: "#0000FF", align: "end", weight: "bold" }
+                ]
+              }
+            ]
+          },
+          footer: {
+            type: "box",
+            layout: "vertical",
+            spacing: "sm",
+            contents: [
+              {
+                type: "button", style: "primary", color: "#1DB446",
+                action: { type: "uri", label: "ชำระเงิน", uri: paymentUrl }
+              },
+              {
+                type: "text",
+                text: "**สินค้าพร้อมส่งทุกตัว! ลูกค้าชำระเงินแล้วแจ้งแอดมินได้เลยค่ะ\n**In stock, Ready to ship! After payment, please notify the admin.",
+                size: "md", weight: "bold", color: "#009400", wrap: true, margin: "sm"
+              }
+            ]
+          }
+        }
+      };
 
       // ---- คุมปุ่ม ----
       const btn = document.getElementById('sendBack');
@@ -493,7 +532,7 @@
           body: JSON.stringify({
             action: "pushSummary",
             orderId: state.orderId,
-            message: textMsg
+            message: flexMsg
           }),
           signal: controller.signal
         });
@@ -523,6 +562,7 @@
         alert("ส่งกลับไม่สำเร็จ: " + (e?.message || e));
       }
     }
+
 
     // ใช้ sendBeacon ก่อน; ถ้าไม่ได้ค่อย fetch keepalive (ทั้งคู่ไม่ await)
     function fireAndForgetToGAS(url, bodyStr) {
