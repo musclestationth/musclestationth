@@ -437,95 +437,92 @@
 
     // ส่ง Flex กลับห้องแชท
     // ส่ง Flex กลับห้องแชท (รูปแบบเดียวกับ checkout template แต่เป็น "หลังส่วนลด")
-async function sendBackToChat() {
-  // === สร้างรายการ/คำนวณสุทธิแบบเดิม ===
-  const lines = state.items.map(it => {
-    const original = it.price * it.qty;
-    const pct = clamp(Number(it.discountPct ?? 0), 0, 100);
-    let abs  = clamp(Math.round(Number(it.discountAbs ?? 0)), 0, original);
-    const usePct   = (abs === 0 && pct > 0);
-    const discount = usePct ? Math.round(original * pct / 100) : abs;
-    const after    = Math.max(0, original - discount);
+    async function sendBackToChat() {
+      // === สร้างรายการ / ยอดรวม (เหมือนเดิม) ===
+      const itemContents = state.items.map(it => {
+        const original = it.price * it.qty;
+        const pct = clamp(Number(it.discountPct ?? 0), 0, 100);
+        let abs  = clamp(Math.round(Number(it.discountAbs ?? 0)), 0, original);
+        const usePct   = (abs === 0 && pct > 0);
+        const discount = usePct ? Math.round(original * pct / 100) : abs;
+        const after    = Math.max(0, original - discount);
+        const rightText = usePct
+          ? `${fmt(original)}฿-${pct}%=${fmt(after)}฿`
+          : `${fmt(original)}฿-${fmt(discount)}฿=${fmt(after)}฿`;
 
-    // ข้อความด้านขวาแบบเดิม
-    const rightText = usePct
-      ? `${fmt(original)}฿-${pct}%=${fmt(after)}฿`
-      : `${fmt(original)}฿-${fmt(discount)}฿=${fmt(after)}฿`;
+        return `• ${it.name} x${it.qty} = ${rightText}`;
+      });
 
-    // บรรทัดข้อความธรรมดาที่จะส่งกลับ
-    return `• ${it.name} x${it.qty} = ${rightText}`;
-  });
+      const totalPrice = state.items.reduce((s, it) => {
+        const original = it.price * it.qty;
+        const pct = clamp(Number(it.discountPct ?? 0), 0, 100);
+        let abs  = clamp(Math.round(Number(it.discountAbs ?? 0)), 0, original);
+        const discount = (abs === 0 && pct > 0) ? Math.round(original * pct / 100) : abs;
+        return s + Math.max(0, original - discount);
+      }, 0);
 
-  const totalPrice = state.items.reduce((s, it) => {
-    const original = it.price * it.qty;
-    const pct = clamp(Number(it.discountPct ?? 0), 0, 100);
-    let abs  = clamp(Math.round(Number(it.discountAbs ?? 0)), 0, original);
-    const discount = (abs === 0 && pct > 0) ? Math.round(original * pct / 100) : abs;
-    return s + Math.max(0, original - discount);
-  }, 0);
-
-  // === สร้าง "ข้อความธรรมดา" แทน Flex ===
+        // === สร้าง "ข้อความธรรมดา" แทน Flex ===
   const textMsg = {
     type: "text",
     text:
       `แอด:สรุปคำสั่งซื้อ\n` +
       lines.join("\n") +
       `\n\nรวมทั้งหมด: ${fmt(totalPrice)}฿` +
-      `\n\n**สินค้าพร้อมส่งทุกตัว! ลูกค้าชำระเงินแล้วแจ้งแอดมินได้เลยค่ะ` +
-      `\n**In stock, Ready to ship! After payment, please notify the admin.`
+      `\n\nสินค้าพร้อมส่งทุกตัว! ลูกค้าชำระเงินแล้วแจ้งแอดมินได้เลยค่ะ` +
+      `\nIn stock, Ready to ship! After payment, please notify the admin.`
   };
 
-  // ---- คุมปุ่ม ----
-  const btn = document.getElementById('sendBack');
-  if (btn) {
-    btn.dataset.prev = btn.textContent || "ส่งกลับ";
-    btn.textContent = "กำลังส่ง...";
-    btn.disabled = true;
-  }
 
-  // ---- ยิงไป GAS และรอผล พร้อม timeout ----
-  const controller = new AbortController();
-  const timeoutMs = 10000; // 10s
-  const tid = setTimeout(() => controller.abort(), timeoutMs);
-
-  try {
-    const res = await fetch(GAS_STORE_URL, {
-      method: "POST",
-      headers: { "Content-Type": "text/plain;charset=utf-8" },
-      body: JSON.stringify({
-        action: "pushSummary",
-        orderId: state.orderId,
-        // ส่งเป็นข้อความธรรมดาแทน
-        message: textMsg
-      }),
-      signal: controller.signal
-    });
-    clearTimeout(tid);
-
-    const js = await res.json().catch(() => null);
-    if (res.ok && js?.status === "ok") {
-      // ✅ สำเร็จ
+      // ---- คุมปุ่ม ----
+      const btn = document.getElementById('sendBack');
       if (btn) {
-        btn.textContent = "ส่งแล้ว";
+        btn.dataset.prev = btn.textContent || "ส่งกลับ";
+        btn.textContent = "กำลังส่ง...";
         btn.disabled = true;
       }
-    } else {
-      // ❌ ล้มเหลว
-      if (btn) {
-        btn.textContent = btn.dataset.prev || "ส่งกลับ";
-        btn.disabled = false;
+
+      // ---- ยิงไป GAS และรอผล พร้อม timeout ----
+      const controller = new AbortController();
+      const timeoutMs = 10000; // 10s
+      const tid = setTimeout(() => controller.abort(), timeoutMs);
+
+      try {
+        const res = await fetch(GAS_STORE_URL, {
+          method: "POST",
+          headers: { "Content-Type": "text/plain;charset=utf-8" },
+          body: JSON.stringify({
+            action: "pushSummary",
+            orderId: state.orderId,
+            message: textMsg
+          }),
+          signal: controller.signal
+        });
+        clearTimeout(tid);
+
+        const js = await res.json().catch(() => null);
+        if (res.ok && js?.status === "ok") {
+          // ✅ สำเร็จ: ล็อกปุ่มไว้เลย
+          if (btn) {
+            btn.textContent = "ส่งแล้ว";
+            btn.disabled = true;
+          }
+        } else {
+          // ❌ ล้มเหลว: ปลดล็อกให้กดใหม่ได้
+          if (btn) {
+            btn.textContent = btn.dataset.prev || "ส่งกลับ";
+            btn.disabled = false;
+          }
+          alert("ส่งกลับไม่สำเร็จ (GAS): " + (js?.error || js?.message || res.status));
+        }
+      } catch (e) {
+        clearTimeout(tid);
+        if (btn) {
+          btn.textContent = btn.dataset.prev || "ส่งกลับ";
+          btn.disabled = false;
+        }
+        alert("ส่งกลับไม่สำเร็จ: " + (e?.message || e));
       }
-      alert("ส่งกลับไม่สำเร็จ (GAS): " + (js?.error || js?.message || res.status));
     }
-  } catch (e) {
-    clearTimeout(tid);
-    if (btn) {
-      btn.textContent = btn.dataset.prev || "ส่งกลับ";
-      btn.disabled = false;
-    }
-    alert("ส่งกลับไม่สำเร็จ: " + (e?.message || e));
-  }
-}
 
     // ใช้ sendBeacon ก่อน; ถ้าไม่ได้ค่อย fetch keepalive (ทั้งคู่ไม่ await)
     function fireAndForgetToGAS(url, bodyStr) {
