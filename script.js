@@ -1060,7 +1060,11 @@ async function checkout() {
   try {
     if (liff.isInClient && liff.isInClient()) {
       try {
-        await liff.sendMessages([flexMsg]);
+        await liff.sendMessages([flexMsg,
+                                 {type: "text", text: orderText },
+                                 {type: "text", text: customerText }
+                                ]);
+        
       } catch (e1) {
         console.warn("send Flex failed, fallback to text:", e1?.message || e1);
         await liff.sendMessages([textMsg]);
