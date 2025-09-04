@@ -1,5 +1,5 @@
 // -------------------------
-// โหลดตะกร้าจาก localStorage
+// โหลดตะกร้าจาก localStorage 
 // -------------------------
 let storedCart = JSON.parse(localStorage.getItem("cart"));
 let cart = Array.isArray(storedCart) ? storedCart : [];
