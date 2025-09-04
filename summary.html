@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html lang="th">
 <head>
-  <meta charset="UTF-8" /> 
+  <meta charset="UTF-8" />
   <title>MuscleStationTH</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <style>
-
+    
     :root { --pad: 16px; --radius: 12px; }
     body { font-family: system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif; padding: var(--pad); background:#fafafa; color:#222; }
     h1 { font-size: 20px; margin: 0 0 12px; }
@@ -51,13 +51,6 @@
     #customerText { font-size: 18px;}
     #sumOriginal {font-size: 18px; font-weight: bold; }
     #sumDiscounted {font-size: 22px;font-weight: bold;  }
-    #sendBack:disabled {
-      background: #9e9e9e !important;
-      color: #fff !important;
-      border-color: #9e9e9e !important;
-      opacity: 1;              /* ไม่ให้โปร่งเกินไป */
-      cursor: not-allowed;
-    }
 
     .title-row { display:flex; align-items:center; justify-content:space-between; gap:8px; }
     pre { background:#f6f8fa; padding:12px; border-radius:8px; white-space:pre-wrap; }
@@ -68,7 +61,13 @@
       align-items: stretch;     /* ให้แถวล่างยืดเต็มความกว้างได้ */
     }
 
-
+    /* ปุ่ม "ปิดหน้าต่าง" ให้ชิดขวา (แถวบน) */
+    #closeWindow{
+      align-self: center;     /* ชิดขวาของกล่อง */
+      background: #dc3545; /* แดงโทน Bootstrap */
+      color: #fff;
+      border: none;
+    }
 
     /* ปุ่ม "ส่งกลับ" ให้กว้างเต็มจอ (แถวล่าง) */
     #sendBack{
@@ -156,7 +155,7 @@
 
     <div class="card">
       <!-- สรุปราคาใหม่ (อยู่ใน card เดียวกับที่อยู่) -->
-<div id="newSummaryCard" class="hidden" style="padding-top:12px; margin-top:4px;">
+      <div id="newSummaryCard" class="hidden" padding-top:12px; margin-top:4px;">
         <div class="title-row">
           <strong>สรุปราคาใหม่</strong>
           <button class="btn btn-secondary btn-18" id="copyNewInline">คัดลอก</button>
@@ -174,7 +173,11 @@
       </div>
       <pre id="customerText" style="margin-top:8px;"></pre>
 
-
+      <div class="actions-inline">
+      
+        <button class="btn btn-secondary btn-18" id="closeWindow">ปิดหน้าต่าง</button>
+        
+      </div>
     </div>
 
   </div>
@@ -251,7 +254,7 @@
         discountAbs: null    // เริ่มว่าง
       })) : [];
 
-      state.orderId = o.orderId || orderId || "";
+      state.orderId = o.orderId || "";
       state.customerText = o.customerText || "";
       state.items = items;
       renderAll();
@@ -266,8 +269,7 @@
       document.getElementById('sumOriginal').textContent = fmt(state.sumOriginal) + " บาท";
       document.getElementById('sumDiscounted').textContent = fmt(state.sumDiscounted) + " บาท";
 
-const elCustomer = document.getElementById('customerText');
-if (elCustomer) elCustomer.textContent = state.customerText || "";
+      document.getElementById('customerText').textContent = state.customerText || "";
 
       const tbody = document.getElementById('itemsBody');
       tbody.innerHTML = "";
@@ -359,10 +361,12 @@ if (elCustomer) elCustomer.textContent = state.customerText || "";
         recompute();
       };
 
-const btnCopyAddr = document.getElementById('copyAddress');
-if (btnCopyAddr) btnCopyAddr.onclick = () => copyText(state.customerText || "");
+      document.getElementById('copyAddress').onclick = () => copyText(state.customerText || "");
 
-
+      document.getElementById('closeWindow').onclick = () => {
+        if (window.liff && liff.isInClient && liff.isInClient()) liff.closeWindow();
+        else window.close();
+      };
 
       document.getElementById('sendBack').onclick = sendBackToChat;
 
@@ -447,145 +451,116 @@ if (btnCopyAddr) btnCopyAddr.onclick = () => copyText(state.customerText || "");
 
     // ส่ง Flex กลับห้องแชท
     // ส่ง Flex กลับห้องแชท (รูปแบบเดียวกับ checkout template แต่เป็น "หลังส่วนลด")
+    async function sendBackToChat() {
+      // เตรียมรายการใน Flex (บังคับให้ชื่อสินค้าขึ้นบรรทัดใหม่ได้)
+      const itemContents = state.items.map(it => {
+        const original = it.price * it.qty;
+        const pct = clamp(Number(it.discountPct ?? 0), 0, 100);
+        let abs  = clamp(Math.round(Number(it.discountAbs ?? 0)), 0, original);
 
+        // ใช้เปอร์เซ็นต์ถ้าไม่ได้ใส่ส่วนลดเป็นบาท
+        const usePct = (abs === 0 && pct > 0);
+        const discount = usePct ? Math.round(original * pct / 100) : abs;
+        const after = Math.max(0, original - discount);
 
+        // รูปแบบข้อความขวา ตามเงื่อนไขที่ขอ
+        const rightText = usePct
+          ? `${fmt(original)}฿-${pct}%=${fmt(after)}฿`
+          : `${fmt(original)}฿-${fmt(discount)}฿=${fmt(after)}฿`;
 
-async function sendBackToChat() {
-  // === ปุ่มกันกดซ้ำ ===
-  const btn = document.getElementById('sendBack');
-  if (btn) {
-    btn.dataset.prev = btn.textContent || "ส่งกลับ";
-    btn.textContent = "กำลังส่ง...";
-    btn.disabled = true;
-  }
+        return {
+          type: "box",
+          layout: "horizontal",
+          contents: [
+            // ซ้าย: ชื่อสินค้าให้ตัดบรรทัดได้
+            { type: "text", text: `${it.name} x${it.qty}`, size: "sm", color: "#0000FF", wrap: true, flex: 5, maxLines: 6 },
+            // ขวา: สูตรราคา ชิดขวา
+            { type: "text", text: rightText, size: "sm", color: "#0000FF", align: "end", wrap: false, flex: 0 }
+          ]
+        };
+      });
 
-  // === ข้อความสรุป (text) ===
-  // ใช้ฟังก์ชัน buildNewSummaryText() ที่มีอยู่ เพื่อให้ตรงกับยอด/ส่วนลดล่าสุด
-  const header = "MuscleStationTH\nแอดมินสรุปคำสั่งซื้อ (หลังส่วนลด)\n";
-  const body   = buildNewSummaryText(); // มีรายการ + รวมทั้งหมด: XXX฿
-  const textSummary = `${header}\n${body}`.trim();
+      // รวมหลังส่วนลดทั้งหมด
+      const totalPrice = state.sumDiscounted || state.items.reduce((s, it) => {
+        const original = it.price * it.qty;
+        const pct = clamp(Number(it.discountPct ?? 0), 0, 100);
+        let abs  = clamp(Math.round(Number(it.discountAbs ?? 0)), 0, original);
+        const discount = (abs === 0 && pct > 0) ? Math.round(original * pct / 100) : abs;
+        return s + Math.max(0, original - discount);
+      }, 0);
 
-  // แบ่งข้อความเป็นหลายก้อน (กันเกินลิมิต)
-  function splitForLine(text, max = 950) {
-    const out = [];
-    let buf = "";
-    for (const line of String(text).split("\n")) {
-      const candidate = buf ? (buf + "\n" + line) : line;
-      if (candidate.length > max) {
-        if (buf) out.push(buf);
-        if (line.length > max) {
-          // บรรทัดยาวเกิน — ตัดแข็ง
-          for (let i = 0; i < line.length; i += max) {
-            out.push(line.slice(i, i + max));
+      const paymentUrl = "https://liff.line.me/2007887429-Arr5x53g";
+
+      const flexMsg = {
+        type: "flex",
+        altText: "รายละเอียดคำสั่งซื้อ",
+        contents: {
+          type: "bubble",
+          body: {
+            type: "box",
+            layout: "vertical",
+            contents: [
+              {
+                type: "image",
+                url: "https://lh3.googleusercontent.com/d/1thkyE_A9Jd8LGii5Z9rIGtcn75Tv39q7",
+                size: "sm",
+                align: "center",
+                margin: "none"
+              },
+              { type: "text", text: "MuscleStationTH", weight: "bold", size: "xl", align: "center", color: "#0000FF" },
+              { type: "text", text: "แอด:สรุปคำสั่งซื้อ", weight: "bold", size: "lg", color: "#0000FF" },
+              { type: "box", layout: "vertical", margin: "lg", spacing: "sm", contents: itemContents },
+              {
+                type: "box",
+                layout: "horizontal",
+                margin: "lg",
+                contents: [
+                  { type: "text", text: "รวมทั้งหมด", size: "lg", weight: "bold", color: "#0000FF" },
+                  { type: "text", text: `${fmt(totalPrice)}฿`, size: "lg", color: "#0000FF", align: "end", weight: "bold" }
+                ]
+              }
+            ]
+          },
+          footer: {
+            type: "box",
+            layout: "vertical",
+            spacing: "sm",
+            contents: [
+              {
+                type: "button",
+                style: "primary",
+                color: "#1DB446",
+                action: { type: "uri", label: "ชำระเงิน", uri: paymentUrl }
+              },
+              {
+                type: "text",
+                text: "**สินค้าพร้อมส่งทุกตัว! ลูกค้าชำระเงินแล้วแจ้งแอดมินได้เลยค่ะ\n**In stock, Ready to ship! After payment, please notify the admin.",
+                size: "md",
+                weight: "bold",
+                color: "#009400",
+                wrap: true,
+                margin: "sm"
+              }
+            ]
           }
-          buf = "";
+        }
+      };
+
+      try {
+        if (liff.isInClient && liff.isInClient()) {
+          await liff.sendMessages([flexMsg]);
+          alert("ส่งกลับเข้าห้องแชทแล้ว ✅");
+          if (liff.isInClient()) liff.closeWindow();
+        } else if (liff.isApiAvailable && liff.isApiAvailable('shareTargetPicker')) {
+          await liff.shareTargetPicker([flexMsg]);
+          alert("แชร์ไปยังแชทแล้ว ✅");
         } else {
-          buf = line;
+          alert("โปรดเปิดหน้านี้จากใน LINE เพื่อส่งข้อความกลับห้องแชท");
         }
-      } else {
-        buf = candidate;
+      } catch (e) {
+        alert("ส่งกลับไม่สำเร็จ: " + (e?.message || e));
       }
     }
-    if (buf) out.push(buf);
-    return out;
-  }
-
-  const messagesForChat = splitForLine(textSummary).map(t => ({ type: "text", text: t }));
-
-  // แนบที่อยู่ลูกค้าถ้ามี
-  if ((state.customerText || "").trim()) {
-    messagesForChat.push({
-      type: "text",
-      text: `ชื่อ-ที่อยู่จัดส่ง\n${state.customerText.trim()}`
-    });
-  }
-
-  // === ส่งเข้าแชทผ่าน LIFF (เฉพาะข้อความ) ===
-  try {
-    if (window.liff && liff.isInClient && liff.isInClient()) {
-      await liff.sendMessages(messagesForChat);
-    } else if (window.liff && liff.isApiAvailable && liff.isApiAvailable('shareTargetPicker')) {
-      await liff.shareTargetPicker(messagesForChat);
-    }
-  } catch (eSend) {
-    console.warn("ส่งเข้าแชทด้วย LIFF ไม่สำเร็จ:", eSend?.message || eSend);
-    // ไม่เป็นไร ให้ลองไปทาง GAS ต่อ
-  }
-
-  // === ยิงไป GAS (ไม่แนบ flex, ส่งเฉพาะ text) ===
-  const controller = new AbortController();
-  const timeoutMs = 10000; // 10s
-  const tid = setTimeout(() => controller.abort(), timeoutMs);
-
-  try {
-    const res = await fetch(GAS_STORE_URL, {
-      method: "POST",
-      headers: { "Content-Type": "text/plain;charset=utf-8" },
-body: JSON.stringify({
-  action: "pushSummary",
-  // กันพลาด: ถ้า state.orderId ว่าง ลองดึงจาก URL อีกชั้น
-  orderId: state.orderId || (readParams().id || ""),
-  
-  // ✅ ใส่ message กลับเข้าไป แต่เป็นข้อความธรรมดา (ไม่ใช่ flex)
-  message: { type: "text", text: textSummary },
-
-  // อันเดิมคงไว้ เผื่อ GAS รองรับ
-  textSummary,
-  messages: messagesForChat
-}),
-      signal: controller.signal
-    });
-    clearTimeout(tid);
-
-    const js = await res.json().catch(() => null);
-    if (res.ok && js?.status === "ok") {
-      if (btn) {
-        btn.textContent = "ส่งแล้ว";
-        btn.disabled = true;
-      }
-    } else {
-      if (btn) {
-        btn.textContent = btn.dataset.prev || "ส่งกลับ";
-        btn.disabled = false;
-      }
-      alert("ส่งกลับไม่สำเร็จ (GAS): " + (js?.error || js?.message || res.status));
-    }
-  } catch (e) {
-    clearTimeout(tid);
-    if (btn) {
-      btn.textContent = btn.dataset.prev || "ส่งกลับ";
-      btn.disabled = false;
-    }
-    alert("ส่งกลับไม่สำเร็จ: " + (e?.message || e));
-  }
-}
-
-
-
-
-
-    
-
-
-    // ใช้ sendBeacon ก่อน; ถ้าไม่ได้ค่อย fetch keepalive (ทั้งคู่ไม่ await)
-    function fireAndForgetToGAS(url, bodyStr) {
-      try {
-        if (navigator.sendBeacon) {
-          const ok = navigator.sendBeacon(url, new Blob([bodyStr], { type: "text/plain;charset=utf-8" }));
-          if (ok) return;
-        }
-      } catch (_) {}
-      try {
-        fetch(url, {
-          method: "POST",
-          body: bodyStr,
-          keepalive: true,
-          headers: { "Content-Type": "text/plain;charset=utf-8" }
-        });
-      } catch (_) {}
-    }
-
-
 
 
 
