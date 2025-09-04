@@ -156,7 +156,7 @@
 
     <div class="card">
       <!-- สรุปราคาใหม่ (อยู่ใน card เดียวกับที่อยู่) -->
-      <div id="newSummaryCard" class="hidden" padding-top:12px; margin-top:4px;">
+<div id="newSummaryCard" class="hidden" style="padding-top:12px; margin-top:4px;">
         <div class="title-row">
           <strong>สรุปราคาใหม่</strong>
           <button class="btn btn-secondary btn-18" id="copyNewInline">คัดลอก</button>
@@ -266,7 +266,8 @@
       document.getElementById('sumOriginal').textContent = fmt(state.sumOriginal) + " บาท";
       document.getElementById('sumDiscounted').textContent = fmt(state.sumDiscounted) + " บาท";
 
-      document.getElementById('customerText').textContent = state.customerText || "";
+const elCustomer = document.getElementById('customerText');
+if (elCustomer) elCustomer.textContent = state.customerText || "";
 
       const tbody = document.getElementById('itemsBody');
       tbody.innerHTML = "";
@@ -358,7 +359,8 @@
         recompute();
       };
 
-      document.getElementById('copyAddress').onclick = () => copyText(state.customerText || "");
+const btnCopyAddr = document.getElementById('copyAddress');
+if (btnCopyAddr) btnCopyAddr.onclick = () => copyText(state.customerText || "");
 
 
 
@@ -445,129 +447,163 @@
 
     // ส่ง Flex กลับห้องแชท
     // ส่ง Flex กลับห้องแชท (รูปแบบเดียวกับ checkout template แต่เป็น "หลังส่วนลด")
-    async function sendBackToChat() {
-      // === สร้างรายการ / ยอดรวม (เหมือนเดิม) ===
-      const itemContents = state.items.map(it => {
-        const original = it.price * it.qty;
-        const pct = clamp(Number(it.discountPct ?? 0), 0, 100);
-        let abs  = clamp(Math.round(Number(it.discountAbs ?? 0)), 0, original);
-        const usePct   = (abs === 0 && pct > 0);
-        const discount = usePct ? Math.round(original * pct / 100) : abs;
-        const after    = Math.max(0, original - discount);
-        const rightText = usePct
-          ? `${fmt(original)}฿-${pct}%=${fmt(after)}฿`
-          : `${fmt(original)}฿-${fmt(discount)}฿=${fmt(after)}฿`;
 
-        return {
-          type: "box", layout: "horizontal",
-          contents: [
-            { type: "text", text: `${it.name} x${it.qty}`, size: "sm", color: "#0000FF", wrap: true, flex: 5, maxLines: 6 },
-            { type: "text", text: rightText,            size: "sm", color: "#0000FF", align: "end", wrap: false, flex: 0 }
-          ]
-        };
-      });
+async function sendBackToChat() {
+  // === สร้างรายการ / ยอดรวม (เหมือนเดิม) ===
+  const itemContents = state.items.map(it => {
+    const original = it.price * it.qty;
+    const pct = clamp(Number(it.discountPct ?? 0), 0, 100);
+    let abs  = clamp(Math.round(Number(it.discountAbs ?? 0)), 0, original);
+    const usePct   = (abs === 0 && pct > 0);
+    const discount = usePct ? Math.round(original * pct / 100) : abs;
+    const after    = Math.max(0, original - discount);
+    const rightText = usePct
+      ? `${fmt(original)}฿-${pct}%=${fmt(after)}฿`
+      : `${fmt(original)}฿-${fmt(discount)}฿=${fmt(after)}฿`;
 
-      const totalPrice = state.items.reduce((s, it) => {
-        const original = it.price * it.qty;
-        const pct = clamp(Number(it.discountPct ?? 0), 0, 100);
-        let abs  = clamp(Math.round(Number(it.discountAbs ?? 0)), 0, original);
-        const discount = (abs === 0 && pct > 0) ? Math.round(original * pct / 100) : abs;
-        return s + Math.max(0, original - discount);
-      }, 0);
+    return {
+      type: "box", layout: "horizontal",
+      contents: [
+        { type: "text", text: `${it.name} x${it.qty}`, size: "sm", color: "#0000FF", wrap: true, flex: 5, maxLines: 6 },
+        { type: "text", text: rightText,              size: "sm", color: "#0000FF", align: "end", wrap: false, flex: 0 }
+      ]
+    };
+  });
 
-      const paymentUrl = "https://liff.line.me/2007887429-Arr5x53g";
+  const totalPrice = state.items.reduce((s, it) => {
+    const original = it.price * it.qty;
+    const pct = clamp(Number(it.discountPct ?? 0), 0, 100);
+    let abs  = clamp(Math.round(Number(it.discountAbs ?? 0)), 0, original);
+    const discount = (abs === 0 && pct > 0) ? Math.round(original * pct / 100) : abs;
+    return s + Math.max(0, original - discount);
+  }, 0);
 
-      const flexMsg = {
-        type: "flex",
-        altText: "รายละเอียดคำสั่งซื้อ",
-        contents: {
-          type: "bubble",
-          body: {
-            type: "box",
-            layout: "vertical",
+  const paymentUrl = "https://liff.line.me/2007887429-Arr5x53g";
+
+  const flexMsg = {
+    type: "flex",
+    altText: "รายละเอียดคำสั่งซื้อ",
+    contents: {
+      type: "bubble",
+      body: {
+        type: "box",
+        layout: "vertical",
+        contents: [
+          { type: "image", url: "https://lh3.googleusercontent.com/d/1thkyE_A9Jd8LGii5Z9rIGtcn75Tv39q7", size: "sm", align: "center", margin: "none" },
+          { type: "text", text: "MuscleStationTH", weight: "bold", size: "xl", align: "center", color: "#0000FF" },
+          { type: "text", text: "แอด:สรุปคำสั่งซื้อ", weight: "bold", size: "lg", color: "#0000FF" },
+          { type: "box", layout: "vertical", margin: "lg", spacing: "sm", contents: itemContents },
+          {
+            type: "box", layout: "horizontal", margin: "lg",
             contents: [
-              { type: "image", url: "https://lh3.googleusercontent.com/d/1thkyE_A9Jd8LGii5Z9rIGtcn75Tv39q7", size: "sm", align: "center", margin: "none" },
-              { type: "text", text: "MuscleStationTH", weight: "bold", size: "xl", align: "center", color: "#0000FF" },
-              { type: "text", text: "แอด:สรุปคำสั่งซื้อ", weight: "bold", size: "lg", color: "#0000FF" },
-              { type: "box", layout: "vertical", margin: "lg", spacing: "sm", contents: itemContents },
-              {
-                type: "box", layout: "horizontal", margin: "lg",
-                contents: [
-                  { type: "text", text: "รวมทั้งหมด", size: "lg", weight: "bold", color: "#0000FF" },
-                  { type: "text", text: `${fmt(totalPrice)}฿`, size: "lg", color: "#0000FF", align: "end", weight: "bold" }
-                ]
-              }
+              { type: "text", text: "รวมทั้งหมด", size: "lg", weight: "bold", color: "#0000FF" },
+              { type: "text", text: `${fmt(totalPrice)}฿`, size: "lg", color: "#0000FF", align: "end", weight: "bold" }
             ]
+          }
+        ]
+      },
+      footer: {
+        type: "box",
+        layout: "vertical",
+        spacing: "sm",
+        contents: [
+          {
+            type: "button", style: "primary", color: "#1DB446",
+            action: { type: "uri", label: "ชำระเงิน", uri: paymentUrl }
           },
-          footer: {
-            type: "box",
-            layout: "vertical",
-            spacing: "sm",
-            contents: [
-              {
-                type: "button", style: "primary", color: "#1DB446",
-                action: { type: "uri", label: "ชำระเงิน", uri: paymentUrl }
-              },
-              {
-                type: "text",
-                text: "**สินค้าพร้อมส่งทุกตัว! ลูกค้าชำระเงินแล้วแจ้งแอดมินได้เลยค่ะ\n**In stock, Ready to ship! After payment, please notify the admin.",
-                size: "md", weight: "bold", color: "#009400", wrap: true, margin: "sm"
-              }
-            ]
+          {
+            type: "text",
+            text: "**สินค้าพร้อมส่งทุกตัว! ลูกค้าชำระเงินแล้วแจ้งแอดมินได้เลยค่ะ\n**In stock, Ready to ship! After payment, please notify the admin.",
+            size: "md", weight: "bold", color: "#009400", wrap: true, margin: "sm"
           }
-        }
-      };
-
-      // ---- คุมปุ่ม ----
-      const btn = document.getElementById('sendBack');
-      if (btn) {
-        btn.dataset.prev = btn.textContent || "ส่งกลับ";
-        btn.textContent = "กำลังส่ง...";
-        btn.disabled = true;
-      }
-
-      // ---- ยิงไป GAS และรอผล พร้อม timeout ----
-      const controller = new AbortController();
-      const timeoutMs = 10000; // 10s
-      const tid = setTimeout(() => controller.abort(), timeoutMs);
-
-      try {
-        const res = await fetch(GAS_STORE_URL, {
-          method: "POST",
-          headers: { "Content-Type": "text/plain;charset=utf-8" },
-          body: JSON.stringify({
-            action: "pushSummary",
-            orderId: state.orderId,
-            message: flexMsg
-          }),
-          signal: controller.signal
-        });
-        clearTimeout(tid);
-
-        const js = await res.json().catch(() => null);
-        if (res.ok && js?.status === "ok") {
-          // ✅ สำเร็จ: ล็อกปุ่มไว้เลย
-          if (btn) {
-            btn.textContent = "ส่งแล้ว";
-            btn.disabled = true;
-          }
-        } else {
-          // ❌ ล้มเหลว: ปลดล็อกให้กดใหม่ได้
-          if (btn) {
-            btn.textContent = btn.dataset.prev || "ส่งกลับ";
-            btn.disabled = false;
-          }
-          alert("ส่งกลับไม่สำเร็จ (GAS): " + (js?.error || js?.message || res.status));
-        }
-      } catch (e) {
-        clearTimeout(tid);
-        if (btn) {
-          btn.textContent = btn.dataset.prev || "ส่งกลับ";
-          btn.disabled = false;
-        }
-        alert("ส่งกลับไม่สำเร็จ: " + (e?.message || e));
+        ]
       }
     }
+  };
+
+  // ---- คุมปุ่ม ----
+  const btn = document.getElementById('sendBack');
+  if (btn) {
+    btn.dataset.prev = btn.textContent || "ส่งกลับ";
+    btn.textContent = "กำลังส่ง...";
+    btn.disabled = true;
+  }
+
+  // === สร้าง "ข้อความสรุปเหมือนใน Flex" เพื่อส่งเข้าแชทด้วย ===
+  const textSummary = buildNewSummaryText(); // ใช้ฟังก์ชันที่มีแล้ว เพื่อความตรงกัน
+  const messagesForChat = [
+    flexMsg,
+    { type: "text", text: textSummary }
+  ];
+  // ถ้ามีที่อยู่ลูกค้า อยากส่งต่อท้ายด้วยก็เพิ่มได้ (ไม่บังคับ)
+  if ((state.customerText || "").trim()) {
+    messagesForChat.push({ type: "text", text: state.customerText });
+  }
+
+  // ---- ส่งเข้าแชท (LIFF) แบบ call เดียว ----
+  try {
+    if (window.liff && liff.isInClient && liff.isInClient()) {
+      await liff.sendMessages(messagesForChat);
+    } else if (window.liff && liff.isApiAvailable && liff.isApiAvailable('shareTargetPicker')) {
+      await liff.shareTargetPicker(messagesForChat);
+    }
+  } catch (eSend) {
+    console.warn("ส่งเข้าแชทด้วย LIFF ไม่สำเร็จ:", eSend?.message || eSend);
+    // ไม่เป็นไร เดินหน้าส่งให้ GAS ต่อไป
+  }
+
+  // ---- ยิงไป GAS และรอผล พร้อม timeout ----
+  const controller = new AbortController();
+  const timeoutMs = 10000; // 10s
+  const tid = setTimeout(() => controller.abort(), timeoutMs);
+
+  try {
+    const res = await fetch(GAS_STORE_URL, {
+      method: "POST",
+      headers: { "Content-Type": "text/plain;charset=utf-8" },
+      body: JSON.stringify({
+        action: "pushSummary",
+        orderId: state.orderId,
+
+        // ของเดิม: ให้ GAS push Flex
+        message: flexMsg,
+
+        // แนบข้อความสรุปให้ GAS ด้วย (เผื่ออยาก push เป็นข้อความเข้าห้องแอดมิน)
+        textSummary,
+
+        // เผื่อ GAS รองรับ messages array (จะ push ได้ทั้ง Flex + Text)
+        messages: messagesForChat
+      }),
+      signal: controller.signal
+    });
+    clearTimeout(tid);
+
+    const js = await res.json().catch(() => null);
+    if (res.ok && js?.status === "ok") {
+      if (btn) {
+        btn.textContent = "ส่งแล้ว";
+        btn.disabled = true;
+      }
+    } else {
+      if (btn) {
+        btn.textContent = btn.dataset.prev || "ส่งกลับ";
+        btn.disabled = false;
+      }
+      alert("ส่งกลับไม่สำเร็จ (GAS): " + (js?.error || js?.message || res.status));
+    }
+  } catch (e) {
+    clearTimeout(tid);
+    if (btn) {
+      btn.textContent = btn.dataset.prev || "ส่งกลับ";
+      btn.disabled = false;
+    }
+    alert("ส่งกลับไม่สำเร็จ: " + (e?.message || e));
+  }
+}
+
+
+
+    
 
 
     // ใช้ sendBeacon ก่อน; ถ้าไม่ได้ค่อย fetch keepalive (ทั้งคู่ไม่ await)
