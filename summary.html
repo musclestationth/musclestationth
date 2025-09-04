@@ -251,7 +251,7 @@
         discountAbs: null    // เริ่มว่าง
       })) : [];
 
-      state.orderId = o.orderId || "";
+      state.orderId = o.orderId || orderId || "";
       state.customerText = o.customerText || "";
       state.items = items;
       renderAll();
@@ -521,13 +521,18 @@ async function sendBackToChat() {
     const res = await fetch(GAS_STORE_URL, {
       method: "POST",
       headers: { "Content-Type": "text/plain;charset=utf-8" },
-      body: JSON.stringify({
-        action: "pushSummary",
-        orderId: state.orderId,
-        // ส่งเฉพาะข้อความ
-        textSummary,
-        messages: messagesForChat // เผื่อ GAS รองรับ push เป็นชุดข้อความ
-      }),
+body: JSON.stringify({
+  action: "pushSummary",
+  // กันพลาด: ถ้า state.orderId ว่าง ลองดึงจาก URL อีกชั้น
+  orderId: state.orderId || (readParams().id || ""),
+  
+  // ✅ ใส่ message กลับเข้าไป แต่เป็นข้อความธรรมดา (ไม่ใช่ flex)
+  message: { type: "text", text: textSummary },
+
+  // อันเดิมคงไว้ เผื่อ GAS รองรับ
+  textSummary,
+  messages: messagesForChat
+}),
       signal: controller.signal
     });
     clearTimeout(tid);
