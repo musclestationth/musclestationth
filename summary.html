@@ -48,7 +48,7 @@
     #itemsBody td:nth-child(5) input { width: 40px; }  /* ส่วนลด (฿) */
     #newSummaryText {  font-size: 18px; }
     #newSummaryCard { font-size: 22px;}
-    #customerText { font-size: 18px;}
+
     #sumOriginal {font-size: 18px; font-weight: bold; }
     #sumDiscounted {font-size: 22px;font-weight: bold;  }
 
@@ -155,13 +155,13 @@
 
     <div class="card">
       <!-- สรุปราคาใหม่ (อยู่ใน card เดียวกับที่อยู่) -->
-<div id="newSummaryCard" class="hidden" style="padding-top:12px; margin-top:4px;">
-  <div class="title-row">
-    <strong>สรุปราคาใหม่</strong>
-  </div>
-  <pre id="newSummaryText" style="margin-top:8px;"></pre>
-</div>
-
+      <div id="newSummaryCard" class="hidden" padding-top:12px; margin-top:4px;">
+        <div class="title-row">
+          <strong>สรุปราคาใหม่</strong>
+          <button class="btn btn-secondary btn-18" id="copyNewInline">คัดลอก</button>
+        </div>
+        <pre id="newSummaryText" style="margin-top:8px;"></pre>
+      </div>
 
       <div class="actions-inline">
         <button class="btn btn-primary btn-18" id="sendBack">ส่งกลับ</button>
@@ -223,7 +223,7 @@
     // ===== Data / State =====
     let state = {
       orderId: null,
-      customerText: "",
+
       items: [],           // [{name, price, qty, discountPct, discountAbs}]
       sumOriginal: 0,
       sumDiscounted: 0
@@ -251,7 +251,7 @@
       })) : [];
 
       state.orderId = o.orderId || "";
-      state.customerText = o.customerText || "";
+
       state.items = items;
       renderAll();
     }
@@ -428,7 +428,12 @@
     }
 
     // ปุ่มคัดลอกบนการ์ด "สรุปราคาใหม่"
-
+    document.addEventListener('click', (e) => {
+      if (e.target && e.target.id === 'copyNewInline') {
+        const text = document.getElementById('newSummaryText').textContent || buildNewSummaryText();
+        copyText(text);
+      }
+    });
 
     async function copyText(text) {
       try { await navigator.clipboard.writeText(text); alert("คัดลอกแล้ว ✅"); }
@@ -536,23 +541,21 @@
           }
         }
       };
-try {
-  const textSummary = buildNewSummaryText(); // ใช้ฟังก์ชันเดิม เพื่อให้ตรงกับหน้าจอ
-  if (liff.isInClient && liff.isInClient()) {
-    await liff.sendMessages([{ type: "text", text: textSummary }]);
-    alert("ส่งข้อความเข้าแชทแล้ว ✅");
-    liff.closeWindow?.();
-  } else if (liff.isApiAvailable && liff.isApiAvailable('shareTargetPicker')) {
-    await liff.shareTargetPicker([{ type: "text", text: textSummary }]);
-    alert("แชร์ข้อความไปยังแชทแล้ว ✅");
-  } else {
-    alert("โปรดเปิดหน้านี้จากใน LINE เพื่อส่งข้อความกลับห้องแชท");
-  }
-} catch (e) {
-  alert("ส่งกลับไม่สำเร็จ: " + (e?.message || e));
-}
 
-
+      try {
+        if (liff.isInClient && liff.isInClient()) {
+          await liff.sendMessages([flexMsg]);
+          alert("ส่งกลับเข้าห้องแชทแล้ว ✅");
+          if (liff.isInClient()) liff.closeWindow();
+        } else if (liff.isApiAvailable && liff.isApiAvailable('shareTargetPicker')) {
+          await liff.shareTargetPicker([flexMsg]);
+          alert("แชร์ไปยังแชทแล้ว ✅");
+        } else {
+          alert("โปรดเปิดหน้านี้จากใน LINE เพื่อส่งข้อความกลับห้องแชท");
+        }
+      } catch (e) {
+        alert("ส่งกลับไม่สำเร็จ: " + (e?.message || e));
+      }
     }
 
 
@@ -597,7 +600,7 @@ try {
             try {
               const payload = JSON.parse(decodeURIComponent(escape(atob(d))));
               state.orderId = "(no-id)";
-              state.customerText = payload.customerText || "";
+
               state.items = Array.isArray(payload.items) ? payload.items.map(it => ({
                 name: String(it.name||''),
                 price: Number(it.price||0),
