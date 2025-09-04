@@ -448,74 +448,7 @@ if (btnCopyAddr) btnCopyAddr.onclick = () => copyText(state.customerText || "");
     // ส่ง Flex กลับห้องแชท
     // ส่ง Flex กลับห้องแชท (รูปแบบเดียวกับ checkout template แต่เป็น "หลังส่วนลด")
 
-function chunkText(s, max = 4500) {
-  const out = [];
-  if (!s) return out;
-  let i = 0;
-  while (i < s.length) {
-    out.push(s.slice(i, i + max));
-    i += max;
-  }
-  return out;
-}
 
-async function sendFlexPlusTextToChat(flexMsg, textSummary, customerText) {
-  // 1) เตรียมรายการข้อความ (ส่ง text ก่อน แล้วค่อย flex)
-  const msgs = [];
-  const parts = chunkText((textSummary || '').trim(), 4500);
-  parts.forEach(p => { if (p.trim()) msgs.push({ type: 'text', text: p }); });
-
-  if ((customerText || '').trim()) {
-    msgs.push({ type: 'text', text: customerText.trim() });
-  }
-
-  // ถ้าไม่มี text จริง ๆ เพื่อกัน LIFF เพี้ยน ให้สอด “.” สั้น ๆ ไป 1 บรรทัด
-  if (msgs.length === 0) msgs.push({ type: 'text', text: '.' });
-
-  // ปิดท้ายด้วย Flex
-  msgs.push(flexMsg);
-
-  // จำกัดไม่เกิน 5 ข้อความตามข้อกำหนด
-  const batch = msgs.slice(0, 5);
-
-  // 2) ส่งแบบครั้งเดียวก่อน
-  try {
-    if (window.liff && liff.isInClient && liff.isInClient()) {
-      await liff.sendMessages(batch);
-      return true;
-    } else if (window.liff && liff.isApiAvailable && liff.isApiAvailable('shareTargetPicker')) {
-      await liff.shareTargetPicker(batch);
-      return true;
-    }
-  } catch (e1) {
-    console.warn('send batch failed, try sequential:', e1?.message || e1);
-  }
-
-  // 3) ถ้าพัง ลองส่งทีละก้อน
-  try {
-    if (window.liff && liff.isInClient && liff.isInClient()) {
-      for (const m of batch) {
-        await liff.sendMessages([m]);
-      }
-      return true;
-    } else if (window.liff && liff.isApiAvailable && liff.isApiAvailable('shareTargetPicker')) {
-      for (const m of batch) {
-        await liff.shareTargetPicker([m]);
-      }
-      return true;
-    }
-  } catch (e2) {
-    console.warn('send sequential failed:', e2?.message || e2);
-  }
-
-  return false;
-}
-
-
-
-
-
-    
 async function sendBackToChat() {
   // === สร้างรายการ / ยอดรวม (เหมือนเดิม) ===
   const itemContents = state.items.map(it => {
@@ -597,13 +530,28 @@ async function sendBackToChat() {
     btn.disabled = true;
   }
 
-// === สร้าง "ข้อความสรุปเหมือนใน Flex" ===
-const textSummary = buildNewSummaryText();
+  // === สร้าง "ข้อความสรุปเหมือนใน Flex" เพื่อส่งเข้าแชทด้วย ===
+  const textSummary = buildNewSummaryText(); // ใช้ฟังก์ชันที่มีแล้ว เพื่อความตรงกัน
+  const messagesForChat = [
+    flexMsg,
+    { type: "text", text: textSummary }
+  ];
+  // ถ้ามีที่อยู่ลูกค้า อยากส่งต่อท้ายด้วยก็เพิ่มได้ (ไม่บังคับ)
+  if ((state.customerText || "").trim()) {
+    messagesForChat.push({ type: "text", text: state.customerText });
+  }
 
-// ---- ส่งเข้าแชท (กันเหนียวตามฟังก์ชันด้านบน) ----
-const okChat = await sendFlexPlusTextToChat(flexMsg, textSummary, state.customerText);
-// ถ้าอยากรู้ว่าผ่านไหม จะ console.log(okChat) ก็ได้
-
+  // ---- ส่งเข้าแชท (LIFF) แบบ call เดียว ----
+  try {
+    if (window.liff && liff.isInClient && liff.isInClient()) {
+      await liff.sendMessages(messagesForChat);
+    } else if (window.liff && liff.isApiAvailable && liff.isApiAvailable('shareTargetPicker')) {
+      await liff.shareTargetPicker(messagesForChat);
+    }
+  } catch (eSend) {
+    console.warn("ส่งเข้าแชทด้วย LIFF ไม่สำเร็จ:", eSend?.message || eSend);
+    // ไม่เป็นไร เดินหน้าส่งให้ GAS ต่อไป
+  }
 
   // ---- ยิงไป GAS และรอผล พร้อม timeout ----
   const controller = new AbortController();
