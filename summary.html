@@ -449,7 +449,7 @@ if (btnCopyAddr) btnCopyAddr.onclick = () => copyText(state.customerText || "");
     // ส่ง Flex กลับห้องแชท (รูปแบบเดียวกับ checkout template แต่เป็น "หลังส่วนลด")
 
 
-<script>
+
 async function sendBackToChat() {
   // === ปุ่มกันกดซ้ำ ===
   const btn = document.getElementById('sendBack');
@@ -554,7 +554,7 @@ async function sendBackToChat() {
     alert("ส่งกลับไม่สำเร็จ: " + (e?.message || e));
   }
 }
-</script>
+
 
 
 
