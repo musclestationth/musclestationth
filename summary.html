@@ -48,7 +48,7 @@
     #itemsBody td:nth-child(5) input { width: 40px; }  /* ส่วนลด (฿) */
     #newSummaryText {  font-size: 18px; }
     #newSummaryCard { font-size: 22px;}
-    #customerText { font-size: 18px;}
+
     #sumOriginal {font-size: 18px; font-weight: bold; }
     #sumDiscounted {font-size: 22px;font-weight: bold;  }
 
@@ -167,11 +167,7 @@
         <button class="btn btn-primary btn-18" id="sendBack">ส่งกลับ</button>
       </div>
 
-      <div class="title-row" style="margin-top:12px;">
-        <strong style="font-size:22px;">ชื่อ-ที่อยู่จัดส่ง</strong>
-        <button class="btn btn-secondary btn-18" id="copyAddress">คัดลอก</button>
-      </div>
-      <pre id="customerText" style="margin-top:8px;"></pre>
+
 
       <div class="actions-inline">
       
@@ -227,7 +223,7 @@
     // ===== Data / State =====
     let state = {
       orderId: null,
-      customerText: "",
+
       items: [],           // [{name, price, qty, discountPct, discountAbs}]
       sumOriginal: 0,
       sumDiscounted: 0
@@ -255,7 +251,7 @@
       })) : [];
 
       state.orderId = o.orderId || "";
-      state.customerText = o.customerText || "";
+
       state.items = items;
       renderAll();
     }
@@ -269,7 +265,7 @@
       document.getElementById('sumOriginal').textContent = fmt(state.sumOriginal) + " บาท";
       document.getElementById('sumDiscounted').textContent = fmt(state.sumDiscounted) + " บาท";
 
-      document.getElementById('customerText').textContent = state.customerText || "";
+
 
       const tbody = document.getElementById('itemsBody');
       tbody.innerHTML = "";
@@ -361,7 +357,7 @@
         recompute();
       };
 
-      document.getElementById('copyAddress').onclick = () => copyText(state.customerText || "");
+
 
       document.getElementById('closeWindow').onclick = () => {
         if (window.liff && liff.isInClient && liff.isInClient()) liff.closeWindow();
@@ -604,7 +600,7 @@
             try {
               const payload = JSON.parse(decodeURIComponent(escape(atob(d))));
               state.orderId = "(no-id)";
-              state.customerText = payload.customerText || "";
+
               state.items = Array.isArray(payload.items) ? payload.items.map(it => ({
                 name: String(it.name||''),
                 price: Number(it.price||0),
