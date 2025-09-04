@@ -449,80 +449,9 @@ if (btnCopyAddr) btnCopyAddr.onclick = () => copyText(state.customerText || "");
     // ส่ง Flex กลับห้องแชท (รูปแบบเดียวกับ checkout template แต่เป็น "หลังส่วนลด")
 
 
+<script>
 async function sendBackToChat() {
-  // === สร้างรายการ / ยอดรวม (เหมือนเดิม) ===
-  const itemContents = state.items.map(it => {
-    const original = it.price * it.qty;
-    const pct = clamp(Number(it.discountPct ?? 0), 0, 100);
-    let abs  = clamp(Math.round(Number(it.discountAbs ?? 0)), 0, original);
-    const usePct   = (abs === 0 && pct > 0);
-    const discount = usePct ? Math.round(original * pct / 100) : abs;
-    const after    = Math.max(0, original - discount);
-    const rightText = usePct
-      ? `${fmt(original)}฿-${pct}%=${fmt(after)}฿`
-      : `${fmt(original)}฿-${fmt(discount)}฿=${fmt(after)}฿`;
-
-    return {
-      type: "box", layout: "horizontal",
-      contents: [
-        { type: "text", text: `${it.name} x${it.qty}`, size: "sm", color: "#0000FF", wrap: true, flex: 5, maxLines: 6 },
-        { type: "text", text: rightText,              size: "sm", color: "#0000FF", align: "end", wrap: false, flex: 0 }
-      ]
-    };
-  });
-
-  const totalPrice = state.items.reduce((s, it) => {
-    const original = it.price * it.qty;
-    const pct = clamp(Number(it.discountPct ?? 0), 0, 100);
-    let abs  = clamp(Math.round(Number(it.discountAbs ?? 0)), 0, original);
-    const discount = (abs === 0 && pct > 0) ? Math.round(original * pct / 100) : abs;
-    return s + Math.max(0, original - discount);
-  }, 0);
-
-  const paymentUrl = "https://liff.line.me/2007887429-Arr5x53g";
-
-  const flexMsg = {
-    type: "flex",
-    altText: "รายละเอียดคำสั่งซื้อ",
-    contents: {
-      type: "bubble",
-      body: {
-        type: "box",
-        layout: "vertical",
-        contents: [
-          { type: "image", url: "https://lh3.googleusercontent.com/d/1thkyE_A9Jd8LGii5Z9rIGtcn75Tv39q7", size: "sm", align: "center", margin: "none" },
-          { type: "text", text: "MuscleStationTH", weight: "bold", size: "xl", align: "center", color: "#0000FF" },
-          { type: "text", text: "แอด:สรุปคำสั่งซื้อ", weight: "bold", size: "lg", color: "#0000FF" },
-          { type: "box", layout: "vertical", margin: "lg", spacing: "sm", contents: itemContents },
-          {
-            type: "box", layout: "horizontal", margin: "lg",
-            contents: [
-              { type: "text", text: "รวมทั้งหมด", size: "lg", weight: "bold", color: "#0000FF" },
-              { type: "text", text: `${fmt(totalPrice)}฿`, size: "lg", color: "#0000FF", align: "end", weight: "bold" }
-            ]
-          }
-        ]
-      },
-      footer: {
-        type: "box",
-        layout: "vertical",
-        spacing: "sm",
-        contents: [
-          {
-            type: "button", style: "primary", color: "#1DB446",
-            action: { type: "uri", label: "ชำระเงิน", uri: paymentUrl }
-          },
-          {
-            type: "text",
-            text: "**สินค้าพร้อมส่งทุกตัว! ลูกค้าชำระเงินแล้วแจ้งแอดมินได้เลยค่ะ\n**In stock, Ready to ship! After payment, please notify the admin.",
-            size: "md", weight: "bold", color: "#009400", wrap: true, margin: "sm"
-          }
-        ]
-      }
-    }
-  };
-
-  // ---- คุมปุ่ม ----
+  // === ปุ่มกันกดซ้ำ ===
   const btn = document.getElementById('sendBack');
   if (btn) {
     btn.dataset.prev = btn.textContent || "ส่งกลับ";
@@ -530,18 +459,48 @@ async function sendBackToChat() {
     btn.disabled = true;
   }
 
-  // === สร้าง "ข้อความสรุปเหมือนใน Flex" เพื่อส่งเข้าแชทด้วย ===
-  const textSummary = buildNewSummaryText(); // ใช้ฟังก์ชันที่มีแล้ว เพื่อความตรงกัน
-  const messagesForChat = [
-    flexMsg,
-    { type: "text", text: textSummary }
-  ];
-  // ถ้ามีที่อยู่ลูกค้า อยากส่งต่อท้ายด้วยก็เพิ่มได้ (ไม่บังคับ)
-  if ((state.customerText || "").trim()) {
-    messagesForChat.push({ type: "text", text: state.customerText });
+  // === ข้อความสรุป (text) ===
+  // ใช้ฟังก์ชัน buildNewSummaryText() ที่มีอยู่ เพื่อให้ตรงกับยอด/ส่วนลดล่าสุด
+  const header = "MuscleStationTH\nแอดมินสรุปคำสั่งซื้อ (หลังส่วนลด)\n";
+  const body   = buildNewSummaryText(); // มีรายการ + รวมทั้งหมด: XXX฿
+  const textSummary = `${header}\n${body}`.trim();
+
+  // แบ่งข้อความเป็นหลายก้อน (กันเกินลิมิต)
+  function splitForLine(text, max = 950) {
+    const out = [];
+    let buf = "";
+    for (const line of String(text).split("\n")) {
+      const candidate = buf ? (buf + "\n" + line) : line;
+      if (candidate.length > max) {
+        if (buf) out.push(buf);
+        if (line.length > max) {
+          // บรรทัดยาวเกิน — ตัดแข็ง
+          for (let i = 0; i < line.length; i += max) {
+            out.push(line.slice(i, i + max));
+          }
+          buf = "";
+        } else {
+          buf = line;
+        }
+      } else {
+        buf = candidate;
+      }
+    }
+    if (buf) out.push(buf);
+    return out;
   }
 
-  // ---- ส่งเข้าแชท (LIFF) แบบ call เดียว ----
+  const messagesForChat = splitForLine(textSummary).map(t => ({ type: "text", text: t }));
+
+  // แนบที่อยู่ลูกค้าถ้ามี
+  if ((state.customerText || "").trim()) {
+    messagesForChat.push({
+      type: "text",
+      text: `ชื่อ-ที่อยู่จัดส่ง\n${state.customerText.trim()}`
+    });
+  }
+
+  // === ส่งเข้าแชทผ่าน LIFF (เฉพาะข้อความ) ===
   try {
     if (window.liff && liff.isInClient && liff.isInClient()) {
       await liff.sendMessages(messagesForChat);
@@ -550,10 +509,10 @@ async function sendBackToChat() {
     }
   } catch (eSend) {
     console.warn("ส่งเข้าแชทด้วย LIFF ไม่สำเร็จ:", eSend?.message || eSend);
-    // ไม่เป็นไร เดินหน้าส่งให้ GAS ต่อไป
+    // ไม่เป็นไร ให้ลองไปทาง GAS ต่อ
   }
 
-  // ---- ยิงไป GAS และรอผล พร้อม timeout ----
+  // === ยิงไป GAS (ไม่แนบ flex, ส่งเฉพาะ text) ===
   const controller = new AbortController();
   const timeoutMs = 10000; // 10s
   const tid = setTimeout(() => controller.abort(), timeoutMs);
@@ -565,15 +524,9 @@ async function sendBackToChat() {
       body: JSON.stringify({
         action: "pushSummary",
         orderId: state.orderId,
-
-        // ของเดิม: ให้ GAS push Flex
-        message: flexMsg,
-
-        // แนบข้อความสรุปให้ GAS ด้วย (เผื่ออยาก push เป็นข้อความเข้าห้องแอดมิน)
+        // ส่งเฉพาะข้อความ
         textSummary,
-
-        // เผื่อ GAS รองรับ messages array (จะ push ได้ทั้ง Flex + Text)
-        messages: messagesForChat
+        messages: messagesForChat // เผื่อ GAS รองรับ push เป็นชุดข้อความ
       }),
       signal: controller.signal
     });
@@ -601,6 +554,8 @@ async function sendBackToChat() {
     alert("ส่งกลับไม่สำเร็จ: " + (e?.message || e));
   }
 }
+</script>
+
 
 
 
