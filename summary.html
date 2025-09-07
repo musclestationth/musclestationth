@@ -487,34 +487,56 @@
     }
 
     // ---- ยิงไป GAS (action: pushSummary) ----
-    const controller = new AbortController();
-    const tid = setTimeout(() => controller.abort(), 10000);
+const controller = new AbortController();
+// ขยายเวลาเป็น 30s (หรือจะตัดออกไปเลยก็ได้)
+const tid = setTimeout(() => controller.abort(), 30000);
+// ---- ยิงไป GAS (action: pushSummary) ----
+const controller = new AbortController();
+// ขยายเวลาเป็น 30s (หรือจะตัดออกไปเลยก็ได้)
+const tid = setTimeout(() => controller.abort(), 30000);
 
-    try {
-      const res = await fetch(GAS_STORE_URL, {
-        method: "POST",
-        headers: { "Content-Type": "text/plain;charset=utf-8" },
-        body: JSON.stringify({
-          action: "pushSummary",
-          orderId: state.orderId,
-          message: messages   // <<<<<<  ส่งเป็นอาเรย์ข้อความ
-        }),
-        signal: controller.signal
-      });
-      clearTimeout(tid);
+try {
+  const res = await fetch(GAS_STORE_URL, {
+    method: "POST",
+    headers: { "Content-Type": "text/plain;charset=utf-8" },
+    body: JSON.stringify({
+      action: "pushSummary",
+      orderId: state.orderId,
+      // <<<<<<<<<<<< ส่งเป็น "ข้อความธรรมดา" 2 ข้อความ >>>>>>>>>>>>>
+      message: [
+        { type: "text", text: buildNewSummaryText() },
+        { type: "text", text: `👤 ชื่อ-ที่อยู่จัดส่ง:\n${state.customerText?.trim() || "⚠️ ยังไม่ได้กรอกข้อมูลลูกค้า"}` }
+      ]
+    }),
+    signal: controller.signal
+  });
+  clearTimeout(tid);
 
-      const js = await res.json().catch(() => null);
-      if (res.ok && js?.status === "ok") {
-        if (btn) { btn.textContent = "ส่งแล้ว"; btn.disabled = true; }
-      } else {
-        if (btn) { btn.textContent = btn.dataset.prev || "ส่งกลับ"; btn.disabled = false; }
-        alert("ส่งกลับไม่สำเร็จ (GAS): " + (js?.error || js?.message || res.status));
-      }
-    } catch (e) {
-      clearTimeout(tid);
-      if (btn) { btn.textContent = btn.dataset.prev || "ส่งกลับ"; btn.disabled = false; }
-      alert("ส่งกลับไม่สำเร็จ: " + (e?.message || e));
-    }
+  const js = await res.json().catch(() => null);
+  if (res.ok && js?.status === "ok") {
+    if (btn) { btn.textContent = "ส่งแล้ว"; btn.disabled = true; }
+  } else {
+    if (btn) { btn.textContent = btn.dataset.prev || "ส่งกลับ"; btn.disabled = false; }
+    alert("ส่งกลับไม่สำเร็จ (GAS): " + (js?.error || js?.message || res.status));
+  }
+} catch (e) {
+  clearTimeout(tid);
+
+  // ถ้าเป็น AbortError ให้บอกผู้ใช้ว่า “อาจจะส่งสำเร็จแล้ว”
+  const aborted = (e?.name === "AbortError") || /aborted/i.test(String(e?.message || e));
+
+  if (aborted) {
+    // เลือกหนึ่งแนวทาง:
+    // 1) แจ้งเชิงบวกและล็อกปุ่มกันกดซ้ำ แล้วให้ผู้ใช้ดูในห้องแชท
+    if (btn) { btn.textContent = "อาจส่งแล้ว (เช็คแชท)"; btn.disabled = true; }
+    alert("เครือข่ายช้า เลยตัดการรอคำตอบจากเซิร์ฟเวอร์ แต่คำสั่งอาจถูกส่งแล้ว กรุณาเช็คในห้องแชท");
+  } else {
+    if (btn) { btn.textContent = btn.dataset.prev || "ส่งกลับ"; btn.disabled = false; }
+    alert("ส่งกลับไม่สำเร็จ: " + (e?.message || e));
+  }
+}
+
+
   }
 
 
