@@ -973,19 +973,16 @@ async function checkout() {
         type: "box",
         layout: "vertical",
         contents: [
-          { type: "image", url: "https://lh3.googleusercontent.com/d/1thkyE_A9Jd8LGii5Z9rIGtcn75Tv39q7", size: "sm", align: "center", margin: "none" },
-          { type: "text", text: "MuscleStationTH", weight: "bold", size: "xl", align: "center", color: "#0000FF" },
-          { type: "text", text: "สรุปคำสั่งซื้อ", weight: "bold", size: "lg" },
-          { type: "box", layout: "vertical", margin: "lg", spacing: "sm", contents: itemContents },
-          {
-            type: "box",
-            layout: "horizontal",
-            margin: "lg",
-            contents: [
-              { type: "text", text: "รวมทั้งหมด", size: "lg", weight: "bold", color: "#000000" },
-              { type: "text", text: `${totalPrice.toLocaleString('th-TH')}฿`, size: "lg", color: "#000000", align: "end", weight: "bold" }
-            ]
+                    {
+            type: "text",
+            text: "**กรุณารอแอดมินเช็คสต็อกสินค้าและ confirm ก่อนกดชำระเงินนะคะ\n**Please wait for checking stocks and confirm this order before payment.",
+            size: "md",
+            weight: "bold",
+            color: "#FF0000",
+            wrap: true,
+            margin: "sm"
           }
+
         ]
       },
       footer: {
@@ -1003,15 +1000,6 @@ async function checkout() {
             align: "end",
             action: { type: "uri", uri: adminUrl },
             wrap: false
-          },
-          {
-            type: "text",
-            text: "**กรุณารอแอดมินเช็คสต็อกสินค้าและ confirm ก่อนกดชำระเงินนะคะ\n**Please wait for checking stocks and confirm this order before payment.",
-            size: "md",
-            weight: "bold",
-            color: "#FF0000",
-            wrap: true,
-            margin: "sm"
           }
         ]
       }
@@ -1060,8 +1048,8 @@ async function checkout() {
   try {
     if (liff.isInClient && liff.isInClient()) {
       try {
-        await liff.sendMessages([flexMsg,
-                                   {type: "text",text: orderText},{type: "text",text: customerText}
+        await liff.sendMessages([
+                                   {type: "text",text: orderText},{type: "text",text: customerText},flexMsg
                                 ]);
       } catch (e1) {
         console.warn("send Flex failed, fallback to text:", e1?.message || e1);
