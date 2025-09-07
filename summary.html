@@ -97,7 +97,8 @@
       <h2>สำหรับแอดมิน</h2>
       <p style="margin:6px 0 12px;">กรอกรหัส 4 หลัก</p>
       <input id="adminPin" type="password" inputmode="numeric" pattern="\d*" maxlength="4" placeholder="____" />
-      <button id="adminEnter" class="btn btn-primary" style="margin-top:10px;">เข้าสู่หน้า</button>
+      <button id="adminEnter" type="button" class="btn btn-primary" style="margin-top:10px;">เข้าสู่หน้า</button>
+
       <div id="pinError" class="error hidden">รหัสไม่ถูกต้อง</div>
     </div>
   </div>
@@ -487,10 +488,6 @@
     }
 
     // ---- ยิงไป GAS (action: pushSummary) ----
-const controller = new AbortController();
-// ขยายเวลาเป็น 30s (หรือจะตัดออกไปเลยก็ได้)
-const tid = setTimeout(() => controller.abort(), 30000);
-// ---- ยิงไป GAS (action: pushSummary) ----
 const controller = new AbortController();
 // ขยายเวลาเป็น 30s (หรือจะตัดออกไปเลยก็ได้)
 const tid = setTimeout(() => controller.abort(), 30000);
