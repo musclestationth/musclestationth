@@ -48,7 +48,7 @@
     #itemsBody td:nth-child(5) input { width: 40px; }  /* ส่วนลด (฿) */
     #newSummaryText {  font-size: 18px; }
     #newSummaryCard { font-size: 22px;}
-    #customerText { font-size: 18px;}
+ 
     #sumOriginal {font-size: 18px; font-weight: bold; }
     #sumDiscounted {font-size: 22px;font-weight: bold;  }
     #sendBack:disabled {
@@ -160,7 +160,7 @@
       <div id="newSummaryCard" class="hidden" padding-top:12px; margin-top:4px;">
         <div class="title-row">
           <strong>สรุปราคาใหม่</strong>
-          <button class="btn btn-secondary btn-18" id="copyNewInline">คัดลอก</button>
+
         </div>
         <pre id="newSummaryText" style="margin-top:8px;"></pre>
       </div>
@@ -169,11 +169,7 @@
         <button class="btn btn-primary btn-18" id="sendBack">ส่งกลับ</button>
       </div>
 
-      <div class="title-row" style="margin-top:12px;">
-        <strong style="font-size:22px;">ชื่อ-ที่อยู่จัดส่ง</strong>
-        <button class="btn btn-secondary btn-18" id="copyAddress">คัดลอก</button>
-      </div>
-      <pre id="customerText" style="margin-top:8px;"></pre>
+
 
     </div>
 
@@ -266,7 +262,7 @@
       document.getElementById('sumOriginal').textContent = fmt(state.sumOriginal) + " บาท";
       document.getElementById('sumDiscounted').textContent = fmt(state.sumDiscounted) + " บาท";
 
-      document.getElementById('customerText').textContent = state.customerText || "";
+
 
       const tbody = document.getElementById('itemsBody');
       tbody.innerHTML = "";
@@ -358,7 +354,7 @@
         recompute();
       };
 
-      document.getElementById('copyAddress').onclick = () => copyText(state.customerText || "");
+     
 
 
 
@@ -425,13 +421,7 @@
       return lines.join('\n');
     }
 
-    // ปุ่มคัดลอกบนการ์ด "สรุปราคาใหม่"
-    document.addEventListener('click', (e) => {
-      if (e.target && e.target.id === 'copyNewInline') {
-        const text = document.getElementById('newSummaryText').textContent || buildNewSummaryText();
-        copyText(text);
-      }
-    });
+
 
     async function copyText(text) {
       try { await navigator.clipboard.writeText(text); alert("คัดลอกแล้ว ✅"); }
