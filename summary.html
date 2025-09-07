@@ -445,96 +445,79 @@
 
     // ส่ง Flex กลับห้องแชท
     // ส่ง Flex กลับห้องแชท (รูปแบบเดียวกับ checkout template แต่เป็น "หลังส่วนลด")
-
-  async function sendBackToChat() {
-    // === สร้างข้อความรายการหลังหักส่วนลดจาก state ===
-    const lines = [];
-    state.items.forEach(it => {
-      const original = it.price * it.qty;
-      const pct = clamp(Number(it.discountPct ?? 0), 0, 100);
-      let   abs = clamp(Math.round(Number(it.discountAbs ?? 0)), 0, original);
-      if (abs === 0 && pct > 0) abs = Math.round(original * pct / 100);
-      const after = Math.max(0, original - abs);
-      const label = abs > 0 ? `-${fmt(abs)}฿` : (pct > 0 ? `-${pct}%` : `-0฿`);
-      lines.push(`${it.name} x${it.qty} = ${fmt(original)}฿ | ${label} = ${fmt(after)}฿`);
-    });
-
-    const orderText =
-      `📦 รายละเอียดคำสั่งซื้อ (หลังส่วนลด)\n` +
-      lines.map(l => `• ${l}`).join('\n') +
-      `\n\nรวมทั้งหมด = ${fmt(state.sumDiscounted)}฿`;
-
-    const customerText =
-      `👤 ชื่อ-ที่อยู่จัดส่ง:\n${state.customerText?.trim() || "⚠️ ยังไม่ได้กรอกข้อมูลลูกค้า"}`;
-
-    // (ออปชัน) กันข้อความยาวเกิน 2000 ตัวอักษรของ LINE
-    const splitTextByLimit = (t, limit = 1900) => {
-      const out = [];
-      for (let i = 0; i < t.length; i += limit) out.push(t.slice(i, i + limit));
-      return out;
-    };
-
-    const messages = [
-      ...splitTextByLimit(orderText).map(text => ({ type: "text", text })),
-      ...splitTextByLimit(customerText).map(text => ({ type: "text", text }))
-    ];
-
-    // ---- คุมปุ่มสถานะ ----
-    const btn = document.getElementById('sendBack');
-    if (btn) {
-      btn.dataset.prev = btn.textContent || "ส่งกลับ";
-      btn.textContent = "กำลังส่ง...";
-      btn.disabled = true;
-    }
-
-    // ---- ยิงไป GAS (action: pushSummary) ----
-const controller = new AbortController();
-// ขยายเวลาเป็น 30s (หรือจะตัดออกไปเลยก็ได้)
-const tid = setTimeout(() => controller.abort(), 30000);
-
-try {
-  const res = await fetch(GAS_STORE_URL, {
-    method: "POST",
-    headers: { "Content-Type": "text/plain;charset=utf-8" },
-    body: JSON.stringify({
-      action: "pushSummary",
-      orderId: state.orderId,
-      // <<<<<<<<<<<< ส่งเป็น "ข้อความธรรมดา" 2 ข้อความ >>>>>>>>>>>>>
-      message: [
-        { type: "text", text: buildNewSummaryText() },
-        { type: "text", text: `👤 ชื่อ-ที่อยู่จัดส่ง:\n${state.customerText?.trim() || "⚠️ ยังไม่ได้กรอกข้อมูลลูกค้า"}` }
-      ]
-    }),
-    signal: controller.signal
+async function sendBackToChat() {
+  // === สร้างข้อความรายการหลังหักส่วนลดจาก state ===
+  const lines = [];
+  state.items.forEach(it => {
+    const original = it.price * it.qty;
+    const pct = clamp(Number(it.discountPct ?? 0), 0, 100);
+    let   abs = clamp(Math.round(Number(it.discountAbs ?? 0)), 0, original);
+    if (abs === 0 && pct > 0) abs = Math.round(original * pct / 100);
+    const after = Math.max(0, original - abs);
+    const label = abs > 0 ? `-${fmt(abs)}฿` : (pct > 0 ? `-${pct}%` : `-0฿`);
+    lines.push(`${it.name} x${it.qty} = ${fmt(original)}฿ | ${label} = ${fmt(after)}฿`);
   });
-  clearTimeout(tid);
 
-  const js = await res.json().catch(() => null);
-  if (res.ok && js?.status === "ok") {
-    if (btn) { btn.textContent = "ส่งแล้ว"; btn.disabled = true; }
-  } else {
-    if (btn) { btn.textContent = btn.dataset.prev || "ส่งกลับ"; btn.disabled = false; }
-    alert("ส่งกลับไม่สำเร็จ (GAS): " + (js?.error || js?.message || res.status));
+  const orderText =
+    `📦 รายละเอียดคำสั่งซื้อ (หลังส่วนลด)\n` +
+    lines.map(l => `• ${l}`).join('\n') +
+    `\n\nรวมทั้งหมด = ${fmt(state.sumDiscounted)}฿`;
+
+  // กันข้อความยาวเกินลิมิต LINE (~2000 ตัวอักษร)
+  const splitTextByLimit = (t, limit = 1900) => {
+    const out = [];
+    for (let i = 0; i < t.length; i += limit) out.push(t.slice(i, i + limit));
+    return out;
+  };
+
+  // ✅ ส่งเฉพาะ orderText
+  const messages = splitTextByLimit(orderText).map(text => ({ type: "text", text }));
+
+  // ---- คุมปุ่มสถานะ ----
+  const btn = document.getElementById('sendBack');
+  if (btn) {
+    btn.dataset.prev = btn.textContent || "ส่งกลับ";
+    btn.textContent = "กำลังส่ง...";
+    btn.disabled = true;
   }
-} catch (e) {
-  clearTimeout(tid);
 
-  // ถ้าเป็น AbortError ให้บอกผู้ใช้ว่า “อาจจะส่งสำเร็จแล้ว”
-  const aborted = (e?.name === "AbortError") || /aborted/i.test(String(e?.message || e));
+  // ---- ยิงไป GAS (action: pushSummary) ----
+  const controller = new AbortController();
+  const tid = setTimeout(() => controller.abort(), 30000);
 
-  if (aborted) {
-    // เลือกหนึ่งแนวทาง:
-    // 1) แจ้งเชิงบวกและล็อกปุ่มกันกดซ้ำ แล้วให้ผู้ใช้ดูในห้องแชท
-    if (btn) { btn.textContent = "อาจส่งแล้ว (เช็คแชท)"; btn.disabled = true; }
-    alert("เครือข่ายช้า เลยตัดการรอคำตอบจากเซิร์ฟเวอร์ แต่คำสั่งอาจถูกส่งแล้ว กรุณาเช็คในห้องแชท");
-  } else {
-    if (btn) { btn.textContent = btn.dataset.prev || "ส่งกลับ"; btn.disabled = false; }
-    alert("ส่งกลับไม่สำเร็จ: " + (e?.message || e));
+  try {
+    const res = await fetch(GAS_STORE_URL, {
+      method: "POST",
+      headers: { "Content-Type": "text/plain;charset=utf-8" },
+      body: JSON.stringify({
+        action: "pushSummary",
+        orderId: state.orderId,
+        message: messages
+      }),
+      signal: controller.signal
+    });
+    clearTimeout(tid);
+
+    const js = await res.json().catch(() => null);
+    if (res.ok && js?.status === "ok") {
+      if (btn) { btn.textContent = "ส่งแล้ว"; btn.disabled = true; }
+    } else {
+      if (btn) { btn.textContent = btn.dataset.prev || "ส่งกลับ"; btn.disabled = false; }
+      alert("ส่งกลับไม่สำเร็จ (GAS): " + (js?.error || js?.message || res.status));
+    }
+  } catch (e) {
+    clearTimeout(tid);
+    const aborted = (e?.name === "AbortError") || /aborted/i.test(String(e?.message || e));
+    if (aborted) {
+      if (btn) { btn.textContent = "อาจส่งแล้ว (เช็คแชท)"; btn.disabled = true; }
+      alert("เครือข่ายช้า เลยตัดการรอคำตอบจากเซิร์ฟเวอร์ แต่คำสั่งอาจถูกส่งแล้ว กรุณาเช็คในห้องแชท");
+    } else {
+      if (btn) { btn.textContent = btn.dataset.prev || "ส่งกลับ"; btn.disabled = false; }
+      alert("ส่งกลับไม่สำเร็จ: " + (e?.message || e));
+    }
   }
 }
 
-
-  }
 
 
 
