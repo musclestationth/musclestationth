@@ -20,26 +20,18 @@ const itemsPerPage = 3; // ✅ ให้โชว์ 3 สินค้าต่�
 
 // สินค้าเข้าใหม่ (กำหนดเอง)
 const newProducts = [
-  { name: "Retatrutide BPMedical 10mg", price: 4500, image: "images/reta-bp.png" },
-  { name: "Retatrutide Wellness 10mg", price: 3500, image: "images/reta-wellness.png" },
-  { name: "Levitra SAAnabolic 30mg60t", price: 1440, image: "images/levitra-sa.png" },
-  { name: "Retatrutide SAAnabolic 10mg", price: 4500, image: "images/reta-sa.png" },
-  { name: "3xRetatrutide SAAnabolic 10mg", price: 12000, image: "images/reta-sa.png" },
-  { name: "AC-262 SAAnabolic 10mg60t", price: 2430, image: "images/ac262-sa.png" },
-  { name: "AC-262 BPMedical", price: 0, image: "images/ac262-bp.png" },
-  { name: "S-23 SAAnabolic 10mg100t", price: 1900, image: "images/s23-sa.png" },
-  { name: "YK-11 SAAnabolic 5mg60t", price: 2200, image: "images/yk11-sa.png" },
-  { name: "T3 SAAnabolic 25mcg200t", price: 1100, image: "images/t3-sa.png" },
-  { name: "Telomed SAAnabolic 40mg50t", price: 890, image: "images/telomed-sa.png" },
-  { name: "L-Carnitine Beligas 30ml", price: 2200, image: "images/l-car-beligas.png" },
-  { name: "L-Carnitine+CLA Beligas 30ml", price: 2400, image: "images/l-car+cla-beligas.png" }
+  { name: "TestU NEBIDO 1000mg/4ml", price: 8500, image: "images/testu-nebido.png" },
+  { name: "HGHPen SAAnabolic(Pharma) 30iu", price: 2900, image: "images/hghpen-sa.png" },
+  { name: "3xHGHPen SAAnabolic(Pharma) 30iu", price: 7900, image: "images/hghpen-sa.png" }
 
 ];
 
 // --- ข้อมูลสินค้าโปรโมชั่น ---
 const promoProducts = [
-  { name: "(3pc) SARMs Promotion", price: 2400, image: "images/sarmpro.png" },
-  { name: "(3pc) MK677 Promotion", price: 3000, image: "images/677pro.png" }
+  { name: "(3pc) GW501516 Promotion", price: 2900, image: "images/sarmpro.png" },
+  { name: "(3pc) RAD140 Promotion", price: 2400, image: "images/sarmpro.png" },
+  { name: "(3pc) MK2866 Promotion", price: 2700, image: "images/sarmpro.png" },
+  { name: "(3pc) MK677 Promotion", price: 3300, image: "images/677pro.png" }
 ];
 // ฟังก์ชัน render slider แบบแยก container
 function renderProductsSlider(productsArray, containerId, dotsId, currentSlide) {
@@ -223,9 +215,9 @@ const products = {
     ],
     "TestE": [
       { name: "TestE AlphaPharma 250mg", price: 1300, image: "images/teste-alpha.png" },
-      { name: "TestE Meditech 250mg", price: 1050, image: "" },
+      { name: "TestE Meditech 250mg", price: 1050, image: "images/teste-medi.png" },
       { name: "TestE BPMedical 250mg", price: 1430, image: "images/teste-bp.png" },
-      { name: "TestE Bodytech 300mg", price: 1100, image: "" },
+      { name: "TestE Bodytech 300mg", price: 1100, image: "images/teste-body.png" },
       { name: "TestE Synctech 300mg", price: 1100, image: "images/teste-sync.png" },
       { name: "TestE SAAnabolic 300mg", price: 1100, image: "images/teste-sa.png" },
       { name: "TestE EuroMed 300mg", price: 1100, image: "images/teste-euro.png" },
@@ -398,7 +390,7 @@ const products = {
       { name: "GW-501516 Beligas 10mg50t", price: 1290, image: "images/gw50-beligas.png" }
     ],
     "MK2866": [
-      { name: "MK-2866 Meditech/Bodytech 20mg50t", price: 1200, image: "images/2866-medi.png" },
+      { name: "MK-2866 Meditech/Bodytech 20mg50t", price: 1350, image: "images/2866-medi.png" },
       { name: "MK-2866 BPMedical 10mg90t", price: 2090, image: "images/2866-bp.png" },
       { name: "MK-2866 SAAnabolic 10mg100t", price: 1200, image: "images/2866-sa.png" },
       { name: "MK-2866 Beligas 15mg50t", price: 0, image: "images/2866-beligas.png" },
