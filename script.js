@@ -211,8 +211,8 @@ const products = {
       { name: "DHB1 TestC Beligas 100mg", price: 1450, image: "images/testc100-beligas.png" },
       { name: "TestC Beligas 200mg", price: 1100, image: "images/testc200-beligas.png" },
       { name: "TestC Platinum 200mg", price: 1200, image: "images/testc-plat.png" },
-      { name: "TestC Meditech 250mg", price: 1040, image: "images/testc-medi.png" },
-      { name: "TestC Bodytech 250mg", price: 1040, image: "images/testc-body.png" },
+      { name: "TestC Meditech 250mg", price: 1100, image: "images/testc-medi.png" },
+      { name: "TestC Bodytech 250mg", price: 1100, image: "images/testc-body.png" },
       { name: "TestC SAAnabolic 250mg", price: 1100, image: "images/testc-sa.png" },
       { name: "TestC EuroMed 250mg", price: 1120, image: "images/testc-euro.png" },
       { name: "TestC Beligas 250mg", price: 1290, image: "images/testc250-beligas.png" },
@@ -223,7 +223,9 @@ const products = {
     ],
     "TestE": [
       { name: "TestE AlphaPharma 250mg", price: 1300, image: "images/teste-alpha.png" },
+      { name: "TestE Meditech 250mg", price: 1050, image: "" },
       { name: "TestE BPMedical 250mg", price: 1430, image: "images/teste-bp.png" },
+      { name: "TestE Bodytech 300mg", price: 1100, image: "" },
       { name: "TestE Synctech 300mg", price: 1100, image: "images/teste-sync.png" },
       { name: "TestE SAAnabolic 300mg", price: 1100, image: "images/teste-sa.png" },
       { name: "TestE EuroMed 300mg", price: 1100, image: "images/teste-euro.png" },
@@ -320,7 +322,7 @@ const products = {
       { name: "MastP BPMedical 100mg", price: 2200, image: "images/mastp-bp.png" }
     ],
     "Primo": [
-      { name: "Primo Meditech 100mg", price: 1440, image: "images/primo-medi.png" },
+      { name: "Primo Meditech 100mg", price: 1700, image: "images/primo-medi.png" },
       { name: "Primo Gainzlab 100mg", price: 1500, image: "images/primo-gainz.png" },
       { name: "Primo SAAnabolic 100mg", price: 1600, image: "images/primo-sa.png" },
       { name: "Primo Bodytech 100mg", price: 1700, image: "images/primo-body.png" },
@@ -381,7 +383,7 @@ const products = {
   "SARMs": {
     "MK677": [
       { name: "MK-677 SAAnabolic 10mg60t", price: 1450, image: "images/677-sa.png" },
-      { name: "MK-677 Meditech/Bodytech 25mg50t", price: 1500, image: "images/677-medi.png" },
+      { name: "MK-677 Meditech/Bodytech 25mg50t", price: 1650, image: "images/677-medi.png" },
       { name: "MK-677 BPMedical 10mg90t", price: 2750, image: "images/677-bp.png" }
     ],
     "RAD140": [
@@ -390,7 +392,7 @@ const products = {
       { name: "Rad-140 BPMedical 10mg60t", price: 2420, image: "images/rad-bp.png" }
     ],
     "GW501516": [
-      { name: "GW-501516 Meditech/Bodytech 20mg50t", price: 1200, image: "images/gw-medi.png" },
+      { name: "GW-501516 Meditech/Bodytech 20mg50t", price: 1450, image: "images/gw-medi.png" },
       { name: "GW-501516 SAAnabolic 10mg60t", price: 1050, image: "images/gw-sa.png" },
       { name: "GW-501516 BPMedical 10mg90t", price: 2420, image: "images/gw-bp.png" },
       { name: "GW-501516 Beligas 10mg50t", price: 1290, image: "images/gw50-beligas.png" }
