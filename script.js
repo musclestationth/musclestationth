@@ -219,7 +219,7 @@ const products = {
       { name: "TestE BPMedical 250mg", price: 1430, image: "images/teste-bp.png" },
       { name: "TestE Bodytech 300mg", price: 1100, image: "images/teste-body.png" },
       { name: "TestE Synctech 300mg", price: 1100, image: "images/teste-sync.png" },
-      { name: "TestE SAAnabolic 300mg", price: 1100, image: "images/teste-sa.png" },
+      { name: "TestE SAAnabolic 200mg", price: 1100, image: "images/teste-sa.png" },
       { name: "TestE EuroMed 300mg", price: 1100, image: "images/teste-euro.png" },
       { name: "TestE Platinum 300mg", price: 1200, image: "images/teste-plat.png" },
       { name: "TestE Beligas 300mg", price: 1290, image: "images/teste300-beligas.png" },
