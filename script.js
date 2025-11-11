@@ -22,7 +22,8 @@ const itemsPerPage = 3; // ✅ ให้โชว์ 3 สินค้าต่�
 const newProducts = [
   { name: "TestU NEBIDO 1000mg/4ml", price: 8500, image: "images/testu-nebido.png" },
   { name: "HGHPen SAAnabolic(Pharma) 30iu", price: 2900, image: "images/hghpen-sa.png" },
-  { name: "3xHGHPen SAAnabolic(Pharma) 30iu", price: 7900, image: "images/hghpen-sa.png" }
+  { name: "HGH Wellness 100iu", price: 3500, image: "" },
+  { name: "2xHGH Wellness 100iu", price: 6000, image: "" }
 
 ];
 
@@ -31,7 +32,9 @@ const promoProducts = [
   { name: "(3pc) GW501516 Promotion", price: 2900, image: "images/sarmpro.png" },
   { name: "(3pc) RAD140 Promotion", price: 2400, image: "images/sarmpro.png" },
   { name: "(3pc) MK2866 Promotion", price: 2700, image: "images/sarmpro.png" },
-  { name: "(3pc) MK677 Promotion", price: 3300, image: "images/677pro.png" }
+  { name: "(3pc) MK677 Promotion", price: 3300, image: "images/677pro.png" },
+  { name: "2xHGH Wellness 100iu", price: 6000, image: "" },
+  { name: "3xHGHPen SAAnabolic(Pharma) 30iu", price: 7900, image: "images/hghpen-sa.png" }
 ];
 // ฟังก์ชัน render slider แบบแยก container
 function renderProductsSlider(productsArray, containerId, dotsId, currentSlide) {
@@ -364,7 +367,10 @@ const products = {
       { name: "Tren-Test-Mast Long Beligas 300mg", price: 2450, image: "images/tren-test-mast-beligas.png" },
       //  { name: "Test-Tren Short Beligas 150mg", price: 1700, image: "images/" },
       { name: "MENT Beligas 50mg", price: 1990, image: "images/ment-beligas.png" },
-      { name: "MTR Beligas 5mg", price: 1290, image: "images/mtr-beligas.png" }
+      { name: "MTR Beligas 5mg", price: 1290, image: "images/mtr-beligas.png" },
+      { name: "L-Carnitine Beligas 30ml", price: 2200, image: "images/l-car-beligas.png" },
+      { name: "L-Carnitine+CLA Beligas 30ml", price: 2400, image: "images/l-car+cla-beligas.png" },
+      { name: "TestU NEBIDO 1000mg/4ml", price: 8500, image: "images/testu-nebido.png" }
     ],
     "Bacteriostatic water": [
       { name: "Bac Water SAAnabolic 10ml", price: 500, image: "images/bac-sa.png" },
@@ -599,9 +605,7 @@ const products = {
     "Blood Sugar & Fat Metabolism": [
       { name: "Carb up 2210 SAAnabolic 60t", price: 950, image: "images/carb-sa.png" },
       //{ name: "5-Amino-1mq SAAnabolic 60t", price: 950, image: "images/" },
-      { name: "SLP-PP-332 60t SAAnabolic 60t", price: 1750, image: "images/slp-sa.png" },
-      { name: "L-Carnitine Beligas 30ml", price: 2200, image: "images/l-car-beligas.png" },
-      { name: "L-Carnitine+CLA Beligas 30ml", price: 2400, image: "images/l-car+cla-beligas.png" }
+      { name: "SLP-PP-332 60t SAAnabolic 60t", price: 1750, image: "images/slp-sa.png" }
     ],
     "Anti-aging & NAD+ Boosters": [
       { name: "Enhanced NMN350 SAAnabolic 60t", price: 1250, image: "images/nmn350-sa.png" },
