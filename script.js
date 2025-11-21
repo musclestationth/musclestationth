@@ -568,7 +568,7 @@ const products = {
       { name: "SemaglutidePen Jolie 5mg", price: 4500, image: "images/sema-jolie.png" },
       { name: "SemaglutidePen Beligas 5mg", price: 5900, image: "images/sema-beligas.png" },
       { name: "Semaglutide BPMedical 5mg", price: 2400, image: "images/sema-bp.png" },
-      { name: "SemaglutidePen Wegovy 1mg(มีอย.)", price: 10900, image: "images/sema-wegovy.png" }
+      { name: "SemaglutidePen Wegovy 1mg(มีอย.)", price: 11900, image: "images/sema-wegovy.png" }
     ],
     "Tirzepatide": [
       { name: "Tirzep APLab 10mg", price: 3500, image: "images/tirzep-ap.png" },
@@ -576,7 +576,7 @@ const products = {
       { name: "TirzepPen Jolie 10mg", price: 5500, image: "images/tirzep-jolie.png" },
       { name: "TirzepPen Beligas 10mg", price: 4500, image: "images/tirzep-beligass.png" },
       { name: "Tirzep Platinum 10mg", price: 3500, image: "images/tirzep-plat.png" },
-      { name: "Tirzep Mounjaro Kwikpen 5mg/0.6ml(มีอย.)", price: 14900, image: "images/tirzep-kwikk.png" },
+      { name: "Tirzep Mounjaro Kwikpen 5mg/0.6ml(มีอย.)", price: 17500, image: "images/tirzep-kwikk.png" },
       { name: "Tirzep Wellness 10mg", price: 0, image: "images/tirzep-wellness.png" },
     ],
     "Retatrutide": [
