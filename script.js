@@ -22,6 +22,7 @@ const itemsPerPage = 3; // ✅ ให้โชว์ 3 สินค้าต่�
 const newProducts = [
   { name: "TestU NEBIDO 1000mg/4ml", price: 8500, image: "images/testu-nebido.png" },
   { name: "HGHPen SAAnabolic(Pharma) 30iu", price: 2900, image: "images/hghpen-sa.png" },
+  { name: "Tirzep SAAnabolic 20mg ", price: 4900, image: "images/tirzep20-sa.png" },
   { name: "HGH Wellness 100iu", price: 3500, image: "" },
   { name: "2xHGH Wellness 100iu", price: 6000, image: "" }
 
@@ -435,6 +436,8 @@ const products = {
       { name: "HGH SAAnabolic 120iu", price: 5500, image: "images/hgh-sa.png" },
       { name: "HGH BPMedical(SD) 100iu", price: 6930, image: "images/hgh1-bp.png" },
       { name: "HGH BPMedical(Pharma) 100iu", price: 10010, image: "images/hgh2-bp.png" },
+      { name: "HGH Wellness 100iu", price: 3500, image: "" },
+      { name: "2xHGH Wellness 100iu", price: 6000, image: "" },
 
       { name: "HGHPen Pfizer 12mg36iu(เฉพาะไส้)", price: 6820, image: "images/hghpen1-pfizer.png" },
       { name: "HGHPen Pfizer 12mg36iu(ไส้+ปากกา)", price: 8470, image: "images/hghpen2-pfizer.png" },
@@ -573,6 +576,7 @@ const products = {
     "Tirzepatide": [
       { name: "Tirzep APLab 10mg", price: 3500, image: "images/tirzep-ap.png" },
       { name: "Tirzep SAAnabolic 10mg", price: 3500, image: "images/tirzep-sa.png" },
+      { name: "Tirzep SAAnabolic 20mg ", price: 4900, image: "images/tirzep20-sa.png" },
       { name: "TirzepPen Jolie 10mg", price: 5500, image: "images/tirzep-jolie.png" },
       { name: "TirzepPen Beligas 10mg", price: 4500, image: "images/tirzep-beligass.png" },
       { name: "Tirzep Platinum 10mg", price: 3500, image: "images/tirzep-plat.png" },
