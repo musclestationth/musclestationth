@@ -21,8 +21,9 @@ const itemsPerPage = 3; // ✅ ให้โชว์ 3 สินค้าต่�
 // สินค้าเข้าใหม่ (กำหนดเอง)
 const newProducts = [
   { name: "TestU NEBIDO 1000mg/4ml", price: 8500, image: "images/testu-nebido.png" },
-  { name: "HGHPen SAAnabolic(Pharma) 30iu", price: 2900, image: "images/hghpen-sa.png" },
+  { name: "TestU SAAnabolic 250mg", price: 1650, image: "images/testu-sa.png" },
   { name: "Tirzep SAAnabolic 20mg ", price: 4900, image: "images/tirzep20-sa.png" },
+  { name: "HGHPen SAAnabolic(Pharma) 30iu", price: 2900, image: "images/hghpen-sa.png" },
   { name: "HGH Wellness 100iu", price: 3500, image: "" },
   { name: "2xHGH Wellness 100iu", price: 6000, image: "" }
 
@@ -371,7 +372,8 @@ const products = {
       { name: "MTR Beligas 5mg", price: 1290, image: "images/mtr-beligas.png" },
       { name: "L-Carnitine Beligas 30ml", price: 2200, image: "images/l-car-beligas.png" },
       { name: "L-Carnitine+CLA Beligas 30ml", price: 2400, image: "images/l-car+cla-beligas.png" },
-      { name: "TestU NEBIDO 1000mg/4ml", price: 8500, image: "images/testu-nebido.png" }
+      { name: "TestU NEBIDO 1000mg/4ml", price: 8500, image: "images/testu-nebido.png" },
+      { name: "TestU SAAnabolic 250mg", price: 1650, image: "images/testu-sa.png" }
     ],
     "Bacteriostatic water": [
       { name: "Bac Water SAAnabolic 10ml", price: 500, image: "images/bac-sa.png" },
