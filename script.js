@@ -736,6 +736,19 @@ function renderProducts(category, sub) {
   const productList = document.getElementById("productList");
   productList.innerHTML = "";
 
+   
+  if (category === "Oral AAS" && sub === "Anavar") {
+    const desc = document.createElement("div");
+    desc.className = "product-desc";  // จะเอาไปใส่ css เพิ่มก็ได้
+    desc.innerHTML = `
+      <p>
+        💊 <b>Anavar</b> เป็นสเตียรอยด์สาย Cutting เน้นลดไขมัน รักษามัดกล้าม
+        เหมาะกับคนที่ต้องการลีน ไม่บวมน้ำ ใช้ร่วมกับการคุมอาหารและเวทเทรนนิ่ง
+      </p>
+    `;
+    productList.appendChild(desc);
+  }
+
   products[category][sub].forEach(prod => {
     const div = document.createElement("div");
     div.className = "product-item";
