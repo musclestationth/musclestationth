@@ -366,3 +366,13 @@ textarea, input {
   display: none;
   padding-bottom: 150px;
 }
+
+.product-desc {
+  grid-column: 1 / -1;  /* ถ้าใช้ grid ให้กินเต็มแถว */
+  font-size: 13px;
+  padding: 8px;
+  margin-bottom: 6px;
+  background: #fff7e6;
+  border-radius: 6px;
+  line-height: 1.4;
+}
