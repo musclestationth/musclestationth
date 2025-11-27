@@ -369,7 +369,7 @@ textarea, input {
 
 .product-desc {
   grid-column: 1 / -1;  /* ถ้าใช้ grid ให้กินเต็มแถว */
-  font-size: 13px;
+  font-size: 18px;
   padding: 8px;
   margin-bottom: 6px;
   background: #fff7e6;
