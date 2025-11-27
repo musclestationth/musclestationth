@@ -862,29 +862,25 @@ function loadCart() {
 // ใส่ LIFF ID ของคุณ
 window.onload = function() {
   liff.init({ liffId: "2007887429-7ERpgpYL" }).then(() => {
+    generateAllProducts();   // ✅ สร้าง flat list สำหรับ search
+    renderCategories();      // สำหรับ Tab 1
+    loadCart();              // สำหรับ Tab 2
+    renderCart();            // อัพเดทแสดงผลตะกร้า
+    showTab(1);              // เริ่มเปิด Tab 1
 
-    generateAllProducts(); // ✅ สร้าง flat list สำหรับ search
-    renderCategories(); // สำหรับ Tab 1
-    loadCart();    // สำหรับ Tab 2
-    renderCart(); // อัพเดทแสดงผลตะกร้า
-    showTab(1);               // เริ่มเปิด Tab 1
-
+    // 🔹 ดึงค่าจาก URL เพื่อเลือก Oral AAS + Anavar อัตโนมัติ ถ้ามีพารามิเตอร์มา
+    selectCategoryAndSubFromUrl();
 
     const saved = localStorage.getItem("customerInfo");
     if (saved) {
       const customer = JSON.parse(saved);
       document.getElementById("custAddress").value = customer.address || "";
-
       if (customer.address) {
-        // ถ้ามีข้อมูลแล้ว → lock field และโชว์ปุ่มแก้ไข
         document.getElementById("custAddress").disabled = true;
         document.getElementById("saveBtn").style.display = "none";
         document.getElementById("editBtn").style.display = "inline-block";
       }
     }
-
-
-
   });
 };
 
@@ -1224,3 +1220,32 @@ function clearSearch() {
   input.value = "";        // ล้างข้อความ
   filterProducts();        // เรียกฟังก์ชัน filterProducts() เพื่อกลับไปแสดงสินค้าปกติ
 }
+
+function selectCategoryAndSubFromUrl() {
+  const params = new URLSearchParams(window.location.search);
+  const cat = params.get("cat");
+  const sub = params.get("sub");
+
+  // ถ้าไม่มี param ก็ไม่ต้องทำอะไร
+  if (!cat || !sub) return;
+
+  // เช็คว่ามี category + subcategory นี้จริงไหม
+  if (!products[cat] || !products[cat][sub]) return;
+
+  // set active ไว้
+  activeCategory = cat;
+  activeSubCategory = sub;
+
+  // render ใหม่ตามค่า active
+  renderCategories();        // จะทำให้ปุ่ม category ถูก active ตาม activeCategory
+  renderSubCategories(cat);  // จะทำให้ subcategory ถูก active + renderProducts(cat, sub);
+
+  // เลื่อนลงไปตรงรายการสินค้า
+  setTimeout(() => {
+    const productListEl = document.getElementById("productList");
+    if (productListEl) {
+      productListEl.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  }, 200); // ดีเลย์นิดนึงให้ DOM วาดเสร็จ
+}
+
