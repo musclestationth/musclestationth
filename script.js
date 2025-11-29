@@ -767,22 +767,245 @@ function renderProducts(category, sub) {
   else if (category === "Oral AAS" && sub === "Anadrol") {
     descTh = `
       <p>
-        💊 <b>Anadrol (Oxymetholone)</b> เน้นเพิ่มน้ำหนักและมวลกล้ามอย่างรวดเร็ว แต่มักทำให้น้ำขึ้นและเสี่ยงบวมน้ำมากกว่าสาย cutting
-        <br>• มักใช้ในช่วง bulk หรือเพิ่มน้ำหนักระยะสั้น
-        <br>• มีภาระต่อตับและระบบหัวใจ–หลอดเลือดค่อนข้างสูง
-        <br>• ไม่เหมาะกับผู้ที่มีโรคประจำตัวเกี่ยวกับตับ หัวใจ หรือความดัน ควรอยู่ภายใต้การดูแลของแพทย์
+        💊 <b>Anadrol (Oxymetholone)</b> สเตียรอยด์สาย bulking แรงมาก เพิ่มขนาดกล้ามและแรงแบบรวดเร็ว เหมาะใช้ช่วง mass หรือ kickstart cycle
+        <br>• ครึ่งชีวิต ~8–9 ชม. กินวันละ 1–2 ครั้ง
+        <br>• โดส: 25–100 mg/วัน (นิยมเริ่มที่ 50 mg)
+        <br>• ผลลัพธ์: กล้ามใหญ่เร็ว แรงขึ้นชัด น้ำหนักพุ่งเร็ว
+        <br>• ผลข้างเคียง: บวมเพราะกักน้ำ, ปวดหัว, ความดันสูง, ตับเครียดมาก (เป็น C17-aa), กด HPTA รุนแรง
+        <br>• แนะนำใช้ 4–6 สัปดาห์ พร้อม liver support (TUDCA/NAC)
+        <br>• PCT: Clomid/Nolva หลังจบ cycle หรือหลังหยุด Anadrol ใน stack
       </p>
     `;
     descEn = `
       <p>
-        💊 <b>Anadrol (Oxymetholone)</b> is typically used for rapid weight and mass gains and can cause significant water
-        retention compared with “cutting” compounds.
-        <br>• Often used in short bulking phases
-        <br>• Places considerable stress on the liver and cardiovascular system
-        <br>• Not suitable for people with liver, heart or blood pressure issues – medical supervision is strongly recommended.
+        💊 <b>Anadrol (Oxymetholone)</b> A very strong bulking steroid that rapidly increases muscle size and strength. Suitable for mass phase or as a kickstart in a cycle.
+        <br>• Half-life: ~8–9 hours, taken 1–2 times per day.
+        <br>• Dosage: 25–100 mg/day (commonly starts at 50 mg).
+        <br>• Results: Rapid muscle size increase, noticeable strength boost, quick weight gain.
+        <br>• Side effects: Water retention and bloating, headache, high blood pressure, heavy liver stress (C17-aa), strong HPTA suppression.
+        <br>• Recommended use: 4–6 weeks with liver support (TUDCA/NAC).
+        <br>• PCT: Clomid/Nolva after finishing the cycle or after stopping Anadrol in a stack.
       </p>
     `;
   }
+  // ✅ Oral AAS → Clen
+  else if (category === "Oral AAS" && sub === "Clen") {
+    descTh = `
+      <p>
+        💊 <b>Clenbuterol</b> ไม่ใช่สเตียรอยด์ แต่เป็น Beta-2 agonist ใช้เร่งการเผาผลาญ ลดไขมัน รักษามวลกล้าม เหมาะกับช่วง cutting
+        <br>• ครึ่งชีวิต ~36 ชม. วันละ 1 ครั้งตอนเช้า
+        <br>• โดส: เริ่มที่ 20 mcg/วัน เพิ่มทีละ 20 mcg ทุก 2–3 วัน (สูงสุด ~120–140 mcg/วัน)
+        <br>• ผลลัพธ์: เผาผลาญเพิ่ม ความร้อนในร่างกายสูงขึ้น กล้ามชัดขึ้น
+        <br>• ผลข้างเคียง: ใจสั่น มือสั่น นอนไม่หลับ ปวดหัว ความดันสูง ตับเต้นแรง อาจดื้อยาเร็ว
+        <br>• นิยมใช้แบบ 2 สัปดาห์ on / 2 สัปดาห์ off หรือเพิ่มโดสแบบ step-up 4–6 สัปดาห์
+        <br>• แนะนำใช้ร่วมกับ taurine + potassium ป้องกันตะคริว
+      </p>
+    `;
+    descEn = `
+      <p>
+        💊 <b>Clenbuterol</b> Not a steroid, but a Beta-2 agonist used to boost metabolism, burn fat, and preserve muscle mass. Ideal for cutting phases.
+        <br>• Half-life: ~36 hours, taken once daily in the morning.
+        <br>• Dosage: Start at 20 mcg/day, increase by 20 mcg every 2–3 days (maximum ~120–140 mcg/day).
+        <br>• Results: Increased metabolism, elevated body temperature, improved muscle definition.
+        <br>• Side effects: Rapid heartbeat, trembling hands, insomnia, headache, high blood pressure, heart palpitations, may develop tolerance quickly.
+        <br>• Common usage: 2 weeks on / 2 weeks off, or step-up dosing for 4–6 weeks.
+        <br>• Recommended to use alongside taurine and potassium to prevent cramps.
+      </p>
+    `;
+  }
+  // ✅ Oral AAS → Primo tab
+  else if (category === "Oral AAS" && sub === "Primo") {
+    descTh = `
+      <p>
+        💊 <b>Primo (Methenolone Enanthate)</b> คือสเตียรอยด์ที่มีฤทธิ์อ่อน มีความปลอดภัยสูง รักษามวลกล้ามเนื้อในช่วงลดไขมันเหมาะกับทั้งผู้ชายและผู้หญิง
+        <br>• ครึ่งชีวิต: แบบฉีดสัปดาห์ละ 1–2 ครั้ง/แบบกิน ต้องกินทุกวัน
+        <br>• โดสเริ่มต้น: แบบฉีด: 400–600 mg/สัปดาห์/แบบกิน: 50–100 mg/วัน (ไม่ค่อยนิยม เพราะผลเบาและราคาแพง)
+        <br>• ผลลัพธ์: รักษากล้ามเนื้อไม่บวมน้ำ ไม่เปลี่ยนเป็นเอสโตรเจน เสี่ยงผลข้างเคียงต่ำ กล้ามดูแบบธรรมชาติ
+        <br>• ผลข้างเคียง: มีผลกดฮอร์โมนเล็กน้อย
+        <br>• PCT: ใช้ Clomid / Nolvadex หลังจบ cycle
+      </p>
+    `;
+    descEn = `
+      <p>
+        💊 <b>Primo (Methenolone Enanthate)</b> Primo is a mild steroid with high safety, known for preserving muscle mass during fat loss. Suitable for both men and women.
+        <br>• Half-life: Injectable: 1–2 times per week/ Oral: must be taken daily
+        <br>• Starting dosage: Injectable: 400–600 mg/week/ Oral: 50–100 mg/day (less popular due to mild effects and high cost)
+        <br>• Benefits / Results: Preserves muscle without water retention/Does not convert to estrogen/Very low risk of side effects
+        <br>• Produces a natural-looking physique
+        <br>• Side effects: Slight hormone suppression
+        <br>• PCT: Use Clomid or Nolvadex after finishing the cycle.
+      </p>
+    `;
+  }
+
+  // ✅ Oral AAS → Dbol
+  else if (category === "Oral AAS" && sub === "Dbol") {
+    descTh = `
+      <p>
+        💊 <b>Dianabol (Methandienone)</b> สเตียรอยด์สาย bulking ยอดนิยม เพิ่มขนาดกล้ามและแรงอย่างรวดเร็ว เห็นผลในไม่กี่วัน เหมาะ kickstart cycle
+        <br>• ครึ่งชีวิต ~4–6 ชม. ควรแบ่งกินวันละ 2–3 ครั้ง
+        <br>• โดส: 20–40 mg/วัน (เริ่มที่ 20–30 mg สำหรับมือใหม่)
+        <br>• ผลลัพธ์: กล้ามโตเร็ว น้ำหนักพุ่ง แรงขึ้นไว บวมเต็ม
+        <br>• ผลข้างเคียง: กักน้ำเยอะ ความดันสูง สิว ผมร่วง ตับเครียด (C17-aa), กด HPTA
+        <br>• นิยมใช้ 4–6 สัปดาห์ พร้อม liver support (TUDCA/NAC)
+        <br>• ควรใช้ควบกับ Test เพื่อป้องกัน suppression
+        <br>• PCT: Clomid/Nolva หลังจบ cycle
+      </p>
+    `;
+    descEn = `
+      <p>
+        💊 <b>Dianabol (Methandienone)</b> A popular bulking steroid that rapidly increases muscle size and strength, with visible results in just a few days. Suitable as a kickstart for a cycle.
+        <br>• Half-life: ~4–6 hours, should be split into 2–3 doses per day.
+        <br>• Dosage: 20–40 mg/day (beginners usually start at 20–30 mg).
+        <br>• Results: Rapid muscle growth, fast weight gain, noticeable strength increase, and full muscle appearance.
+        <br>• Side effects: Heavy water retention, high blood pressure, acne, hair loss, liver stress (C17-aa), HPTA suppression.
+        <br>• Commonly used for 4–6 weeks with liver support (TUDCA/NAC).
+        <br>• Should be used together with Test to prevent suppression.
+        <br>• PCT: Clomid/Nolva after finishing the cycle.
+      </p>
+    `;
+  }
+  // ✅ Oral AAS → Tbol
+  else if (category === "Oral AAS" && sub === "Tbol3") {
+    descTh = `
+      <p>
+        💊 <b>Anadrol (Oxymetholone)</b> สเตียรอยด์สาย bulking แรงมาก เพิ่มขนาดกล้ามและแรงแบบรวดเร็ว เหมาะใช้ช่วง mass หรือ kickstart cycle
+        <br>• ครึ่งชีวิต ~8–9 ชม. กินวันละ 1–2 ครั้ง
+
+      </p>
+    `;
+    descEn = `
+      <p>
+        💊 <b>Anadrol (Oxymetholone)</b> A very strong bulking steroid that rapidly increases muscle size and strength. Suitable for mass phase or as a kickstart in a cycle.
+        <br>• Half-life: ~8–9 hours, taken 1–2 times per day.
+
+      </p>
+    `;
+  }
+  // ✅ Oral AAS → T3
+  else if (category === "Oral AAS" && sub === "T33") {
+    descTh = `
+      <p>
+        💊 <b>Anadrol (Oxymetholone)</b> สเตียรอยด์สาย bulking แรงมาก เพิ่มขนาดกล้ามและแรงแบบรวดเร็ว เหมาะใช้ช่วง mass หรือ kickstart cycle
+        <br>• ครึ่งชีวิต ~8–9 ชม. กินวันละ 1–2 ครั้ง
+
+      </p>
+    `;
+    descEn = `
+      <p>
+        💊 <b>Anadrol (Oxymetholone)</b> A very strong bulking steroid that rapidly increases muscle size and strength. Suitable for mass phase or as a kickstart in a cycle.
+        <br>• Half-life: ~8–9 hours, taken 1–2 times per day.
+
+      </p>
+    `;
+  }
+  // ✅ Oral AAS → Test เม็ด
+  else if (category === "Oral AAS" && sub === "Test เม็ด3") {
+    descTh = `
+      <p>
+        💊 <b>Anadrol (Oxymetholone)</b> สเตียรอยด์สาย bulking แรงมาก เพิ่มขนาดกล้ามและแรงแบบรวดเร็ว เหมาะใช้ช่วง mass หรือ kickstart cycle
+        <br>• ครึ่งชีวิต ~8–9 ชม. กินวันละ 1–2 ครั้ง
+
+      </p>
+    `;
+    descEn = `
+      <p>
+        💊 <b>Anadrol (Oxymetholone)</b> A very strong bulking steroid that rapidly increases muscle size and strength. Suitable for mass phase or as a kickstart in a cycle.
+        <br>• Half-life: ~8–9 hours, taken 1–2 times per day.
+
+      </p>
+    `;
+  }
+  // ✅ Oral AAS → Stano
+  else if (category === "Oral AAS" && sub === "Stano3") {
+    descTh = `
+      <p>
+        💊 <b>Anadrol (Oxymetholone)</b> สเตียรอยด์สาย bulking แรงมาก เพิ่มขนาดกล้ามและแรงแบบรวดเร็ว เหมาะใช้ช่วง mass หรือ kickstart cycle
+        <br>• ครึ่งชีวิต ~8–9 ชม. กินวันละ 1–2 ครั้ง
+
+      </p>
+    `;
+    descEn = `
+      <p>
+        💊 <b>Anadrol (Oxymetholone)</b> A very strong bulking steroid that rapidly increases muscle size and strength. Suitable for mass phase or as a kickstart in a cycle.
+        <br>• Half-life: ~8–9 hours, taken 1–2 times per day.
+
+      </p>
+    `;
+  }
+  // ✅ Oral AAS → Prov
+  else if (category === "Oral AAS" && sub === "Proviron3") {
+    descTh = `
+      <p>
+        💊 <b>Anadrol (Oxymetholone)</b> สเตียรอยด์สาย bulking แรงมาก เพิ่มขนาดกล้ามและแรงแบบรวดเร็ว เหมาะใช้ช่วง mass หรือ kickstart cycle
+        <br>• ครึ่งชีวิต ~8–9 ชม. กินวันละ 1–2 ครั้ง
+
+      </p>
+    `;
+    descEn = `
+      <p>
+        💊 <b>Anadrol (Oxymetholone)</b> A very strong bulking steroid that rapidly increases muscle size and strength. Suitable for mass phase or as a kickstart in a cycle.
+        <br>• Half-life: ~8–9 hours, taken 1–2 times per day.
+
+      </p>
+    `;
+  }
+  // ✅ Oral AAS → Halo
+  else if (category === "Oral AAS" && sub === "Halotestin3") {
+    descTh = `
+      <p>
+        💊 <b>Anadrol (Oxymetholone)</b> สเตียรอยด์สาย bulking แรงมาก เพิ่มขนาดกล้ามและแรงแบบรวดเร็ว เหมาะใช้ช่วง mass หรือ kickstart cycle
+        <br>• ครึ่งชีวิต ~8–9 ชม. กินวันละ 1–2 ครั้ง
+
+      </p>
+    `;
+    descEn = `
+      <p>
+        💊 <b>Anadrol (Oxymetholone)</b> A very strong bulking steroid that rapidly increases muscle size and strength. Suitable for mass phase or as a kickstart in a cycle.
+        <br>• Half-life: ~8–9 hours, taken 1–2 times per day.
+
+      </p>
+    `;
+  }
+  // ✅ Oral AAS → Superdrol
+  else if (category === "Oral AAS" && sub === "Superdrol3") {
+    descTh = `
+      <p>
+        💊 <b>Anadrol (Oxymetholone)</b> สเตียรอยด์สาย bulking แรงมาก เพิ่มขนาดกล้ามและแรงแบบรวดเร็ว เหมาะใช้ช่วง mass หรือ kickstart cycle
+        <br>• ครึ่งชีวิต ~8–9 ชม. กินวันละ 1–2 ครั้ง
+
+      </p>
+    `;
+    descEn = `
+      <p>
+        💊 <b>Anadrol (Oxymetholone)</b> A very strong bulking steroid that rapidly increases muscle size and strength. Suitable for mass phase or as a kickstart in a cycle.
+        <br>• Half-life: ~8–9 hours, taken 1–2 times per day.
+
+      </p>
+    `;
+  }
+  // ✅ Oral AAS → Oral etc
+  else if (category === "Oral AAS" && sub === "Oral etc.3") {
+    descTh = `
+      <p>
+        💊 <b>Anadrol (Oxymetholone)</b> สเตียรอยด์สาย bulking แรงมาก เพิ่มขนาดกล้ามและแรงแบบรวดเร็ว เหมาะใช้ช่วง mass หรือ kickstart cycle
+        <br>• ครึ่งชีวิต ~8–9 ชม. กินวันละ 1–2 ครั้ง
+
+      </p>
+    `;
+    descEn = `
+      <p>
+        💊 <b>Anadrol (Oxymetholone)</b> A very strong bulking steroid that rapidly increases muscle size and strength. Suitable for mass phase or as a kickstart in a cycle.
+        <br>• Half-life: ~8–9 hours, taken 1–2 times per day.
+
+      </p>
+    `;
+  }
+
+
+
+    
+    
   // ✅ ตัวอย่าง Fat Loss → Clenbuterol (แก้ชื่อ category/sub ให้ตรงกับของจริง)
   else if (category === "Fat Loss" && sub === "Clenbuterol") {
     descTh = `
