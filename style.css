@@ -376,3 +376,37 @@ textarea, input {
   border-radius: 6px;
   line-height: 1.4;
 }
+
+.product-desc {
+  position: relative;
+  padding: 8px 10px 10px;
+  margin-bottom: 8px;
+  background: #fff7e6;
+  border-radius: 6px;
+  font-size: 13px;
+  line-height: 1.4;
+}
+
+.product-desc .desc-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 4px;
+}
+
+.product-desc .desc-title {
+  font-weight: 600;
+  font-size: 12px;
+}
+
+.product-desc .lang-toggle {
+  font-size: 11px;
+  padding: 2px 8px;
+  border-radius: 12px;
+  border: 1px solid #ccc;
+  background: #ffffff;
+}
+
+.product-desc p {
+  margin: 2px 0;
+}
