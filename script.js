@@ -744,19 +744,22 @@ function renderProducts(category, sub) {
   if (category === "Oral AAS" && sub === "Anavar") {
     descTh = `
       <p>
-        💊 <b>Anavar (Oxandrolone)</b> สเตียรอยด์สาย cutting/recomp ช่วยเพิ่ม strength กล้ามแน่น ชัด แห้ง ไม่กักน้ำ
-        เหมาะกับคนที่ต้องการลดไขมันโดยพยายามรักษามัดกล้าม นิยมใช้ทั้งชายและหญิง
-        <br>• ควรใช้ร่วมกับการคุมอาหารและเวทเทรนนิ่งอย่างเคร่งครัด
-        <br>• มีผลต่อการทำงานของตับ ไขมันในเลือด และระบบฮอร์โมน ควรอยู่ภายใต้คำแนะนำของผู้เชี่ยวชาญด้านสุขภาพ
+        💊 <b>Anavar (Oxandrolone)</b> สเตียรอยด์สาย cutting/recomp ช่วยเพิ่ม strength กล้ามแน่น ชัด แห้ง ไม่กักน้ำ เหมาะลดไขมันโดยไม่เสียกล้าม นิยมใช้ทั้งชายและหญิง
+        <br>• ครึ่งชีวิต ~9 ชม. ควรแบ่งกิน 2 ครั้ง/วัน
+        <br>• โดส: ชาย 30–50 mg/วัน, หญิง 5–15 mg/วัน
+        <br>• ผลข้างเคียง: กด HPTA (ควรใช้ร่วมกับ Test), กระทบตับ (เป็น C17-aa), HDL ลด LDL เพิ่ม, อาจผมร่วงในคนที่ไวต่อ DHT
+        <br>• นิยมใช้ 6–8 สัปดาห์ พร้อม liver support (TUDCA/NAC)
+        <br>• PCT: Clomid หรือ Nolva 4 สัปดาห์ หลังจบ cycle
       </p>
     `;
     descEn = `
       <p>
-        💊 <b>Anavar (Oxandrolone)</b> is an oral steroid often used in cutting or recomp phases to support strength and lean,
-        dry muscle with minimal water retention.
-        <br>• Commonly used by both males and females during fat-loss phases
-        <br>• May impact liver function, blood lipids and hormone balance – should only be used under professional supervision
-        and together with proper diet and resistance training.
+        💊 <b>Anavar (Oxandrolone)</b> A cutting/recomp steroid that helps increase strength, create dense, defined, and dry muscles, without water retention. Suitable for fat loss without losing muscle. Popular among both men and women.
+        <br>• Half-life: ~9 hours, should be split into 2 doses per day.
+        <br>• Dosage: Men 30–50 mg/day, Women 5–15 mg/day.
+        <br>• Side effects: Suppresses HPTA (should be used with Test), affects the liver (C17-aa), decreases HDL and increases LDL, may cause hair loss in those sensitive to DHT.
+        <br>• Commonly used for 6–8 weeks with liver support (TUDCA/NAC).
+        <br>• PCT: Clomid or Nolva for 4 weeks after finishing the cycle.
       </p>
     `;
   }
