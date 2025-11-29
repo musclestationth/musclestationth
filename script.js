@@ -736,27 +736,109 @@ function renderProducts(category, sub) {
   const productList = document.getElementById("productList");
   productList.innerHTML = "";
 
-   
+  // ---------- คำอธิบายแต่ละหมวด (TH / EN) ----------
+  let descTh = "";
+  let descEn = "";
+
+  // ✅ Oral AAS → Anavar
   if (category === "Oral AAS" && sub === "Anavar") {
-    const desc = document.createElement("div");
-    desc.className = "product-desc";  // จะเอาไปใส่ css เพิ่มก็ได้
-    desc.innerHTML = `
+    descTh = `
       <p>
-        💊 <b>Anavar (Oxandrolone)</b> สเตียรอยด์สาย cutting/recomp ช่วยเพิ่ม strength กล้ามแน่น ชัด แห้ง ไม่กักน้ำ เหมาะลดไขมันโดยไม่เสียกล้าม นิยมใช้ทั้งชายและหญิง
-<br>󠁯•󠁏 ครึ่งชีวิต ~9 ชม. ควรแบ่งกิน 2 ครั้ง/วัน
-<br>󠁯•󠁏 โดส: ชาย 30–50 mg/วัน, หญิง 5–15 mg/วัน
-<br>󠁯•󠁏 ผลข้างเคียง: กด HPTA (ควรใช้ร่วมกับ Test), กระทบตับ (เป็น C17-aa), HDL ลด LDL เพิ่ม, อาจผมร่วงในคนที่ไวต่อ DHT
-<br>󠁯•󠁏 นิยมใช้ 6–8 สัปดาห์ พร้อม liver support (TUDCA/NAC)
-<br>󠁯•󠁏 PCT: Clomid หรือ Nolva 4 สัปดาห์ หลังจบ cycle
+        💊 <b>Anavar (Oxandrolone)</b> สเตียรอยด์สาย cutting/recomp ช่วยเพิ่ม strength กล้ามแน่น ชัด แห้ง ไม่กักน้ำ
+        เหมาะกับคนที่ต้องการลดไขมันโดยพยายามรักษามัดกล้าม นิยมใช้ทั้งชายและหญิง
+        <br>• ควรใช้ร่วมกับการคุมอาหารและเวทเทรนนิ่งอย่างเคร่งครัด
+        <br>• มีผลต่อการทำงานของตับ ไขมันในเลือด และระบบฮอร์โมน ควรอยู่ภายใต้คำแนะนำของผู้เชี่ยวชาญด้านสุขภาพ
       </p>
     `;
-    productList.appendChild(desc);
+    descEn = `
+      <p>
+        💊 <b>Anavar (Oxandrolone)</b> is an oral steroid often used in cutting or recomp phases to support strength and lean,
+        dry muscle with minimal water retention.
+        <br>• Commonly used by both males and females during fat-loss phases
+        <br>• May impact liver function, blood lipids and hormone balance – should only be used under professional supervision
+        and together with proper diet and resistance training.
+      </p>
+    `;
+  }
+  // ✅ Oral AAS → Anadrol
+  else if (category === "Oral AAS" && sub === "Anadrol") {
+    descTh = `
+      <p>
+        💊 <b>Anadrol (Oxymetholone)</b> เน้นเพิ่มน้ำหนักและมวลกล้ามอย่างรวดเร็ว แต่มักทำให้น้ำขึ้นและเสี่ยงบวมน้ำมากกว่าสาย cutting
+        <br>• มักใช้ในช่วง bulk หรือเพิ่มน้ำหนักระยะสั้น
+        <br>• มีภาระต่อตับและระบบหัวใจ–หลอดเลือดค่อนข้างสูง
+        <br>• ไม่เหมาะกับผู้ที่มีโรคประจำตัวเกี่ยวกับตับ หัวใจ หรือความดัน ควรอยู่ภายใต้การดูแลของแพทย์
+      </p>
+    `;
+    descEn = `
+      <p>
+        💊 <b>Anadrol (Oxymetholone)</b> is typically used for rapid weight and mass gains and can cause significant water
+        retention compared with “cutting” compounds.
+        <br>• Often used in short bulking phases
+        <br>• Places considerable stress on the liver and cardiovascular system
+        <br>• Not suitable for people with liver, heart or blood pressure issues – medical supervision is strongly recommended.
+      </p>
+    `;
+  }
+  // ✅ ตัวอย่าง Fat Loss → Clenbuterol (แก้ชื่อ category/sub ให้ตรงกับของจริง)
+  else if (category === "Fat Loss" && sub === "Clenbuterol") {
+    descTh = `
+      <p>
+        🔥 <b>Clenbuterol</b> มักใช้ในช่วงลดไขมันเพื่อช่วยเพิ่มการเผาผลาญและทำให้รู้สึกตื่นตัวมากขึ้น
+        <br>• มีผลต่อหัวใจ ระบบประสาท และความดันโลหิต
+        <br>• ไม่ควรใช้เกินกว่าที่ผู้เชี่ยวชาญแนะนำ และควรหยุดทันทีหากมีอาการใจสั่น แน่นหน้าอก หรือเวียนหัวผิดปกติ
+      </p>
+    `;
+    descEn = `
+      <p>
+        🔥 <b>Clenbuterol</b> is often used during fat-loss phases to increase metabolic rate and alertness.
+        <br>• Can affect heart rate, nervous system and blood pressure
+        <br>• Should not be used beyond professional guidance and must be stopped immediately if severe side effects such
+        as palpitations, chest tightness or dizziness occur.
+      </p>
+    `;
   }
 
+  // ---------- ถ้ามีคำอธิบาย ให้สร้างกล่อง + ปุ่มเปลี่ยนภาษา ----------
+  if (descTh) {
+    const desc = document.createElement("div");
+    desc.className = "product-desc";
+
+    // โครงสร้าง: header (ปุ่ม) + body (ข้อความ)
+    desc.innerHTML = `
+      <div class="desc-header">
+        <span class="desc-title">${category} › ${sub}</span>
+        <button type="button" class="lang-toggle" data-lang="th">ENG Info</button>
+      </div>
+      <div class="desc-body">
+        ${descTh}
+      </div>
+    `;
+
+    productList.appendChild(desc);
+
+    // ผูก event ปุ่มสลับภาษา
+    const btn = desc.querySelector(".lang-toggle");
+    const body = desc.querySelector(".desc-body");
+
+    btn.addEventListener("click", () => {
+      const current = btn.getAttribute("data-lang");
+      if (current === "th") {
+        body.innerHTML = descEn || descTh;   // ถ้าไม่มี EN ก็ใช้ TH เหมือนเดิม
+        btn.textContent = "TH Info";
+        btn.setAttribute("data-lang", "en");
+      } else {
+        body.innerHTML = descTh;
+        btn.textContent = "ENG Info";
+        btn.setAttribute("data-lang", "th");
+      }
+    });
+  }
+
+  // ---------- แสดงสินค้าในหมวด / หมวดย่อย ----------
   products[category][sub].forEach(prod => {
     const div = document.createElement("div");
     div.className = "product-item";
-    // 👇 เพิ่ม attribute สำหรับหมวดหลักและหมวดย่อย
     div.setAttribute("data-category", category);
     div.setAttribute("data-subcategory", sub);
 
@@ -773,6 +855,8 @@ function renderProducts(category, sub) {
     productList.appendChild(div);
   });
 }
+
+
 
 
 // -------------------------
