@@ -866,165 +866,1124 @@ function renderProducts(category, sub) {
     `;
   }
   // ✅ Oral AAS → Tbol
-  else if (category === "Oral AAS" && sub === "Tbol3") {
+  else if (category === "Oral AAS" && sub === "Tbol") {
     descTh = `
       <p>
-        💊 <b>Anadrol (Oxymetholone)</b> สเตียรอยด์สาย bulking แรงมาก เพิ่มขนาดกล้ามและแรงแบบรวดเร็ว เหมาะใช้ช่วง mass หรือ kickstart cycle
-        <br>• ครึ่งชีวิต ~8–9 ชม. กินวันละ 1–2 ครั้ง
-
+        💊 <b>T-Bol (Turinabol)</b> สเตียรอยด์ oral สาย bulking แบบ mild ที่พัฒนาจาก Dianabol ลดผลข้างเคียงกักน้ำ เหมาะสำหรับเพิ่มกล้ามลีน เพิ่ม strength แบบค่อยเป็นค่อยไป
+        <br>• ครึ่งชีวิต ~16 ชั่วโมง กินวันละครั้งหรือแบ่ง 2 ครั้ง
+        <br>• โดส: 40–60 mg/วัน (เริ่ม 20–40 mg สำหรับมือใหม่)
+        <br>• ผลลัพธ์: กล้ามเพิ่มแบบแห้ง ไม่บวมน้ำ แรงขึ้นชัด กล้ามชัดเจน
+        <br>• ผลข้างเคียง: กด HPTA เล็กน้อย ตับเครียด (C17-aa) ความดันอาจเพิ่มบ้าง แต่ต่ำกว่า Dianabol
+        <br>• ใช้ได้ 6–8 สัปดาห์ พร้อม liver support
+        <br>• PCT: Clomid/Nolva หลังจบ cycle
       </p>
     `;
     descEn = `
       <p>
-        💊 <b>Anadrol (Oxymetholone)</b> A very strong bulking steroid that rapidly increases muscle size and strength. Suitable for mass phase or as a kickstart in a cycle.
-        <br>• Half-life: ~8–9 hours, taken 1–2 times per day.
-
+        💊 <b>T-Bol (Turinabol)</b> A mild oral bulking steroid developed from Dianabol, designed to reduce side effects such as water retention. Suitable for lean muscle gain and gradual strength enhancement.
+        <br>• Half-life: ~16 hours, taken once daily or split into 2 doses.
+        <br>• Dosage: 40–60 mg/day (beginners usually start at 20–40 mg).
+        <br>• Results: Dry muscle gains, no water retention, noticeable strength increase, clear muscle definition.
+        <br>• Side effects: Mild HPTA suppression, liver stress (C17-aa), possible slight increase in blood pressure but lower than Dianabol.
+        <br>• Commonly used for 6–8 weeks with liver support.
+        <br>• PCT: Clomid/Nolva after finishing the cycle.
       </p>
     `;
   }
   // ✅ Oral AAS → T3
-  else if (category === "Oral AAS" && sub === "T33") {
+  else if (category === "Oral AAS" && sub === "T3") {
     descTh = `
       <p>
-        💊 <b>Anadrol (Oxymetholone)</b> สเตียรอยด์สาย bulking แรงมาก เพิ่มขนาดกล้ามและแรงแบบรวดเร็ว เหมาะใช้ช่วง mass หรือ kickstart cycle
-        <br>• ครึ่งชีวิต ~8–9 ชม. กินวันละ 1–2 ครั้ง
-
+        💊 <b>T3 (Liothyronine Sodium)</b> ฮอร์โมนไทรอยด์สังเคราะห์ ช่วยเร่งการเผาผลาญ ใช้ลดไขมันอย่างแรง เหมาะช่วง cutting
+        <br>• ครึ่งชีวิต ~1 วัน กินวันละครั้งตอนเช้า
+        <br>• โดส: เริ่มที่ 25 mcg/วัน เพิ่มทีละ 12.5–25 mcg ทุก 3–5 วัน (สูงสุด ~75–100 mcg/วัน)
+        <br>• ผลลัพธ์: เผาผลาญพุ่ง น้ำหนักลงไว กล้ามชัด
+        <br>• ผลข้างเคียง: กล้ามอาจสลายถ้าใช้โดสสูงเกินหรือไม่มีกลุ่ม anabolic พ่วง ใจสั่น เหงื่อออก หงุดหงิด มือสั่น นอนไม่หลับ
+        <br>• นิยมใช้แบบ taper up & taper down เพื่อป้องกัน thyroid shutdown
+        <br>• ไม่แนะนำใช้เกิน 6–8 สัปดาห์ต่อเนื่อง
       </p>
     `;
     descEn = `
       <p>
-        💊 <b>Anadrol (Oxymetholone)</b> A very strong bulking steroid that rapidly increases muscle size and strength. Suitable for mass phase or as a kickstart in a cycle.
-        <br>• Half-life: ~8–9 hours, taken 1–2 times per day.
-
-      </p>
-    `;
-  }
-  // ✅ Oral AAS → Test เม็ด
-  else if (category === "Oral AAS" && sub === "Test เม็ด3") {
-    descTh = `
-      <p>
-        💊 <b>Anadrol (Oxymetholone)</b> สเตียรอยด์สาย bulking แรงมาก เพิ่มขนาดกล้ามและแรงแบบรวดเร็ว เหมาะใช้ช่วง mass หรือ kickstart cycle
-        <br>• ครึ่งชีวิต ~8–9 ชม. กินวันละ 1–2 ครั้ง
-
-      </p>
-    `;
-    descEn = `
-      <p>
-        💊 <b>Anadrol (Oxymetholone)</b> A very strong bulking steroid that rapidly increases muscle size and strength. Suitable for mass phase or as a kickstart in a cycle.
-        <br>• Half-life: ~8–9 hours, taken 1–2 times per day.
-
+        💊 <b>T3 (Liothyronine Sodium)</b> A synthetic thyroid hormone that boosts metabolism, used for aggressive fat loss. Suitable for cutting phases.
+        <br>• Half-life: ~1 day, taken once daily in the morning.
+        <br>• Dosage: Start at 25 mcg/day, increase by 12.5–25 mcg every 3–5 days (maximum ~75–100 mcg/day).
+        <br>• Results: Rapid metabolism increase, fast weight loss, improved muscle definition.
+        <br>• Side effects: Muscle loss may occur if used at high doses or without anabolic support, heart palpitations, sweating, irritability, hand tremors, insomnia.
+        <br>• Commonly used with taper up & taper down method to prevent thyroid shutdown.
+        <br>• Not recommended for continuous use beyond 6–8 weeks.
       </p>
     `;
   }
   // ✅ Oral AAS → Stano
-  else if (category === "Oral AAS" && sub === "Stano3") {
+  else if (category === "Oral AAS" && sub === "Stano") {
     descTh = `
       <p>
-        💊 <b>Anadrol (Oxymetholone)</b> สเตียรอยด์สาย bulking แรงมาก เพิ่มขนาดกล้ามและแรงแบบรวดเร็ว เหมาะใช้ช่วง mass หรือ kickstart cycle
-        <br>• ครึ่งชีวิต ~8–9 ชม. กินวันละ 1–2 ครั้ง
-
+        💊 <b>Winstrol (Stanozolol)</b> สเตียรอยด์อนุพันธ์ DHT นิยมใช้ช่วง cutting เพื่อลดไขมัน คงกล้าม และเพิ่มความคมชัดของกล้ามเนื้อ เหมาะสำหรับผู้ที่ต้องการรูปร่างแห้งแบบกระชับ
+        <br>• ครึ่งชีวิต:แบบฉีด ~24 ชั่วโมง (ควรฉีดทุกวัน หรือวันเว้นวัน)
+        <br>• โดสเริ่มต้น: แบบกิน: 30–50 mg/วัน / แบบฉีด: 50 mg วันเว้นวัน หรือ 100 mg 3 ครั้ง/สัปดาห์
+        <br>• ผลลัพธ์: แห้ง คม ไม่บวมน้ำ เพิ่มเส้นเลือด เพิ่มแรง ในช่วงลดไขมัน
+        <br>• ผลข้างเคียง: ปวดข้อ ไขมันในเลือดแย่ลง ตับทำงานหนัก
+        <br>• PCT: ใช้ Clomid / Nolvadex หลังจบ cycle
       </p>
     `;
     descEn = `
       <p>
-        💊 <b>Anadrol (Oxymetholone)</b> A very strong bulking steroid that rapidly increases muscle size and strength. Suitable for mass phase or as a kickstart in a cycle.
-        <br>• Half-life: ~8–9 hours, taken 1–2 times per day.
-
+        💊 <b>Winstrol (Stanozolol)</b> is a DHT-derived steroid commonly used during cutting phases to reduce body fat, preserve muscle, and enhance muscle definition. Ideal for those seeking a dry, tight, and lean physique.
+        <br>• Half-life: Injectable: ~24 hours (should be injected daily or every other day)
+        <br>• Starting dosage: Oral: 30–50 mg/day / Injectable: 50 mg every other day, or 100 mg 3 times per week
+        <br>• Results: Dry and sharp muscle appearance, no water retention, increased vascularity, enhanced strength during fat loss.
+        <br>• Side effects: Joint pain, worsened blood lipid profile, liver stress.
+        <br>• PCT: Use Clomid / Nolvadex after finishing the cycle.
       </p>
     `;
   }
   // ✅ Oral AAS → Prov
-  else if (category === "Oral AAS" && sub === "Proviron3") {
+  else if (category === "Oral AAS" && sub === "Proviron") {
     descTh = `
       <p>
-        💊 <b>Anadrol (Oxymetholone)</b> สเตียรอยด์สาย bulking แรงมาก เพิ่มขนาดกล้ามและแรงแบบรวดเร็ว เหมาะใช้ช่วง mass หรือ kickstart cycle
-        <br>• ครึ่งชีวิต ~8–9 ชม. กินวันละ 1–2 ครั้ง
-
+        💊 <b>Proviron (Mesterolone)</b> DHT ที่ไม่สามารถแปลงเป็น estrogen ใช้เพิ่มความแข็งแรงของกล้ามเนื้อ ลดการกักน้ำ และช่วยเพิ่มความใคร่ เหมาะใช้ช่วง cutting หรือ PCT
+        <br>• ครึ่งชีวิต ~12 ชั่วโมง กินวันละ 2 ครั้ง
+        <br>• โดส: 25–75 mg/วัน
+        <br>• ผลลัพธ์: เพิ่มความแข็งแรง กล้ามเนื้อแน่นขึ้น เส้นเลือดชัด ลดอาการบวมน้ำ ช่วยรักษาระดับเทสโทสเตอโรนขณะใช้สเตียรอยด์อื่น
+        <br>• ผลข้างเคียง: อาจมีผลต่อตับเล็กน้อย กด HPTA เล็กน้อย แต่ไม่แรงเหมือนสเตียรอยด์อื่น
+        <br>• มักใช้ร่วมกับ Test หรือใน PCT เพื่อช่วยฟื้นฟูระบบฮอร์โมน
+        <br>• ไม่แนะนำใช้เดี่ยวเป็นระยะยาว
       </p>
     `;
     descEn = `
       <p>
-        💊 <b>Anadrol (Oxymetholone)</b> A very strong bulking steroid that rapidly increases muscle size and strength. Suitable for mass phase or as a kickstart in a cycle.
-        <br>• Half-life: ~8–9 hours, taken 1–2 times per day.
-
+        💊 <b>Proviron (Mesterolone)</b> is a DHT-based compound that cannot convert to estrogen. It is used to increase muscle hardness, reduce water retention, and enhance libido. Suitable for cutting phases or during PCT.
+        <br>• Half-life: ~12 hours, taken twice daily.
+        <br>• Dosage: 25–75 mg/day.
+        <br>• Results: Increases strength/ Enhances muscle density and vascularity/ Reduces water retention/ Helps maintain testosterone levels while using other steroids
+        <br>• Side effects: Mild impact on the liver/ Slight HPTA suppression, but weaker compared to most other steroids
+        <br>• Usage notes: Commonly used with Test or during PCT to support hormone recovery.
+        <br>• Not recommended as a long-term standalone use.
       </p>
     `;
   }
   // ✅ Oral AAS → Halo
-  else if (category === "Oral AAS" && sub === "Halotestin3") {
+  else if (category === "Oral AAS" && sub === "Halotestin") {
     descTh = `
       <p>
-        💊 <b>Anadrol (Oxymetholone)</b> สเตียรอยด์สาย bulking แรงมาก เพิ่มขนาดกล้ามและแรงแบบรวดเร็ว เหมาะใช้ช่วง mass หรือ kickstart cycle
-        <br>• ครึ่งชีวิต ~8–9 ชม. กินวันละ 1–2 ครั้ง
-
+        💊 <b>Halotestin (Fluoxymesterone)</b> สเตียรอยด์อนุพันธ์ DHT สายแรง เน้นเพิ่มความแข็งแรงและความดุดัน เหมาะกับนักกีฬาแข่งแรง หรือใช้ช่วง peak strength
+        <br>• ครึ่งชีวิต ~9 ชั่วโมง กินวันละ 1–2 ครั้ง
+        <br>• โดส: 10–30 mg/วัน
+        <br>• ผลลัพธ์: เพิ่ม strength อย่างรวดเร็ว เพิ่ม aggression สูง กล้ามเนื้อแน่นแข็ง เส้นเลือดชัด
+        <br>• ผลข้างเคียง: ตับเครียดมาก (C17-aa), ความดันสูง, กด HPTA รุนแรง, อาจทำให้ปวดหัว นอนไม่หลับ และสิวรุนแรง
+        <br>• ใช้ได้ 4–6 สัปดาห์เท่านั้น พร้อม liver support
+        <br>• PCT: จำเป็นมาก ใช้ Clomid/Nolva หลังจบ cycle
       </p>
     `;
     descEn = `
       <p>
-        💊 <b>Anadrol (Oxymetholone)</b> A very strong bulking steroid that rapidly increases muscle size and strength. Suitable for mass phase or as a kickstart in a cycle.
-        <br>• Half-life: ~8–9 hours, taken 1–2 times per day.
-
+        💊 <b>Halotestin (Fluoxymesterone)</b> A potent DHT-derived steroid that focuses on increasing strength and aggression. Suitable for strength athletes or during peak strength phases.
+        <br>• Half-life: ~9 hours, taken 1–2 times per day.
+        <br>• Dosage: 10–30 mg/day.
+        <br>• Results: Rapid strength increase, high aggression, hard and dense muscle appearance, enhanced vascularity.
+        <br>• Side effects: Severe liver stress (C17-aa), high blood pressure, strong HPTA suppression, may cause headaches, insomnia, and severe acne.
+        <br>• Recommended for only 4–6 weeks of use, with liver support.
+        <br>• PCT: Highly necessary — use Clomid/Nolva after finishing the cycle.
       </p>
     `;
   }
   // ✅ Oral AAS → Superdrol
-  else if (category === "Oral AAS" && sub === "Superdrol3") {
+  else if (category === "Oral AAS" && sub === "Superdrol") {
     descTh = `
       <p>
-        💊 <b>Anadrol (Oxymetholone)</b> สเตียรอยด์สาย bulking แรงมาก เพิ่มขนาดกล้ามและแรงแบบรวดเร็ว เหมาะใช้ช่วง mass หรือ kickstart cycle
-        <br>• ครึ่งชีวิต ~8–9 ชม. กินวันละ 1–2 ครั้ง
-
+        💊 <b>Superdrol (Methasterone)</b> สเตียรอยด์แบบ oral สายแรงมาก เพิ่มทั้งขนาดและความแข็งแรงอย่างรวดเร็ว กล้ามเนื้อพองแน่นแบบแห้ง ไม่กักน้ำ ใช้ช่วง bulk สั้นๆหรือก่อนแข่ง
+        <br>• ครึ่งชีวิต ~6–8 ชม. แบ่งกินวันละ 2 ครั้ง
+        <br>• โดส: 10–30 mg/วัน (เริ่มที่ 10–20 mgสำหรับมือใหม่)
+        <br>• ผลลัพธ์: กล้ามแน่น ใหญ่เร็ว น้ำไม่มาก เส้นเลือดชัด
+        <br>• ผลข้างเคียง: ตับเครียดมาก (C17-aa), ความดันสูง, ปวดหัว เบื่ออาหาร กด HPTA รุนแรง คอเลสเตอรอลแย่
+        <br>• ไม่ควรใช้เกิน 3–4 สัปดาห์ พร้อม liver support (TUDCA/NAC)
+        <br>• PCT: Clomid/Nolva หลังจบ cycle จำเป็น 100%
       </p>
     `;
     descEn = `
       <p>
-        💊 <b>Anadrol (Oxymetholone)</b> A very strong bulking steroid that rapidly increases muscle size and strength. Suitable for mass phase or as a kickstart in a cycle.
-        <br>• Half-life: ~8–9 hours, taken 1–2 times per day.
-
+        💊 <b>Superdrol (Methasterone)</b> A very potent oral steroid that rapidly increases both muscle size and strength. Produces dry, dense, and full-looking muscles without water retention. Used for short bulking phases or pre-contest.
+        <br>• Half-life: ~6–8 hours, taken twice daily.
+        <br>• Dosage: 10–30 mg/day (beginners usually start at 10–20 mg).
+        <br>• Results: Dense and fast muscle growth, minimal water retention, enhanced vascularity.
+        <br>• Side effects: Severe liver stress (C17-aa), high blood pressure, headaches, loss of appetite, strong HPTA suppression, poor cholesterol levels.
+        <br>• Should not be used for longer than 3–4 weeks, with liver support (TUDCA/NAC).
+        <br>• PCT: Clomid/Nolva is absolutely required after finishing the cycle.
       </p>
     `;
   }
-  // ✅ Oral AAS → Oral etc
-  else if (category === "Oral AAS" && sub === "Oral etc.3") {
+
+  // Injection
+  else if (category === "Injection AAS" && sub === "TestC") {
     descTh = `
       <p>
-        💊 <b>Anadrol (Oxymetholone)</b> สเตียรอยด์สาย bulking แรงมาก เพิ่มขนาดกล้ามและแรงแบบรวดเร็ว เหมาะใช้ช่วง mass หรือ kickstart cycle
-        <br>• ครึ่งชีวิต ~8–9 ชม. กินวันละ 1–2 ครั้ง
-
+        🔥 <b>TestC (Testosterone Cypionate)</b> คือฮอร์โมนเพศชายสังเคราะห์ในรูปแบบฉีด ออกฤทธิ์ช้า นิยมใช้ในวงการฟิตเนส เพื่อเพิ่มกล้ามเนื้อ ความแข็งแรง และสมรรถภาพทางกาย
+        <br>• ครึ่งชีวิต: ~8 วัน (ฉีดสัปดาห์ละ 1–2 ครั้ง)
+        <br>• โดสเริ่มต้น: 250–500 mg/สัปดาห์ (สำหรับมือใหม่)
+        <br>• ผลลัพธ์: เพิ่มมวลกล้าม ฟื้นตัวเร็ว แรงดีขึ้น
+        <br>• ผลข้างเคียง: สิว ผมร่วง บวมน้ำ ความดันสูง Estrogen เพิ่ม (ควรมี AI เช่น Arimidex)
+        <br>• PCT: ใช้ Clomid / Nolvadex หลังจบ cycle เพื่อกระตุ้นการผลิตฮอร์โมนธรรมชาติ
       </p>
     `;
     descEn = `
       <p>
-        💊 <b>Anadrol (Oxymetholone)</b> A very strong bulking steroid that rapidly increases muscle size and strength. Suitable for mass phase or as a kickstart in a cycle.
-        <br>• Half-life: ~8–9 hours, taken 1–2 times per day.
-
+        🔥 <b>TestC (Testosterone Cypionate)</b> is an injectable synthetic male hormone with a slow-release effect. It is popular in the fitness industry for increasing muscle mass, strength, and physical performance.
+        <br>• Half-life: ~8 days (injected 1–2 times per week)
+        <br>• Starting dosage: 250–500 mg/week (for beginners)
+        <br>• Results: Increased muscle mass, faster recovery, improved strength
+        <br>• Side effects: Acne, hair loss, water retention, high blood pressure, increased estrogen (AI such as Arimidex is recommended)
+        <br>• PCT: Clomid / Nolvadex after the cycle to stimulate natural hormone production
       </p>
     `;
   }
-
+  else if (category === "Injection AAS" && sub === "TestE") {
+    descTh = `
+      <p>
+        🔥 <b>TestE (Testosterone Enanthate)</b> คือฮอร์โมนเพศชายสังเคราะห์ในรูปแบบฉีด ออกฤทธิ์ช้า นิยมใช้ในวงการฟิตเนส เพื่อเพิ่มมวลกล้ามเนื้อและแรง
+        <br>• ครึ่งชีวิต: ~4.5–5 วัน (ฉีดสัปดาห์ละ 1–2 ครั้ง)
+        <br>• โดสเริ่มต้น: 250–500 mg/สัปดาห์ (สำหรับมือใหม่)
+        <br>• ผลลัพธ์: เพิ่มกล้ามเนื้อ แรง ฟื้นตัวไว
+        <br>• ผลข้างเคียง: สิว ผมร่วง บวมน้ำ Estrogen สูง (ต้องมี AI เช่น Arimidex)
+        <br>• หากต้องการข้อมูลเฉพาะทางมากขึ้น เช่น stack หรือการควบคุมผลข้างเคียง บอกเพิ่มเติมได้เลยครับ
+      </p>
+    `;
+    descEn = `
+      <p>
+        🔥 <b>TestE (Testosterone Enanthate)</b> is a synthetic male hormone in injectable form with a slow-release effect. It is commonly used in the fitness field to increase muscle mass and strength.
+        <br>• Half-life: ~4.5–5 days (injected 1–2 times per week)
+        <br>• Starting dosage: 250–500 mg/week (for beginners)
+        <br>• Results: Increases muscle mass, strength, and speeds up recovery
+        <br>• Side effects: Acne, hair loss, water retention, high estrogen (AI such as Arimidex is required)
+        <br>• If you need more specialized information, such as stack options or side effect management, feel free to ask.
+      </p>
+    `;
+  }
+  else if (category === "Injection AAS" && sub === "TestProp") {
+    descTh = `
+      <p>
+        🔥 <b>TestP (Testosterone Propionate)</b> คือฮอร์โมนเพศชายสังเคราะห์ออกฤทธิ์เร็ว นิยมใช้ในวงการฟิตเนสโดยเฉพาะช่วง cutting หรือเตรียมแข่ง เพราะช่วยเพิ่มกล้ามเนื้อแบบไม่กักน้ำ
+        <br>• ฉีดวันเว้นวัน
+        <br>• โดสเริ่มต้น: 300–500 mg/สัปดาห์
+        <br>• ผลลัพธ์: เพิ่มกล้ามเนื้อแบบ lean, ลดการบวมน้ำ, ฟื้นตัวไว
+        <br>• ผลข้างเคียง: ปวดจุดฉีด สิว ผมร่วง (ควรมี AI เช่น Arimidex)
+        <br>• PCT: ใช้ Clomid / Nolvadex หลังจบ cycle
+      </p>
+    `;
+    descEn = `
+      <p>
+        🔥 <b>TestP (Testosterone Propionate)</b> is a fast-acting synthetic male hormone, commonly used in the fitness field, especially during cutting phases or competition prep, as it helps increase lean muscle without water retention.
+        <br>• Injection frequency: Every other day
+        <br>• Starting dosage: 300–500 mg/week
+        <br>• Results: Lean muscle gain, reduced water retention, fast recovery
+        <br>• Side effects: Injection site pain, acne, hair loss (AI such as Arimidex is recommended)
+        <br>• PCT: Clomid / Nolvadex after finishing the cycle
+      </p>
+    `;
+  }
+  else if (category === "Injection AAS" && sub === "Sustanon") {
+    descTh = `
+      <p>
+        🔥 <b>Sustanon 250</b> คือฮอร์โมนเพศชายสังเคราะห์ ประกอบด้วยการผสมของเทสโทสเทอโรน 4 ชนิด (เอสเทอร์ต่างกัน) ทำให้มีทั้งฤทธิ์ออกฤทธิ์เร็วและยาวในเข็มเดียว
+        <br>• ครึ่งชีวิต: ประมาณ 15–18 วัน (ฉีดทุก 1–3 สัปดาห์)
+        <br>• โดสเริ่มต้น: 250–500 mg/สัปดาห์ (สำหรับมือใหม่)
+        <br>• ผลลัพธ์: เพิ่มกล้ามเนื้อ แรง ฟื้นตัวไว รวมทั้งมีฤทธิ์ทั้งเร็วและยาว
+        <br>• ผลข้างเคียง: บวมน้ำ สิว ผมร่วง Estrogen สูง (ควรมี AI เช่น Arimidex)
+        <br>• PCT: ใช้ Clomid / Nolvadex หลังจบ cycle เพื่อกระตุ้นการผลิตฮอร์โมนธรรมชาติ
+      </p>
+    `;
+    descEn = `
+      <p>
+        🔥 <b>Sustanon 250</b> is a synthetic male hormone composed of a blend of four different types of testosterone esters, providing both fast-acting and long-lasting effects in a single injection.
+        <br>• Half-life: Approximately 15–18 days (injected every 1–3 weeks)
+        <br>• Starting dosage: 250–500 mg/week (for beginners)
+        <br>• Results: Increases muscle mass, strength, and speeds up recovery, offering both quick and sustained effects
+        <br>• Side effects: Water retention, acne, hair loss, high estrogen (AI such as Arimidex is recommended)
+        <br>• PCT: Clomid / Nolvadex after finishing the cycle to stimulate natural hormone production
+      </p>
+    `;
+  }
+  
+  else if (category === "Injection AAS" && sub === "TrenA") {
+    descTh = `
+      <p>
+        🔥 <b>Tren A (Trenbolone Acetate)</b> คืออนุพันธ์ของ Nandrolone ที่ออกฤทธิ์เร็วมากและทรงพลังสูงสุดตัวหนึ่งในวงการฟิตเนสนิยมใช้ในช่วง cutting หรือ pre-contest เพราะให้กล้ามเนื้อคม ชัดโดยไม่กักน้ำ
+        <br>• ฉีดวันเว้นวัน โดสเริ่มต้น200–300 mg/สัปดาห์ (ควรใช้ร่วมกับ Test)
+        <br>• ผลลัพธ์: กล้ามแน่น คม แข็งแรง เพิ่ม strength ชัดเจน เผาผลาญไขมันดีมาก
+        <br>• ผลข้างเคียง หงุดหงิดง่าย ไร้สมรรถภาพทางเพศหากไม่มี Test นอนไม่หลับ ความดันสูง
+        <br>• PCT: Clomid / Nolvadex หลังจบ cycle
+        <br>• Tren A ไม่เหมาะกับมือใหม่หรือผู้ที่ไม่เคยใช้สารมาก่อน
+      </p>
+    `;
+    descEn = `
+      <p>
+        🔥 <b>Tren A (Trenbolone Acetate)</b> is a fast-acting and highly potent derivative of Nandrolone. It is one of the most powerful compounds in the fitness world, commonly used during cutting or pre-contest phases for sharp, dry, and well-defined muscle appearance without water retention.
+        <br>• Injected every other day
+        <br>• Starting dosage: 200–300 mg/week (should be used together with Test)
+        <br>• Results: Dense, sharp, and strong muscles/ Noticeable strength increase/ Excellent fat-burning capability
+        <br>• Side effects: Irritability, loss of libido if not paired with Test, insomnia, and high blood pressure
+        <br>• PCT: Clomid / Nolvadex after finishing the cycle
+        <br>• Tren A is not suitable for beginners or individuals with no prior experience using such substances.
+      </p>
+    `;
+  }
+  else if (category === "Injection AAS" && sub === "TrenE") {
+    descTh = `
+      <p>
+        🔥 <b>Tren E (Trenbolone Enanthate)</b> คือสเตียรอยด์ชนิดฉีดที่ออกฤทธิ์ช้า ทรงพลังมาก ใช้เพิ่มกล้ามเนื้อแบบแห้ง แข็ง และช่วยลดไขมัน เหมาะสำหรับผู้มีประสบการณ์ในการใช้สาร
+        <br>• ครึ่งชีวิต: ~7–10 วัน (ฉีดสัปดาห์ละ 2 ครั้ง เช่น จันทร์-พฤหัส)
+        <br>• โดสเริ่มต้น: 200–400 mg/สัปดาห์ (ไม่แนะนำสำหรับมือใหม่)
+        <br>• ผลลัพธ์: กล้ามเนื้อแน่น คม แข็งแรง เผาผลาญไขมันดีมาก เพิ่ม strength อย่างชัดเจน
+        <br>• ผลข้างเคียง: เหงื่อออกตอนกลางคืน นอนไม่หลับ ความดันสูง หงุดหงิดง่าย ควรใช้คู่กับ Test
+        <br>• PCT: ใช้ Clomid / Nolvadex หลังจบ cycle
+      </p>
+    `;
+    descEn = `
+      <p>
+        🔥 <b>Tren E (Trenbolone Enanthate)</b> is a slow-acting injectable steroid that is highly potent, used for achieving dry, hard muscle gains and fat reduction. Suitable for experienced users.
+        <br>• Half-life: ~7–10 days (injected twice per week, e.g., Monday–Thursday)
+        <br>• Starting dosage: 200–400 mg/week (not recommended for beginners)
+        <br>• Results: Dense, sharp, and strong muscle appearance/ Excellent fat-burning capability/ Significant increase in strength
+        <br>• Side effects: Night sweats, insomnia, high blood pressure, irritability; should be used together with Test
+        <br>• PCT: Clomid / Nolvadex after finishing the cycle
+      </p>
+    `;
+  }
+  else if (category === "Injection AAS" && sub === "TrenHex") {
+    descTh = `
+      <p>
+        🔥 <b>TrenHex (Trenbolone Hexahydrobenzylcarbonate (Parabolan))</b> คือสเตียรอยด์ชนิดฉีดที่ออกฤทธิ์ยาวนานที่สุดในตระกูล Trenbolone มีความแรงสูง ช่วยเพิ่มกล้ามเนื้อแบบแห้ง แข็ง เผาผลาญไขมันดี เหมาะกับผู้มีประสบการณ์สูง
+        <br>• ครึ่งชีวิต: ~10–12 วัน (ฉีดสัปดาห์ละ 1–2 ครั้ง)
+        <br>• โดสเริ่มต้น: 200–400 mg/สัปดาห์ (ไม่แนะนำสำหรับมือใหม่)
+        <br>• ผลลัพธ์: เพิ่มกล้ามเนื้อแบบ lean, คมชัด, แข็งแรงมาก, เผาผลาญไขมันดีเยี่ยม, Strength เพิ่ม
+        <br>• PCT: ใช้ Clomid / Nolvadex หลังจบ cycle เพื่อกระตุ้นการผลิตฮอร์โมนธรรมชาติ
+      </p>
+    `;
+    descEn = `
+      <p>
+        🔥 <b>TrenHex (Trenbolone Hexahydrobenzylcarbonate (Parabolan))</b> is the longest-acting injectable steroid in the Trenbolone family. It is highly potent, helps build dry and hard muscle, and supports excellent fat-burning. Suitable for highly experienced users.
+        <br>• Half-life: ~10–12 days (injected 1–2 times per week)
+        <br>• Starting dosage: 200–400 mg/week (not recommended for beginners)
+        <br>• Results: Lean muscle gain, sharp and hard muscle appearance, very high strength, excellent fat-burning capability
+        <br>• PCT: Clomid / Nolvadex after finishing the cycle to stimulate natural hormone production
+      </p>
+    `;
+  }
+  else if (category === "Injection AAS" && sub === "Stano") {
+    descTh = `
+      <p>
+        💊 <b>Winstrol (Stanozolol)</b> สเตียรอยด์อนุพันธ์ DHT นิยมใช้ช่วง cutting เพื่อลดไขมัน คงกล้าม และเพิ่มความคมชัดของกล้ามเนื้อ เหมาะสำหรับผู้ที่ต้องการรูปร่างแห้งแบบกระชับ
+        <br>• ครึ่งชีวิต:แบบฉีด ~24 ชั่วโมง (ควรฉีดทุกวัน หรือวันเว้นวัน)
+        <br>• โดสเริ่มต้น: แบบกิน: 30–50 mg/วัน / แบบฉีด: 50 mg วันเว้นวัน หรือ 100 mg 3 ครั้ง/สัปดาห์
+        <br>• ผลลัพธ์: แห้ง คม ไม่บวมน้ำ เพิ่มเส้นเลือด เพิ่มแรง ในช่วงลดไขมัน
+        <br>• ผลข้างเคียง: ปวดข้อ ไขมันในเลือดแย่ลง ตับทำงานหนัก
+        <br>• PCT: ใช้ Clomid / Nolvadex หลังจบ cycle
+      </p>
+    `;
+    descEn = `
+      <p>
+        💊 <b>Winstrol (Stanozolol)</b> is a DHT-derived steroid commonly used during cutting phases to reduce body fat, preserve muscle, and enhance muscle definition. Ideal for those seeking a dry, tight, and lean physique.
+        <br>• Half-life: Injectable: ~24 hours (should be injected daily or every other day)
+        <br>• Starting dosage: Oral: 30–50 mg/day / Injectable: 50 mg every other day, or 100 mg 3 times per week
+        <br>• Results: Dry and sharp muscle appearance, no water retention, increased vascularity, enhanced strength during fat loss.
+        <br>• Side effects: Joint pain, worsened blood lipid profile, liver stress.
+        <br>• PCT: Use Clomid / Nolvadex after finishing the cycle.
+      </p>
+    `;
+  }
+  else if (category === "Injection AAS" && sub === "MastE") {
+    descTh = `
+      <p>
+        🔥 <b>MastE (Drostanolone Enanthate)</b> คือสเตียรอยด์อนุพันธ์ DHT ที่นิยมใช้ในช่วง cutting เพื่อเพิ่มความแห้ง ความคม และลดไขมันเหมาะสำหรับผู้ที่มีเปอร์เซ็นต์ไขมันต่ำอยู่แล้ว
+        <br>• ครึ่งชีวิต: ~5–7 วัน (ฉีดสัปดาห์ละ 2 ครั้ง)
+        <br>• โดสเริ่มต้น: 200–400 mg/สัปดาห์ แบ่งฉีด 2 ครั้ง (เช่น จันทร์-พฤหัส)
+        <br>• ผลลัพธ์: กล้ามคม แห้ง ไม่บวมน้ำ ลดเอสโตรเจน (anti-estrogenic effect อ่อนๆ)
+        <br>• ผลข้างเคียง: ระดับ DHT สูง → ผมร่วง สิว ความมันผิว ลด HDL เพิ่ม LDL
+        <br>• PCT:ใช้ Clomid / Nolvadex หลังจบ cycle เช่นเดียวกับสเตียรอยด์อื่น
+      </p>
+    `;
+    descEn = `
+      <p>
+        🔥 <b>MastE (Drostanolone Enanthate)</b> is a DHT-derived steroid commonly used during cutting phases to increase dryness, definition, and fat reduction. Suitable for individuals who already have a low body fat percentage.
+        <br>• Half-life: ~5–7 days (injected twice per week)
+        <br>• Starting dosage: 200–400 mg/week, split into 2 injections (e.g., Monday–Thursday)
+        <br>• Results: Sharp, dry muscle appearance, no water retention, slight anti-estrogenic effect
+        <br>• Side effects: High DHT levels → hair loss, acne, oily skin / Decreases HDL and increases LDL
+        <br>• PCT: Use Clomid / Nolvadex after finishing the cycle, same as other steroids
+      </p>
+    `;
+  }
+  else if (category === "Injection AAS" && sub === "MastP") {
+    descTh = `
+      <p>
+        🔥 <b>MastP (Drostanolone Propionate)</b> คือสเตียรอยด์อนุพันธ์ DHT ที่ออกฤทธิ์สั้น นิยมใช้ในช่วง cutting โดยเฉพาะในช่วงก่อนแข่งขัน เพื่อช่วยให้รูปร่างแห้ง คม และแข็งชัด เหมาะสำหรับผู้ที่มีไขมันต่ำ
+        <br>• ครึ่งชีวิต: 2–3 วัน ควรฉีดวันเว้นวัน
+        <br>• โดสเริ่มต้น: 300–500 mg/สัปดาห์ แบ่งฉีดวันเว้นวัน (เช่น 100 mg EOD)
+        <br>• ผลลัพธ์: กล้ามเนื้อแห้ง คมชัด ไม่บวมน้ำ/ ลดเอสโตรเจนเล็กน้อย/ ช่วยเพิ่มเส้นเลือดเด่น
+        <br>• ผลข้างเคียง: สิว ผมร่วง (DHT สูง)/ ไขมันในเลือดแย่ลง (ลด HDL เพิ่ม LDL)
+        <br>• PCT:ใช้ Clomid / Nolvadex หลังจบ cycle
+      </p>
+    `;
+    descEn = `
+      <p>
+        🔥 <b>MastP (Drostanolone Propionate)</b> is a short-acting DHT-derived steroid commonly used during cutting phases, especially pre-contest, to enhance a dry, sharp, and hard physique. Suitable for individuals with already low body fat.
+        <br>• Half-life: 2–3 days, should be injected every other day
+        <br>• Starting dosage: 300–500 mg/week, split into every other day injections (e.g., 100 mg EOD)
+        <br>• Results: Dry and sharp muscle appearance, no water retention/ Slight estrogen reduction/ Enhances vascularity
+        <br>• Side effects: Acne, hair loss (high DHT)/ Poor cholesterol profile (decreased HDL, increased LDL)
+        <br>• PCT: Use Clomid / Nolvadex after finishing the cycle
+      </p>
+    `;
+  }
+  else if (category === "Injection AAS" && sub === "Primo") {
+    descTh = `
+      <p>
+        💊 <b>Primo (Methenolone Enanthate)</b> คือสเตียรอยด์ที่มีฤทธิ์อ่อน มีความปลอดภัยสูง รักษามวลกล้ามเนื้อในช่วงลดไขมันเหมาะกับทั้งผู้ชายและผู้หญิง
+        <br>• ครึ่งชีวิต: แบบฉีดสัปดาห์ละ 1–2 ครั้ง/แบบกิน ต้องกินทุกวัน
+        <br>• โดสเริ่มต้น: แบบฉีด: 400–600 mg/สัปดาห์/แบบกิน: 50–100 mg/วัน (ไม่ค่อยนิยม เพราะผลเบาและราคาแพง)
+        <br>• ผลลัพธ์: รักษากล้ามเนื้อไม่บวมน้ำ ไม่เปลี่ยนเป็นเอสโตรเจน เสี่ยงผลข้างเคียงต่ำ กล้ามดูแบบธรรมชาติ
+        <br>• ผลข้างเคียง: มีผลกดฮอร์โมนเล็กน้อย
+        <br>• PCT: ใช้ Clomid / Nolvadex หลังจบ cycle
+      </p>
+    `;
+    descEn = `
+      <p>
+        💊 <b>Primo (Methenolone Enanthate)</b> Primo is a mild steroid with high safety, known for preserving muscle mass during fat loss. Suitable for both men and women.
+        <br>• Half-life: Injectable: 1–2 times per week/ Oral: must be taken daily
+        <br>• Starting dosage: Injectable: 400–600 mg/week/ Oral: 50–100 mg/day (less popular due to mild effects and high cost)
+        <br>• Benefits / Results: Preserves muscle without water retention/Does not convert to estrogen/Very low risk of side effects
+        <br>• Produces a natural-looking physique
+        <br>• Side effects: Slight hormone suppression
+        <br>• PCT: Use Clomid or Nolvadex after finishing the cycle.
+      </p>
+    `;
+  }
+  else if (category === "Injection AAS" && sub === "NPP") {
+    descTh = `
+      <p>
+        🔥 <b> NPP (Nandrolone Phenylpropionate)</b> คือสเตียรอยด์สาย bulking ออกฤทธิ์เร็วกว่ารูปแบบ Deca ช่วยเพิ่มกล้ามเนื้อแน่น ลดปวดข้อ และไม่บวมน้ำมาก
+        <br>• ครึ่งชีวิต: (ฉีดวันเว้นวัน)
+        <br>• โดสเริ่มต้น: 200–400 mg/สัปดาห์
+        <br>• ผลลัพธ์: กล้ามเนื้อแน่น เนียน/ ลดปวดข้อ ข้อลื่น/ บวมน้ำน้อยกว่า Deca/ เพิ่มแรงดี เหมาะช่วง bulk หรือ recomp
+        <br>• ผลข้างเคียง: กดฮอร์โมนเพศ (ต้องใช้ควบกับ Test)/ เสี่ยง Gyno จาก prolactin/ อาจต้องใช้ Cabergoline ควบคุม prolactin/ บางคนอาจบวมน้ำหรือความดันสูง
+        <br>• PCT: Clomid หรือ Nolvadex หลังจบ cycle
+      </p>
+    `;
+    descEn = `
+      <p>
+        🔥 <b>NPP (Nandrolone Phenylpropionate)</b> is a bulking steroid with faster action compared to Deca. It helps increase dense muscle mass, reduces joint pain, and causes less water retention.
+        <br>• Half-life: (injected every other day)
+        <br>• Starting dosage: 200–400 mg/week
+        <br>• Results:Dense and smooth muscle appearance/ Reduces joint pain, improves joint lubrication/ Less water retention compared to Deca/ Good strength increase, suitable for bulk or recomp phases
+        <br>• Side effects: Suppresses natural hormone production (must be used with Test)/ Risk of gyno due to prolactin
+/ Cabergoline may be needed to control prolactin/ Some may experience water retention or high blood pressure
+        <br>• PCT: Clomid or Nolvadex after finishing the cycle
+      </p>
+    `;
+  }
+  else if (category === "Injection AAS" && sub === "EQ") {
+    descTh = `
+      <p>
+        🔥 <b>EQ (Equipoise, Boldenone Undecylenate)</b> เป็นสเตียรอยด์สาย bulking ที่ออกฤทธิ์ช้า ช่วยเพิ่มกล้ามเนื้อ เพิ่มความอยากอาหาร เส้นเลือดเด่น กล้ามแน่น เหมาะทั้งใช้ช่วง bulk และ recomp
+        <br>• ครึ่งชีวิต: ~14 วัน สัปดาห์ละ 1–2 ครั้ง
+        <br>• โดสเริ่มต้น: 400–600 mg/สัปดาห์
+        <br>• ผลลัพธ์: เพิ่มเส้นเลือดชัด/ อยากอาหารมากขึ้น
+        <br>• ผลข้างเคียง: กดฮอร์โมนธรรมชาติ (ต้องใช้ควบกับ Test)/ เสี่ยงความดันสูง อาจมีสิว ผมร่วงเล็กน้อย
+        <br>• ระยะออกฤทธิ์ยาว → ใช้เวลานานในการออกฤทธิ์และเคลียร์ออกจากร่างกาย
+        <br>• PCT: Clomid / Nolvadex หลังจบ cycle
+      </p>
+    `;
+    descEn = `
+      <p>
+        🔥 <b>EQ (Equipoise, Boldenone Undecylenate)</b> is a slow-acting bulking steroid that helps increase muscle mass, boost appetite, enhance vascularity, and improve muscle density. Suitable for both bulking and recomp phases.
+        <br>• Half-life: ~14 days, injected 1–2 times per week
+        <br>• Starting dosage: 400–600 mg/week
+        <br>• Results: Enhanced vascularity/ Increased appetite
+        <br>• Side effects: Suppresses natural hormones (must be used together with Test)/ Risk of high blood pressure, possible acne, and slight hair loss
+        <br>• Long-acting → takes time to take effect and to clear from the body
+        <br>• PCT: Clomid / Nolvadex after finishing the cycle
+      </p>
+    `;
+  }
+  else if (category === "Injection AAS" && sub === "Deca") {
+    descTh = `
+      <p>
+        🔥 <b>Deca (Nandrolone Decanoate)</b> สาย bulking ลดอาการปวดข้อ เหมาะสำหรับช่วงเพิ่มน้ำหนักและกล้ามเนื้อระยะยาว
+        <br>• ครึ่งชีวิต: ~7–10 วัน (ฉีดสัปดาห์ละ 1 ครั้ง)
+        <br>• โดสเริ่มต้น: 200–400 mg/สัปดาห์
+        <br>• ผลลัพธ์: เพิ่มมวลกล้ามเนื้ออย่างต่อเนื่อง/ ข้อลื่น ลดปวดข้อ บวมน้ำปานกลาง
+        <br>• ผลข้างเคียง: กดการสร้างฮอร์โมนเพศชาย (ต้องใช้ Test ควบคู่)/ เสี่ยง prolactin สูง → Gyno / นกเขาไม่ขัน/ อาจบวมน้ำ ความดันสูง
+        <br>• PCT: Clomid / Nolvadex หลังจบ cycle
+        <br>• (ในบางรายอาจต้องใช้ Cabergoline ควบคุม prolactin)
+      </p>
+    `;
+    descEn = `
+      <p>
+        🔥 <b>Deca (Nandrolone Decanoate)</b> is a bulking compound that helps reduce joint pain, suitable for long-term weight and muscle gain phases.
+        <br>• Half-life: ~7–10 days (injected once per week)
+        <br>• Starting dosage: 200–400 mg/week
+        <br>• Results: Continuous increase in muscle mass/ Improved joint lubrication, reduced joint pain/ Moderate water retention
+        <br>• Side effects: Suppresses natural testosterone production (must be used together with Test)/ Risk of high prolactin → gyno / erectile dysfunction/ Possible water retention and high blood pressure
+        <br>• PCT: Clomid / Nolvadex after finishing the cycle
+        <br>• (In some cases, Cabergoline may be needed to control prolactin)
+      </p>
+    `;
+  }
 
 
     
-    
-  // ✅ ตัวอย่าง Fat Loss → Clenbuterol (แก้ชื่อ category/sub ให้ตรงกับของจริง)
-  else if (category === "Fat Loss" && sub === "Clenbuterol") {
+  else if (category === "SARMs" && sub === "MK677") {
     descTh = `
       <p>
-        🔥 <b>Clenbuterol</b> มักใช้ในช่วงลดไขมันเพื่อช่วยเพิ่มการเผาผลาญและทำให้รู้สึกตื่นตัวมากขึ้น
-        <br>• มีผลต่อหัวใจ ระบบประสาท และความดันโลหิต
-        <br>• ไม่ควรใช้เกินกว่าที่ผู้เชี่ยวชาญแนะนำ และควรหยุดทันทีหากมีอาการใจสั่น แน่นหน้าอก หรือเวียนหัวผิดปกติ
+        🔥 <b>MK-677 (Ibutamoren)</b> ไม่ใช่ SARM แต่เป็น Growth Hormone Secretagogue กระตุ้น GH และ IGF-1 เพิ่มมวลกล้าม ลดไขมัน หลับลึก ฟื้นตัวดี
+        <br>• ครึ่งชีวิต ~24 ชม. กินวันละครั้ง
+        <br>• โดส: 10–25 mg/วัน
+        <br>• ผลลัพธ์: กล้ามเนื้อเต็มขึ้น ฟื้นตัวไว อยากอาหารหลุดโลก หลับลึก
+        <br>• ผลข้างเคียง: บวมน้ำ มือชา น้ำตาลสูง ใช้ร่วมกับ HGH เสริมผลกันได้ดี
       </p>
     `;
     descEn = `
       <p>
-        🔥 <b>Clenbuterol</b> is often used during fat-loss phases to increase metabolic rate and alertness.
-        <br>• Can affect heart rate, nervous system and blood pressure
-        <br>• Should not be used beyond professional guidance and must be stopped immediately if severe side effects such
-        as palpitations, chest tightness or dizziness occur.
+        🔥 <b>MK-677 (Ibutamoren)</b> Not a SARM, but a Growth Hormone Secretagogue that stimulates GH and IGF-1, helping increase muscle mass, reduce body fat, improve deep sleep, and enhance recovery.
+        <br>• Half-life: ~24 hours, taken once daily
+        <br>• Dosage: 10–25 mg/day
+        <br>• Results: Fuller muscles, faster recovery, extreme increase in appetite, deep sleep
+        <br>• Side effects: Water retention, hand numbness, elevated blood sugar; can be used together with HGH for enhanced effect
+      </p>
+    `;
+  }
+  else if (category === "SARMs" && sub === "RAD140") {
+    descTh = `
+      <p>
+        🔥 <b>RAD-140 (Testolone)</b> SARM สายแรง เน้นเพิ่มกล้าม เพิ่มแรง เหมาะช่วง bulk หรือ recomp
+        <br>• ครึ่งชีวิต ~16–20 ชม. กินวันละครั้ง
+        <br>• โดส: 10–20 mg/วัน
+        <br>• ผลลัพธ์: กล้ามหนา แรงพุ่ง กล้ามแน่นแบบไม่บวม
+        <br>• ผลข้างเคียง: กด HPTA บ้าง, บางรายมีปวดหัวหรืออารมณ์แกว่ง
+      </p>
+    `;
+    descEn = `
+      <p>
+        🔥 <b>RAD-140 (Testolone)</b> A powerful SARM focused on muscle gain and strength increase, suitable for bulking or recomp phases.
+        <br>• Half-life: ~16–20 hours, taken once daily
+        <br>• Dosage: 10–20 mg/day
+        <br>• Results: Thick, dense muscle gains, noticeable strength boost, lean muscle without bloating
+        <br>• Side effects: Mild HPTA suppression; some users may experience headaches or mood swings
+      </p>
+    `;
+  }
+  else if (category === "SARMs" && sub === "GW501516") {
+    descTh = `
+      <p>
+        🔥 <b>GW-501516 (Cardarine)</b> ไม่ใช่ SARM แต่เป็น PPARδ agonist เพิ่มความอึด เผาผลาญไขมัน ลดระดับไขมันในเลือด
+        <br>• ครึ่งชีวิต ~16–24 ชม.
+        <br>• โดส: 10–20 mg/วัน
+        <br>• ผลลัพธ์: อึดขึ้น คาร์ดิโอได้นาน เผาผลาญดีเยี่ยม
+        <br>• ผลข้างเคียง: ยังถกเถียงเรื่องความเสี่ยงระยะยาว (ในหนู), ไม่กด HPTA
+      </p>
+    `;
+    descEn = `
+      <p>
+        🔥 <b>GW-501516 (Cardarine)</b> Not a SARM, but a PPARδ agonist that enhances endurance, increases fat metabolism, and helps reduce blood lipid levels.
+        <br>• Half-life: ~16–24 hours
+        <br>• Dosage: 10–20 mg/day
+        <br>• Results: Improved endurance, longer cardio performance, excellent fat burning
+        <br>• Side effects: Long-term risk is still debated (based on animal studies); does not suppress HPTA
+      </p>
+    `;
+  }
+  else if (category === "SARMs" && sub === "MK2866") {
+    descTh = `
+      <p>
+        🔥 <b>MK-2866 (Ostarine)</b> SARM สำหรับผู้เริ่มต้น เพิ่มกล้ามแบบลีน รักษากล้ามช่วงลดน้ำหนัก
+        <br>• ครึ่งชีวิต ~24 ชม.
+        <br>• โดส: 10–20 mg/วัน
+        <br>• ผลลัพธ์: กล้ามเพิ่มเล็กน้อย กล้ามเนื้อแน่นขึ้น รักษามวลช่วง cutting
+        <br>• ผลข้างเคียง: กด HPTA บ้างในโดสสูง, ผลข้างเคียงต่ำที่สุดในกลุ่ม
+      </p>
+    `;
+    descEn = `
+      <p>
+        🔥 <b>MK-2866 (Ostarine)</b> A beginner-friendly SARM that promotes lean muscle gain and helps preserve muscle during weight loss.
+        <br>• Half-life: ~24 hours
+        <br>• Dosage: 10–20 mg/day
+        <br>• Results: Slight muscle gain, increased muscle density, preserves muscle during cutting
+        <br>• Side effects: Mild HPTA suppression at higher doses, lowest side effects among SARMs
+      </p>
+    `;
+  }
+  else if (category === "SARMs" && sub === "YK11") {
+    descTh = `
+      <p>
+        🔥 <b>YK-11</b> SARM กึ่งสารต้าน Myostatin ช่วยเพิ่มกล้ามแบบสุดโต เพิ่มความแข็งแรงสูง
+        <br>• ครึ่งชีวิต ~6–10 ชม. (ควรแบ่งกิน 2 ครั้ง/วัน)
+        <br>• โดส: 5–10 mg/วัน
+        <br>• ผลลัพธ์: กล้ามแข็ง ใหญ่ แรงจัด เสริมผล anabolic อย่างแรง
+        <br>• ผลข้างเคียง: กด HPTA, อาจมีผลต่อตับในบางราย (ใช้ liver support)
+      </p>
+    `;
+    descEn = `
+      <p>
+        🔥 <b>YK-11</b> A SARM and partial myostatin inhibitor that promotes extreme muscle growth and significantly increases strength.
+        <br>• Half-life: ~6–10 hours (should be split into 2 doses per day)
+        <br>• Dosage: 5–10 mg/day
+        <br>• Results: Hard, large, and very strong muscles; highly enhances anabolic effects
+        <br>• Side effects: HPTA suppression; may affect the liver in some users (liver support recommended)
+      </p>
+    `;
+  }
+  else if (category === "SARMs" && sub === "LGD4033") {
+    descTh = `
+      <p>
+        🔥 <b>LGD-4033 (Ligandrol)</b> SARM สาย bulk กล้ามมาเร็ว มวลแน่น ใช้แทน Test ได้ในบาง stack
+        <br>• ครึ่งชีวิต ~24–36 ชม.
+        <br>• โดส: 5–10 mg/วัน
+        <br>• ผลลัพธ์: กล้ามใหญ่เร็ว น้ำหนักขึ้นแน่น
+        <br>• ผลข้างเคียง: กด HPTA ชัดเจนในโดสสูง อาจบวมน้ำเล็กน้อย
+      </p>
+    `;
+    descEn = `
+      <p>
+        🔥 <b>LGD-4033 (Ligandrol)</b> A bulking-oriented SARM that delivers fast muscle gain and dense mass, and can be used as a substitute for Test in certain stacks.
+        <br>• Half-life: ~24–36 hours
+        <br>• Dosage: 5–10 mg/day
+        <br>• Results: Rapid muscle growth, noticeable weight gain with solid mass
+        <br>• Side effects: Significant HPTA suppression at higher doses, possible slight water retention
+      </p>
+    `;
+  }
+  else if (category === "SARMs" && sub === "S4") {
+    descTh = `
+      <p>
+        🔥 <b>S4 (Andarine)</b> SARM สายรีคอมป์/คัท ช่วยให้กล้ามคม แน่น ลดไขมัน เส้นเลือดชัด
+        <br>• ครึ่งชีวิต ~4–6 ชม. (ควรแบ่งกิน 2 ครั้ง/วัน)
+        <br>• โดส: 25–50 mg/วัน
+        <br>• ผลลัพธ์: กล้ามเนื้อแน่น คม ชัด
+        <br>• ผลข้างเคียง: “Night vision tint” มองเห็นเหลืองหรือแสงพร่าตอนกลางคืนในบางคน
+      </p>
+    `;
+    descEn = `
+      <p>
+        🔥 <b>S4 (Andarine)</b> A recomp/cutting SARM that helps enhance muscle definition, hardness, fat loss, and vascularity.
+        <br>• Half-life: ~4–6 hours (should be split into 2 doses per day)
+        <br>• Dosage: 25–50 mg/day
+        <br>• Results: Hard, sharp, and defined muscle appearance
+        <br>• Side effect: “Night vision tint” — some users may experience yellow vision or blurred night vision
       </p>
     `;
   }
 
+  else if (category === "HGH & Peptide" && sub === "HGH") {
+    descTh = `
+      <p>
+        🔥 <b>HGH (Human Growth Hormone)</b> ฮอร์โมนเร่งการเจริญเติบโต ช่วยเพิ่มมวลกล้าม ลดไขมัน ฟื้นฟูร่างกาย ซ่อมแซมข้อ เอ็น กระดูก นิยมใช้ทั้งในช่วง cutting และ recomp
+        <br>• ครึ่งชีวิตสั้น (~15–30 นาที)
+        <br>• โดส: 2–4 IU/วัน (ทั่วไป), 4–6 IU/วัน (สายฟิตเนสจริงจัง), ฉีดตอนเช้าท้องว่างหรือตอนก่อนนอน
+        <br>• ผลลัพธ์: ลดไขมัน เพิ่มกล้ามลีน ฟื้นตัวเร็ว ผิวดี หลับลึก
+        <br>• ผลข้างเคียง: บวมน้ำ มือชา ปวดข้อ น้ำตาลในเลือดสูง เสี่ยงภาวะดื้อต่ออินซูลิน
+        <br>• เริ่มเห็นผลชัดหลังใช้อย่างต่อเนื่อง 8–12 สัปดาห์ขึ้นไป
+        <br>• มักใช้ร่วมกับตัวอื่นๆ เพื่อเสริมผลลัพธ์
+      </p>
+    `;
+    descEn = `
+      <p>
+        🔥 <b>HGH (Human Growth Hormone)</b> A growth hormone that helps increase muscle mass, reduce body fat, support physical recovery, and repair joints, tendons, and bones. Commonly used during both cutting and recomp phases.
+        <br>• Half-life: short (~15–30 minutes)
+        <br>• Dosage: 2–4 IU/day (general), 4–6 IU/day (serious fitness users), injected in the morning on an empty stomach or before bed
+        <br>• Results: Fat reduction, lean muscle gain, fast recovery, improved skin, deep sleep
+        <br>• Side effects: Water retention, hand numbness, joint pain, high blood sugar, potential insulin resistance
+        <br>• Visible results typically appear after continuous use for 8–12 weeks or longer
+        <br>• Often used in combination with other compounds to enhance results
+      </p>
+    `;
+  }
+  else if (category === "HGH & Peptide" && sub === "IGF1") {
+    descTh = `
+      <p>
+        🔥 <b>IGF-1 (Insulin-like Growth Factor-1)</b> ฮอร์โมนที่เกิดจาก HGH ช่วยเพิ่มการเจริญเติบโตของกล้ามเนื้อ และฟื้นฟูเซลล์ระดับลึก ใช้ได้lean,bulk หรือ recomp
+        <br>• รูปแบบที่ใช้: IGF-1 LR3 (ออกฤทธิ์ยาว), IGF-1 DES (ใช้เฉพาะจุด)
+        <br>• ครึ่งชีวิต: LR3 ~20–30 ชม. / DES ~30 นาที
+        <br>• โดส: 20–40 mcg/วัน ฉีดเข้าเฉพาะจุดหลังเวท
+        <br>• ผลลัพธ์: เพิ่มกล้ามลีน ฟื้นฟูเร็ว เส้นเลือดชัด
+        <br>• ผลข้างเคียง: น้ำตาลตก (ควรกินคาร์บหลังฉีด)มือชา
+        <br>• นิยมใช้ร่วมกับ HGH, insulin, หรือเปปไทด์อื่น เพื่อเพิ่มการดูดซึมและการเติบโต
+        <br>• ไม่แนะนำใช้เกิน 4–6 สัปดาห์/รอบ
+      </p>
+    `;
+    descEn = `
+      <p>
+        🔥 <b>IGF-1 (Insulin-like Growth Factor-1)</b> A hormone produced from HGH that promotes muscle growth and deep cellular repair. Can be used for lean, bulk, or recomp phases.
+        <br>• Forms used: IGF-1 LR3 (long-acting)/ IGF-1 DES (localized use)
+        <br>• Half-life: LR3: ~20–30 hours/ DES: ~30 minutes
+        <br>• Dosage: 20–40 mcg/day, injected locally after weight training
+        <br>• Results: Lean muscle increase, fast recovery, enhanced vascularity
+        <br>• Side effects: Low blood sugar (should consume carbs after injection), hand numbness
+        <br>• Commonly used together with HGH, insulin, or other peptides to enhance absorption and growth.
+        <br>• Not recommended to use for more than 4–6 weeks per cycle.
+      </p>
+    `;
+  }
+  else if (category === "HGH & Peptide" && sub === "HCG") {
+    descTh = `
+      <p>
+        🔥 <b>HCG (Human Chorionic Gonadotropin)</b> ฮอร์โมนเลียนแบบ LH กระตุ้นการผลิตเทสโทสเตอโรนจากไข่ ใช้ป้องกันการฝ่อลีบของไข่ระหว่างใช้สารกด HPTA
+        <br>• ครึ่งชีวิต ~24–36 ชม.
+        <br>• โดส: 250–500 IU 2–3 ครั้ง/สัปดาห์ (ระหว่าง cycle), หรือ 500–1000 IU/วัน (หลังจบ cycle ก่อนเริ่ม PCT)
+        <br>• ผลลัพธ์: รักษาปริมาณน้ำไข่ ป้องกันไข่ฝ่อ ฟื้นฟูระบบสืบพันธุ์
+        <br>• ผลข้างเคียง: Estrogen สูงขึ้น (อาจต้องใช้ AI), สิว, อารมณ์แปรปรวน
+        <br>• ไม่ควรใช้โดสสูงเกินไปต่อเนื่อง เสี่ยง desensitization
+        <br>• นิยมใช้ร่วมกับ Clomid/Nolva ในช่วง PCT
+      </p>
+    `;
+    descEn = `
+      <p>
+        🔥 <b>HCG (Human Chorionic Gonadotropin)</b> A hormone that mimics LH, stimulating testosterone production from the testes. Used to prevent testicular atrophy during the use of HPTA-suppressing compounds.
+        <br>• Half-life: ~24–36 hours
+        <br>• Dosage: 250–500 IU, 2–3 times per week (during cycle), or 500–1000 IU/day (after cycle before starting PCT)
+        <br>• Results: Maintains testicular volume, prevents testicular shrinkage, helps restore reproductive function
+        <br>• Side effects: Increased estrogen (may require AI), acne, mood swings
+        <br>• Should not be used at high doses continuously due to desensitization risk
+        <br>• Commonly used together with Clomid/Nolva during PCT
+      </p>
+    `;
+  }
+  else if (category === "HGH & Peptide" && sub === "TB500/BPC157") {
+    descTh = `
+      <p>
+        🔥 <b>TB-500 (Thymosin Beta-4)</b> เปปไทด์ฟื้นฟูระดับลึก ช่วยซ่อมแซมกล้ามเนื้อ เอ็น และข้อต่อ เพิ่มความยืดหยุ่น ลดอักเสบ ฟื้นตัวเร็ว
+        <br>• ครึ่งชีวิต ~2–3 วัน
+        <br>• โดส: 2–5 mg/สัปดาห์ แบ่งฉีด 2–3 ครั้ง/สัปดาห์ (ช่วงโหลด 4–6 สัปดาห์ แล้วลดเป็นบำรุง)
+        <br>• ผลลัพธ์: ลดอักเสบ ฟื้นตัวไว เหมาะใช้หลังบาดเจ็บ ฟื้นจาก overtraining
+        <br>• ผลข้างเคียง: น้อยมาก อาจบวมน้ำเล็กน้อยบริเวณที่ฉีด
+        <br>• นิยมใช้ร่วมกับ BPC-157 เพื่อเสริมฤทธิ์ฟื้นฟูทั่วร่าง
+        <br>• ฉีดเข้าชั้นไขมันหรือเข้ากล้ามก็ได้
+        <br>
+        🔥 <b>BPC-157 (Body Protection Compound)</b> เปปไทด์ฟื้นฟูเนื้อเยื่อโดยเฉพาะระบบทางเดินอาหาร เอ็น ข้อต่อ กล้ามเนื้อ ใช้เฉพาะจุดได้
+        <br>• ครึ่งชีวิตสั้น (~4–6 ชม.) แต่มีฤทธิ์ต่อเนื่อง
+        <br>• โดส: 200–500 mcg/วัน ฉีดเฉพาะจุดทุกวัน (5–7 วัน/สัปดาห์)
+        <br>• ผลลัพธ์: ซ่อมแซมแผลในกระเพาะ, เอ็น, ข้อต่อ, ลดอักเสบเฉพาะจุด
+        <br>• ผลข้างเคียง: ปลอดภัยสูง ยังไม่มีผลข้างเคียงรุนแรงที่พบ
+        <br>• นิยมใช้คู่กับ TB-500 สำหรับการฟื้นฟูแบบเต็มระบบ
+        <br>• ฉีดเฉพาะจุด หรือฉีดใต้ผิวหนังรอบ ๆ บริเวณบาดเจ็บ
+      </p>
+    `;
+    descEn = `
+      <p>
+        🔥 <b>TB-500 (Thymosin Beta-4)</b> A deep-recovery peptide that helps repair muscle, tendons, and joints, improves flexibility, reduces inflammation, and speeds up recovery.
+        <br>• Half-life: ~2–3 days
+        <br>• Dosage: 2–5 mg/week, split into 2–3 injections per week (loading phase 4–6 weeks, then reduced for maintenance)
+        <br>• Results: Reduced inflammation, faster recovery, suitable for post-injury or recovery from overtraining
+        <br>• Side effects: Very minimal, may cause slight water retention at the injection site
+        <br>• Commonly used together with BPC-157 to enhance overall recovery
+        <br>• Can be injected subcutaneously or intramuscularly
+        <br>
+        🔥 <b>BPC-157 (Body Protection Compound)</b> A peptide that promotes tissue repair, especially in the digestive system, tendons, joints, and muscles. Can be used locally.
+        <br>• Half-life: short (~4–6 hours) but has lasting effects
+        <br>• Dosage: 200–500 mcg/day, injected locally every day (5–7 days per week)
+        <br>• Results: Repairs stomach ulcers, tendons, joints, and reduces localized inflammation
+        <br>• Side effects: Very high safety profile; no severe side effects reported
+        <br>• Commonly used alongside TB-500 for full-system recovery
+        <br>• Can be injected locally or subcutaneously around the injured area
+      </p>
+    `;
+  }
+
+
+  else if (category === "PCT" && sub === "Arimidex") {
+    descTh = `
+      <p>
+        🔥 <b>Arimidex (Anastrozole)</b> การฟื้นฟูฮอร์โมนหลังไซเคิ้ลหลังการใช้ยา (PCT) อาจเป็นประเด็นที่สำคัญที่สุดของการใช้สเตียรอยด์อนาโบลิก เนื่องด้วยมันไปกระตุ้นวงจรป้อนกลับเชิงลบในแกนไฮโปทาลามัส- ต่อมใต้สมอง-อัณฑะ (HPTA) ของร่างกาย ส่งผลให้การผลิตฮอร์โมน Test ในร่างกายถูกระงับหรือหยุดลง
+        <br>
+        <br>ด้วยการฟื้นฟู HPTA อย่างถูกต้องและมีประสิทธิภาพ ไม่เพียงแต่จะเลิกใช้สเตียรอยด์ในขณะที่ยังคงกล้ามเนื้อไว้ได้เกือบทั้งหมดเท่านั้น แต่ยังเพิ่มโอกาสที่จะเลิกใช้โดยมีระบบต่อมไร้ท่อที่ทำงานได้อย่างเต็มที่และ HPTA ที่มีสุขภาพดีเป็นมากกว่า 90% อีกด้วย
+
+
+      </p>
+    `;
+    descEn = `
+      <p>
+        🔥 <b>Arimidex (Anastrozole)</b> Post Cycle Therapy (PCT) after using anabolic steroids may be the most important aspect of steroid usage. This is because steroids activate a negative feedback loop in the hypothalamus–pituitary–testicular axis (HPTA), which suppresses or even shuts down the body's natural testosterone production.
+        <br>
+        <br>With proper and effective HPTA recovery, not only can you discontinue steroid use while maintaining almost all of your muscle mass, but you also significantly increase the chances of stopping with a fully functioning endocrine system and a healthy HPTA—at more than 90% efficiency.
+      </p>
+    `;
+  }
+  else if (category === "PCT" && sub === "Aromasin") {
+    descTh = `
+      <p>
+        🔥 <b>Aromasin</b> การฟื้นฟูฮอร์โมนหลังไซเคิ้ลหลังการใช้ยา (PCT) อาจเป็นประเด็นที่สำคัญที่สุดของการใช้สเตียรอยด์อนาโบลิก เนื่องด้วยมันไปกระตุ้นวงจรป้อนกลับเชิงลบในแกนไฮโปทาลามัส- ต่อมใต้สมอง-อัณฑะ (HPTA) ของร่างกาย ส่งผลให้การผลิตฮอร์โมน Test ในร่างกายถูกระงับหรือหยุดลง
+        <br>
+        <br>ด้วยการฟื้นฟู HPTA อย่างถูกต้องและมีประสิทธิภาพ ไม่เพียงแต่จะเลิกใช้สเตียรอยด์ในขณะที่ยังคงกล้ามเนื้อไว้ได้เกือบทั้งหมดเท่านั้น แต่ยังเพิ่มโอกาสที่จะเลิกใช้โดยมีระบบต่อมไร้ท่อที่ทำงานได้อย่างเต็มที่และ HPTA ที่มีสุขภาพดีเป็นมากกว่า 90% อีกด้วย
+
+
+      </p>
+    `;
+    descEn = `
+      <p>
+        🔥 <b>Aromasin</b> Post Cycle Therapy (PCT) after using anabolic steroids may be the most important aspect of steroid usage. This is because steroids activate a negative feedback loop in the hypothalamus–pituitary–testicular axis (HPTA), which suppresses or even shuts down the body's natural testosterone production.
+        <br>
+        <br>With proper and effective HPTA recovery, not only can you discontinue steroid use while maintaining almost all of your muscle mass, but you also significantly increase the chances of stopping with a fully functioning endocrine system and a healthy HPTA—at more than 90% efficiency.
+      </p>
+    `;
+  }
+  else if (category === "PCT" && sub === "Caber") {
+    descTh = `
+      <p>
+        🔥 <b>Caber</b> การฟื้นฟูฮอร์โมนหลังไซเคิ้ลหลังการใช้ยา (PCT) อาจเป็นประเด็นที่สำคัญที่สุดของการใช้สเตียรอยด์อนาโบลิก เนื่องด้วยมันไปกระตุ้นวงจรป้อนกลับเชิงลบในแกนไฮโปทาลามัส- ต่อมใต้สมอง-อัณฑะ (HPTA) ของร่างกาย ส่งผลให้การผลิตฮอร์โมน Test ในร่างกายถูกระงับหรือหยุดลง
+        <br>
+        <br>ด้วยการฟื้นฟู HPTA อย่างถูกต้องและมีประสิทธิภาพ ไม่เพียงแต่จะเลิกใช้สเตียรอยด์ในขณะที่ยังคงกล้ามเนื้อไว้ได้เกือบทั้งหมดเท่านั้น แต่ยังเพิ่มโอกาสที่จะเลิกใช้โดยมีระบบต่อมไร้ท่อที่ทำงานได้อย่างเต็มที่และ HPTA ที่มีสุขภาพดีเป็นมากกว่า 90% อีกด้วย
+
+
+      </p>
+    `;
+    descEn = `
+      <p>
+        🔥 <b>Caber</b> Post Cycle Therapy (PCT) after using anabolic steroids may be the most important aspect of steroid usage. This is because steroids activate a negative feedback loop in the hypothalamus–pituitary–testicular axis (HPTA), which suppresses or even shuts down the body's natural testosterone production.
+        <br>
+        <br>With proper and effective HPTA recovery, not only can you discontinue steroid use while maintaining almost all of your muscle mass, but you also significantly increase the chances of stopping with a fully functioning endocrine system and a healthy HPTA—at more than 90% efficiency.
+      </p>
+    `;
+  }
+  else if (category === "PCT" && sub === "Nolvadex") {
+    descTh = `
+      <p>
+        🔥 <b>Nolvadex (Tamoxifen Citrate)</b> ประเภท: SERM
+        <br>• ครึ่งชีวิต: ~5–7 วัน
+        <br>• โดสเริ่มต้น: 10–20 mg/วัน
+        <br>• ผลลัพธ์: ป้องกัน Gyno โดยการบล็อกตัวรับ Estrogen ที่หน้าอก/ ใช้ใน PCT เพื่อกระตุ้น HPTA ให้ฟื้นตัว/ ไม่ลดระดับ Estrogen โดยรวมในร่างกาย
+        <br>• ผลข้างเคียง: ปวดหัว คลื่นไส้ อารมณ์แปรปรวน/ เสี่ยงตับหากใช้ระยะยาว
+        <br>• เหมาะใช้เมื่อ: ป้องกัน Gyno หรือในช่วง PCT
+      </p>
+    `;
+    descEn = `
+      <p>
+        🔥 <b>Nolvadex (Tamoxifen Citrate)</b> Type: SERM
+        <br>• Half-life: ~5–7 days
+        <br>• Starting dosage: 10–20 mg/day
+        <br>• Benefits: Prevents gyno by blocking estrogen receptors in the chest area/ Used in PCT to stimulate HPTA recovery/ Does not reduce overall estrogen levels in the body
+        <br>• Side effects: Headache, nausea, mood swings/ Liver risk if used long-term
+        <br>• Suitable for use when: Preventing gyno or during PCT
+      </p>
+    `;
+  }
+  else if (category === "PCT" && sub === "Femara") {
+    descTh = `
+      <p>
+        🔥 <b>Femara (Letrozole)</b> ประเภท: AI (Aromatase Inhibitor)
+        <br>• ครึ่งชีวิต: ~2 วัน
+        <br>• โดสเริ่มต้น: 0.25–0.5 mg วันเว้นวัน (หรือ 2-3 ครั้ง/สัปดาห์)
+        <br>• ผลลัพธ์: ลดระดับ Estrogen อย่างรุนแรง/ ป้องกัน Gyno (นมผู้ชาย)/ ลดการบวมน้ำจาก Estrogen/ เพิ่มความแห้งของกล้ามเนื้อ
+        <br>• ผลข้างเคียง: Estrogen ต่ำเกิน → ปวดข้อ, อารมณ์แปรปรวน, ความใคร่ลด/ เสี่ยงการลด HDL (ไขมันดี)
+        <br>• เหมาะใช้เมื่อ: ใช้ steroid ที่ aromatize หนัก (เช่น Dbol, Test สูง ๆ)
+      </p>
+    `;
+    descEn = `
+      <p>
+        🔥 <b>Femara (Letrozole)</b> Type: AI (Aromatase Inhibitor)
+        <br>• Half-life: ~2 days
+        <br>• Starting dosage: 0.25–0.5 mg every other day (or 2–3 times per week)
+        <br>• Benefits: Strong reduction of estrogen levels/ Prevents gyno (male breast enlargement)/ Reduces estrogen-related water retention/ Increases muscle dryness
+        <br>• Side effects: Very low estrogen → joint pain, mood swings, decreased libido/ Risk of reducing HDL (good cholesterol)
+        <br>• Suitable for use when: Using heavily aromatizing steroids (such as high-dose Test or Dianabol)
+      </p>
+    `;
+  }
+  else if (category === "PCT" && sub === "Clomid") {
+    descTh = `
+      <p>
+        🔥 <b>Clomid</b> การฟื้นฟูฮอร์โมนหลังไซเคิ้ลหลังการใช้ยา (PCT) อาจเป็นประเด็นที่สำคัญที่สุดของการใช้สเตียรอยด์อนาโบลิก เนื่องด้วยมันไปกระตุ้นวงจรป้อนกลับเชิงลบในแกนไฮโปทาลามัส- ต่อมใต้สมอง-อัณฑะ (HPTA) ของร่างกาย ส่งผลให้การผลิตฮอร์โมน Test ในร่างกายถูกระงับหรือหยุดลง
+        <br>
+        <br>ด้วยการฟื้นฟู HPTA อย่างถูกต้องและมีประสิทธิภาพ ไม่เพียงแต่จะเลิกใช้สเตียรอยด์ในขณะที่ยังคงกล้ามเนื้อไว้ได้เกือบทั้งหมดเท่านั้น แต่ยังเพิ่มโอกาสที่จะเลิกใช้โดยมีระบบต่อมไร้ท่อที่ทำงานได้อย่างเต็มที่และ HPTA ที่มีสุขภาพดีเป็นมากกว่า 90% อีกด้วย
+
+
+      </p>
+    `;
+    descEn = `
+      <p>
+        🔥 <b>Clomid</b> Post Cycle Therapy (PCT) after using anabolic steroids may be the most important aspect of steroid usage. This is because steroids activate a negative feedback loop in the hypothalamus–pituitary–testicular axis (HPTA), which suppresses or even shuts down the body's natural testosterone production.
+        <br>
+        <br>With proper and effective HPTA recovery, not only can you discontinue steroid use while maintaining almost all of your muscle mass, but you also significantly increase the chances of stopping with a fully functioning endocrine system and a healthy HPTA—at more than 90% efficiency.
+      </p>
+    `;
+  }
+  else if (category === "PCT" && sub === "Proviron") {
+    descTh = `
+      <p>
+        💊 <b>Proviron (Mesterolone)</b> DHT ที่ไม่สามารถแปลงเป็น estrogen ใช้เพิ่มความแข็งแรงของกล้ามเนื้อ ลดการกักน้ำ และช่วยเพิ่มความใคร่ เหมาะใช้ช่วง cutting หรือ PCT
+        <br>• ครึ่งชีวิต ~12 ชั่วโมง กินวันละ 2 ครั้ง
+        <br>• โดส: 25–75 mg/วัน
+        <br>• ผลลัพธ์: เพิ่มความแข็งแรง กล้ามเนื้อแน่นขึ้น เส้นเลือดชัด ลดอาการบวมน้ำ ช่วยรักษาระดับเทสโทสเตอโรนขณะใช้สเตียรอยด์อื่น
+        <br>• ผลข้างเคียง: อาจมีผลต่อตับเล็กน้อย กด HPTA เล็กน้อย แต่ไม่แรงเหมือนสเตียรอยด์อื่น
+        <br>• มักใช้ร่วมกับ Test หรือใน PCT เพื่อช่วยฟื้นฟูระบบฮอร์โมน
+        <br>• ไม่แนะนำใช้เดี่ยวเป็นระยะยาว
+      </p>
+    `;
+    descEn = `
+      <p>
+        💊 <b>Proviron (Mesterolone)</b> is a DHT-based compound that cannot convert to estrogen. It is used to increase muscle hardness, reduce water retention, and enhance libido. Suitable for cutting phases or during PCT.
+        <br>• Half-life: ~12 hours, taken twice daily.
+        <br>• Dosage: 25–75 mg/day.
+        <br>• Results: Increases strength/ Enhances muscle density and vascularity/ Reduces water retention/ Helps maintain testosterone levels while using other steroids
+        <br>• Side effects: Mild impact on the liver/ Slight HPTA suppression, but weaker compared to most other steroids
+        <br>• Usage notes: Commonly used with Test or during PCT to support hormone recovery.
+        <br>• Not recommended as a long-term standalone use.
+      </p>
+    `;
+  }
+  else if (category === "PCT" && sub === "HCG") {
+    descTh = `
+      <p>
+        🔥 <b>HCG (Human Chorionic Gonadotropin)</b> ฮอร์โมนเลียนแบบ LH กระตุ้นการผลิตเทสโทสเตอโรนจากไข่ ใช้ป้องกันการฝ่อลีบของไข่ระหว่างใช้สารกด HPTA
+        <br>• ครึ่งชีวิต ~24–36 ชม.
+        <br>• โดส: 250–500 IU 2–3 ครั้ง/สัปดาห์ (ระหว่าง cycle), หรือ 500–1000 IU/วัน (หลังจบ cycle ก่อนเริ่ม PCT)
+        <br>• ผลลัพธ์: รักษาปริมาณน้ำไข่ ป้องกันไข่ฝ่อ ฟื้นฟูระบบสืบพันธุ์
+        <br>• ผลข้างเคียง: Estrogen สูงขึ้น (อาจต้องใช้ AI), สิว, อารมณ์แปรปรวน
+        <br>• ไม่ควรใช้โดสสูงเกินไปต่อเนื่อง เสี่ยง desensitization
+        <br>• นิยมใช้ร่วมกับ Clomid/Nolva ในช่วง PCT
+      </p>
+    `;
+    descEn = `
+      <p>
+        🔥 <b>HCG (Human Chorionic Gonadotropin)</b> A hormone that mimics LH, stimulating testosterone production from the testes. Used to prevent testicular atrophy during the use of HPTA-suppressing compounds.
+        <br>• Half-life: ~24–36 hours
+        <br>• Dosage: 250–500 IU, 2–3 times per week (during cycle), or 500–1000 IU/day (after cycle before starting PCT)
+        <br>• Results: Maintains testicular volume, prevents testicular shrinkage, helps restore reproductive function
+        <br>• Side effects: Increased estrogen (may require AI), acne, mood swings
+        <br>• Should not be used at high doses continuously due to desensitization risk
+        <br>• Commonly used together with Clomid/Nolva during PCT
+      </p>
+    `;
+  }
+
+
+  else if (category === "Fat Burn & Weight-loss" && sub === "Clen") {
+    descTh = `
+      <p>
+        💊 <b>Clenbuterol</b> ไม่ใช่สเตียรอยด์ แต่เป็น Beta-2 agonist ใช้เร่งการเผาผลาญ ลดไขมัน รักษามวลกล้าม เหมาะกับช่วง cutting
+        <br>• ครึ่งชีวิต ~36 ชม. วันละ 1 ครั้งตอนเช้า
+        <br>• โดส: เริ่มที่ 20 mcg/วัน เพิ่มทีละ 20 mcg ทุก 2–3 วัน (สูงสุด ~120–140 mcg/วัน)
+        <br>• ผลลัพธ์: เผาผลาญเพิ่ม ความร้อนในร่างกายสูงขึ้น กล้ามชัดขึ้น
+        <br>• ผลข้างเคียง: ใจสั่น มือสั่น นอนไม่หลับ ปวดหัว ความดันสูง ตับเต้นแรง อาจดื้อยาเร็ว
+        <br>• นิยมใช้แบบ 2 สัปดาห์ on / 2 สัปดาห์ off หรือเพิ่มโดสแบบ step-up 4–6 สัปดาห์
+        <br>• แนะนำใช้ร่วมกับ taurine + potassium ป้องกันตะคริว
+      </p>
+    `;
+    descEn = `
+      <p>
+        💊 <b>Clenbuterol</b> Not a steroid, but a Beta-2 agonist used to boost metabolism, burn fat, and preserve muscle mass. Ideal for cutting phases.
+        <br>• Half-life: ~36 hours, taken once daily in the morning.
+        <br>• Dosage: Start at 20 mcg/day, increase by 20 mcg every 2–3 days (maximum ~120–140 mcg/day).
+        <br>• Results: Increased metabolism, elevated body temperature, improved muscle definition.
+        <br>• Side effects: Rapid heartbeat, trembling hands, insomnia, headache, high blood pressure, heart palpitations, may develop tolerance quickly.
+        <br>• Common usage: 2 weeks on / 2 weeks off, or step-up dosing for 4–6 weeks.
+        <br>• Recommended to use alongside taurine and potassium to prevent cramps.
+      </p>
+    `;
+  }
+  else if (category === "Fat Burn & Weight-loss" && sub === "T3") {
+    descTh = `
+      <p>
+        💊 <b>T3 (Liothyronine Sodium)</b> ฮอร์โมนไทรอยด์สังเคราะห์ ช่วยเร่งการเผาผลาญ ใช้ลดไขมันอย่างแรง เหมาะช่วง cutting
+        <br>• ครึ่งชีวิต ~1 วัน กินวันละครั้งตอนเช้า
+        <br>• โดส: เริ่มที่ 25 mcg/วัน เพิ่มทีละ 12.5–25 mcg ทุก 3–5 วัน (สูงสุด ~75–100 mcg/วัน)
+        <br>• ผลลัพธ์: เผาผลาญพุ่ง น้ำหนักลงไว กล้ามชัด
+        <br>• ผลข้างเคียง: กล้ามอาจสลายถ้าใช้โดสสูงเกินหรือไม่มีกลุ่ม anabolic พ่วง ใจสั่น เหงื่อออก หงุดหงิด มือสั่น นอนไม่หลับ
+        <br>• นิยมใช้แบบ taper up & taper down เพื่อป้องกัน thyroid shutdown
+        <br>• ไม่แนะนำใช้เกิน 6–8 สัปดาห์ต่อเนื่อง
+      </p>
+    `;
+    descEn = `
+      <p>
+        💊 <b>T3 (Liothyronine Sodium)</b> A synthetic thyroid hormone that boosts metabolism, used for aggressive fat loss. Suitable for cutting phases.
+        <br>• Half-life: ~1 day, taken once daily in the morning.
+        <br>• Dosage: Start at 25 mcg/day, increase by 12.5–25 mcg every 3–5 days (maximum ~75–100 mcg/day).
+        <br>• Results: Rapid metabolism increase, fast weight loss, improved muscle definition.
+        <br>• Side effects: Muscle loss may occur if used at high doses or without anabolic support, heart palpitations, sweating, irritability, hand tremors, insomnia.
+        <br>• Commonly used with taper up & taper down method to prevent thyroid shutdown.
+        <br>• Not recommended for continuous use beyond 6–8 weeks.
+      </p>
+    `;
+  }
+  else if (category === "Fat Burn & Weight-loss" && sub === "GW501516") {
+    descTh = `
+      <p>
+        🔥 <b>GW-501516 (Cardarine)</b> ไม่ใช่ SARM แต่เป็น PPARδ agonist เพิ่มความอึด เผาผลาญไขมัน ลดระดับไขมันในเลือด
+        <br>• ครึ่งชีวิต ~16–24 ชม.
+        <br>• โดส: 10–20 mg/วัน
+        <br>• ผลลัพธ์: อึดขึ้น คาร์ดิโอได้นาน เผาผลาญดีเยี่ยม
+        <br>• ผลข้างเคียง: ยังถกเถียงเรื่องความเสี่ยงระยะยาว (ในหนู), ไม่กด HPTA
+      </p>
+    `;
+    descEn = `
+      <p>
+        🔥 <b>GW-501516 (Cardarine)</b> Not a SARM, but a PPARδ agonist that enhances endurance, increases fat metabolism, and helps reduce blood lipid levels.
+        <br>• Half-life: ~16–24 hours
+        <br>• Dosage: 10–20 mg/day
+        <br>• Results: Improved endurance, longer cardio performance, excellent fat burning
+        <br>• Side effects: Long-term risk is still debated (based on animal studies); does not suppress HPTA
+      </p>
+    `;
+  }
+ 
+  else if (category === "Fat Burn & Weight-loss" && sub === "Semaglutide") {
+    descTh = `
+      <p>
+        🔥 <b>Semaglutide</b> เป็นยาที่เลียนแบบฮอร์โมน GLP-1 ซึ่งช่วยให้รู้สึกอิ่มเร็วขึ้น อิ่มนานขึ้น กินได้น้อยลง กลไกหลักคือชะลอการย่อยอาหาร และควบคุมระดับน้ำตาลในเลือด เหมาะกับคนที่ต้องการเริ่มต้นลดน้ำหนักแบบค่อยเป็นค่อยไป ได้ผลประมาณ 15% ของน้ำหนักตัวหากใช้อย่างต่อเนื่อง
+      </p>
+    `;
+    descEn = `
+      <p>
+        🔥 <b>Semaglutide</b> Is a medication that mimics the GLP-1 hormone, which helps you feel full faster, stay full longer, and eat less. Its main mechanisms are slowing down digestion and regulating blood sugar levels. Suitable for individuals who want to begin a gradual weight loss journey, with potential results of around 15% of body weight when used consistently.
+      </p>
+    `;
+  }
+  else if (category === "Fat Burn & Weight-loss" && sub === "Tirzepatide") {
+    descTh = `
+      <p>
+        🔥 <b>Tirzepatide</b> ยารุ่นใหม่ที่เลียนแบบทั้ง GIP และ GLP-1 พร้อมกัน จึงทำงานได้ดีกว่าในเรื่องลดความหิว ควบคุมอินซูลิน และเพิ่มการเผาผลาญพลังงาน เห็นผลการลดน้ำหนักชัดเจนกว่า Semaglutide (ลดได้มากถึง 20–22%) และเป็นที่นิยมในผู้ที่มีภาวะอ้วนหรือดื้อต่ออินซูลิน
+      </p>
+    `;
+    descEn = `
+      <p>
+        🔥 <b>Tirzepatide</b> A new-generation medication that mimics both GIP and GLP-1 hormones simultaneously, making it more effective in reducing hunger, controlling insulin, and increasing energy expenditure. It shows more noticeable weight loss results than Semaglutide (up to 20–22% reduction) and is popular among individuals with obesity or insulin resistance.
+      </p>
+    `;
+  }
+  else if (category === "Fat Burn & Weight-loss" && sub === "Retatrutide") {
+    descTh = `
+      <p>
+        🔥 <b>Retatrutide</b> ยังอยู่ในช่วงทดลองทางคลินิก แต่ถือว่าทรงพลังที่สุด เพราะทำงานที่ 3 จุดคือ GIP, GLP-1 และ Glucagon receptor โดย Glucagon receptor ช่วยกระตุ้นการใช้พลังงานและการเผาผลาญไขมันเพิ่มเติม ผลที่ออกมาดูแล้วมีแนวโน้มลดได้ถึง 24% ของน้ำหนักตัว แต่ยังใช้ไม่ได้จริงในท้องตลาด
+      </p>
+    `;
+    descEn = `
+      <p>
+        🔥 <b>Retatrutide</b> Currently still in clinical trials, but considered the most powerful because it works on three targets: GIP, GLP-1, and Glucagon receptors. The Glucagon receptor helps boost energy expenditure and enhances fat metabolism. Preliminary results show potential weight loss of up to 24% of total body weight, but it is not yet available on the market.
+      </p>
+    `;
+  }
+
+
+  else if (category === "Supplements" && sub === "Tudca") {
+    descTh = `
+      <p>
+        🔥 <b>TUDCA (Tauroursodeoxycholic Acid)</b> เป็นกรดน้ำดีชนิดหนึ่งที่ช่วยปกป้องและฟื้นฟูการทำงานของตับ โดยเฉพาะเมื่อมีการใช้งานตับหนัก เช่น จากยา อาหารเสริมบางชนิด หรือภาวะไขมันพอกตับ
+        <br>คุณสมบัติหลัก:
+        <br>• ช่วยลดค่าการอักเสบของตับ (ลด AST, ALT)
+        <br>• ป้องกันเซลล์ตับจากความเสียหาย และช่วยให้ตับฟื้นตัวเร็วขึ้น
+        <br>• ลดภาวะไขมันสะสมในตับ (Fatty Liver)
+        <br>• ช่วยเรื่องระบบย่อยอาหาร และน้ำดีไหลเวียนดีขึ้น
+        <br>เหมาะสำหรับ:
+        <br>• ผู้ที่ใช้สารที่กระทบตับ
+        <br>• ผู้ที่มีไขมันพอกตับ หรือค่าตับสูง
+        <br>• ใช้เป็น liver support ระหว่างหรือหลังการใช้สารต่าง ๆ
+      </p>
+    `;
+    descEn = `
+      <p>
+        🔥 <b>TUDCA 500 (Tauroursodeoxycholic Acid)</b> A bile acid that helps protect and restore liver function, especially when the liver is under heavy stress from medications, certain supplements, or fatty liver conditions.
+        <br>Key Benefits:
+        <br>• Helps reduce liver inflammation markers (lowers AST, ALT)
+        <br>• Protects liver cells from damage and supports faster liver recovery
+        <br>• Reduces fat accumulation in the liver (Fatty Liver)
+        <br>• Supports digestion and improves bile flow
+        <br>Suitable for:
+        <br>• Individuals using substances that affect the liver
+        <br>• Those with fatty liver or elevated liver enzymes
+        <br>• As liver support during or after using various compounds
+      </p>
+    `;
+  }
+  else if (category === "Supplements" && sub === "Supplement") {
+    descTh = `
+      <p>
+      🔥 <b>Supplements</b>
+        <br>• <b>Iso Accutane 20mg</b> ยาลดสิวชนิดแรง ลดการผลิตน้ำมันจากต่อมไขมัน ลดการอักเสบของสิว เหมาะกับสิวเรื้อรังหรือสิวฮอร์โมน
+        <br>• <b>Kelp Iodine 225mcg</b> ไอโอดีนจากสาหร่ายทะเล ช่วยการทำงานของต่อมไทรอยด์ ควบคุมระบบเผาผลาญ พลังงาน และช่วยบำรุงเส้นผม
+        <br>• <b>Enhanced NMN 350</b> สารกระตุ้น NAD+ ช่วยชะลอวัย เพิ่มพลังงานระดับเซลล์ ฟื้นฟูสมอง ผิว และระบบเผาผลาญ
+        <br>• <b>NMN+TMG 430mg</b> สูตร NMN เสริมด้วย TMG เพื่อเพิ่มการดูดซึม ช่วยชะลอวัย เพิ่มเอนเนอจี้ และสนับสนุนระบบสมองและหัวใจ
+        <br>• <b>GHK-CU 50mg</b> เปปไทด์ทองแดง กระตุ้นคอลลาเจน ซ่อมแซมผิว ลดริ้วรอย ฟื้นฟูแผล และเพิ่มความยืดหยุ่นผิว
+        <br>• <b>Epitalon 10mg</b> เปปไทด์ช่วยยืดอายุเซลล์ ส่งเสริมการฟื้นฟูร่างกาย คุณภาพการนอน และระบบภูมิคุ้มกัน
+        <br>• <b>Pinealon 10mg</b> เปปไทด์ฟื้นฟูสมองและระบบประสาท ลดความเสื่อมของเซลล์ และช่วยเสริมความจำ
+        <br>• <b>Carb Up 2210</b> สูตรควบคุมน้ำตาล ลดการสะสมไขมัน ช่วยดึงสารอาหารเข้าสู่กล้ามเนื้อ เหมาะกับสายรีคอมป์หรือลีน
+        <br>• <b>5-amino-1mq</b> ช่วยเพิ่มการเผาผลาญไขมันระดับเซลล์ เสริมพลังงาน และสนับสนุนการลดไขมันแบบไม่เสียกล้าม
+        <br>• <b>SLU-PP-332</b> สารเสริมพลังงานระดับไมโตคอนเดรีย ช่วยกระตุ้นการผลิต ATP ลดอ่อนล้า เร่งฟื้นตัว และอาจช่วยชะลอวัย
+      </p>
+    `;
+    descEn = `
+      <p>
+        🔥 <b>Supplements</b>
+        <br>• <b>Iso Accutane 20mg</b> A strong acne medication that reduces oil production from sebaceous glands, decreases inflammation, suitable for chronic or hormonal acne
+        <br>• <b>Kelp Iodine 225mcg</b> Iodine from sea kelp that supports thyroid function, regulates metabolism and energy, and helps nourish hair
+        <br>• <b>Enhanced NMN 350</b> NAD+ booster that helps slow aging, increases cellular energy, and supports brain, skin, and metabolic health
+        <br>• <b>NMN+TMG 430mg</b> NMN formula enhanced with TMG for better absorption, supports anti-aging, increases energy, and promotes heart and brain health
+        <br>• <b>GHK-CU 50mg</b> Copper peptide that stimulates collagen, repairs skin, reduces wrinkles, improves wound healing, and enhances skin elasticity
+        <br>• <b>Epitalon 10mg</b> Peptide that supports cellular longevity, improves recovery, enhances sleep quality, and boosts immune function
+        <br>• <b>Pinealon 10mg</b> Peptide that supports brain and nervous system repair, reduces cellular degeneration, and helps improve memory
+        <br>• <b>Carb Up 2210</b> Formula for blood sugar control, reduces fat storage, helps drive nutrients into muscles, suitable for recomp or lean phases
+        <br>• <b>5-amino-1mq</b> Helps increase fat metabolism at the cellular level, boosts energy, and supports fat loss without muscle loss
+        <br>• <b>SLU-PP-332</b> Mitochondrial energy enhancer that stimulates ATP production, reduces fatigue, speeds up recovery, and may support longevity
+      </p>
+    `;
+  }
+
+  else if (category === "Sexual Performance" && sub === "Cialis") {
+    descTh = `
+      <p>
+        🔥 <b>Cialis และ Viagra</b> คือยารักษาอาการหย่อนสมรรถภาพทางเพศในผู้ชาย (ED):
+        <br>• Viagra (ไวอากร้า) มีตัวยา Sildenafil ออกฤทธิ์เร็ว อยู่ได้นานประมาณ 4 ชั่วโมง
+        <br>• Cialis (เซียลิส) มีตัวยา Tadalafil ออกฤทธิ์ช้ากว่า แต่อยู่นานถึง 36 ชั่วโมง
+        <br>ทั้งสองยาทำงานโดยช่วยให้เลือดไหลเวียนไปยังอวัยวะเพศได้ดีขึ้นเมื่อมีสิ่งกระตุ้นทางเพศ
+      </p>
+    `;
+    descEn = `
+      <p>
+        🔥 <b>Cialis และ Viagra</b> are medications used to treat erectile dysfunction (ED) in men:
+        <br>• Viagra contains Sildenafil, which works quickly and lasts for about 4 hours.
+        <br>• Cialis contains Tadalafil, which takes effect more slowly but lasts up to 36 hours.
+        <br>Both medications work by improving blood flow to the penis when there is sexual stimulation.
+      </p>
+    `;
+  }
+  else if (category === "Sexual Performance" && sub === "Viagra") {
+    descTh = `
+      <p>
+        🔥 <b>Cialis และ Viagra</b> คือยารักษาอาการหย่อนสมรรถภาพทางเพศในผู้ชาย (ED):
+        <br>• Viagra (ไวอากร้า) มีตัวยา Sildenafil ออกฤทธิ์เร็ว อยู่ได้นานประมาณ 4 ชั่วโมง
+        <br>• Cialis (เซียลิส) มีตัวยา Tadalafil ออกฤทธิ์ช้ากว่า แต่อยู่นานถึง 36 ชั่วโมง
+        <br>ทั้งสองยาทำงานโดยช่วยให้เลือดไหลเวียนไปยังอวัยวะเพศได้ดีขึ้นเมื่อมีสิ่งกระตุ้นทางเพศ
+      </p>
+    `;
+    descEn = `
+      <p>
+        🔥 <b>Cialis และ Viagra</b> are medications used to treat erectile dysfunction (ED) in men:
+        <br>• Viagra contains Sildenafil, which works quickly and lasts for about 4 hours.
+        <br>• Cialis contains Tadalafil, which takes effect more slowly but lasts up to 36 hours.
+        <br>Both medications work by improving blood flow to the penis when there is sexual stimulation.
+      </p>
+    `;
+  }
+  else if (category === "Sexual Performance" && sub === "Kamagra Oral Jelly") {
+    descTh = `
+      <p>
+        🔥 <b>Kamagra Oral Jelly</b> เป็นผลิตภัณฑ์รูปแบบเจล สำหรับรับประทาน ที่ใช้ตัวยา Sildenafil เช่นเดียวกับ Viagra ออกแบบมาให้ดูดซึมเร็วกว่าแบบเม็ด เหมาะกับคนที่กลืนเม็ดยาก มีหลายรส เช่น มิ้นต์ ส้ม สตรอว์เบอร์รี
+        <br>จุดเด่น:
+        <br>• รูปแบบเจล ดูดซึมเร็ว
+        <br>• มีรสชาติ เลือกทานง่าย
+        <br>• ใช้เพื่อช่วยให้เลือดไหลเวียนไปยังอวัยวะเพศได้ดีขึ้น เมื่อมีสิ่งกระตุ้นทางเพศ
+      </p>
+    `;
+    descEn = `
+      <p>
+        🔥 <b>Kamagra Oral Jelly</b> is an oral jelly product that contains Sildenafil, the same active ingredient as Viagra. It is designed for faster absorption compared to tablets and is suitable for those who have difficulty swallowing pills. Available in various flavors such as mint, orange, and strawberry.  
+        <br>Highlights:
+        <br>• Jelly form with fast absorption  
+        <br>• Flavored and easy to take  
+        <br>• Helps improve blood flow to the genital area when sexual stimulation is present  
+      </p>
+    `;
+  }
+
+
+  
   // ---------- ถ้ามีคำอธิบาย ให้สร้างกล่อง + ปุ่มเปลี่ยนภาษา ----------
   if (descTh) {
     const desc = document.createElement("div");
