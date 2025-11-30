@@ -647,7 +647,7 @@ const products = {
     ],
     "Supplements": [
       { name: "Iso Accutane Beligas 20mg50t", price: 1000, image: "images/iso-beligas.png" },
-      { name: "Kelp Iodine SAAnabolic 225mcg90t", price: 350, image: "images/kelp-sa.png" }
+      { name: "Kelp Iodine SAAnabolic 225mcg90t", price: 350, image: "images/kelp-sa.png" },
       { name: "Enhanced NMN350 SAAnabolic 60t", price: 1250, image: "images/nmn350-sa.png" },
       { name: "NMN+TMG SAAnabolic 430mg60t", price: 1250, image: "images/nmn-sa.png" },
       { name: "GHK-CU 50mg Wellness", price: 1000, image: "" },
