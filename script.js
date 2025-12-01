@@ -194,7 +194,7 @@ const products = {
       { name: "Superdrol Meditech 10mg50t", price: 1200, image: "images/super-medi.png" },
       { name: "Superdrol BPMedical 10mg50t", price: 1600, image: "images/super-bp.png" }
     ],
-    "Oral etc.": [
+    "Oral etc": [
       { name: "Test เม็ด Beligas 40mg50t", price: 3090, image: "images/testเม็ด-beligas.png" },
       { name: "Mix1 Synctech 15+10mg50t", price: 1550, image: "images/mix1-sync.png" },
       { name: "Mix2 Synctech 20+10mg50t", price: 1700, image: "images/mix2-sync.png" },
@@ -362,7 +362,7 @@ const products = {
    //   { name: "Deca Bodytech 400mg", price: 1600, image: "images/deca2-body.png" },
       { name: "Deca Beligas 500mg", price: 2150, image: "images/deca500-beligas.png" }
     ],
-    "Injection etc.": [
+    "Injection etc": [
       { name: "TestU Bayer NEBIDO 1000mg/4ml", price: 8500, image: "images/testu-nebido.png" },
       { name: "TestU SAAnabolic 250mg", price: 1650, image: "images/testu-sa.png" },
       { name: "TestU BPMedical 250mg", price: 1600, image: "" },
@@ -428,7 +428,7 @@ const products = {
       { name: "AC-262 SAAnabolic 10mg60t", price: 2430, image: "images/ac262-sa.png" },
       { name: "AC-262 BPMedical 10mg30t", price: 1700, image: "images/ac262-bp.png" }
     ],
-    "SARMs etc.": [
+    "SARMs etc": [
       { name: "S-23 SAAnabolic 10mg100t", price: 1900, image: "images/s23-sa.png" },
       { name: "SR-9009 BPMedical 10mg60t", price: 2300, image: "" }
     ]
@@ -480,7 +480,7 @@ const products = {
       { name: "TB500+BPC157 SAAnabolic 5+5mg", price: 1550, image: "images/tb500-sa.png" }
 
     ],
-    "Peptide etc.": [
+    "Peptide etc": [
       { name: "PT-141 Beligas 10mg", price: 1490, image: "images/pt141-beligas.png" },
       { name: "PT-141 BPMedical 10mg", price: 1500, image: "images/pt141-bp.png" },
       { name: "PT-141 Wellness 10mg", price: 1200, image: "" },
@@ -559,6 +559,9 @@ const products = {
       { name: "HCG BPMedical 5000iu", price: 1150, image: "images/hcg-bp.png" },
       { name: "HCG AlphaPharma 15000iu", price: 2100, image: "images/hcg-alpha.png" }
       //   { name: "HCG SAAnabolic 15000iu", price: 1800, image: "images/hcg-sa.png" }
+    ],
+    "PCT etc": [
+      { name: "Enclomiphene Citrate BPMedical 25mg30t (SERMs)", price: 1900, image: "images/clomid-medi.png" }
     ]
   },
   "Fat Burn & Weight-loss": {
@@ -672,7 +675,7 @@ const products = {
     "Kamagra Oral Jelly": [
       { name: "Kamagra Oral Jelly 100mg7ซอง", price: 385, image: "images/kama.png" }
     ],
-    "Sexual Health etc.": [
+    "Sexual Health etc": [
       
     ]
   }
@@ -1056,7 +1059,7 @@ function renderProducts(category, sub) {
     `;
   }
   // ✅ Oral AAS → etc
-  else if (category === "Oral AAS" && sub === "Oral etc.") {
+  else if (category === "Oral AAS" && sub === "Oral etc") {
     descTh = `
       <p>
         <b>• Mix 1 Cardarine & Yohimbine</b> เพิ่มความทนต่อการออกกำลังกายและระบบการใช้ไขมันเป็นพลังงาน เพิ่มการไหลเวียนเลือด
@@ -1392,7 +1395,7 @@ function renderProducts(category, sub) {
     `;
   }
 
-  else if (category === "Injection AAS" && sub === "Injection etc.") {
+  else if (category === "Injection AAS" && sub === "Injection etc") {
     descTh = `
       <p>
         <b>• Test U (Testosterone Undecanoate)</b> ออกฤทธิ์ยาวในร่างกาย
@@ -1575,7 +1578,7 @@ function renderProducts(category, sub) {
       </p>
     `;
   }
-  else if (category === "SARMs" && sub === "SARMs etc.") {
+  else if (category === "SARMs" && sub === "SARMs etc") {
     descTh = `
       <p>
          <b>• S23</b> Full AR agonist จับแน่น ฟูเร็ว แน่นเร็ว กัก glycogen สูง ดันแรงขับทางเพศแรง
@@ -1705,7 +1708,7 @@ function renderProducts(category, sub) {
     `;
   }
 
-  else if (category === "HGH & Peptide" && sub === "Peptide etc.") {
+  else if (category === "HGH & Peptide" && sub === "Peptide etc") {
     descTh = `
       <p>
         <b>• PT-141</b> สารในกลุ่มเปปไทด์ที่ถูกศึกษาเกี่ยวกับระบบประสาทและความต้องการทางเพศ (libido) โดยไม่ได้ออกฤทธิ์ผ่านระบบฮอร์โมนเทสโทสเทอโรนโดยตรง
