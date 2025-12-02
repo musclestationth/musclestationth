@@ -367,26 +367,19 @@ textarea, input {
   padding-bottom: 150px;
 }
 
+/* กล่องคำอธิบายสินค้า (TH/ENG) */
 .product-desc {
-  grid-column: 1 / -1;  /* ถ้าใช้ grid ให้กินเต็มแถว */
-  font-size: 16px;
-  padding: 8px;
-  margin-bottom: 6px;
-  background: #fff7e6;
-  border-radius: 6px;
-  line-height: 1.4;
-}
-
-.product-desc {
+  grid-column: 1 / -1;       /* ถ้า parent ใช้ display: grid ให้กินเต็มแถว */
   position: relative;
   padding: 8px 10px 10px;
   margin-bottom: 8px;
   background: #fff7e6;
   border-radius: 6px;
-  font-size: 13px;
+  font-size: 18px;           /* ปรับเป็น 14px กลาง ๆ ถ้าอยากเล็กลงค่อยลดเป็น 13 */
   line-height: 1.4;
 }
 
+/* แถวบน: ชื่อหมวด + ปุ่มเปลี่ยนภาษา */
 .product-desc .desc-header {
   display: flex;
   justify-content: space-between;
@@ -399,14 +392,17 @@ textarea, input {
   font-size: 12px;
 }
 
+/* ปุ่ม ENG Info / TH Info */
 .product-desc .lang-toggle {
-  font-size: 11px;
+  font-size: 18px;
   padding: 2px 8px;
   border-radius: 12px;
   border: 1px solid #ccc;
   background: #ffffff;
+  cursor: pointer;
 }
 
+/* ย่อหน้าข้างในคำอธิบาย */
 .product-desc p {
   margin: 2px 0;
 }
