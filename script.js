@@ -434,7 +434,7 @@ const products = {
     ]
 
   },
-  "HGH & Peptide": {
+  "HGHPeptide": {
     "HGH": [
       { name: "HGH Meditech 100iu", price: 3900, image: "images/hgh-medi.png" },
       { name: "HGH Platinum 100iu", price: 5200, image: "images/hgh-plat.png" },
@@ -564,7 +564,7 @@ const products = {
       { name: "Enclomiphene Citrate BPMedical 25mg30t (SERMs)", price: 1900, image: "images/clomid-medi.png" }
     ]
   },
-  "Fat Burn & Weight-loss": {
+  "FatBurnWeight-loss": {
     "Clen": [
       { name: "Clen AlphaPharma 40mcg50t\n&nbsp;\n&nbsp;", price: 600, image: "images/clen-alpha.png" },
       //{ name: "Clen Beligas 40mcg50t\n&nbsp;\n&nbsp;", price: 850, image: "images/clen50-beligas.png" },
@@ -1593,7 +1593,7 @@ function renderProducts(category, sub) {
     `;
   }
     
-  else if (category === "HGH & Peptide" && sub === "HGH") {
+  else if (category === "HGHPeptide" && sub === "HGH") {
     descTh = `
       <p>
          <b>HGH (Human Growth Hormone)</b> ฮอร์โมนเร่งการเจริญเติบโต ช่วยเพิ่มมวลกล้าม ลดไขมัน ฟื้นฟูร่างกาย ซ่อมแซมข้อ เอ็น กระดูก นิยมใช้ทั้งในช่วง cutting และ recomp
@@ -1617,7 +1617,7 @@ function renderProducts(category, sub) {
       </p>
     `;
   }
-  else if (category === "HGH & Peptide" && sub === "IGF1") {
+  else if (category === "HGHPeptide" && sub === "IGF1") {
     descTh = `
       <p>
          <b>IGF-1 (Insulin-like Growth Factor-1)</b> ฮอร์โมนที่เกิดจาก HGH ช่วยเพิ่มการเจริญเติบโตของกล้ามเนื้อ และฟื้นฟูเซลล์ระดับลึก ใช้ได้lean,bulk หรือ recomp
@@ -1643,7 +1643,7 @@ function renderProducts(category, sub) {
       </p>
     `;
   }
-  else if (category === "HGH & Peptide" && sub === "HCG") {
+  else if (category === "HGHPeptide" && sub === "HCG") {
     descTh = `
       <p>
          <b>HCG (Human Chorionic Gonadotropin)</b> ฮอร์โมนเลียนแบบ LH กระตุ้นการผลิตเทสโทสเตอโรนจากไข่ ใช้ป้องกันการฝ่อลีบของไข่ระหว่างใช้สารกด HPTA
@@ -1667,7 +1667,7 @@ function renderProducts(category, sub) {
       </p>
     `;
   }
-  else if (category === "HGH & Peptide" && sub === "TB500/BPC157") {
+  else if (category === "HGHPeptide" && sub === "TB500/BPC157") {
     descTh = `
       <p>
          <b>TB-500 (Thymosin Beta-4)</b> เปปไทด์ฟื้นฟูระดับลึก ช่วยซ่อมแซมกล้ามเนื้อ เอ็น และข้อต่อ เพิ่มความยืดหยุ่น ลดอักเสบ ฟื้นตัวเร็ว
@@ -1708,7 +1708,7 @@ function renderProducts(category, sub) {
     `;
   }
 
-  else if (category === "HGH & Peptide" && sub === "Peptide etc") {
+  else if (category === "HGHPeptide" && sub === "Peptide etc") {
     descTh = `
       <p>
         <b>• PT-141</b> สารในกลุ่มเปปไทด์ที่ถูกศึกษาเกี่ยวกับระบบประสาทและความต้องการทางเพศ (libido) โดยไม่ได้ออกฤทธิ์ผ่านระบบฮอร์โมนเทสโทสเทอโรนโดยตรง
@@ -1911,7 +1911,7 @@ function renderProducts(category, sub) {
   }
 
 
-  else if (category === "Fat Burn & Weight-loss" && sub === "Clen") {
+  else if (category === "FatBurnWeight-loss" && sub === "Clen") {
     descTh = `
       <p>
          <b>Clenbuterol</b> ไม่ใช่สเตียรอยด์ แต่เป็น Beta-2 agonist ใช้เร่งการเผาผลาญ ลดไขมัน รักษามวลกล้าม เหมาะกับช่วง cutting
@@ -1935,7 +1935,7 @@ function renderProducts(category, sub) {
       </p>
     `;
   }
-  else if (category === "Fat Burn & Weight-loss" && sub === "T3") {
+  else if (category === "FatBurnWeight-loss" && sub === "T3") {
     descTh = `
       <p>
          <b>T3 (Liothyronine Sodium)</b> ฮอร์โมนไทรอยด์สังเคราะห์ ช่วยเร่งการเผาผลาญ ใช้ลดไขมันอย่างแรง เหมาะช่วง cutting
@@ -1959,7 +1959,7 @@ function renderProducts(category, sub) {
       </p>
     `;
   }
-  else if (category === "Fat Burn & Weight-loss" && sub === "GW501516") {
+  else if (category === "FatBurnWeight-loss" && sub === "GW501516") {
     descTh = `
       <p>
          <b>GW-501516 (Cardarine)</b> ไม่ใช่ SARM แต่เป็น PPARδ agonist เพิ่มความอึด เผาผลาญไขมัน ลดระดับไขมันในเลือด
@@ -1980,7 +1980,7 @@ function renderProducts(category, sub) {
     `;
   }
  
-  else if (category === "Fat Burn & Weight-loss" && sub === "Semaglutide") {
+  else if (category === "FatBurnWeight-loss" && sub === "Semaglutide") {
     descTh = `
       <p>
          <b>Semaglutide</b> เป็นยาที่เลียนแบบฮอร์โมน GLP-1 ซึ่งช่วยให้รู้สึกอิ่มเร็วขึ้น อิ่มนานขึ้น กินได้น้อยลง กลไกหลักคือชะลอการย่อยอาหาร และควบคุมระดับน้ำตาลในเลือด เหมาะกับคนที่ต้องการเริ่มต้นลดน้ำหนักแบบค่อยเป็นค่อยไป ได้ผลประมาณ 15% ของน้ำหนักตัวหากใช้อย่างต่อเนื่อง
@@ -1992,7 +1992,7 @@ function renderProducts(category, sub) {
       </p>
     `;
   }
-  else if (category === "Fat Burn & Weight-loss" && sub === "Tirzepatide") {
+  else if (category === "FatBurnWeight-loss" && sub === "Tirzepatide") {
     descTh = `
       <p>
          <b>Tirzepatide</b> ยารุ่นใหม่ที่เลียนแบบทั้ง GIP และ GLP-1 พร้อมกัน จึงทำงานได้ดีกว่าในเรื่องลดความหิว ควบคุมอินซูลิน และเพิ่มการเผาผลาญพลังงาน เห็นผลการลดน้ำหนักชัดเจนกว่า Semaglutide (ลดได้มากถึง 20–22%) และเป็นที่นิยมในผู้ที่มีภาวะอ้วนหรือดื้อต่ออินซูลิน
@@ -2004,7 +2004,7 @@ function renderProducts(category, sub) {
       </p>
     `;
   }
-  else if (category === "Fat Burn & Weight-loss" && sub === "Retatrutide") {
+  else if (category === "FatBurnWeight-loss" && sub === "Retatrutide") {
     descTh = `
       <p>
          <b>Retatrutide</b> ยังอยู่ในช่วงทดลองทางคลินิก แต่ถือว่าทรงพลังที่สุด เพราะทำงานที่ 3 จุดคือ GIP, GLP-1 และ Glucagon receptor โดย Glucagon receptor ช่วยกระตุ้นการใช้พลังงานและการเผาผลาญไขมันเพิ่มเติม ผลที่ออกมาดูแล้วมีแนวโน้มลดได้ถึง 24% ของน้ำหนักตัว แต่ยังใช้ไม่ได้จริงในท้องตลาด
