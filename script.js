@@ -416,7 +416,7 @@ const products = {
     ],
     "YK11": [
       { name: "YK-11 BPMedical 10mg30t", price: 1750, image: "images/yk11-bp.png" },
-      { name: "YK-11 SAAnabolic 5mg60t", price: 2200, image: "images/yk11-sa.png" },
+      { name: "YK-11 SAAnabolic 5mg60t", price: 2200, image: "images/yk11-sa.png" }
     ],
     "LGD4033": [
       { name: "LGD-4033 BPMedical 5mg60t", price: 1650, image: "images/lgd-bp.png" },
