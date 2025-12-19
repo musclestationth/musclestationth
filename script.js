@@ -20,6 +20,10 @@ const itemsPerPage = 3; // ✅ ให้โชว์ 3 สินค้าต่�
 
 // สินค้าเข้าใหม่ (กำหนดเอง)
 const newProducts = [
+{ name: "Tudca+NAC SAAnabolic", price: 1400, image: "" },
+  { name: "Hairtech Pro Spray SAAnabolic", price: 1600, image: "" },
+  { name: "Dutal SAAnabolic", price: 1350, image: "" },
+  { name: "Multivitamin+CoQ10 SAAnabolic", price: 950, image: "" },
   { name: "TestU NEBIDO 1000mg/4ml", price: 8500, image: "images/testu-nebido.png" },
   { name: "TestU SAAnabolic 250mg", price: 1650, image: "images/testu-sa.png" },
   { name: "Tirzep SAAnabolic 20mg ", price: 4900, image: "images/tirzep20-sa.png" },
@@ -226,8 +230,8 @@ const products = {
       { name: "TestE SAAnabolic 200mg", price: 1100, image: "images/teste-sa.png" },
   //    { name: "TestE EuroMed 300mg", price: 1100, image: "images/teste-euro.png" },
       { name: "TestE Platinum 300mg", price: 1200, image: "images/teste-plat.png" }
-   //   { name: "TestE Beligas 300mg", price: 1290, image: "images/teste300-beligas.png" },
-  //    { name: "TestE Beligas 450mg", price: 1490, image: "images/teste450-beligas.png" }
+      { name: "TestE Beligas 300mg", price: 1290, image: "images/teste300-beligas.png" },
+      { name: "TestE Beligas 450mg", price: 1490, image: "images/teste450-beligas.png" }
     ],
     "TestProp": [
       { name: "TestProp Gainzlab 100mg", price: 630, image: "images/testprop-gainz.png" },
@@ -648,6 +652,7 @@ const products = {
     "Tudca": [
     //  { name: "Tudca Beligas 500mg90t", price: 1590, image: "images/tudca-beligas.png" },
       { name: "Tudca BPMedical 500mg60t", price: 1870, image: "images/tudca-bp.png" },
+      { name: "Tudca+NAC SAAnabolic", price: 1400, image: "" },
       { name: "SAMARIN-140 100t", price: 1000, image: "" }
       
     ],
