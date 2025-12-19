@@ -157,7 +157,7 @@ const products = {
       { name: "T3 BPMedical 25mcg100t", price: 1000, image: "images/t3-bp.png" },
       { name: "T3 Beligas 50mcg50t", price: 1090, image: "images/t350-beligas.png" },
       { name: "T3 Platinum 50mcg100t", price: 1200, image: "images/t3-plat.png" },
-      { name: "T3 SAAnabolic 25mcg200t", price: 1100, image: "images/t3-sa.png" },
+      { name: "T3 SAAnabolic 25mcg200t", price: 1200, image: "images/t3-sa.png" },
       { name: "T3 Beligas 50mcg100t", price: 1290, image: "images/t3100-beligas.png" }
     ],
     "Stano": [
@@ -513,6 +513,7 @@ const products = {
       { name: "Arimidex EuroMed 1mg30t", price: 1050, image: "images/ari-euro.png" },
       { name: "Arimidex BPMedical 1mg30t", price: 1700, image: "images/ari-bp.png" },
       { name: "Arimidex Meditech 1mg50t", price: 1200, image: "images/ari-medi.png" },
+      { name: "Arimidex SAAnabolic 1mg50t", price: 1200, image: "" },
       { name: "Arimidex Beligas 1mg50t", price: 1290, image: "images/ari-beligas.png" }
     ],
     "Aromasin": [
@@ -533,7 +534,7 @@ const products = {
       { name: "Nolvadex Meditech 20mg50t", price: 1200, image: "images/nolv-medi.png" },
       { name: "Nolvadex Beligas 20mg50t", price: 1190, image: "images/nolv-beligas.png" },
       { name: "Nolvadex AlphaPharma 20mg30t", price: 1100, image: "images/nol-alpha.png" },
-      { name: "Nolvadex SAAnabolic 20mg60t", price: 0, image: "images/nolv-sa.png" },
+      { name: "Nolvadex SAAnabolic 20mg50t", price: 850, image: "images/nolv-sa.png" },
       { name: "Levitra SAAnabolic 30mg60t", price: 1440, image: "images/levitra-sa.png" }
     ],
     "Femara": [
@@ -561,7 +562,9 @@ const products = {
       //   { name: "HCG SAAnabolic 15000iu", price: 1800, image: "images/hcg-sa.png" }
     ],
     "PCT etc": [
-      { name: "Enclomiphene Citrate BPMedical 25mg30t (SERMs)", price: 1900, image: "images/clomid-medi.png" }
+      { name: "Enclomiphene Citrate BPMedical 25mg30t (SERMs)", price: 1900, image: "images/clomid-medi.png" },
+      { name: "Toremifene Citrate SAAnabolic 30mg60t", price: 2250, image: "" },
+      { name: "Raloxifene SAAnabolic 30mg60t", price: 1440, image: "" }
     ]
   },
   "FatBurnWeight-loss": {
@@ -585,7 +588,7 @@ const products = {
       { name: "T3 BPMedical 25mcg100t", price: 1000, image: "images/t3-bp.png" },
       { name: "T3 Beligas 50mcg50t", price: 1090, image: "images/t350-beligas.png" },
       { name: "T3 Platinum 50mcg100t", price: 1200, image: "images/t3-plat.png" },
-      { name: "T3 SAAnabolic 25mcg200t", price: 1100, image: "images/t3-sa.png" },
+      { name: "T3 SAAnabolic 25mcg200t", price: 1200, image: "images/t3-sa.png" },
       { name: "T3 Beligas 50mcg100t", price: 1290, image: "images/t3100-beligas.png" }
     ],
     "GW501516": [
@@ -612,7 +615,7 @@ const products = {
       { name: "Tirzep APLab 10mg", price: 3500, image: "images/tirzep-ap.png" },
       { name: "Tirzep SAAnabolic 10mg", price: 3500, image: "images/tirzep-sa.png" },
       { name: "Tirzep Wellness 10mg", price: 3200, image: "images/tirzep-wellness.png" },
-      { name: "Tirzep BPMedical 10mg", price: 3700, image: "images/tirzep-wellness.png" },
+      { name: "Tirzep BPMedical 10mg", price: 3700, image: "images/tirzep-bp.png" },
       { name: "TirzepPen Jolie 10mg", price: 5500, image: "images/tirzep-jolie.png" },
       { name: "TirzepPen Beligas 10mg", price: 4500, image: "images/tirzep-beligass.png" },
       { name: "Tirzep Platinum 10mg", price: 3500, image: "images/tirzep-plat.png" },
