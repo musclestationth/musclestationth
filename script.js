@@ -264,7 +264,7 @@ const products = {
       { name: "TrenA Synctech 100mg", price: 1400, image: "images/trena-sync.png" },
       { name: "TrenA Gainzlab 100mg", price: 1400, image: "images/trena-gainz.png" },
       { name: "TrenA SAAnabolic 100mg", price: 1500, image: "images/trena-sa.png" },
-      { name: "TrenA AlphaPharma 100mg", price: 1600, image: "images/trena-alpha.png" },
+      { name: "TrenA AlphaPharma 100mg", price: 2100, image: "images/trena-alpha.png" },
       { name: "TrenA EuroMed 100mg", price: 1600, image: "images/trena-euro.png" },
       { name: "TrenA Platinum 100mg", price: 1600, image: "images/trena-plat.png" },
       { name: "TrenA Meditech 100mg", price: 1600, image: "images/trena-medi.png" },
@@ -279,7 +279,7 @@ const products = {
       { name: "TrenE Beligas 200mg", price: 1690, image: "images/trene-beligas.png" },
       { name: "TrenE SAAnabolic 200mg", price: 1800, image: "images/trene-sa.png" },
       { name: "TrenE BPMedical 200mg", price: 2300, image: "images/trene-bp.png" },
-      { name: "TrenE AlphaPharma 250mg", price: 2500, image: "images/trene-alpha.png" },
+      { name: "TrenE AlphaPharma 250mg", price: 2900, image: "images/trene-alpha.png" },
       { name: "TrenE Gainzlab 200mg", price: 1600, image: "images/trene-gainz.png" }
     ],
     "TrenHex": [
