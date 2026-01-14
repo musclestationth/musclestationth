@@ -614,17 +614,17 @@ const products = {
       { name: "SemaglutidePen Wegovy 1mg(มีอย.)", price: 11900, image: "images/sema-wegovy.png" }
     ],
     "Tirzepatide": [
-      { name: "Tirzep Wellness 5mg", price: 1850, image: "" },
+      { name: "Tirzep Wellness 5mg", price: 1200, image: "" },
       { name: "Tirzep Mounjaro Kwikpen 5mg/0.6ml(มีอย.)", price: 17500, image: "images/tirzep-kwikk.png" },
       { name: "Tirzep APLab 10mg", price: 3500, image: "images/tirzep-ap.png" },
       { name: "Tirzep SAAnabolic 10mg", price: 3500, image: "images/tirzep-sa.png" },
-      { name: "Tirzep Wellness 10mg", price: 3200, image: "images/tirzep-wellness.png" },
+      { name: "Tirzep Wellness 10mg", price: 1950, image: "images/tirzep-wellness.png" },
       { name: "Tirzep BPMedical 10mg", price: 3700, image: "images/tirzep-bp.png" },
       { name: "TirzepPen Jolie 10mg", price: 5500, image: "images/tirzep-jolie.png" },
       { name: "TirzepPen Beligas 10mg", price: 4500, image: "images/tirzep-beligass.png" },
       { name: "Tirzep Platinum 10mg", price: 3500, image: "images/tirzep-plat.png" },
       { name: "Tirzep SAAnabolic 20mg ", price: 4900, image: "images/tirzep20-sa.png" },
-      { name: "Tirzep Wellness 20mg ", price: 3650, image: "" }      
+      { name: "Tirzep Wellness 20mg ", price: 3350, image: "" }      
     ],
     "Retatrutide": [
       // { name: "Retatrutide APLab 5mg", price: 1800, image: "images/" },
@@ -673,7 +673,7 @@ const products = {
   },
   "Sexual Health": {
     "Cialis": [
-      { name: "Cialis Beligas 25mg100t", price: 2490, image: "images/cialis100-beligas.png" },
+      { name: "Cialis Beligas 5mg100t", price: 2490, image: "images/cialis100-beligas.png" },
       { name: "Tadalafil BPMedical 20mg10t", price: 1200, image: "images/cialis-bp.png" },
       { name: "Tadalafil SAAnabolic 5mg100t", price: 1130, image: "images/cialis-sa.png" }
     ],
