@@ -324,7 +324,7 @@ const products = {
     "Primo": [
       { name: "Primo Meditech 100mg", price: 1700, image: "images/primo-medi.png" },
       //{ name: "Primo Gainzlab 100mg", price: 1500, image: "images/primo-gainz.png" },
-    //  { name: "Primo SAAnabolic 100mg", price: 1600, image: "images/primo-sa.png" },
+      { name: "Primo SAAnabolic 100mg", price: 1600, image: "images/primo-sa.png" },
      // { name: "Primo Bodytech 100mg", price: 1700, image: "images/primo-body.png" },
       { name: "Primo Platinum 100mg", price: 2000, image: "images/primo-plat.png" },
       { name: "Primo BPMedical 100mg", price: 2100, image: "images/primo-bp.png" },
