@@ -665,7 +665,7 @@ const products = {
       { name: "Epitalon 10mg Wellness", price: 1000, image: "" },
       { name: "Pinealon 10mg Wellness", price: 1450, image: "" },
       { name: "Carb up 2210 SAAnabolic 60t", price: 950, image: "images/carb-sa.png" },
-      { name: "5-Amino-1mq SAAnabolic 60t", price: 950, image: "images/" },
+      { name: "5-Amino-1mq SAAnabolic 60t", price: 1350, image: "images/" },
       { name: "SLU-PP-332 SAAnabolic 60t", price: 1750, image: "images/slp-sa.png" },
       { name: "SLU-PP-332 Wellness 250mcg100t", price: 2000, image: "" },
       { name: "SLU-PP-332 BPmedical 400mcg60t", price: 1700, image: "" }  
@@ -681,7 +681,7 @@ const products = {
       { name: "Viagra Beligas 50mg50t", price: 1500, image: "images/viagra-beligas.png" }
     ],
     "Kamagra Oral Jelly": [
-      { name: "Kamagra Oral Jelly 100mg7ซอง", price: 385, image: "images/kama.png" }
+      { name: "Kamagra Oral Jelly 100mg1ซอง", price: 60, image: "" }
     ],
     "Sexual Health etc": [
       
