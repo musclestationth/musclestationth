@@ -20,17 +20,19 @@ const itemsPerPage = 3; // ✅ ให้โชว์ 3 สินค้าต่�
 
 // สินค้าเข้าใหม่ (กำหนดเอง)
 const newProducts = [
-{ name: "Tudca+NAC SAAnabolic", price: 1400, image: "" },
-  { name: "Hairtech Pro Spray SAAnabolic", price: 1600, image: "" },
-  { name: "Dutal SAAnabolic", price: 1350, image: "" },
-  { name: "Multivitamin+CoQ10 SAAnabolic", price: 950, image: "" },
-  { name: "TestU NEBIDO 1000mg/4ml", price: 8500, image: "images/testu-nebido.png" },
-  { name: "TestU SAAnabolic 250mg", price: 1650, image: "images/testu-sa.png" },
-  { name: "Tirzep SAAnabolic 20mg ", price: 4900, image: "images/tirzep20-sa.png" },
-  { name: "HGHPen SAAnabolic(Pharma) 30iu", price: 2900, image: "images/hghpen-sa.png" },
-  { name: "HGH Wellness 100iu", price: 3500, image: "" },
-  { name: "2xHGH Wellness 100iu", price: 6000, image: "" }
-
+{ name: "Gluta 1500mg Muse", price: 0, image: "images/gluta-muse.png" },
+{ name: "GHK-CU bpmedical 50mg", price: 1800, image: "images/ghk-bp.png" },
+{ name: "GHK-CU 50mgWellness/100mgMuse", price: 1000, image: "images/ghk-muse.png" },
+{ name: "KPV 10mg Wellness/Muse", price: 1400, image: "images/kpv-muse.png" },
+{ name: "Tesa+IPA 10+3mg Muse/Tesa 10mg Wellness", price: 1750, image: "images/tesa-muse.png" },
+//{ name: "Tesamorelin Wellness 10mg", price: 1750, image: "" },
+//{ name: "CJC-1295(without DAC)5mg + Ipamorelin5mg Wellness", price: 2250, image: "" },
+{ name: "CJC-1295(with DAC) 5mg Wellness", price: 2350, image: "" },
+{ name: "CJC-1295(no DAC)2mg BPMedical", price: 6300, image: "images/cjc-bp.png" },
+{ name: "CJC+IPA 5+5mg Muse/Wellness", price: 2250, image: "images/cjc-muse.png" },
+{ name: "MOTS-C 10mgWellness/20mgMuse", price: 1950, image: "images/mots-muse.png" },
+{ name: "AOD Wellness/Muse 5mg", price: 1450, image: "images/aod-muse.png" }
+  
 ];
 
 // --- ข้อมูลสินค้าโปรโมชั่น ---
@@ -39,7 +41,7 @@ const promoProducts = [
   { name: "(3pc) RAD140 Promotion", price: 2400, image: "images/sarmpro.png" },
   { name: "(3pc) MK2866 Promotion", price: 2700, image: "images/sarmpro.png" },
   { name: "(3pc) MK677 Promotion", price: 3300, image: "images/677pro.png" },
-  { name: "2xHGH Wellness 100iu", price: 6000, image: "" },
+  { name: "2xHGH Wellness 100iu", price: 6000, image: "images/hgh-wellness.png" },
   { name: "3xHGHPen SAAnabolic(Pharma) 30iu", price: 7900, image: "images/hghpen-sa.png" }
 ];
 // ฟังก์ชัน render slider แบบแยก container
@@ -202,7 +204,7 @@ const products = {
       { name: "Test เม็ด Beligas 40mg50t", price: 3090, image: "images/testเม็ด-beligas.png" },
       { name: "Mix1 Synctech 15+10mg50t", price: 1550, image: "images/mix1-sync.png" },
       { name: "Mix2 Synctech 20+10mg50t", price: 1700, image: "images/mix2-sync.png" },
-      { name: "DNP BPMedical 50mg50t ", price: 1350, image: "" },
+      { name: "DNP BPMedical 50mg50t ", price: 1350, image: "images/dnp-bp.png" },
       { name: "Telomed SAAnabolic 40mg50t", price: 880, image: "images/telomed-sa.png" }
     ]
   },
@@ -223,8 +225,10 @@ const products = {
     ],
     "TestE": [
       { name: "TestE AlphaPharma 250mg", price: 1300, image: "images/teste-alpha.png" },
+      { name: "TestE AlphaPharma (amp) 250mg", price: 1300, image: "images/teste-alpha2.png" },
       { name: "TestE Meditech 250mg", price: 1050, image: "images/teste-medi.png" },
       { name: "TestE BPMedical 250mg", price: 1300, image: "images/teste-bp.png" },
+      { name: "TestE Bayer 250mg", price: 0, image: "images/teste-bayer.png" },
     //  { name: "TestE Bodytech 300mg", price: 1100, image: "images/teste-body.png" },
       { name: "TestE Synctech 300mg", price: 1100, image: "images/teste-sync.png" },
       { name: "TestE SAAnabolic 200mg", price: 1100, image: "images/teste-sa.png" },
@@ -402,6 +406,7 @@ const products = {
     ],
     "GW501516": [
       { name: "GW-501516 Meditech/Bodytech 20mg50t", price: 1450, image: "images/gw-medi.png" },
+      { name: "GW-501516 Synctech 15mg50t", price: 1450, image: "images/gw-sync.png" },
       { name: "GW-501516 SAAnabolic 10mg60t", price: 1050, image: "images/gw-sa.png" },
       { name: "GW-501516 BPMedical 10mg90t", price: 2200, image: "images/gw-bp.png" },
       { name: "GW-501516 Beligas 10mg50t", price: 1290, image: "images/gw50-beligas.png" }
@@ -434,7 +439,7 @@ const products = {
     ],
     "SARMs etc": [
       { name: "S-23 SAAnabolic 10mg100t", price: 1900, image: "images/s23-sa.png" },
-      { name: "SR-9009 BPMedical 10mg60t", price: 2300, image: "" }
+      { name: "SR-9009 BPMedical 10mg60t", price: 2300, image: "images/sr9009-bp.png" }
     ]
 
   },
@@ -447,9 +452,9 @@ const products = {
       { name: "HGH SAAnabolic 120iu", price: 5500, image: "images/hgh-sa.png" },
       { name: "HGH BPMedical(SD) 100iu", price: 6300, image: "images/hgh1-bp.png" },
       { name: "HGH BPMedical(Pharma) 100iu", price: 9100, image: "images/hgh2-bp.png" },
-      { name: "HGH BPMedical(Pharma) 160iu", price: 13800, image: "" },
-      { name: "HGH Wellness 100iu", price: 3500, image: "" },
-      { name: "2xHGH Wellness 100iu", price: 6000, image: "" },
+      { name: "HGH BPMedical(Pharma) 160iu", price: 13800, image: "images/hgh-bpmed.png" },
+      { name: "HGH Wellness 100iu", price: 3500, image: "images/hgh-wellness.png" },
+      { name: "2xHGH Wellness 100iu", price: 6000, image: "images/hgh-wellness.png" },
 
       { name: "HGHPen Pfizer 12mg36iu(เฉพาะไส้)", price: 6820, image: "images/hghpen1-pfizer.png" },
       { name: "HGHPen Pfizer 12mg36iu(ไส้+ปากกา)", price: 8470, image: "images/hghpen2-pfizer.png" },
@@ -468,7 +473,7 @@ const products = {
     ],
     "HCG": [
       { name: "HCG Beligas 5000iu", price: 1100, image: "images/hcg-beligas.png" },
-      { name: "HCG Global 5000iu", price: 1100, image: "" },
+      { name: "HCG Global 5000iu", price: 1100, image: "images/hcg-global.png" },
       { name: "HCG BPMedical 5000iu", price: 1150, image: "images/hcg-bp.png" },
       { name: "HCG AlphaPharma 15000iu", price: 2100, image: "images/hcg-alpha.png" }
       // { name: "HCG SAAnabolic 15000iu", price: 1800, image: "images/hcg-sa.png" }
@@ -476,7 +481,7 @@ const products = {
     "TB500/BPC157": [
       { name: "TB-500 Meditech 10mgx3", price: 2200, image: "images/tb500-medi.png" },
       { name: "TB-500 Beligas 5mg", price: 1790, image: "images/tb500-beligas.png" },
-      { name: "TB-500 BPMedical 5mg", price: 2000, image: "" },
+      { name: "TB-500 BPMedical 5mg", price: 2000, image: "images/tb500-bp.png" },
       { name: "BPC-157 Meditech 5mgx3", price: 2200, image: "images/bpc157-medi.png" },
       { name: "BPC-157 Beligas 5mg", price: 1100, image: "images/BPC157-beligas.png" },
       { name: "BPC-157 BPMedical", price: 1600, image: "images/bpc157-bp.png" },
@@ -490,26 +495,27 @@ const products = {
       { name: "PT-141 Wellness 10mg", price: 1200, image: "" },
       { name: "GHRP-6 BPMedical 5mg", price: 5800, image: "images/ghrp6-bp.png" },
       { name: "PEG-MGF Beligas 1mg", price: 1350, image: "images/peg-beligas.png" },
-      { name: "GHK-CU bpmedical 50mg", price: 1800, image: "" },
       { name: "DSIP Beligas 2mg", price: 890, image: "images/dsip-beligas.png" },
-      { name: "DSIP Wellness 10mg", price: 1200, image: "" },
+      { name: "DSIP Wellness 10mg", price: 1890, image: "" },
       { name: "Salank Wellness 10mg", price: 1550, image: "" },
       { name: "Semax Wellness 10mg", price: 1550, image: "" },
       { name: "PE-22-28 Wellness 10mg", price: 1450, image: "" },
-      { name: "Tesamorelin Wellness 10mg", price: 1750, image: "" },
+  //    { name: "Tesa+IPA 10+3mg Muse", price: 0, image: "images/tesa-muse.png" },
+  //    { name: "Tesamorelin Wellness 10mg", price: 1750, image: "" },
+      { name: "Tesa+IPA 10+3mg Muse/Tesa 10mg Wellness", price: 1750, image: "images/tesa-muse.png" },
       { name: "6x Tesamorelin Wellness 10mg", price: 7800, image: "" },
-      { name: "CJC-1295(without DAC)5mg + Ipamorelin5mg Wellness", price: 2250, image: "" },
+   //   { name: "CJC-1295(without DAC)5mg + Ipamorelin5mg Wellness", price: 2250, image: "" },
       { name: "CJC-1295(with DAC) 5mg Wellness", price: 2350, image: "" },
-      { name: "CJC-1295(no DAC)2mg BPMedical", price: 6300, image: "" },
+      { name: "CJC-1295(no DAC)2mg BPMedical", price: 6300, image: "images/cjc-bp.png" },
+      { name: "CJC+IPA 5+5mg Muse/Wellness", price: 2250, image: "images/cjc-muse.png" },
       { name: "Peptide PEN Reuseable BPMedical", price: 3800, image: "" },
       { name: "Peptide PEN Disposable BPMedical", price: 690, image: "" },
-      { name: "MOST-C 10mg Wellness", price: 1950, image: "" },
       { name: "SS-31 10mg Wellness", price: 1350, image: "" },
       { name: "5x SS-31 10mg Wellness", price: 5000, image: "" },
       { name: "8–10 Wellness", price: 1850, image: "" },
       { name: "Humanin 10mg Wellness", price: 1750, image: "" },
-      { name: "KPV 10mg Wellness", price: 1400, image: "" },
-      { name: "KLOW Wellness", price: 3350, image: "" }
+      { name: "KPV 10mg Wellness/Muse", price: 1400, image: "images/kpv-muse.png" },
+      { name: "KLOW 80mg Muse/Wellness", price: 3350, image: "images/klow-muse.png" }
     ]
   },
   "PCT": {
@@ -539,6 +545,7 @@ const products = {
       { name: "Nolvadex Beligas 20mg50t", price: 1190, image: "images/nolv-beligas.png" },
       { name: "Nolvadex AlphaPharma 20mg30t", price: 1100, image: "images/nol-alpha.png" },
       { name: "Nolvadex SAAnabolic 20mg50t", price: 850, image: "images/nolv-sa.png" },
+      { name: "Nolvadex AstraZenaca 20mg30t", price: 0, image: "images/nol-astra.png" },
       { name: "Levitra SAAnabolic 30mg60t", price: 1440, image: "images/levitra-sa.png" }
     ],
     "Femara": [
@@ -560,7 +567,7 @@ const products = {
     ],
     "HCG": [
       { name: "HCG Beligas 5000iu", price: 1100, image: "images/hcg-beligas.png" },
-      { name: "HCG Global 5000iu", price: 1100, image: "" },
+      { name: "HCG Global 5000iu", price: 1100, image: "images/hcg-global.png" },
       { name: "HCG BPMedical 5000iu", price: 1150, image: "images/hcg-bp.png" },
       { name: "HCG AlphaPharma 15000iu", price: 2100, image: "images/hcg-alpha.png" }
       //   { name: "HCG SAAnabolic 15000iu", price: 1800, image: "images/hcg-sa.png" }
@@ -619,6 +626,7 @@ const products = {
       { name: "Tirzep APLab 10mg", price: 3500, image: "images/tirzep-ap.png" },
       { name: "Tirzep SAAnabolic 10mg", price: 3500, image: "images/tirzep-sa.png" },
       { name: "Tirzep Wellness 10mg", price: 1950, image: "images/tirzep-wellness.png" },
+      { name: "Tirzep Muse 10mg", price: 1950, image: "images/tirzep-muse.png" },
       { name: "Tirzep BPMedical 10mg", price: 3700, image: "images/tirzep-bp.png" },
       { name: "TirzepPen Jolie 10mg", price: 5500, image: "images/tirzep-jolie.png" },
       { name: "TirzepPen Beligas 10mg", price: 4500, image: "images/tirzep-beligass.png" },
@@ -630,6 +638,7 @@ const products = {
       // { name: "Retatrutide APLab 5mg", price: 1800, image: "images/" },
       { name: "Retatrutide Wellness 5mg", price: 2500, image: "" },
       { name: "Retatrutide Wellness 10mg", price: 4000, image: "images/reta-wellness.png" },
+      { name: "Retatrutide Muse 10mg", price: 4000, image: "images/reta-muse.png" },
       { name: "RetatrutidePen APLab 10mg", price: 6900, image: "images/reta-ap.png" },
       { name: "RetatrutidePen SAAnabolic 10mg", price: 5500, image: "images/retapen-sa.png" },
       { name: "Retatrutide SAAnabolic 10mg", price: 4500, image: "images/reta-sa.png" },
@@ -644,7 +653,7 @@ const products = {
       { name: "Saxenda Liraglutide 3.0mg", price: 3900, image: "images/saxenda.png" },
       { name: "Cut Fast SAAnabolic 155mg", price: 1750, image: "images/cut-sa.png" },
       { name: "Cagrilintide Wellness 5mg", price: 1950, image: "" },
-      { name: "AOD Wellness 5mg", price: 1450, image: "" },
+      { name: "AOD Wellness/Muse 5mg", price: 1450, image: "images/aod-muse.png" },
       { name: "Fragment Wellness 5mg", price: 1450, image: "" }
     ]
   },
@@ -652,7 +661,8 @@ const products = {
     "Tudca": [
     //  { name: "Tudca Beligas 500mg90t", price: 1590, image: "images/tudca-beligas.png" },
       { name: "Tudca BPMedical 500mg60t", price: 1870, image: "images/tudca-bp.png" },
-      { name: "Tudca+NAC SAAnabolic", price: 1400, image: "" },
+      { name: "Tudca+NAC SAAnabolic", price: 1400, image: "images/tudnac-sa.png" },
+       { name: "Multivitamin+CoQ10 SAAnabolic", price: 950, image: "images/multivit-sa.png" },
       { name: "SAMARIN-140 100t", price: 1000, image: "" }
       
     ],
@@ -661,14 +671,20 @@ const products = {
       { name: "Kelp Iodine SAAnabolic 225mcg90t", price: 350, image: "images/kelp-sa.png" },
       { name: "Enhanced NMN350 SAAnabolic 60t", price: 1250, image: "images/nmn350-sa.png" },
       { name: "NMN+TMG SAAnabolic 430mg60t", price: 1250, image: "images/nmn-sa.png" },
-      { name: "GHK-CU 50mg Wellness", price: 1000, image: "" },
+      { name: "GHK-CU bpmedical 50mg", price: 1800, image: "images/ghk-bp.png" },
+      { name: "GHK-CU 50mgWellness/100mgMuse", price: 1000, image: "images/ghk-muse.png" },
       { name: "Epitalon 10mg Wellness", price: 1000, image: "" },
+      { name: "EPI 50mg Muse", price: 3500, image: "images/epi-muse.png" },
+      { name: "SNAP8 10mg Muse", price: 0, image: "images/snap8-muse.png" },
+      { name: "SS-31 50mg Muse", price: 3900, image: "images/ss31-muse.png" },
+      { name: "MOTS-C 10mgWellness/20mgMuse", price: 1950, image: "images/mots-muse.png" },
+      { name: "Gluta 1500mg Muse", price: 0, image: "images/gluta-muse.png" },
       { name: "Pinealon 10mg Wellness", price: 1450, image: "" },
       { name: "Carb up 2210 SAAnabolic 60t", price: 950, image: "images/carb-sa.png" },
-      { name: "5-Amino-1mq SAAnabolic 60t", price: 1350, image: "images/" },
+      { name: "5-Amino-1mq SAAnabolic 60t", price: 1350, image: "" },
       { name: "SLU-PP-332 SAAnabolic 60t", price: 1750, image: "images/slp-sa.png" },
       { name: "SLU-PP-332 Wellness 250mcg100t", price: 2000, image: "" },
-      { name: "SLU-PP-332 BPmedical 400mcg60t", price: 1700, image: "" }  
+      { name: "SLU-PP-332 BPmedical 400mcg60t", price: 1700, image: "images/slp-bp.png" }  
     ]
   },
   "Sexual Health": {
@@ -681,12 +697,23 @@ const products = {
       { name: "Viagra Beligas 50mg50t", price: 1500, image: "images/viagra-beligas.png" }
     ],
     "Kamagra Oral Jelly": [
-      { name: "Kamagra Oral Jelly 100mg1ซอง", price: 60, image: "" }
+      { name: "Kamagra Oral Jelly 100mg1ซอง", price: 60, image: "images/kama.png" }
     ],
     "Sexual Health etc": [
       
     ]
+  },
+  "สินค้าอื่นๆ": {
+    "อุปกรณ์": [
+      { name: "เข็มอินซูลิน 1ml 100ชิ้น", price: 390, image: "images/insulinbox.png" }
+    ],
+     "Hair": [
+      { name: "Hairtech Pro Spray SAAnabolic", price: 1600, image: "images/hairtech-sa.png" },
+      { name: "Dutal SAAnabolic", price: 1350, image: "images/dutatech-sa.png" }
+    ]
+
   }
+
 };
 
 function showTab(tab) {
