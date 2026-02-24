@@ -22,15 +22,17 @@ const itemsPerPage = 3; // ✅ ให้โชว์ 3 สินค้าต่�
 const newProducts = [
 { name: "Gluta 1500mg Muse", price: 0, image: "images/gluta-muse.png" },
 { name: "GHK-CU bpmedical 50mg", price: 1800, image: "images/ghk-bp.png" },
-{ name: "GHK-CU 50mgWellness/100mgMuse", price: 1000, image: "images/ghk-muse.png" },
+{ name: "GHK-CU 50mg Wellness", price: 1000, image: "" },
+{ name: "GHK-CU 100mg Muse", price: 2000, image: "images/ghk-muse.png" },
 { name: "KPV 10mg Wellness/Muse", price: 1400, image: "images/kpv-muse.png" },
-{ name: "Tesa+IPA 10+3mg Muse/Tesa 10mg Wellness", price: 1750, image: "images/tesa-muse.png" },
-//{ name: "Tesamorelin Wellness 10mg", price: 1750, image: "" },
+{ name: "Tesa+IPA 10+3mg Muse", price: 1800, image: "images/tesa-muse.png" },
+{ name: "Tesamorelin 10mg Wellness", price: 1750, image: "" },
 //{ name: "CJC-1295(without DAC)5mg + Ipamorelin5mg Wellness", price: 2250, image: "" },
 { name: "CJC-1295(with DAC) 5mg Wellness", price: 2350, image: "" },
 { name: "CJC-1295(no DAC)2mg BPMedical", price: 6300, image: "images/cjc-bp.png" },
 { name: "CJC+IPA 5+5mg Muse/Wellness", price: 2250, image: "images/cjc-muse.png" },
-{ name: "MOTS-C 10mgWellness/20mgMuse", price: 1950, image: "images/mots-muse.png" },
+{ name: "MOTS-C 10mg Wellness", price: 1950, image: "" },
+{ name: "MOTS-C 20mg Muse", price: 3900, image: "images/mots-muse.png" },
 { name: "AOD Wellness/Muse 5mg", price: 1450, image: "images/aod-muse.png" }
   
 ];
@@ -490,33 +492,44 @@ const products = {
 
     ],
     "Peptide etc": [
-      { name: "PT-141 Beligas 10mg", price: 1490, image: "images/pt141-beligas.png" },
-      { name: "PT-141 BPMedical 10mg", price: 1500, image: "images/pt141-bp.png" },
-      { name: "PT-141 Wellness 10mg", price: 1200, image: "" },
-      { name: "GHRP-6 BPMedical 5mg", price: 5800, image: "images/ghrp6-bp.png" },
-      { name: "PEG-MGF Beligas 1mg", price: 1350, image: "images/peg-beligas.png" },
-      { name: "DSIP Beligas 2mg", price: 890, image: "images/dsip-beligas.png" },
-      { name: "DSIP Wellness 10mg", price: 1890, image: "" },
-      { name: "Salank Wellness 10mg", price: 1550, image: "" },
-      { name: "Semax Wellness 10mg", price: 1550, image: "" },
-      { name: "PE-22-28 Wellness 10mg", price: 1450, image: "" },
-  //    { name: "Tesa+IPA 10+3mg Muse", price: 0, image: "images/tesa-muse.png" },
-  //    { name: "Tesamorelin Wellness 10mg", price: 1750, image: "" },
-      { name: "Tesa+IPA 10+3mg Muse/Tesa 10mg Wellness", price: 1750, image: "images/tesa-muse.png" },
-      { name: "6x Tesamorelin Wellness 10mg", price: 7800, image: "images/tesa-muse.png" },
+      { name: "MOTS-C 10mg Wellness", price: 1950, image: "" },
+      { name: "MOTS-C 20mg Muse", price: 3900, image: "images/mots-muse.png" },
+      { name: "SLU-PP-332 SAAnabolic 60t", price: 1750, image: "images/slp-sa.png" },
+      { name: "SLU-PP-332 Wellness 250mcg100t", price: 2000, image: "" },
+      { name: "SLU-PP-332 BPmedical 400mcg60t", price: 1700, image: "images/slp-bp.png" },
+      { name: "5-Amino-1mq SAAnabolic 60t", price: 1350, image: "" },
+      { name: "AOD Wellness/Muse 5mg", price: 1450, image: "images/aod-muse.png" },
+      { name: "SS-31 10mg Wellness", price: 1350, image: "" },
+      { name: "5x SS-31 10mg Wellness", price: 5000, image: "" },
+      { name: "SS-31 50mg Muse", price: 3900, image: "images/ss31-muse.png" },
+      { name: "Humanin 10mg Wellness", price: 1750, image: "" },
+      { name: "8–10 Wellness", price: 1850, image: "" },
+      { name: "Tesa+IPA 10+3mg Muse", price: 1800, image: "images/tesa-muse.png" },
+      { name: "Tesamorelin 10mg Wellness", price: 1750, image: "" },
+      { name: "6x Tesamorelin Wellness 10mg", price: 7800, image: "" },
    //   { name: "CJC-1295(without DAC)5mg + Ipamorelin5mg Wellness", price: 2250, image: "" },
       { name: "CJC-1295(with DAC) 5mg Wellness", price: 2350, image: "" },
       { name: "CJC-1295(no DAC)2mg BPMedical", price: 6300, image: "images/cjc-bp.png" },
       { name: "CJC+IPA 5+5mg Muse/Wellness", price: 2250, image: "images/cjc-muse.png" },
-      { name: "Peptide PEN Reuseable BPMedical", price: 3800, image: "" },
-      { name: "Peptide PEN Disposable BPMedical", price: 690, image: "" },
-      { name: "SS-31 10mg Wellness", price: 1350, image: "" },
-      { name: "5x SS-31 10mg Wellness", price: 5000, image: "" },
-      { name: "SS-31 50mg Muse", price: 3900, image: "images/ss31-muse.png" },
-      { name: "8–10 Wellness", price: 1850, image: "" },
-      { name: "Humanin 10mg Wellness", price: 1750, image: "" },
+      { name: "GHRP-6 BPMedical 5mg", price: 5800, image: "images/ghrp6-bp.png" },
+      { name: "PEG-MGF Beligas 1mg", price: 1350, image: "images/peg-beligas.png" },
+      { name: "Semax Wellness 10mg", price: 1550, image: "" },
+      { name: "Salank Wellness 10mg", price: 1550, image: "" },
+      { name: "DSIP Beligas 2mg", price: 890, image: "images/dsip-beligas.png" },
+      { name: "DSIP Wellness 10mg", price: 1890, image: "" },
+      { name: "PE-22-28 Wellness 10mg", price: 1450, image: "" },
+      { name: "Pinealon 10mg Wellness", price: 1450, image: "" },
+      { name: "Epitalon 10mg Wellness", price: 1000, image: "" },
+      { name: "EPI 50mg Muse", price: 3500, image: "images/epi-muse.png" },
+      { name: "GHK-CU bpmedical 50mg", price: 1800, image: "images/ghk-bp.png" },
+      { name: "GHK-CU 50mg Wellness", price: 1000, image: "" },
+      { name: "GHK-CU 100mg Muse", price: 2000, image: "images/ghk-muse.png" },
       { name: "KPV 10mg Wellness/Muse", price: 1400, image: "images/kpv-muse.png" },
-      { name: "KLOW 80mg Muse/Wellness", price: 3350, image: "images/klow-muse.png" }
+      { name: "KLOW 80mg Muse/Wellness", price: 3350, image: "images/klow-muse.png" },
+
+      { name: "Peptide PEN Reuseable BPMedical", price: 3800, image: "" },
+      { name: "Peptide PEN Disposable BPMedical", price: 690, image: "" }
+
     ]
   },
   "PCT": {
@@ -654,7 +667,6 @@ const products = {
       { name: "Saxenda Liraglutide 3.0mg", price: 3900, image: "images/saxenda.png" },
       { name: "Cut Fast SAAnabolic 155mg", price: 1750, image: "images/cut-sa.png" },
       { name: "Cagrilintide Wellness 5mg", price: 1950, image: "" },
-      { name: "AOD Wellness/Muse 5mg", price: 1450, image: "images/aod-muse.png" },
       { name: "Fragment Wellness 5mg", price: 1450, image: "" }
     ]
   },
@@ -662,29 +674,25 @@ const products = {
     "Tudca": [
     //  { name: "Tudca Beligas 500mg90t", price: 1590, image: "images/tudca-beligas.png" },
       { name: "Tudca BPMedical 500mg60t", price: 1870, image: "images/tudca-bp.png" },
-      { name: "Tudca+NAC SAAnabolic", price: 1400, image: "images/tudnac-sa.png" },
-       { name: "Multivitamin+CoQ10 SAAnabolic", price: 950, image: "images/multivit-sa.png" },
-      { name: "SAMARIN-140 100t", price: 1000, image: "" }
-      
+      { name: "Tudca+NAC SAAnabolic", price: 1400, image: "images/tudnac-sa.png" }
+       
     ],
     "Supplements": [
-      { name: "Iso Accutane Beligas 20mg50t", price: 1000, image: "images/iso-beligas.png" },
-      { name: "Kelp Iodine SAAnabolic 225mcg90t", price: 350, image: "images/kelp-sa.png" },
       { name: "Enhanced NMN350 SAAnabolic 60t", price: 1250, image: "images/nmn350-sa.png" },
       { name: "NMN+TMG SAAnabolic 430mg60t", price: 1250, image: "images/nmn-sa.png" },
+      { name: "Gluta 1500mg Muse", price: 0, image: "images/gluta-muse.png" },
+      { name: "Kelp Iodine SAAnabolic 225mcg90t", price: 350, image: "images/kelp-sa.png" },
+      { name: "Carb up 2210 SAAnabolic 60t", price: 950, image: "images/carb-sa.png" },
       { name: "GHK-CU bpmedical 50mg", price: 1800, image: "images/ghk-bp.png" },
-      { name: "GHK-CU 50mgWellness/100mgMuse", price: 1000, image: "images/ghk-muse.png" },
+      { name: "GHK-CU 50mg Wellness", price: 1000, image: "" },
+      { name: "GHK-CU 100mg Muse", price: 2000, image: "images/ghk-muse.png" },
+      { name: "SNAP8 10mg Muse", price: 0, image: "images/snap8-muse.png" },
       { name: "Epitalon 10mg Wellness", price: 1000, image: "" },
       { name: "EPI 50mg Muse", price: 3500, image: "images/epi-muse.png" },
-      { name: "SNAP8 10mg Muse", price: 0, image: "images/snap8-muse.png" },
-      { name: "MOTS-C 10mgWellness/20mgMuse", price: 1950, image: "images/mots-muse.png" },
-      { name: "Gluta 1500mg Muse", price: 0, image: "images/gluta-muse.png" },
-      { name: "Pinealon 10mg Wellness", price: 1450, image: "" },
-      { name: "Carb up 2210 SAAnabolic 60t", price: 950, image: "images/carb-sa.png" },
-      { name: "5-Amino-1mq SAAnabolic 60t", price: 1350, image: "" },
-      { name: "SLU-PP-332 SAAnabolic 60t", price: 1750, image: "images/slp-sa.png" },
-      { name: "SLU-PP-332 Wellness 250mcg100t", price: 2000, image: "" },
-      { name: "SLU-PP-332 BPmedical 400mcg60t", price: 1700, image: "images/slp-bp.png" }  
+      { name: "Iso Accutane Beligas 20mg50t", price: 1000, image: "images/iso-beligas.png" },
+      { name: "Multivitamin+CoQ10 SAAnabolic", price: 950, image: "images/multivit-sa.png" },
+      { name: "SAMARIN-140 100t", price: 1000, image: "" }
+
     ]
   },
   "Sexual Health": {
@@ -700,6 +708,9 @@ const products = {
       { name: "Kamagra Oral Jelly 100mg1ซอง", price: 60, image: "images/kama.png" }
     ],
     "Sexual Health etc": [
+      { name: "PT-141 Beligas 10mg", price: 1490, image: "images/pt141-beligas.png" },
+      { name: "PT-141 BPMedical 10mg", price: 1500, image: "images/pt141-bp.png" },
+      { name: "PT-141 Wellness 10mg", price: 1200, image: "" }
       
     ]
   },
@@ -1746,32 +1757,58 @@ function renderProducts(category, sub) {
   else if (category === "HGHPeptide" && sub === "Peptide etc") {
     descTh = `
       <p>
-        <b>• PT-141</b> สารในกลุ่มเปปไทด์ที่ถูกศึกษาเกี่ยวกับระบบประสาทและความต้องการทางเพศ (libido) โดยไม่ได้ออกฤทธิ์ผ่านระบบฮอร์โมนเทสโทสเทอโรนโดยตรง
-        <br><b>• GHRP-6</b> เป็นเปปไทด์กลุ่มกระตุ้น Growth Hormone Release (GHRP) ที่ถูกศึกษาในด้านการฟื้นฟูกล้ามเนื้อ การนอนหลับ และการเจริญเติบโตของเนื้อเยื่อ
-        <br><b>• PEG-MGF</b> สารในกลุ่ม MGF (Mechano Growth Factor) ที่ถูกศึกษาเกี่ยวกับการฟื้นฟูกล้ามเนื้อหลังออกแรง หรือกล้ามเนื้อที่มีภาวะบาดเจ็บ
-        <br><b>• GHK-CU</b> เปปไทด์ที่จับกับทองแดง (Copper Peptide) มีข้อมูลวิจัยเกี่ยวกับ การฟื้นฟูผิว กระตุ้นคอลลาเจน ซ่อมแซมแผล และการฟื้นฟูเนื้อเยื่อ
-        <br><b>• Salank / Semax / PE-22-28</b> ลดความเครียด / ปรับสมดุลสารสื่อประสาท
-        <br><b>• DSIP</b> การนอนหลับ / ลดการตื่นกลางดึก
-        <br><b>• Tesamorelin / CJC-1295</b> กระตุ้น GH / เพิ่มกล้ามเนื้อ
-        <br><b>• MOST-C</b> ฟื้นฟูร่างกาย / ลดการอักเสบ
-        <br><b>• SS-31 / 8–10 / Humanin</b> ป้องกันโดพามีนลดลง
-        <br><b>• KPV</b> ลดอักเสบทั่วไป
-        <br><b>• KLOW</b> ฟื้นฟูกล้ามเนื้อ / ลดการอักเสบ / กระตุ้นคอลลาเจน / ฟื้นฟูผิว
+    <b>กลุ่ม Metabolic / Fat loss / Energy</b>
+       <br>• <b>MOST-C</b> ฟื้นฟูร่างกาย / ลดการอักเสบ
+       <br>• <b>SLU-PP-332</b> สารเสริมพลังงานระดับไมโตคอนเดรีย ช่วยกระตุ้นการผลิต ATP ลดอ่อนล้า เร่งฟื้นตัว และอาจช่วยชะลอวัย
+       <br>• <b>5-amino-1mq</b> ช่วยเพิ่มการเผาผลาญไขมันระดับเซลล์ เสริมพลังงาน และสนับสนุนการลดไขมันแบบไม่เสียกล้าม
+       <br>• <b>AOD</b> ...
+       <br>• <b>SS-31 / 8–10 / Humanin</b> ป้องกันโดพามีนลดลง
+    <b>กลุ่ม Growth Hormone / Body Composition</b>
+       <br>• <b>Tesamorelin / CJC-1295</b> กระตุ้น GH / เพิ่มกล้ามเนื้อ
+       <br>• <b>GHRP-6</b> เป็นเปปไทด์กลุ่มกระตุ้น Growth Hormone Release (GHRP) ที่ถูกศึกษาในด้านการฟื้นฟูกล้ามเนื้อ การนอนหลับ และการเจริญเติบโตของเนื้อเยื่อ
+       <br>• <b>PEG-MGF</b> สารในกลุ่ม MGF (Mechano Growth Factor) ที่ถูกศึกษาเกี่ยวกับการฟื้นฟูกล้ามเนื้อหลังออกแรง หรือกล้ามเนื้อที่มีภาวะบาดเจ็บ
+    <b>กลุ่ม Brain / Neuro / Cognitive</b>
+       <br>• <b>Salank / Semax / PE-22-28</b> ลดความเครียด / ปรับสมดุลสารสื่อประสาท
+       <br>• <b>DSIP</b> การนอนหลับ / ลดการตื่นกลางดึก
+       <br>• <b>Pinealon 10mg</b> เปปไทด์ฟื้นฟูสมองและระบบประสาท ลดความเสื่อมของเซลล์ และช่วยเสริมความจำ
+    <b>กลุ่ม Anti-aging / Longevity / Cellular Repair</b>
+      <br>• <b>Epitalon 10mg</b> เปปไทด์ช่วยยืดอายุเซลล์ ส่งเสริมการฟื้นฟูร่างกาย คุณภาพการนอน และระบบภูมิคุ้มกัน
+      <br>• <b>SS-31 / 8–10 / Humanin</b> ป้องกันโดพามีนลดลง
+      <br>• <b>GHK-CU</b> เปปไทด์ที่จับกับทองแดง (Copper Peptide) มีข้อมูลวิจัยเกี่ยวกับ การฟื้นฟูผิว กระตุ้นคอลลาเจน ซ่อมแซมแผล และการฟื้นฟูเนื้อเยื่อ
+    <b>กลุ่ม Inflammation / Gut / Immune</b>
+      <br>• <b>KPV</b> ลดอักเสบทั่วไป
+      <br>• <b>KLOW</b> ฟื้นฟูกล้ามเนื้อ / ลดการอักเสบ / กระตุ้นคอลลาเจน / ฟื้นฟูผิว
+        
       </p>
     `;
     descEn = `
       <p>
-        <b>• PT-141</b> A peptide compound studied for its effects on the nervous system and sexual desire (libido), without acting directly through the testosterone hormone pathway  
-        <br><b>• GHRP-6</b> A peptide in the Growth Hormone Releasing Peptide (GHRP) group, studied for muscle recovery, sleep improvement, and tissue growth  
-        <br><b>• PEG-MGF</b> A compound in the MGF (Mechano Growth Factor) group, researched for post-exercise muscle repair and recovery of injured muscle tissue  
-        <br><b>• GHK-CU</b> A copper-binding peptide (Copper Peptide) studied for skin rejuvenation, collagen stimulation, wound healing, and tissue regeneration  
-        <br><b>• Salank / Semax / PE-22-28</b> Studied for stress reduction and neurotransmitter balance  
-        <br><b>• DSIP</b> Studied for improving sleep quality and reducing nighttime awakenings  
-        <br><b>• Tesamorelin / CJC-1295</b> Studied for GH stimulation and support in muscle development  
-        <br><b>• MOST-C</b> Studied for body recovery and inflammation reduction  
-        <br><b>• SS-31 / 8–10 / Humanin</b> Studied for protection against dopamine depletion  
-        <br><b>• KPV</b> Studied for general anti-inflammatory properties  
-        <br><b>• KLOW</b> Studied for muscle recovery, anti-inflammatory support, collagen stimulation, and skin regeneration  
+      <b>Metabolic / Fat Loss / Energy Group</b>
+   <br>• <b>MOTS-C</b> Supports cellular recovery and metabolic function, with potential anti-inflammatory benefits
+   <br>• <b>SLU-PP-332</b> A mitochondrial energy modulator studied for enhancing ATP production, reducing fatigue, accelerating recovery, and supporting longevity
+   <br>• <b>5-Amino-1MQ</b> Studied for increasing cellular fat metabolism, boosting energy levels, and supporting fat loss while preserving lean muscle
+   <br>• <b>AOD</b> ...
+   <br>• <b>SS-31 / 8–10 / Humanin</b> Studied for mitochondrial protection and prevention of age-related dopamine decline
+
+<b>Growth Hormone / Body Composition Group</b>
+   <br>• <b>Tesamorelin / CJC-1295</b> Growth hormone–stimulating peptides studied for improving body composition and lean mass
+   <br>• <b>GHRP-6</b> A growth hormone–releasing peptide (GHRP) researched for muscle recovery, sleep support, and tissue regeneration
+   <br>• <b>PEG-MGF</b> A modified Mechano Growth Factor (MGF) studied for muscle repair and recovery following intense training or injury
+
+<b>Brain / Neuro / Cognitive Group</b>
+   <br>• <b>Selank / Semax / PE-22-28</b> Peptides studied for stress reduction and neurotransmitter balance
+   <br>• <b>DSIP</b> Associated with improved sleep quality and reduced nighttime awakenings
+   <br>• <b>Pinealon 10mg</b> A neuropeptide studied for brain and nervous system support, cellular protection, and memory enhancement
+
+<b>Anti-Aging / Longevity / Cellular Repair Group</b>
+  <br>• <b>Epitalon 10mg</b> A peptide associated with cellular longevity, systemic recovery, sleep quality, and immune support
+  <br>• <b>SS-31 / 8–10 / Humanin</b> Studied for mitochondrial protection and prevention of age-related dopamine decline
+  <br>• <b>GHK-CU</b> A copper-binding peptide with research supporting skin regeneration, collagen stimulation, wound healing, and tissue repair
+
+<b>Inflammation / Gut / Immune Group</b>
+  <br>• <b>KPV</b> Studied for broad anti-inflammatory effects
+  <br>• <b>KLOW</b> Studied for muscle recovery, inflammation reduction, collagen stimulation, and skin regeneration
+        
 
       </p>
     `;
@@ -2086,32 +2123,47 @@ function renderProducts(category, sub) {
   else if (category === "Supplements" && sub === "Supplements") {
     descTh = `
       <p>
-       <b>Supplements</b>
-        <br>• <b>Iso Accutane 20mg</b> ยาลดสิวชนิดแรง ลดการผลิตน้ำมันจากต่อมไขมัน ลดการอักเสบของสิว เหมาะกับสิวเรื้อรังหรือสิวฮอร์โมน
-        <br>• <b>Kelp Iodine 225mcg</b> ไอโอดีนจากสาหร่ายทะเล ช่วยการทำงานของต่อมไทรอยด์ ควบคุมระบบเผาผลาญ พลังงาน และช่วยบำรุงเส้นผม
+       <b>Supplements กลุ่ม Energy / Longevity</b>
         <br>• <b>Enhanced NMN 350</b> สารกระตุ้น NAD+ ช่วยชะลอวัย เพิ่มพลังงานระดับเซลล์ ฟื้นฟูสมอง ผิว และระบบเผาผลาญ
         <br>• <b>NMN+TMG 430mg</b> สูตร NMN เสริมด้วย TMG เพื่อเพิ่มการดูดซึม ช่วยชะลอวัย เพิ่มเอนเนอจี้ และสนับสนุนระบบสมองและหัวใจ
-        <br>• <b>GHK-CU 50mg</b> เปปไทด์ทองแดง กระตุ้นคอลลาเจน ซ่อมแซมผิว ลดริ้วรอย ฟื้นฟูแผล และเพิ่มความยืดหยุ่นผิว
-        <br>• <b>Epitalon 10mg</b> เปปไทด์ช่วยยืดอายุเซลล์ ส่งเสริมการฟื้นฟูร่างกาย คุณภาพการนอน และระบบภูมิคุ้มกัน
-        <br>• <b>Pinealon 10mg</b> เปปไทด์ฟื้นฟูสมองและระบบประสาท ลดความเสื่อมของเซลล์ และช่วยเสริมความจำ
+       <b>Supplements กลุ่ม Antioxidant / Detox</b>
+        <br>• <b>Glutathione (Gluta)</b> เป็นสารต้านอนุมูลอิสระหลักของร่างกาย มีบทบาทสำคัญในการ detox ตับ ลด oxidative stress เสริมภูมิคุ้มกัน และช่วยให้ผิวกระจ่างใส
+       <b>Supplements กลุ่ม Mineral / Micronutrient</b>
+        <br>• <b>Kelp Iodine 225mcg</b> ไอโอดีนจากสาหร่ายทะเล ช่วยการทำงานของต่อมไทรอยด์ ควบคุมระบบเผาผลาญ พลังงาน และช่วยบำรุงเส้นผม
+       <b>Supplements กลุ่ม Performance / Carb Support</b>
         <br>• <b>Carb Up 2210</b> สูตรควบคุมน้ำตาล ลดการสะสมไขมัน ช่วยดึงสารอาหารเข้าสู่กล้ามเนื้อ เหมาะกับสายรีคอมป์หรือลีน
-        <br>• <b>5-amino-1mq</b> ช่วยเพิ่มการเผาผลาญไขมันระดับเซลล์ เสริมพลังงาน และสนับสนุนการลดไขมันแบบไม่เสียกล้าม
-        <br>• <b>SLU-PP-332</b> สารเสริมพลังงานระดับไมโตคอนเดรีย ช่วยกระตุ้นการผลิต ATP ลดอ่อนล้า เร่งฟื้นตัว และอาจช่วยชะลอวัย
+       <b>Cosmeceutical / Skin Peptides</b>
+        <br>• <b>GHK-CU 50mg</b> เปปไทด์ทองแดง กระตุ้นคอลลาเจน ซ่อมแซมผิว ลดริ้วรอย ฟื้นฟูแผล และเพิ่มความยืดหยุ่นผิว
+        <br>• <b>SNAP-8</b> เป็นเปปไทด์เพื่อความงาม ออกฤทธิ์คล้าย Botox-like peptide โดยช่วยลดการหดตัวของกล้ามเนื้อใบหน้า
+        <br>• <b>Epitalon 10mg</b> เปปไทด์ช่วยยืดอายุเซลล์ ส่งเสริมการฟื้นฟูร่างกาย คุณภาพการนอน และระบบภูมิคุ้มกัน
+       <b>Pharmaceutical / Prescription Drug</b>
+        <br>• <b>Iso Accutane 20mg</b> ยาลดสิวชนิดแรง ลดการผลิตน้ำมันจากต่อมไขมัน ลดการอักเสบของสิว เหมาะกับสิวเรื้อรังหรือสิวฮอร์โมน
+        
       </p>
     `;
     descEn = `
       <p>
-         <b>Supplements</b>
-        <br>• <b>Iso Accutane 20mg</b> A strong acne medication that reduces oil production from sebaceous glands, decreases inflammation, suitable for chronic or hormonal acne
-        <br>• <b>Kelp Iodine 225mcg</b> Iodine from sea kelp that supports thyroid function, regulates metabolism and energy, and helps nourish hair
-        <br>• <b>Enhanced NMN 350</b> NAD+ booster that helps slow aging, increases cellular energy, and supports brain, skin, and metabolic health
-        <br>• <b>NMN+TMG 430mg</b> NMN formula enhanced with TMG for better absorption, supports anti-aging, increases energy, and promotes heart and brain health
-        <br>• <b>GHK-CU 50mg</b> Copper peptide that stimulates collagen, repairs skin, reduces wrinkles, improves wound healing, and enhances skin elasticity
-        <br>• <b>Epitalon 10mg</b> Peptide that supports cellular longevity, improves recovery, enhances sleep quality, and boosts immune function
-        <br>• <b>Pinealon 10mg</b> Peptide that supports brain and nervous system repair, reduces cellular degeneration, and helps improve memory
-        <br>• <b>Carb Up 2210</b> Formula for blood sugar control, reduces fat storage, helps drive nutrients into muscles, suitable for recomp or lean phases
-        <br>• <b>5-amino-1mq</b> Helps increase fat metabolism at the cellular level, boosts energy, and supports fat loss without muscle loss
-        <br>• <b>SLU-PP-332</b> Mitochondrial energy enhancer that stimulates ATP production, reduces fatigue, speeds up recovery, and may support longevity
+      <b>Supplements – Energy / Longevity</b>
+<br>• <b>Enhanced NMN 350</b> A NAD+ booster that supports longevity, enhances cellular energy, and promotes brain, skin, and metabolic health
+<br>• <b>NMN+TMG 430mg</b> An NMN formula combined with TMG to improve absorption, support anti-aging, boost energy levels, and support brain and cardiovascular function
+
+<b>Supplements – Antioxidant / Detox</b>
+<br>• <b>Glutathione (Gluta)</b> The body’s primary antioxidant, playing a key role in liver detoxification, reducing oxidative stress, supporting immune function, and promoting brighter, healthier skin
+
+<b>Supplements – Mineral / Micronutrient</b>
+<br>• <b>Kelp Iodine 225mcg</b> Seaweed-derived iodine that supports thyroid function, metabolic regulation, energy production, and hair health
+
+<b>Supplements – Performance / Carb Support</b>
+<br>• <b>Carb Up 2210</b> A metabolic support formula that helps regulate blood sugar, reduce fat storage, and enhance nutrient delivery to muscles, ideal for recomposition or lean-focused training
+
+<b>Cosmeceutical / Skin Peptides</b>
+<br>• <b>GHK-CU 50mg</b> A copper peptide that stimulates collagen production, repairs skin tissue, reduces wrinkles, accelerates wound healing, and improves skin elasticity
+<br>• <b>SNAP-8</b> A cosmetic peptide with Botox-like effects that helps reduce facial muscle contractions and soften expression lines
+<br>• <b>Epitalon 10mg</b> A peptide associated with cellular longevity, supporting systemic recovery, sleep quality, and immune function
+
+<b>Pharmaceutical / Prescription Drug</b>
+<br>• <b>Iso Accutane 20mg</b> A potent acne medication that reduces sebum production and inflammation, commonly used for severe, chronic, or hormonal acne
+
       </p>
     `;
   }
@@ -2172,6 +2224,21 @@ function renderProducts(category, sub) {
       </p>
     `;
   }
+
+      else if (category === "Sexual Health" && sub === "Sexual Health etc") {
+    descTh = `
+      <p>
+  <b>• PT-141</b> สารในกลุ่มเปปไทด์ที่ถูกศึกษาเกี่ยวกับระบบประสาทและความต้องการทางเพศ (libido) โดยไม่ได้ออกฤทธิ์ผ่านระบบฮอร์โมนเทสโทสเทอโรนโดยตรง
+      </p>
+    `;
+    descEn = `
+      <p>
+<b>• PT-141</b> A peptide compound studied for its effects on the nervous system and sexual desire (libido), without acting directly through the testosterone hormone pathway
+      </p>
+    `;
+  }
+
+
 
 
   
