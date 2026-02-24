@@ -1757,25 +1757,25 @@ function renderProducts(category, sub) {
   else if (category === "HGHPeptide" && sub === "Peptide etc") {
     descTh = `
       <p>
-    <b>กลุ่ม Metabolic / Fat loss / Energy</b>
+    <b>🌟กลุ่ม Metabolic / Fat loss / Energy</b>
        <br>• <b>MOST-C</b> ฟื้นฟูร่างกาย / ลดการอักเสบ
        <br>• <b>SLU-PP-332</b> สารเสริมพลังงานระดับไมโตคอนเดรีย ช่วยกระตุ้นการผลิต ATP ลดอ่อนล้า เร่งฟื้นตัว และอาจช่วยชะลอวัย
        <br>• <b>5-amino-1mq</b> ช่วยเพิ่มการเผาผลาญไขมันระดับเซลล์ เสริมพลังงาน และสนับสนุนการลดไขมันแบบไม่เสียกล้าม
        <br>• <b>AOD</b> ...
        <br>• <b>SS-31 / 8–10 / Humanin</b> ป้องกันโดพามีนลดลง
-    <b>กลุ่ม Growth Hormone / Body Composition</b>
+   <br><br> <b>🌟กลุ่ม Growth Hormone / Body Composition</b>
        <br>• <b>Tesamorelin / CJC-1295</b> กระตุ้น GH / เพิ่มกล้ามเนื้อ
        <br>• <b>GHRP-6</b> เป็นเปปไทด์กลุ่มกระตุ้น Growth Hormone Release (GHRP) ที่ถูกศึกษาในด้านการฟื้นฟูกล้ามเนื้อ การนอนหลับ และการเจริญเติบโตของเนื้อเยื่อ
        <br>• <b>PEG-MGF</b> สารในกลุ่ม MGF (Mechano Growth Factor) ที่ถูกศึกษาเกี่ยวกับการฟื้นฟูกล้ามเนื้อหลังออกแรง หรือกล้ามเนื้อที่มีภาวะบาดเจ็บ
-    <b>กลุ่ม Brain / Neuro / Cognitive</b>
+   <br><br> <b>🌟กลุ่ม Brain / Neuro / Cognitive</b>
        <br>• <b>Salank / Semax / PE-22-28</b> ลดความเครียด / ปรับสมดุลสารสื่อประสาท
        <br>• <b>DSIP</b> การนอนหลับ / ลดการตื่นกลางดึก
        <br>• <b>Pinealon 10mg</b> เปปไทด์ฟื้นฟูสมองและระบบประสาท ลดความเสื่อมของเซลล์ และช่วยเสริมความจำ
-    <b>กลุ่ม Anti-aging / Longevity / Cellular Repair</b>
+  <br><br>  <b>🌟กลุ่ม Anti-aging / Longevity / Cellular Repair</b>
       <br>• <b>Epitalon 10mg</b> เปปไทด์ช่วยยืดอายุเซลล์ ส่งเสริมการฟื้นฟูร่างกาย คุณภาพการนอน และระบบภูมิคุ้มกัน
       <br>• <b>SS-31 / 8–10 / Humanin</b> ป้องกันโดพามีนลดลง
       <br>• <b>GHK-CU</b> เปปไทด์ที่จับกับทองแดง (Copper Peptide) มีข้อมูลวิจัยเกี่ยวกับ การฟื้นฟูผิว กระตุ้นคอลลาเจน ซ่อมแซมแผล และการฟื้นฟูเนื้อเยื่อ
-    <b>กลุ่ม Inflammation / Gut / Immune</b>
+  <br><br>  <b>🌟กลุ่ม Inflammation / Gut / Immune</b>
       <br>• <b>KPV</b> ลดอักเสบทั่วไป
       <br>• <b>KLOW</b> ฟื้นฟูกล้ามเนื้อ / ลดการอักเสบ / กระตุ้นคอลลาเจน / ฟื้นฟูผิว
         
@@ -1783,29 +1783,29 @@ function renderProducts(category, sub) {
     `;
     descEn = `
       <p>
-      <b>Metabolic / Fat Loss / Energy Group</b>
+      <b>🌟Metabolic / Fat Loss / Energy Group</b>
    <br>• <b>MOTS-C</b> Supports cellular recovery and metabolic function, with potential anti-inflammatory benefits
    <br>• <b>SLU-PP-332</b> A mitochondrial energy modulator studied for enhancing ATP production, reducing fatigue, accelerating recovery, and supporting longevity
    <br>• <b>5-Amino-1MQ</b> Studied for increasing cellular fat metabolism, boosting energy levels, and supporting fat loss while preserving lean muscle
    <br>• <b>AOD</b> ...
    <br>• <b>SS-31 / 8–10 / Humanin</b> Studied for mitochondrial protection and prevention of age-related dopamine decline
 
-<b>Growth Hormone / Body Composition Group</b>
+<br><br><b>🌟Growth Hormone / Body Composition Group</b>
    <br>• <b>Tesamorelin / CJC-1295</b> Growth hormone–stimulating peptides studied for improving body composition and lean mass
    <br>• <b>GHRP-6</b> A growth hormone–releasing peptide (GHRP) researched for muscle recovery, sleep support, and tissue regeneration
    <br>• <b>PEG-MGF</b> A modified Mechano Growth Factor (MGF) studied for muscle repair and recovery following intense training or injury
 
-<b>Brain / Neuro / Cognitive Group</b>
+<br><br><b>🌟Brain / Neuro / Cognitive Group</b>
    <br>• <b>Selank / Semax / PE-22-28</b> Peptides studied for stress reduction and neurotransmitter balance
    <br>• <b>DSIP</b> Associated with improved sleep quality and reduced nighttime awakenings
    <br>• <b>Pinealon 10mg</b> A neuropeptide studied for brain and nervous system support, cellular protection, and memory enhancement
 
-<b>Anti-Aging / Longevity / Cellular Repair Group</b>
+<br><br><b>🌟Anti-Aging / Longevity / Cellular Repair Group</b>
   <br>• <b>Epitalon 10mg</b> A peptide associated with cellular longevity, systemic recovery, sleep quality, and immune support
   <br>• <b>SS-31 / 8–10 / Humanin</b> Studied for mitochondrial protection and prevention of age-related dopamine decline
   <br>• <b>GHK-CU</b> A copper-binding peptide with research supporting skin regeneration, collagen stimulation, wound healing, and tissue repair
 
-<b>Inflammation / Gut / Immune Group</b>
+<br><br><b>🌟Inflammation / Gut / Immune Group</b>
   <br>• <b>KPV</b> Studied for broad anti-inflammatory effects
   <br>• <b>KLOW</b> Studied for muscle recovery, inflammation reduction, collagen stimulation, and skin regeneration
         
@@ -2123,45 +2123,50 @@ function renderProducts(category, sub) {
   else if (category === "Supplements" && sub === "Supplements") {
     descTh = `
       <p>
-       <b>Supplements กลุ่ม Energy / Longevity</b>
+       <b>🌟Supplements กลุ่ม Energy / Longevity</b>
         <br>• <b>Enhanced NMN 350</b> สารกระตุ้น NAD+ ช่วยชะลอวัย เพิ่มพลังงานระดับเซลล์ ฟื้นฟูสมอง ผิว และระบบเผาผลาญ
         <br>• <b>NMN+TMG 430mg</b> สูตร NMN เสริมด้วย TMG เพื่อเพิ่มการดูดซึม ช่วยชะลอวัย เพิ่มเอนเนอจี้ และสนับสนุนระบบสมองและหัวใจ
-       <b>Supplements กลุ่ม Antioxidant / Detox</b>
+       
+       <br><br><b>🌟Supplements กลุ่ม Antioxidant / Detox</b>
         <br>• <b>Glutathione (Gluta)</b> เป็นสารต้านอนุมูลอิสระหลักของร่างกาย มีบทบาทสำคัญในการ detox ตับ ลด oxidative stress เสริมภูมิคุ้มกัน และช่วยให้ผิวกระจ่างใส
-       <b>Supplements กลุ่ม Mineral / Micronutrient</b>
+       
+       <br><br><b>🌟Supplements กลุ่ม Mineral / Micronutrient</b>
         <br>• <b>Kelp Iodine 225mcg</b> ไอโอดีนจากสาหร่ายทะเล ช่วยการทำงานของต่อมไทรอยด์ ควบคุมระบบเผาผลาญ พลังงาน และช่วยบำรุงเส้นผม
-       <b>Supplements กลุ่ม Performance / Carb Support</b>
+       
+       <br><br><b>🌟Supplements กลุ่ม Performance / Carb Support</b>
         <br>• <b>Carb Up 2210</b> สูตรควบคุมน้ำตาล ลดการสะสมไขมัน ช่วยดึงสารอาหารเข้าสู่กล้ามเนื้อ เหมาะกับสายรีคอมป์หรือลีน
-       <b>Cosmeceutical / Skin Peptides</b>
+       
+       <br><br><b>🌟Cosmeceutical / Skin Peptides</b>
         <br>• <b>GHK-CU 50mg</b> เปปไทด์ทองแดง กระตุ้นคอลลาเจน ซ่อมแซมผิว ลดริ้วรอย ฟื้นฟูแผล และเพิ่มความยืดหยุ่นผิว
         <br>• <b>SNAP-8</b> เป็นเปปไทด์เพื่อความงาม ออกฤทธิ์คล้าย Botox-like peptide โดยช่วยลดการหดตัวของกล้ามเนื้อใบหน้า
         <br>• <b>Epitalon 10mg</b> เปปไทด์ช่วยยืดอายุเซลล์ ส่งเสริมการฟื้นฟูร่างกาย คุณภาพการนอน และระบบภูมิคุ้มกัน
-       <b>Pharmaceutical / Prescription Drug</b>
+       
+       <br><br><b>🌟Pharmaceutical / Prescription Drug</b>
         <br>• <b>Iso Accutane 20mg</b> ยาลดสิวชนิดแรง ลดการผลิตน้ำมันจากต่อมไขมัน ลดการอักเสบของสิว เหมาะกับสิวเรื้อรังหรือสิวฮอร์โมน
         
       </p>
     `;
     descEn = `
       <p>
-      <b>Supplements – Energy / Longevity</b>
+      <b>🌟Supplements – Energy / Longevity</b>
 <br>• <b>Enhanced NMN 350</b> A NAD+ booster that supports longevity, enhances cellular energy, and promotes brain, skin, and metabolic health
 <br>• <b>NMN+TMG 430mg</b> An NMN formula combined with TMG to improve absorption, support anti-aging, boost energy levels, and support brain and cardiovascular function
 
-<b>Supplements – Antioxidant / Detox</b>
+<br><br><b>🌟Supplements – Antioxidant / Detox</b>
 <br>• <b>Glutathione (Gluta)</b> The body’s primary antioxidant, playing a key role in liver detoxification, reducing oxidative stress, supporting immune function, and promoting brighter, healthier skin
 
-<b>Supplements – Mineral / Micronutrient</b>
+<br><br><b>🌟Supplements – Mineral / Micronutrient</b>
 <br>• <b>Kelp Iodine 225mcg</b> Seaweed-derived iodine that supports thyroid function, metabolic regulation, energy production, and hair health
 
-<b>Supplements – Performance / Carb Support</b>
+<br><br><b>🌟Supplements – Performance / Carb Support</b>
 <br>• <b>Carb Up 2210</b> A metabolic support formula that helps regulate blood sugar, reduce fat storage, and enhance nutrient delivery to muscles, ideal for recomposition or lean-focused training
 
-<b>Cosmeceutical / Skin Peptides</b>
+<br><br><b>🌟Cosmeceutical / Skin Peptides</b>
 <br>• <b>GHK-CU 50mg</b> A copper peptide that stimulates collagen production, repairs skin tissue, reduces wrinkles, accelerates wound healing, and improves skin elasticity
 <br>• <b>SNAP-8</b> A cosmetic peptide with Botox-like effects that helps reduce facial muscle contractions and soften expression lines
 <br>• <b>Epitalon 10mg</b> A peptide associated with cellular longevity, supporting systemic recovery, sleep quality, and immune function
 
-<b>Pharmaceutical / Prescription Drug</b>
+<br><br><b>🌟Pharmaceutical / Prescription Drug</b>
 <br>• <b>Iso Accutane 20mg</b> A potent acne medication that reduces sebum production and inflammation, commonly used for severe, chronic, or hormonal acne
 
       </p>
