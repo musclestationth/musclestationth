@@ -31,9 +31,10 @@ const newProducts = [
 { name: "CJC-1295(with DAC) 5mg Wellness", price: 2350, image: "" },
 { name: "CJC-1295(no DAC)2mg BPMedical", price: 6300, image: "images/cjc-bp.png" },
 { name: "CJC+IPA 5+5mg Muse/Wellness", price: 2250, image: "images/cjc-muse.png" },
-{ name: "MOTS-C 10mg Wellness", price: 1950, image: "" },
+{ name: "MOTS-C 10mg Wellness", price: 1950, image: "images/most-wellness.png" },
 { name: "MOTS-C 20mg Muse", price: 3900, image: "images/mots-muse.png" },
-{ name: "AOD Wellness/Muse 5mg", price: 1450, image: "images/aod-muse.png" }
+{ name: "AOD Muse 5mg", price: 1450, image: "images/aod-muse.png" },
+{ name: "AOD Wellness 5mg", price: 1450, image: "images/aod5-wellness.png" }
   
 ];
 
@@ -378,8 +379,8 @@ const products = {
       { name: "TestU BPMedical 250mg", price: 1600, image: "" },
       { name: "TDT RAPID Platinum 300mg", price: 2600, image: "images/tdt-plat.png" },
       { name: "Kisseptin-10 SAAnabolic 5mg", price: 1850, image: "images/kiss-sa.png" },
-      { name: "Kisseptin Wellness", price: 1200, image: "" },
-      { name: "Oxytocin Wellness", price: 1250, image: "" },
+      { name: "Kisseptin Wellness", price: 1200, image: "images/kiss-wellness.png" },
+      { name: "Oxytocin Wellness", price: 1250, image: "images/oxy-wellness.png" },
       { name: "Tren-Test-Mast Long Beligas 300mg", price: 2450, image: "images/tren-test-mast-beligas.png" },
       //  { name: "Test-Tren Short Beligas 150mg", price: 1700, image: "images/" }, 
       { name: "MENT Beligas 50mg", price: 1990, image: "images/ment-beligas.png" },
@@ -487,7 +488,7 @@ const products = {
       { name: "BPC-157 Meditech 5mgx3", price: 2200, image: "images/bpc157-medi.png" },
       { name: "BPC-157 Beligas 5mg", price: 1100, image: "images/BPC157-beligas.png" },
       { name: "BPC-157 BPMedical", price: 1600, image: "images/bpc157-bp.png" },
-      { name: "TB500+BPC157 Wellness 5+5mg", price: 1450, image: "" },
+      { name: "TB500+BPC157 Wellness 5+5mg", price: 1450, image: "images/tb500+bpc157-wellness.png" },
       { name: "TB500+BPC157 SAAnabolic 5+5mg", price: 1550, image: "images/tb500-sa.png" }
 
     ],
@@ -499,10 +500,10 @@ const products = {
       { name: "SLU-PP-332 BPmedical 400mcg60t", price: 1700, image: "images/slp-bp.png" },
       { name: "5-Amino-1mq SAAnabolic 60t", price: 1350, image: "" },
       { name: "AOD Wellness/Muse 5mg", price: 1450, image: "images/aod-muse.png" },
-      { name: "SS-31 10mg Wellness", price: 1350, image: "" },
-      { name: "5x SS-31 10mg Wellness", price: 5000, image: "" },
+      { name: "SS-31 10mg Wellness", price: 1350, image: "images/ss31-wellness.png" },
+      { name: "5x SS-31 10mg Wellness", price: 5000, image: "images/ss31-wellness.png" },
       { name: "SS-31 50mg Muse", price: 3900, image: "images/ss31-muse.png" },
-      { name: "Humanin 10mg Wellness", price: 1750, image: "" },
+      { name: "Humanin 10mg Wellness", price: 1750, image: "images/humanin10-wellness.png" },
       { name: "8–10 Wellness", price: 1850, image: "" },
       { name: "Tesa+IPA 10+3mg Muse", price: 1800, image: "images/tesa-muse.png" },
       { name: "Tesamorelin 10mg Wellness", price: 1750, image: "" },
@@ -518,14 +519,16 @@ const products = {
       { name: "DSIP Beligas 2mg", price: 890, image: "images/dsip-beligas.png" },
       { name: "DSIP Wellness 10mg", price: 1890, image: "" },
       { name: "PE-22-28 Wellness 10mg", price: 1450, image: "" },
-      { name: "Pinealon 10mg Wellness", price: 1450, image: "" },
-      { name: "Epitalon 10mg Wellness", price: 1000, image: "" },
+      { name: "Pinealon 10mg Wellness", price: 1450, image: "images/pine10-wellness.png" },
+      { name: "Epitalon 10mg Wellness", price: 1000, image: "images/epi10-wellness.png" },
       { name: "EPI 50mg Muse", price: 3500, image: "images/epi-muse.png" },
       { name: "GHK-CU bpmedical 50mg", price: 1800, image: "images/ghk-bp.png" },
       { name: "GHK-CU 50mg Wellness", price: 1000, image: "" },
       { name: "GHK-CU 100mg Muse", price: 2000, image: "images/ghk-muse.png" },
-      { name: "KPV 10mg Wellness/Muse", price: 1400, image: "images/kpv-muse.png" },
-      { name: "KLOW 80mg Muse/Wellness", price: 3350, image: "images/klow-muse.png" },
+      { name: "KPV 10mg Muse", price: 1400, image: "images/kpv-muse.png" },
+      { name: "KPV 10mg Wellness", price: 1400, image: "images/kpv10-wellness.png" },
+      { name: "KLOW Muse", price: 3350, image: "images/klow-muse.png" },
+      { name: "KLOW 80mg Wellness", price: 3350, image: "images/klow-wellness.png" },
 
       { name: "Peptide PEN Reuseable BPMedical", price: 3800, image: "" },
       { name: "Peptide PEN Disposable BPMedical", price: 690, image: "" }
@@ -635,7 +638,7 @@ const products = {
       { name: "SemaglutidePen Wegovy 1mg(มีอย.)", price: 11900, image: "images/sema-wegovy.png" }
     ],
     "Tirzepatide": [
-      { name: "Tirzep Wellness 5mg", price: 1200, image: "" },
+      { name: "Tirzep Wellness 5mg", price: 1200, image: "images/tirzep5-wellness.png" },
       { name: "Tirzep Mounjaro Kwikpen 5mg/0.6ml(มีอย.)", price: 17500, image: "images/tirzep-kwikk.png" },
       { name: "Tirzep APLab 10mg", price: 3500, image: "images/tirzep-ap.png" },
       { name: "Tirzep SAAnabolic 10mg", price: 3500, image: "images/tirzep-sa.png" },
@@ -646,11 +649,11 @@ const products = {
       { name: "TirzepPen Beligas 10mg", price: 4500, image: "images/tirzep-beligass.png" },
       { name: "Tirzep Platinum 10mg", price: 3500, image: "images/tirzep-plat.png" },
       { name: "Tirzep SAAnabolic 20mg ", price: 4900, image: "images/tirzep20-sa.png" },
-      { name: "Tirzep Wellness 20mg ", price: 3350, image: "" }      
+      { name: "Tirzep Wellness 20mg ", price: 3350, image: "images/tirzep20-wellness.png" }      
     ],
     "Retatrutide": [
       // { name: "Retatrutide APLab 5mg", price: 1800, image: "images/" },
-      { name: "Retatrutide Wellness 5mg", price: 2500, image: "" },
+      { name: "Retatrutide Wellness 5mg", price: 2500, image: "images/reta5-wellness.png" },
       { name: "Retatrutide Wellness 10mg", price: 4000, image: "images/reta-wellness.png" },
       { name: "Retatrutide Muse 10mg", price: 4000, image: "images/reta-muse.png" },
       { name: "RetatrutidePen APLab 10mg", price: 6900, image: "images/reta-ap.png" },
@@ -666,8 +669,8 @@ const products = {
       { name: "Helio Clen Yohimbine Beligas 40mcg&5.5mg", price: 1450, image: "images/helio-beligas.png" },
       { name: "Saxenda Liraglutide 3.0mg", price: 3900, image: "images/saxenda.png" },
       { name: "Cut Fast SAAnabolic 155mg", price: 1750, image: "images/cut-sa.png" },
-      { name: "Cagrilintide Wellness 5mg", price: 1950, image: "" },
-      { name: "Fragment Wellness 5mg", price: 1450, image: "" }
+      { name: "Cagrilintide Wellness 5mg", price: 1950, image: "images/cagril5-wellness.png" },
+      { name: "Fragment Wellness 5mg", price: 1450, image: "images/aod5-wellness(2).png" }
     ]
   },
   "Supplements": {
@@ -710,7 +713,7 @@ const products = {
     "Sexual Health etc": [
       { name: "PT-141 Beligas 10mg", price: 1490, image: "images/pt141-beligas.png" },
       { name: "PT-141 BPMedical 10mg", price: 1500, image: "images/pt141-bp.png" },
-      { name: "PT-141 Wellness 10mg", price: 1200, image: "" }
+      { name: "PT-141 Wellness 10mg", price: 1200, image: "images/pt141-wellness.png" }
       
     ]
   },
