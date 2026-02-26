@@ -670,7 +670,7 @@ const products = {
       { name: "Saxenda Liraglutide 3.0mg", price: 3900, image: "images/saxenda.png" },
       { name: "Cut Fast SAAnabolic 155mg", price: 1750, image: "images/cut-sa.png" },
       { name: "Cagrilintide Wellness 5mg", price: 1950, image: "images/cagril5-wellness.png" },
-      { name: "Fragment Wellness 5mg", price: 1450, image: "images/aod5-wellness(2).png" }
+      { name: "Fragment Wellness 5mg", price: 1450, image: "images/aod5-wellness (2).png" }
     ]
   },
   "Supplements": {
