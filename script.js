@@ -421,7 +421,7 @@ const products = {
       { name: "GW-501516 Synctech 15mg50t", price: 1450, image: "images/gw-sync.png" },
       { name: "GW-501516 SAAnabolic 10mg60t", price: 1050, image: "images/gw-sa.png" },
       { name: "GW-501516 BPMedical 10mg90t", price: 2200, image: "images/gw-bp.png" },
-      { name: "GW-501516 Beligas 10mg50t", price: 1400, image: "" }
+      { name: "GW-501516 Beligas 10mg50t", price: 1400, image: "" },
       { name: "GW-501516 Beligas 10mg90t", price: 2600, image: "" }
     ],
     "MK2866": [
