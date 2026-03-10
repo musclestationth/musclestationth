@@ -20,10 +20,10 @@ const itemsPerPage = 3; // ✅ ให้โชว์ 3 สินค้าต่�
 
 // สินค้าเข้าใหม่ (กำหนดเอง)
 const newProducts = [
-{ name: "Gluta 1500mg Muse", price: 0, image: "images/gluta-muse.png" },
+{ name: "Gluta 1500mg Muse", price: 2000, image: "images/gluta-muse.png" },
 { name: "GHK-CU bpmedical 50mg", price: 1800, image: "images/ghk-bp.png" },
 { name: "GHK-CU 50mg Wellness", price: 1000, image: "" },
-{ name: "GHK-CU 100mg Muse", price: 2000, image: "images/ghk-muse.png" },
+{ name: "GHK-CU 100mg Muse", price: 1400, image: "images/ghk-muse.png" },
 { name: "KPV 10mg Wellness/Muse", price: 1400, image: "images/kpv-muse.png" },
 { name: "Tesa+IPA 10+3mg Muse", price: 1800, image: "images/tesa-muse.png" },
 { name: "Tesamorelin 10mg Wellness", price: 1750, image: "" },
@@ -33,7 +33,7 @@ const newProducts = [
 { name: "CJC+IPA 5+5mg Muse/Wellness", price: 2250, image: "images/cjc-muse.png" },
 { name: "Ipamorelin 5mg Beligas", price: 1180, image: "" },
 { name: "MOTS-C 10mg Wellness", price: 1950, image: "images/most-wellness.png" },
-{ name: "MOTS-C 20mg Muse", price: 3900, image: "images/mots-muse.png" },
+{ name: "MOTS-C 20mg Muse", price: 2400, image: "images/mots-muse.png" },
 { name: "AOD Muse 5mg", price: 1450, image: "images/aod-muse.png" },
 { name: "AOD Wellness 5mg", price: 1450, image: "images/aod5-wellness.png" }
   
@@ -263,7 +263,7 @@ const products = {
       { name: "Sustanon Beligas 250mg", price: 1300, image: "images/sus250-beligas.png" },
       { name: "Sustanon BPMedical 250mg", price: 1250, image: "images/sus-bp.png" },
       { name: "Sustanon Platinum 250mg", price: 1400, image: "images/sus-plat.png" },
-      { name: "Sustanon Beligas 500mg", price: 1900, image: "images/sus500-beligas.png" }
+      { name: "Sustanon Beligas 500mg", price: 2250, image: "images/sus500-beligas.png" }
     ],
     "Test Suspension": [
       { name: "Test Suspension Meditech 100mg", price: 900, image: "images/testsus-medi.png" },
@@ -383,7 +383,7 @@ const products = {
       { name: "Deca Beligas 300mg", price: 1600, image: "images/deca300-beligas.png" },
       { name: "Deca Platinum 300mg", price: 1800, image: "images/deca-plat.png" },
    //   { name: "Deca Bodytech 400mg", price: 1600, image: "images/deca2-body.png" },
-      { name: "Deca Beligas 500mg", price: 1900, image: "images/deca500-beligas.png" }
+      { name: "Deca Beligas 500mg", price: 2150, image: "images/deca500-beligas.png" }
     ],
     "Injection etc": [
       { name: "TestU Bayer NEBIDO 1000mg/4ml", price: 8500, image: "images/testu-nebido.png" },
@@ -515,7 +515,7 @@ const products = {
     ],
     "Peptide etc": [
       { name: "MOTS-C 10mg Wellness", price: 1950, image: "" },
-      { name: "MOTS-C 20mg Muse", price: 3900, image: "images/mots-muse.png" },
+      { name: "MOTS-C 20mg Muse", price: 2400, image: "images/mots-muse.png" },
       { name: "SLU-PP-332 SAAnabolic 60t", price: 1750, image: "images/slp-sa.png" },
       { name: "SLU-PP-332 Wellness 250mcg100t", price: 2000, image: "" },
       { name: "SLU-PP-332 BPmedical 400mcg60t", price: 1700, image: "images/slp-bp.png" },
@@ -546,10 +546,10 @@ const products = {
       { name: "EPI 50mg Muse", price: 3500, image: "images/epi-muse.png" },
       { name: "GHK-CU bpmedical 50mg", price: 1800, image: "images/ghk-bp.png" },
       { name: "GHK-CU 50mg Wellness", price: 1000, image: "" },
-      { name: "GHK-CU 100mg Muse", price: 2000, image: "images/ghk-muse.png" },
+      { name: "GHK-CU 100mg Muse", price: 1400, image: "images/ghk-muse.png" },
       { name: "KPV 10mg Muse", price: 1400, image: "images/kpv-muse.png" },
       { name: "KPV 10mg Wellness", price: 1400, image: "images/kpv10-wellness.png" },
-      { name: "KLOW Muse", price: 3350, image: "images/klow-muse.png" },
+      { name: "KLOW 80mg Muse", price: 3350, image: "images/klow-muse.png" },
       { name: "KLOW 80mg Wellness", price: 3350, image: "images/klow-wellness.png" },
 
       { name: "Peptide PEN Reuseable BPMedical", price: 3800, image: "" },
@@ -691,7 +691,7 @@ const products = {
       { name: "Orlistat 120mg14t", price: 840, image: "images/orlistat.png" }
     ],
     "Injection Weight-loss etc": [
-      { name: "Helio Clen Yohimbine Beligas 40mcg&5.5mg", price: 1300, image: "images/helio-beligas.png" },
+      { name: "Helio Clen Yohimbine Beligas 40mcg&5.5mg", price: 1450, image: "images/helio-beligas.png" },
       { name: "Saxenda Liraglutide 3.0mg", price: 3900, image: "images/saxenda.png" },
       { name: "Cut Fast SAAnabolic 155mg", price: 1750, image: "images/cut-sa.png" },
       { name: "Cagrilintide Wellness 5mg", price: 1950, image: "images/cagril5-wellness.png" },
@@ -708,12 +708,12 @@ const products = {
     "Supplements": [
       { name: "Enhanced NMN350 SAAnabolic 60t", price: 1250, image: "images/nmn350-sa.png" },
       { name: "NMN+TMG SAAnabolic 430mg60t", price: 1250, image: "images/nmn-sa.png" },
-      { name: "Gluta 1500mg Muse", price: 0, image: "images/gluta-muse.png" },
+      { name: "Gluta 1500mg Muse", price: 2000, image: "images/gluta-muse.png" },
       { name: "Kelp Iodine SAAnabolic 225mcg90t", price: 350, image: "images/kelp-sa.png" },
       { name: "Carb up 2210 SAAnabolic 60t", price: 950, image: "images/carb-sa.png" },
       { name: "GHK-CU bpmedical 50mg", price: 1800, image: "images/ghk-bp.png" },
       { name: "GHK-CU 50mg Wellness", price: 1000, image: "" },
-      { name: "GHK-CU 100mg Muse", price: 2000, image: "images/ghk-muse.png" },
+      { name: "GHK-CU 100mg Muse", price: 1400, image: "images/ghk-muse.png" },
       { name: "SNAP8 10mg Muse", price: 0, image: "images/snap8-muse.png" },
       { name: "Epitalon 10mg Wellness", price: 1000, image: "" },
       { name: "EPI 50mg Muse", price: 3500, image: "images/epi-muse.png" },
