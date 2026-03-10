@@ -141,7 +141,7 @@ const products = {
       { name: "Primotab Meditech 25mg50t", price: 1350, image: "images/primotab-medi.png" },
     //  { name: "Primotab Bodytech 25mg50t", price: 1350, image: "images/primotab-body.png" },
       { name: "Primotab BPMedical 25mg50t", price: 2000, image: "images/primotab-bp.png" },
-      { name: "Primotab Beligas 25mg50t", price: 2800, image: "images/primotab-beligas.png" }
+      { name: "Primotab Beligas 25mg50t", price: 2890, image: "images/primotab-beligas.png" }
     ],
     "Dbol": [
       { name: "Dbol Gainzlab 10mg100t", price: 540, image: "images/dbol-gainz.png" },
@@ -150,7 +150,7 @@ const products = {
       { name: "Dbol Platinum 10mg100t", price: 1000, image: "images/dbol-plat.png" },
       { name: "Dbol Beligas 10mg100t", price: 1500, image: "images/dbol10100-beligas.png" },
       { name: "Dbol Beligas 20mg50t", price: 1600, image: "images/dbol20-beligas.png" },
-      { name: "Dbol Beligas 50mg50t", price: 1700, image: "images/dbol50-beligas.png" }
+      { name: "Dbol Beligas 50mg50t", price: 2200, image: "images/dbol50-beligas.png" }
     ],
     "Tbol": [
     //  { name: "Tbol Bodytech 10mg50t", price: 1000, image: "images/tbol-body.png" },
@@ -181,10 +181,10 @@ const products = {
       { name: "Stanotab SAAnabolic 10mg100t", price: 1000, image: "images/stanotab-sa.png" },
       { name: "Stanotab Platinum 10mg100t", price: 1200, image: "images/stanotab-plat.png" },
       { name: "Stanotab BPMedical 10mg100t", price: 1100, image: "images/stanotab-bp.png" },
-      { name: "Stanotab Beligas 10mg50t", price: 760, image: "" },
-      { name: "Stanotab Beligas 10mg100t", price: 1200, image: "images/stanotab10100-beligas.png" },
-      { name: "Stanotab Beligas 20mg50t", price: 760, image: "" },
-      { name: "Stanotab Beligas 50mg50t", price: 1680, image: "images/stanotab5050-beligas.png" }
+      { name: "Stanotab Beligas 10mg50t", price: 790, image: "" },
+      { name: "Stanotab Beligas 10mg100t", price: 1290, image: "images/stanotab10100-beligas.png" },
+      { name: "Stanotab Beligas 20mg50t", price: 790, image: "" },
+      { name: "Stanotab Beligas 50mg50t", price: 2090, image: "images/stanotab5050-beligas.png" }
     ],
     "Proviron": [
       // { name: "Proviron Beligas 20mg50t", price: 1490, image: "images/prov50-beligas.png" },
@@ -201,13 +201,13 @@ const products = {
       { name: "Halotestin BPMedical 10mg30t", price: 1700, image: "images/halo-bp.png" }
     ],
     "Superdrol": [
-      { name: "Superdrol Beligas 10mg50t", price: 1000, image: "images/super-beligas.png" },
+      { name: "Superdrol Beligas 10mg50t", price: 1190, image: "images/super-beligas.png" },
    //   { name: "Superdrol Bodytech 10mg50t", price: 1190, image: "images/super-body.png" },
       { name: "Superdrol Meditech 10mg50t", price: 1200, image: "images/super-medi.png" },
       { name: "Superdrol BPMedical 10mg50t", price: 1600, image: "images/super-bp.png" }
     ],
     "Oral etc": [
-      { name: "Test เม็ด Beligas 40mg50t", price: 2400, image: "images/testเม็ด-beligas.png" },
+      { name: "Test เม็ด Beligas 40mg50t", price: 3090, image: "images/testเม็ด-beligas.png" },
       { name: "Mix1 Synctech 15+10mg50t", price: 1550, image: "images/mix1-sync.png" },
       { name: "Mix2 Synctech 20+10mg50t", price: 1700, image: "images/mix2-sync.png" },
       { name: "DNP BPMedical 50mg50t ", price: 1350, image: "images/dnp-bp.png" },
@@ -302,20 +302,17 @@ const products = {
       { name: "TrenHex BPMedical 200mg", price: 2700, image: "images/trenhex-bp.png" }
     ],
     "Stano": [
-      { name: "Stanotab Gainzlab 10mg100t", price: 700, image: "images/stanotab-gainz.png" },
-      { name: "Stanotab AlphaPharma 10mg50t", price: 1000, image: "images/stanotab-alpha.png" },
-      { name: "Stanotab EuroMed 10mg100t", price: 850, image: "images/stanotab-euro.png" },
-      { name: "Stanotab Synctech 10mg100t", price: 850, image: "images/stanotab-sync.png" },
-      { name: "Stanotab Meditech 10mg100t", price: 900, image: "images/stanotab-medi.png" },
-   //   { name: "Stanotab Bodytech 10mg100t", price: 900, image: "images/stanotab-body.png" },
-
-      { name: "Stanotab SAAnabolic 10mg100t", price: 1000, image: "images/stanotab-sa.png" },
-      { name: "Stanotab Platinum 10mg100t", price: 1200, image: "images/stanotab-plat.png" },
-      { name: "Stanotab BPMedical 10mg100t", price: 1100, image: "images/stanotab-bp.png" },
-      { name: "Stanotab Beligas 10mg50t", price: 760, image: "" },
-      { name: "Stanotab Beligas 10mg100t", price: 1200, image: "images/stanotab10100-beligas.png" },
-      { name: "Stanotab Beligas 20mg50t", price: 760, image: "" },
-      { name: "Stanotab Beligas 50mg50t", price: 1680, image: "images/stanotab5050-beligas.png" }
+          
+      { name: "Stano Platinum 50mg", price: 1400, image: "images/stano-plat.png" },
+      { name: "Stano AlphaPharma 50mg", price: 1500, image: "images/stano-alpha.png" },
+      { name: "Stano Beligas 50mg", price: 1500, image: "images/stano-beligas.png" },
+      { name: "Stano Global 50mg", price: 0, image: "images/stano-global.png" },
+      { name: "Stano Gainzlab 100mg", price: 870, image: "images/stano-gainz.png" },
+      { name: "Stano Meditech 100mg", price: 1070, image: "images/stano-medi.png" },
+   //   { name: "Stano Bodytech 100mg", price: 1070, image: "images/stano-body.png" },
+      { name: "Stano EuroMed 100mg", price: 1160, image: "images/stano-euro.png" },
+      { name: "Stano BPMedical 100mg", price: 1375, image: "images/stano-bp.png" }
+  
     ],
     "MastE": [
       { name: "MastE Meditech 200mg", price: 1500, image: "images/maste-medi.png" },
@@ -534,11 +531,11 @@ const products = {
       { name: "CJC-1295(no DAC)2mg BPMedical", price: 6300, image: "images/cjc-bp.png" },
       { name: "CJC+IPA 5+5mg Muse/Wellness", price: 2250, image: "images/cjc-muse.png" },
       { name: "GHRP-6 BPMedical 5mgx10vials", price: 5800, image: "images/ghrp6-bp.png" },
-      { name: "GHRP-6 Beligas 5mg", price: 800, image: "" },
+      { name: "GHRP-6 Beligas 5mg", price: 1500, image: "" },
       { name: "PEG-MGF Beligas 1mg", price: 1700, image: "images/peg-beligas.png" },
       { name: "Semax Wellness 10mg", price: 1550, image: "" },
       { name: "Salank Wellness 10mg", price: 1550, image: "" },
-      { name: "DSIP Beligas 2mg", price: 700, image: "images/dsip-beligas.png" },
+      { name: "DSIP Beligas 2mg", price: 890, image: "images/dsip-beligas.png" },
       { name: "DSIP Wellness 10mg", price: 1890, image: "" },
       { name: "PE-22-28 Wellness 10mg", price: 1450, image: "" },
       { name: "Pinealon 10mg Wellness", price: 1450, image: "images/pine10-wellness.png" },
@@ -563,12 +560,12 @@ const products = {
       { name: "Arimidex BPMedical 1mg30t", price: 1700, image: "images/ari-bp.png" },
       { name: "Arimidex Meditech 1mg50t", price: 1200, image: "images/ari-medi.png" },
       { name: "Arimidex SAAnabolic 1mg50t", price: 1200, image: "" },
-      { name: "Arimidex Beligas 1mg50t", price: 1040, image: "images/ari-beligas.png" }
+      { name: "Arimidex Beligas 1mg50t", price: 1290, image: "images/ari-beligas.png" }
     ],
     "Aromasin": [
       { name: "Aromasin Meditech 25mg30t", price: 1200, image: "images/aro-medi.png" },
     //  { name: "Aromasin Bodytech 25mg30t", price: 1200, image: "images/aro-body.png" },
-      { name: "Aromasin Beligas 25mg50t", price: 1400, image: "images/aro-beligas.png" }
+      { name: "Aromasin Beligas 25mg50t", price: 1600, image: "images/aro-beligas.png" }
     ],
     "Caber": [
       { name: "Caber Beligas 0.5mg10t", price: 2600, image: "images/caber0.5-beligas.png" },
@@ -593,7 +590,7 @@ const products = {
     "Clomid": [
       { name: "Clomid Meditech 50mg50t", price: 1250, image: "images/clomid-medi.png" },
       { name: "Clomid BPMedical 50mg30t", price: 1100, image: "images/clomid-bp.png" },
-      { name: "Clomid Beligas 50mg50t", price: 1000, image: "images/clomid-beligas.png" }
+      { name: "Clomid Beligas 50mg50t", price: 1490, image: "images/clomid-beligas.png" }
     ],
     "Proviron": [
       // { name: "Proviron Beligas 20mg50t", price: 1490, image: "images/prov50-beligas.png" },
@@ -727,7 +724,7 @@ const products = {
   "Sexual Health": {
     "Cialis": [
       { name: "Cialis Beligas 5mg100t", price: 1720, image: "images/cialis100-beligas.png" },
-      { name: "Cialis Beligas 25mg100t", price: 2000, image: "" },
+      { name: "Cialis Beligas 25mg100t", price: 2490, image: "" },
       { name: "Tadalafil BPMedical 20mg10t", price: 1200, image: "images/cialis-bp.png" },
       { name: "Tadalafil SAAnabolic 5mg100t", price: 1130, image: "images/cialis-sa.png" }
     ],
@@ -738,7 +735,7 @@ const products = {
       { name: "Kamagra Oral Jelly 100mg1ซอง", price: 60, image: "images/kama.png" }
     ],
     "Sexual Health etc": [
-      { name: "PT-141 Beligas 10mg", price: 1300, image: "images/pt141-beligas.png" },
+      { name: "PT-141 Beligas 10mg", price: 1490, image: "images/pt141-beligas.png" },
       { name: "PT-141 BPMedical 10mg", price: 1500, image: "images/pt141-bp.png" },
       { name: "PT-141 Wellness 10mg", price: 1200, image: "images/pt141-wellness.png" }
       
