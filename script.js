@@ -617,7 +617,7 @@ const products = {
       { name: "Nolvadex Meditech 20mg50t", price: 1200, image: "images/nolv-medi.png" },
       { name: "Nolvadex Beligas 20mg50t", price: 1200, image: "images/nolv-beligas.png" },
       { name: "Nolvadex AlphaPharma 20mg30t", price: 1100, image: "images/nol-alpha.png" },
-      { name: "Nolvadex SAAnabolic 20mg50t", price: 850, image: "images/nolv-sa.png" },
+      { name: "Nolvadex SAAnabolic 20mg50t", price: 1150, image: "images/nolv-sa.png" },
       { name: "Nolvadex AstraZenaca 20mg30t", price: 0, image: "images/nol-astra.png" },
       { name: "Levitra SAAnabolic 30mg60t", price: 1440, image: "images/levitra-sa.png" }
     ],
