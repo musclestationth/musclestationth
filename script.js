@@ -26,11 +26,11 @@ function updateHeroSlide(){
   const slides = document.querySelectorAll(".hero-slide");
 
   if(heroIndex < 0){
-    heroIndex = slides.length - 1;
+    heroIndex = 0;
   }
 
-  if(heroIndex >= slides.length){
-    heroIndex = 0;
+ if(heroIndex > slides.length - 1){
+    heroIndex = slides.length - 1;
   }
 
   slider.style.transform = `translateX(-${heroIndex*100}%)`;
