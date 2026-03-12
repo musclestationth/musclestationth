@@ -454,3 +454,9 @@ textarea, input {
 .hero-arrow.right{
   right:10px;
 }
+
+.hero-wrapper{
+  display:flex;
+  transition:0.35s;
+  touch-action:pan-y;
+}
