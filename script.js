@@ -48,7 +48,67 @@ function prevHero(){
   updateHeroSlide();
 }
 
+let heroIndex = 0;
 
+function updateHeroSlide(){
+
+  const slider = document.getElementById("heroSlider");
+  const slides = document.querySelectorAll(".hero-slide");
+
+  if(heroIndex < 0){
+    heroIndex = slides.length - 1;
+  }
+
+  if(heroIndex >= slides.length){
+    heroIndex = 0;
+  }
+
+  slider.style.transform = `translateX(-${heroIndex*100}%)`;
+}
+
+function nextHero(){
+  heroIndex++;
+  updateHeroSlide();
+}
+
+function prevHero(){
+  heroIndex--;
+  updateHeroSlide();
+}
+
+
+/* --------------------------
+   Swipe Support
+-------------------------- */
+
+let startX = 0;
+let endX = 0;
+
+const slider = document.getElementById("heroSlider");
+
+slider.addEventListener("touchstart",function(e){
+  startX = e.touches[0].clientX;
+});
+
+slider.addEventListener("touchmove",function(e){
+  endX = e.touches[0].clientX;
+});
+
+slider.addEventListener("touchend",function(){
+
+  let diff = startX - endX;
+
+  if(Math.abs(diff) > 50){
+
+    if(diff > 0){
+      nextHero(); // ปัดซ้าย
+    }else{
+      prevHero(); // ปัดขวา
+    }
+
+  }
+
+});
 
 
 
