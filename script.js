@@ -18,6 +18,51 @@ let currentNewSlide = 0;
 let currentPromoSlide = 0;
 const itemsPerPage = 3; // ✅ ให้โชว์ 3 สินค้าต่อหน้า
 
+
+
+let heroIndex = 0;
+
+function updateHeroSlide(){
+
+  const slider = document.getElementById("heroSlider");
+  const slides = document.querySelectorAll(".hero-slide");
+
+  if(heroIndex < 0){
+    heroIndex = slides.length - 1;
+  }
+
+  if(heroIndex >= slides.length){
+    heroIndex = 0;
+  }
+
+  slider.style.transform = `translateX(-${heroIndex*100}%)`;
+}
+
+function nextHero(){
+  heroIndex++;
+  updateHeroSlide();
+}
+
+function prevHero(){
+  heroIndex--;
+  updateHeroSlide();
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 // สินค้าเข้าใหม่ (กำหนดเอง)
 const newProducts = [
   { name: "TirzepPen SAAnabolic 30mg", price: 8900, image: "images/tirzep-sa30.png" },
