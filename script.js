@@ -24,13 +24,16 @@ function updateHeroSlide(){
 
   const slider = document.getElementById("heroSlider");
   const slides = document.querySelectorAll(".hero-slide");
+  const total = slides.length;
 
-  if(heroIndex >= slides.length){
-    heroIndex = 0; // กลับไปภาพแรก
+  // loop หน้า
+  if(heroIndex >= total){
+    heroIndex = 0;
   }
 
+  // loop หลัง
   if(heroIndex < 0){
-    heroIndex = slides.length - 1; // ไปภาพสุดท้าย
+    heroIndex = total - 1;
   }
 
   slider.style.transform = `translateX(-${heroIndex * 100}%)`;
@@ -45,7 +48,6 @@ function prevHero(){
   heroIndex--;
   updateHeroSlide();
 }
-
 
 
 
