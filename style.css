@@ -159,7 +159,7 @@ body {
 .cart-summary {
   background: white;
   padding: 12px;
-  position: sticky;
+  position: relative;
   bottom: 0;
   box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.05);
   border-top: 1px solid #eee;
@@ -188,7 +188,7 @@ body {
 }
 
 .cart-bar {
-  position: fixed;
+  position: relative;
   bottom: 0;
   left: 0;
   width: 100%;
