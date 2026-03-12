@@ -23,6 +23,15 @@ let heroIndex = 0;
 function updateHeroSlide(){
 
   const slider = document.getElementById("heroSlider");
+  const slides = document.querySelectorAll(".hero-slide");
+
+  if(heroIndex >= slides.length){
+    heroIndex = 0; // กลับไปภาพแรก
+  }
+
+  if(heroIndex < 0){
+    heroIndex = slides.length - 1; // ไปภาพสุดท้าย
+  }
 
   slider.style.transform = `translateX(-${heroIndex * 100}%)`;
 }
