@@ -19,35 +19,6 @@ let currentPromoSlide = 0;
 const itemsPerPage = 3; // ✅ ให้โชว์ 3 สินค้าต่อหน้า
 
 
-
-let heroIndex = 0;
-
-function updateHeroSlide(){
-
-  const slider = document.getElementById("heroSlider");
-  const slides = document.querySelectorAll(".hero-slide");
-
-  if(heroIndex < 0){
-    heroIndex = slides.length - 1;
-  }
-
-  if(heroIndex >= slides.length){
-    heroIndex = 0;
-  }
-
-  slider.style.transform = `translateX(-${heroIndex*100}%)`;
-}
-
-function nextHero(){
-  heroIndex++;
-  updateHeroSlide();
-}
-
-function prevHero(){
-  heroIndex--;
-  updateHeroSlide();
-}
-
 let heroIndex = 0;
 
 function updateHeroSlide(){
@@ -77,39 +48,41 @@ function prevHero(){
 }
 
 
-/* --------------------------
-   Swipe Support
--------------------------- */
+/* ---------- Swipe Support ---------- */
 
-let startX = 0;
-let endX = 0;
+window.addEventListener("load", function(){
 
-const slider = document.getElementById("heroSlider");
+  const slider = document.getElementById("heroSlider");
+  if(!slider) return;
 
-slider.addEventListener("touchstart",function(e){
-  startX = e.touches[0].clientX;
-});
+  let startX = 0;
+  let endX = 0;
 
-slider.addEventListener("touchmove",function(e){
-  endX = e.touches[0].clientX;
-});
+  slider.addEventListener("touchstart", function(e){
+    startX = e.touches[0].clientX;
+  });
 
-slider.addEventListener("touchend",function(){
+  slider.addEventListener("touchmove", function(e){
+    endX = e.touches[0].clientX;
+  });
 
-  let diff = startX - endX;
+  slider.addEventListener("touchend", function(){
 
-  if(Math.abs(diff) > 50){
+    let diff = startX - endX;
 
-    if(diff > 0){
-      nextHero(); // ปัดซ้าย
-    }else{
-      prevHero(); // ปัดขวา
+    if(Math.abs(diff) > 50){
+
+      if(diff > 0){
+        nextHero(); // ปัดซ้าย
+      }else{
+        prevHero(); // ปัดขวา
+      }
+
     }
 
-  }
+  });
 
 });
-
 
 
 
