@@ -18,7 +18,6 @@ let currentNewSlide = 0;
 let currentPromoSlide = 0;
 const itemsPerPage = 3; // ✅ ให้โชว์ 3 สินค้าต่อหน้า
 
-
 let heroIndex = 0;
 
 function updateHeroSlide(){
@@ -46,50 +45,6 @@ function prevHero(){
   heroIndex--;
   updateHeroSlide();
 }
-
-
-/* ---------- Swipe Support ---------- */
-
-window.addEventListener("load", function(){
-
-  const slider = document.getElementById("heroSlider");
-  if(!slider) return;
-
-  let startX = 0;
-  let endX = 0;
-
-  slider.addEventListener("touchstart", function(e){
-    startX = e.touches[0].clientX;
-  });
-
-  slider.addEventListener("touchmove", function(e){
-    endX = e.touches[0].clientX;
-  });
-
-  slider.addEventListener("touchend", function(){
-
-    let diff = startX - endX;
-
-    if(Math.abs(diff) > 50){
-
-      if(diff > 0){
-        nextHero(); // ปัดซ้าย
-      }else{
-        prevHero(); // ปัดขวา
-      }
-
-    }
-
-  });
-
-});
-
-
-
-
-
-
-
 
 
 
