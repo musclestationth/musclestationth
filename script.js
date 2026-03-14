@@ -688,7 +688,7 @@ const products = {
       { name: "InsulinPen Humalog Kwik", price: 1600, image: "images/insulinpen.png" }
     ],
     "Semaglutide": [
-      { name: "SemaglutidePen SAAnabolic 4mg", price: 4300, image: "images/sema-sa.png" },
+      { name: "SemaglutidePen SAAnabolic 4mg", price: 4500, image: "images/sema-sa.png" },
       { name: "2xSemaglutidePen SAAnabolic 4mg", price: 7900, image: "images/sema-sa.png" },
       { name: "SemaglutidePen Jolie 5mg", price: 4500, image: "images/sema-jolie.png" },
       { name: "SemaglutidePen Beligas 5mg", price: 6600, image: "images/sema-beligas.png" },
