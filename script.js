@@ -217,9 +217,9 @@ const products = {
       { name: "Stanotab SAAnabolic 10mg100t", price: 1000, image: "images/stanotab-sa.png" },
       { name: "Stanotab Platinum 10mg100t", price: 1200, image: "images/stanotab-plat.png" },
       { name: "Stanotab BPMedical 10mg100t", price: 1100, image: "images/stanotab-bp.png" },
-      { name: "Stanotab Beligas 10mg50t", price: 790, image: "" },
+      { name: "Stanotab Beligas 10mg50t", price: 790, image: "images/stanotab1050-beligas.png" },
       { name: "Stanotab Beligas 10mg100t", price: 1290, image: "images/stanotab10100-beligas.png" },
-      { name: "Stanotab Beligas 20mg50t", price: 790, image: "" },
+      { name: "Stanotab Beligas 20mg50t", price: 790, image: "images/stanotab2050-beligas.png" },
       { name: "Stanotab Beligas 50mg50t", price: 2090, image: "images/stanotab5050-beligas.png" }
     ],
     "Proviron": [
@@ -379,8 +379,8 @@ const products = {
       { name: "Primo Platinum 100mg", price: 2000, image: "images/primo-plat.png" },
       { name: "Primo BPMedical 100mg", price: 2100, image: "images/primo-bp.png" },
       { name: "Primo AlphaPharma 100mg", price: 2500, image: "images/primo-alpha.png" },
-      { name: "Primo Beligas 100mg", price: 2200, image: "" },
-      { name: "Primo Beligas 200mg", price: 2600, image: "" },
+      { name: "Primo Beligas 100mg", price: 2200, image: "images/primo100-beligas.png" },
+      { name: "Primo Beligas 200mg", price: 2600, image: "images/primo200-beligas.png" },
       { name: "Primo Synctech 150mg", price: 1850, image: "images/primo-sync.png" }
     ],
     "NPP": [
@@ -427,7 +427,7 @@ const products = {
       { name: "Kisseptin Wellness", price: 1200, image: "images/kiss-wellness.png" },
       { name: "Oxytocin Wellness", price: 1250, image: "images/oxy-wellness.png" },
       { name: "Tren-Test-Mast Long Beligas 300mg", price: 2600, image: "images/tren-test-mast-beligas.png" },
-      { name: "Test-Tren Short Beligas 150mg", price: 2200, image: "images/" }, 
+      { name: "Test-Tren Short Beligas 150mg", price: 2200, image: "images/tren-test-beligas.png" }, 
       { name: "MENT Beligas 50mg", price: 2300, image: "images/ment-beligas.png" },
       { name: "MTR Beligas 5mg", price: 1400, image: "images/mtr-beligas.png" },
       { name: "L-Carnitine Beligas 30ml", price: 2200, image: "images/l-car-beligas.png" },
@@ -436,7 +436,7 @@ const products = {
     "Bacteriostatic water": [
       { name: "Bac Water SAAnabolic 10ml", price: 500, image: "images/bac-sa.png" },
       { name: "Bac Water BPMedical 10ml", price: 450, image: "images/bac-bp.png" },
-      { name: "Bac Water Beligas 30ml", price: 580, image: "" },
+      { name: "Bac Water Beligas 30ml", price: 580, image: "images/bac-beligas.png" },
       { name: "Bac Water Synctech 12ml", price: 250, image: "images/bac-sync.png" }
     ]
   },
@@ -446,13 +446,13 @@ const products = {
       { name: "MK-677 Meditech/Bodytech 25mg50t", price: 1650, image: "images/677-medi.png" },
       { name: "MK-677 BPMedical 10mg90t", price: 2500, image: "images/677-bp.png" },
       { name: "MK-677 Wellness 10mg60t", price: 1700, image: "" },
-      { name: "MK-677 Beligas 15mg90t", price: 2600, image: "" }
+      { name: "MK-677 Beligas 15mg90t", price: 2600, image: "images/67790-beligas.png" }
     ],
     "RAD140": [
       { name: "Rad-140 Meditech/Bodytech 10mg50t", price: 1200, image: "images/rad-medi.png" },
       { name: "Rad-140 SAAnabolic 10mg60t", price: 1650, image: "images/rad-sa.png" },
-      { name: "Rad-140 Beligas 15mg50t", price: 1600, image: "" },
-      { name: "Rad-140 Beligas 15mg90t", price: 2600, image: "" },
+      { name: "Rad-140 Beligas 15mg50t", price: 1600, image: "images/rad50-beligas.png" },
+      { name: "Rad-140 Beligas 15mg90t", price: 2600, image: "images/rad90-beligas.png" },
       { name: "Rad-140 BPMedical 10mg60t", price: 2200, image: "images/rad-bp.png" }
     ],
     "GW501516": [
@@ -460,15 +460,15 @@ const products = {
       { name: "GW-501516 Synctech 15mg50t", price: 1450, image: "images/gw-sync.png" },
       { name: "GW-501516 SAAnabolic 10mg60t", price: 1050, image: "images/gw-sa.png" },
       { name: "GW-501516 BPMedical 10mg90t", price: 2200, image: "images/gw-bp.png" },
-      { name: "GW-501516 Beligas 10mg50t", price: 1400, image: "" },
-      { name: "GW-501516 Beligas 10mg90t", price: 2600, image: "" }
+      { name: "GW-501516 Beligas 10mg50t", price: 1400, image: "images/gw50-beligas.png" },
+      { name: "GW-501516 Beligas 10mg90t", price: 2600, image: "images/gw90-beligas.png" }
     ],
     "MK2866": [
       { name: "MK-2866 Meditech/Bodytech 20mg50t", price: 1350, image: "images/2866-medi.png" },
       { name: "MK-2866 BPMedical 10mg90t", price: 1900, image: "images/2866-bp.png" },
       { name: "MK-2866 SAAnabolic 10mg100t", price: 1200, image: "images/2866-sa.png" },
       { name: "MK-2866 Beligas 15mg50t", price: 1600, image: "images/2866-beligas.png" },
-      { name: "MK-2866 Beligas 15mg90t", price: 1800, image: "" },
+      { name: "MK-2866 Beligas 15mg90t", price: 1800, image: "images/286690-beligas.png" },
       { name: "MK-2866+ SAAnabolic 10mg60t", price: 1250, image: "images/2866+-sa.png" }
 
     ],
@@ -484,7 +484,7 @@ const products = {
     ],
     "S4": [
       { name: "S-4 Meditech/Bodytech 20mg50t", price: 1200, image: "images/s4-medi.png" },
-      { name: "S-4 Beligas 25mg90t", price: 2900, image: "" },
+      { name: "S-4 Beligas 25mg90t", price: 2900, image: "images/s490-beligas.png" },
       { name: "S-4 BPMedical 25mg60t", price: 1900, image: "images/s4-bp.png" }
     ],
     "AC262": [
@@ -521,8 +521,8 @@ const products = {
 //      { name: "IGF-1 LR3 Bodytech 1000mcg", price: 2600, image: "images/igf1-body.png" },
       { name: "IGF-1 LR3 SAAnabolic 1000mcg", price: 2600, image: "images/igf1-sa.png" },
       { name: "IGF-1 LR3 BPMedical 1000mcg", price: 6300, image: "images/igf1-bp.png" },
-      { name: "IGF-1 LR3 Beligas 100mcg", price: 900, image: "" },
-      { name: "IGF-1 LR3 Beligas 1mg", price: 4000, image: "" },
+      { name: "IGF-1 LR3 Beligas 100mcg", price: 900, image: "images/igf1100mcg-beligas.png" },
+      { name: "IGF-1 LR3 Beligas 1mg", price: 4000, image: "images/igf11mg-beligas.png" },
       { name: "IGF-1 DES Beligas 1mg", price: 4000, image: "images/des-beligas.png" },
       { name: "IGF-1 LR3 Synctech 2000mcg", price: 4500, image: "images/igf1-sync.png" },
       { name: "IGF-1 INCRELEX 400mg", price: 8900, image: "images/igf1-increlex.png" }
@@ -536,7 +536,7 @@ const products = {
     ],
     "TB500/BPC157": [
       { name: "TB-500 Meditech 10mgx3", price: 2200, image: "images/tb500-medi.png" },
-      { name: "TB-500 Beligas 2mg", price: 980, image: "" },
+      { name: "TB-500 Beligas 2mg", price: 980, image: "images/tb5002-beligas.png" },
       { name: "TB-500 Beligas 5mg", price: 1800, image: "images/tb500-beligas.png" },
       { name: "TB-500 BPMedical 5mg", price: 2000, image: "images/tb500-bp.png" },
       { name: "BPC-157 Meditech 5mgx3", price: 2200, image: "images/bpc157-medi.png" },
@@ -609,7 +609,7 @@ const products = {
       { name: "Caber Beligas 1mg10t", price: 4000, image: "images/caber1-beligas.png" },
       { name: "Caber BPMedical 0.5mg8t", price: 1600, image: "images/caber-bp.png" },
    //   { name: "Caber Cabazer 1mg20t", price: 2000, image: "images/caber-pfizer.png" }
-      { name: "Caber Global 1mg20t", price: 2700, image: "" }
+      { name: "Caber Global 1mg20t", price: 2700, image: "images/caber-global.png" }
     ],
     "Nolvadex": [
       { name: "Nolvadex EuroMed 20mg30t", price: 1020, image: "images/nolv-euro.png" },
@@ -647,8 +647,8 @@ const products = {
     ],
     "PCT etc": [
       { name: "Enclomiphene Citrate BPMedical 25mg30t (SERMs)", price: 1900, image: "images/clomid-medi.png" },
-      { name: "Toremifene Citrate SAAnabolic 30mg60t", price: 2250, image: "" },
-      { name: "Raloxifene SAAnabolic 30mg60t", price: 1440, image: "" }
+      { name: "Toremifene Citrate SAAnabolic 30mg60t", price: 2250, image: "images/toremax-sa.png" },
+      { name: "Raloxifene SAAnabolic 30mg60t", price: 1440, image: "images/levitra-sa.png" }
     ]
   },
   "FatBurnWeight-loss": {
@@ -681,7 +681,7 @@ const products = {
       { name: "GW-501516 SAAnabolic 10mg60t", price: 1050, image: "images/gw-sa.png" },
       { name: "GW-501516 BPMedical 10mg90t", price: 2200, image: "images/gw-bp.png" },
       { name: "GW-501516 Beligas 10mg50t", price: 1400, image: "images/gw-beligas50.png" },
-      { name: "GW-501516 Beligas 10mg90t", price: 2600, image: "" }
+      { name: "GW-501516 Beligas 10mg90t", price: 2600, image: "images/gw90-beligas.png" }
     ],
     "Insulin": [
       { name: "Insulin 10ml1vial", price: 500, image: "images/insulin.png" },
@@ -763,7 +763,7 @@ const products = {
   "Sexual Health": {
     "Cialis": [
       { name: "Cialis Beligas 5mg100t", price: 1720, image: "images/cialis100-beligas.png" },
-      { name: "Cialis Beligas 25mg100t", price: 2490, image: "" },
+      { name: "Cialis Beligas 25mg100t", price: 2490, image: "images/cialis25100-beligas.png" },
       { name: "Tadalafil BPMedical 20mg10t", price: 1200, image: "images/cialis-bp.png" },
       { name: "Tadalafil SAAnabolic 5mg100t", price: 1130, image: "images/cialis-sa.png" }
     ],
