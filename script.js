@@ -765,13 +765,14 @@ const products = {
       { name: "Cialis Beligas 5mg100t", price: 1720, image: "images/cialis100-beligas.png" },
       { name: "Cialis Beligas 25mg100t", price: 2490, image: "images/cialis25100-beligas.png" },
       { name: "Tadalafil BPMedical 20mg10t", price: 1200, image: "images/cialis-bp.png" },
-      { name: "Tadalafil SAAnabolic 5mg100t", price: 1130, image: "images/cialis-sa.png" }
+      { name: "Tadalafil SAAnabolic 5mg100t", price: 1450, image: "images/cialis-sa.png" }
     ],
     "Viagra": [
       { name: "Viagra Beligas 50mg50t", price: 1500, image: "images/viagra-beligas.png" }
     ],
     "Kamagra Oral Jelly": [
-      { name: "Kamagra Oral Jelly 100mg1ซอง", price: 60, image: "images/kama.png" }
+      { name: "Kamagra 1ซอง (+ค่าส่ง50บ.)", price: 60, image: "images/kama.png" },
+      { name: "Kamagra Jelly 100mg 10ซอง", price: 500, image: "images/kama.png" }
     ],
     "Sexual Health etc": [
       { name: "PT-141 Beligas 10mg", price: 1490, image: "images/pt141-beligas.png" },
