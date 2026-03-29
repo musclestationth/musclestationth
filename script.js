@@ -299,6 +299,7 @@ const products = {
       { name: "Sustanon Beligas 250mg", price: 1300, image: "images/sus250-beligas.png" },
       { name: "Sustanon BPMedical 250mg", price: 1250, image: "images/sus-bp.png" },
       { name: "Sustanon Platinum 250mg", price: 1400, image: "images/sus-plat.png" },
+      { name: "Sustanon Synctech 400mg", price: 0, image: "images/sus-sa.png" },
       { name: "Sustanon Beligas 500mg", price: 2250, image: "images/sus500-beligas.png" }
     ],
     "Test Suspension": [
