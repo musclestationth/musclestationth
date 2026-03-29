@@ -81,7 +81,7 @@ const promoProducts = [
   { name: "(3pc) RAD140 Promotion", price: 2400, image: "images/sarmpro.png" },
   { name: "(3pc) MK2866 Promotion", price: 2700, image: "images/sarmpro.png" },
   { name: "(3pc) MK677 Promotion", price: 3300, image: "images/677pro.png" },
- // { name: "2xHGH Wellness 100iu", price: 6000, image: "images/hgh-wellness.png" },
+  { name: "2xHGH Wellness 100iu", price: 6000, image: "images/hgh-wellness.png" },
   { name: "3xHGHPen SAAnabolic(Pharma) 30iu", price: 7900, image: "images/hghpen-sa.png" }
 ];
 // ฟังก์ชัน render slider แบบแยก container
@@ -507,8 +507,8 @@ const products = {
       { name: "HGH BPMedical(SD) 100iu", price: 6300, image: "images/hgh1-bp.png" },
       { name: "HGH BPMedical(Pharma) 100iu", price: 9100, image: "images/hgh2-bp.png" },
       { name: "HGH BPMedical(Pharma) 160iu", price: 13800, image: "images/hgh-bpmed.png" },
-    //  { name: "HGH Wellness 100iu", price: 3500, image: "images/hgh-wellness.png" },
-      //{ name: "2xHGH Wellness 100iu", price: 6000, image: "images/hgh-wellness.png" },
+      { name: "HGH Wellness 100iu", price: 3500, image: "images/hgh-wellness.png" },
+      { name: "2xHGH Wellness 100iu", price: 6000, image: "images/hgh-wellness.png" },
 
       { name: "HGHPen Pfizer 12mg36iu(เฉพาะไส้)", price: 6820, image: "images/hghpen1-pfizer.png" },
       { name: "HGHPen Pfizer 12mg36iu(ไส้+ปากกา)", price: 8470, image: "images/hghpen2-pfizer.png" },
