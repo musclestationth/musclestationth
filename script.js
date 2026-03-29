@@ -59,7 +59,7 @@ const newProducts = [
 { name: "Gluta 1500mg Muse", price: 2000, image: "images/gluta-muse.png" },
 { name: "GHK-CU bpmedical 50mg", price: 1800, image: "images/ghk-bp.png" },
 { name: "GHK-CU 50mg Wellness", price: 1000, image: "" },
-{ name: "GHK-CU 100mg Muse", price: 1400, image: "images/ghk-muse.png" },
+{ name: "GHK-CU 100mg Muse", price: 1890, image: "images/ghk-muse.png" },
 { name: "KPV 10mg Wellness/Muse", price: 1400, image: "images/kpv-muse.png" },
 { name: "Tesa+IPA 10+3mg Muse", price: 1800, image: "images/tesa-muse.png" },
 { name: "Tesamorelin 10mg Wellness", price: 1750, image: "" },
@@ -580,7 +580,7 @@ const products = {
       { name: "EPI 50mg Muse", price: 3500, image: "images/epi-muse.png" },
       { name: "GHK-CU bpmedical 50mg", price: 1800, image: "images/ghk-bp.png" },
       { name: "GHK-CU 50mg Wellness", price: 1000, image: "" },
-      { name: "GHK-CU 100mg Muse", price: 1400, image: "images/ghk-muse.png" },
+      { name: "GHK-CU 100mg Muse", price: 1890, image: "images/ghk-muse.png" },
       { name: "KPV 10mg Muse", price: 1400, image: "images/kpv-muse.png" },
       { name: "KPV 10mg Wellness", price: 1400, image: "images/kpv10-wellness.png" },
       { name: "KLOW 80mg Muse", price: 3350, image: "images/klow-muse.png" },
@@ -721,7 +721,8 @@ const products = {
       { name: "RetatrutidePen Jolie 10mg", price: 6900, image: "images/retapen-jolie.png" },
       { name: "Retatrutide SAAnabolic 10mg", price: 4500, image: "images/reta-sa.png" },
       { name: "3xRetatrutide SAAnabolic 10mg", price: 12000, image: "images/reta-sa.png" },
-      { name: "Retatrutide BPMedical 10mg", price: 4800, image: "images/reta-bp.png" }
+      { name: "Retatrutide BPMedical 10mg", price: 4800, image: "images/reta-bp.png" },
+      { name: "RetatrutidePen SAAnabolic 30mg", price: 0, image: "images/retapen-sa30.png" }
     ],
     "Oral Weight-loss etc": [
       { name: "Orlistat 120mg14t", price: 840, image: "images/orlistat.png" }
@@ -749,7 +750,7 @@ const products = {
       { name: "Carb up 2210 SAAnabolic 60t", price: 950, image: "images/carb-sa.png" },
       { name: "GHK-CU bpmedical 50mg", price: 1800, image: "images/ghk-bp.png" },
       { name: "GHK-CU 50mg Wellness", price: 1000, image: "" },
-      { name: "GHK-CU 100mg Muse", price: 1400, image: "images/ghk-muse.png" },
+      { name: "GHK-CU 100mg Muse", price: 1890, image: "images/ghk-muse.png" },
       { name: "SNAP8 10mg Muse", price: 0, image: "images/snap8-muse.png" },
       { name: "Epitalon 10mg Wellness", price: 1000, image: "" },
       { name: "EPI 50mg Muse", price: 3500, image: "images/epi-muse.png" },
