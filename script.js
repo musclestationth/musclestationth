@@ -157,7 +157,7 @@ const products = {
       { name: "Anavar Platinum 10mg100t", price: 1800, image: "images/anavar-plat.png" },
       { name: "Anavar Beligas 10mg100t", price: 1900, image: "images/anavar10100-beligas.png" },
       { name: "Anavar BPMedical 15mg50t", price: 1400, image: "images/anavar-bp.png" },
-      { name: "Anavar Synctech 15mg50t", price: 1900, image: "images/anavar-sync.png" },
+      { name: "Anavar Synctech 15mg100t", price: 1900, image: "images/anavar-sync.png" },
       { name: "Anavar Meditech 50mg50t", price: 3000, image: "images/anavar50-medi.png" },
       // { name: "Anavar Beligas 50mg50t", price: 3000, image: "images/anavar5050-beligas.png" },
       { name: "Anavar Beligas 50mg100t", price: 3900, image: "images/anavar50100-beligas.png" }
@@ -274,7 +274,7 @@ const products = {
       { name: "TestE Bayer 250mg", price: 0, image: "images/teste-bayer.png" },
     //  { name: "TestE Bodytech 300mg", price: 1100, image: "images/teste-body.png" },
       { name: "TestE Synctech 300mg", price: 1100, image: "images/teste-sync.png" },
-      { name: "TestE SAAnabolic 200mg", price: 1100, image: "images/teste-sa.png" },
+      { name: "TestE SAAnabolic 300mg", price: 1100, image: "images/teste-sa.png" },
   //    { name: "TestE EuroMed 300mg", price: 1100, image: "images/teste-euro.png" },
       { name: "TestE Platinum 300mg", price: 1200, image: "images/teste-plat.png" },
       { name: "TestE Beligas 300mg", price: 1500, image: "images/teste300-beligas.png" },
@@ -325,7 +325,7 @@ const products = {
    //   { name: "TrenE Bodytech 200mg", price: 1600, image: "images/trene-body.png" },
       { name: "TrenE Synctech 200mg", price: 1650, image: "images/trene-sync.png" },
       { name: "TrenE Beligas 200mg", price: 2200, image: "images/trene-beligas.png" },
-      { name: "TrenE SAAnabolic 200mg", price: 1800, image: "images/trene-sa.png" },
+      { name: "TrenE SAAnabolic 200mg", price: 1900, image: "images/trene-sa.png" },
       { name: "TrenE BPMedical 200mg", price: 2300, image: "images/trene-bp.png" },
       { name: "TrenE AlphaPharma 250mg", price: 2900, image: "images/trene-alpha.png" },
       { name: "TrenE Gainzlab 200mg", price: 1600, image: "images/trene-gainz.png" }
