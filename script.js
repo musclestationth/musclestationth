@@ -364,7 +364,7 @@ const products = {
     "MastP": [
       { name: "MastP Gainzlab 100mg", price: 1200, image: "images/mastp-gainz.png" },
       { name: "MastP Synctech 100mg", price: 1300, image: "images/mastp-sync.png" },
-      { name: "MastP SAAnabolic 100mg", price: 1300, image: "images/mastp-sa.png" },
+      { name: "MastP SAAnabolic 100mg", price: 1500, image: "images/mastp-sa.png" },
       { name: "MastP Beligas 100mg", price: 2400, image: "images/mastp-beligas.png" },
    //   { name: "MastP Bodytech 100mg", price: 1400, image: "images/mastp-body.png" },
       { name: "MastP Meditech 100mg", price: 1400, image: "images/mastp-medi.png" },
