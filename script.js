@@ -701,6 +701,7 @@ const products = {
     ],
     "Tirzepatide": [
       { name: "Tirzep Wellness 5mg", price: 1200, image: "images/tirzep5-wellness.png" },
+      { name: "Tirzep Primecore 10mg", price: 2500, image: "images/tirzep-prime.png" },
       { name: "Tirzep Mounjaro Kwikpen 5mg/0.6ml(มีอย.)", price: 17500, image: "images/tirzep-kwikk.png" },
       { name: "Tirzep APLab 10mg", price: 3500, image: "images/tirzep-ap.png" },
       { name: "Tirzep SAAnabolic 10mg", price: 3500, image: "images/tirzep-sa.png" },
