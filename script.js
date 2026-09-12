@@ -55,6 +55,7 @@ function prevHero(){
 
 // สินค้าเข้าใหม่ (กำหนดเอง)
 const newProducts = [
+  { name: "Tirzep Primecore 10mg", price: 2500, image: "images/tirzep-prime.png" },
   { name: "TirzepPen SAAnabolic 30mg", price: 8900, image: "images/tirzep-sa30.png" },
 { name: "Gluta 1500mg Muse", price: 2000, image: "images/gluta-muse.png" },
 { name: "GHK-CU bpmedical 50mg", price: 1800, image: "images/ghk-bp.png" },
